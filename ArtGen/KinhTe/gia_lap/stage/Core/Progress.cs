@@ -19,6 +19,7 @@ namespace PokiClash.Core
         public int balls;
         public bool first;
         public int evoStones; // đá tiến hóa của ải (đã cộng vào bản lưu)
+        public bool reduced; // bi đã giảm vì hôm nay đánh lại ải cũ quá số trận nhận đủ (cfg.stageBalls.replayFull)
         public List<ShardResult> shards = new List<ShardResult>();
     }
 
@@ -26,7 +27,12 @@ namespace PokiClash.Core
     {
         public static readonly CardSlot[] Slots = { CardSlot.Skill, CardSlot.Ult, CardSlot.Passive };
 
-        public static int ExpToNext(int lv, BalanceConfig cfg) => Js.RoundInt(cfg.expBase * Math.Pow(lv, cfg.expPow));
+        public static int ExpToNext(int lv, BalanceConfig cfg)
+        {
+            double e = cfg.expBase * Math.Pow(lv, cfg.expPow);
+            if (cfg.expLateBase > 0) e = Math.Max(e, cfg.expLateBase * Math.Pow(lv, cfg.expLatePow));
+            return Js.RoundInt(e);
+        }
 
         // Cộng EXP, trả số cấp vừa lên.
         public static int AddExp(SaveData s, int n, BalanceConfig cfg)
@@ -127,6 +133,34 @@ namespace PokiClash.Core
                 if (StarTier.InTier(g) == 1) lv = Math.Max(lv, EvolveCost(cfg, h, StarTier.Tier(g)).level);
             }
             return ((int)Math.Min(int.MaxValue, sh), lv, to);
+        }
+
+        // tổng mảnh và đá để đưa một tướng từ sao tổng `star` lên cao nhất mà cấp người chơi `level` cho phép, không quá sao tổng
+        // maxStar: đi đúng các bước lên sao (mảnh) và tiến hóa (đá) của tướng đó. Dùng cho gói tướng trọn bộ (Offers "jump")
+        public static (int shards, int stones, int to) PathCost(BalanceConfig cfg, HeroDef h, int star, int level, int maxStar)
+        {
+            long sh = 0;
+            int stn = 0;
+            star = Math.Max(1, star);
+            maxStar = Math.Min(maxStar, StarTier.MaxStar);
+            for (int guard = 0; guard < 64 && star < maxStar; guard++)
+            {
+                if (StarTier.AtGate(cfg, h, star))
+                {
+                    var c = EvolveCost(cfg, h, StarTier.Tier(star) + 1);
+                    if (c.stones == int.MaxValue || c.level > level) break;
+                    stn += c.stones;
+                    star++;
+                }
+                else
+                {
+                    var c = StarUpCost(cfg, h, star);
+                    if (c.shards == int.MaxValue || c.level > level || c.to > maxStar || c.to <= star) break;
+                    sh += c.shards;
+                    star = c.to;
+                }
+            }
+            return ((int)Math.Min(int.MaxValue, sh), stn, star);
         }
 
         // giá lần lên sao kế của tướng đang có
@@ -448,15 +482,25 @@ namespace PokiClash.Core
             return p > 0 && rng.Chance(p) ? 1 : 0;
         }
 
-        public static StageReward WinStage(SaveData s, GameData d, int id, Rng rng)
+        // now: giờ thắng trận (ms) để đếm số trận đánh lại trong ngày; không truyền (test, công cụ) thì không giảm bi.
+        // Đánh lại ải đã qua: replayFull trận đầu mỗi ngày đủ bi, các trận sau replayPct (trước 2026-11-26 không giới hạn: ải sâu cho tới
+        // 70 bi mỗi trận, người chăm cày 1.000–1.700 bi mỗi ngày; GD_Claude/33 mục 2.3)
+        public static StageReward WinStage(SaveData s, GameData d, int id, Rng rng, double now = -1)
         {
             var st = d.Stage(id);
             bool first = !StageCleared(s, st);
             int balls = StageBalls(d, st, first);
+            bool reduced = false;
+            var sbc = d.Cfg.stageBalls;
+            if (!first && now >= 0 && sbc.replayFull > 0 && AdGate.Bump(s, Afk.Today(now), AdGate.ReplayKey) > sbc.replayFull)
+            {
+                balls = Math.Max(1, (int)Math.Round(balls * sbc.replayPct));
+                reduced = true;
+            }
             s.balls += balls;
             s.clears[id] = (s.clears.TryGetValue(id, out var c) ? c : 0) + 1;
             if (first) s.zones[(int)st.zone] = st.idx;
-            var r = new StageReward { balls = balls, first = first };
+            var r = new StageReward { balls = balls, first = first, reduced = reduced };
             foreach (var dr in st.drops)
             {
                 if (dr.gift)

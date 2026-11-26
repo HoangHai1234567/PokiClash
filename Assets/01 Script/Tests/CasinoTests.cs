@@ -68,7 +68,7 @@ namespace PokiClash.Tests
             Assert.AreEqual("roulette", Casino.Active(D, Noon(2026, 11, 27)).Single().ev.booth);
             Assert.AreEqual("slot", Casino.Active(D, Noon(2026, 12, 2)).Single().ev.booth);
             Assert.AreEqual("race_fest", Casino.Active(D, Noon(2026, 12, 5)).Single().ev.booth);
-            Assert.AreEqual(1.5, Casino.RaceMult(D, Noon(2026, 12, 5)));
+            Assert.AreEqual(1.25, Casino.RaceMult(D, Noon(2026, 12, 5)));
             var again = Casino.Active(D, Noon(2026, 12, 7)).Single();
             Assert.AreEqual("blackjack", again.ev.booth);
             Assert.AreEqual(1, again.occ, "lần mở thứ hai");
@@ -399,7 +399,7 @@ namespace PokiClash.Tests
             }
             Assert.Greater(Race.PlaceOdds(c, c.betMin, 5)[0], Race.PlaceOdds(c, c.betMax, 5)[0] + 0.03, "cược cao khó về nhất hơn hẳn");
             Assert.Less(Race.Rtp(c, c.betMax, 5), 0.9, "cược tối đa: nhà cái lời");
-            Assert.That(Race.Rtp(c, c.betMin, 5), Is.InRange(1.0, 1.25), "cược nhỏ: người chơi hơi lời");
+            Assert.That(Race.Rtp(c, c.betMin, 5), Is.InRange(0.9, 1.0), "cược nhỏ: gần hoà, không lãi chắc (GD_Claude/33 việc 9)");
             // hạng rút thật khớp bảng tỉ lệ
             var lineup = Race.Lineup(D, c, 3);
             foreach (int bet in new[] { 50, 500 })
@@ -660,6 +660,33 @@ namespace PokiClash.Tests
                 Casino.Region = "";
             }
             Assert.IsTrue(Casino.BoothOpen(s, D, Casino.Blackjack, now));
+        }
+
+        [Test]
+        public void ChoDen_TheThua_DoiDaTiemNang_CoTranNgay_KhongRaBi()
+        {
+            var s = Save(40);
+            var m = C.market;
+            double now = Noon(2026, 11, 25, 10);
+            Assert.AreEqual(0, BlackMarket.SellSpare(s, D, now), "chưa có thẻ thừa");
+            var hp = s.Hero(TestData.OldStarter);
+            hp.skill.lv = D.Cfg.cardMax;
+            hp.skill.copies = m.copyPerStone * (m.stoneDaily + 3) + 7; // nhiều hơn trần ngày
+            int balls = s.balls, stones = s.potentialStones;
+            Assert.AreEqual(m.stoneDaily, BlackMarket.SpareValue(s, D, now));
+            Assert.AreEqual(m.stoneDaily, BlackMarket.SellSpare(s, D, now));
+            Assert.AreEqual(balls, s.balls, "không ra bi");
+            Assert.AreEqual(stones + m.stoneDaily, s.potentialStones);
+            Assert.AreEqual(m.copyPerStone * 3 + 7, hp.skill.copies, "chỉ trừ số bản đã đổi");
+            Assert.AreEqual(0, BlackMarket.SellSpare(s, D, now), "hết trần hôm nay");
+            Assert.AreEqual(3, BlackMarket.SellSpare(s, D, now + Casino.Day), "hôm sau đổi tiếp");
+            Assert.AreEqual(7, hp.skill.copies, "phần lẻ giữ lại");
+        }
+
+        [Test]
+        public void Ngam_ThangKhongLaiBi()
+        {
+            Assert.LessOrEqual(C.underground.winMult, 1.1, "Hầm đấu thưởng mảnh và đá, không phải nguồn bi (GD_Claude/33 việc 2)");
         }
 
         [Test]

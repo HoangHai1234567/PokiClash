@@ -9,6 +9,7 @@
 //   Tốc  = tốc gốc + cấp
 // tb là trung bình (công, thủ, máu) của chính tướng. mods: phần cộng của side meta (huy hiệu, đá tiềm năng), mặc định không có.
 using System;
+using System.Collections.Generic;
 
 namespace PokiClash.Core
 {
@@ -32,6 +33,8 @@ namespace PokiClash.Core
         static readonly double[] RarityPower = { 1, 1.1, 1.23, 1.38, 1.76 };
 
         public static double PowerOf(Rarity r) => RarityPower[(int)r];
+        public static Dictionary<string, double> HeroMult;
+        public static double PowerOfHero(HeroDef h) => HeroMult != null && HeroMult.TryGetValue(h.id, out var v) ? v : RarityPower[(int)h.rarity];
 
         // hệ số sao: bậc (Đồng, Bạc, Vàng, Kim Cương) nhân tierPower, mỗi sao trong bậc thêm starStep. Asset cũ chưa có tierPower
         // (chưa chạy lại "Nhập dữ liệu") thì theo công thức cũ 1 + starStep·(sao − 1).
@@ -51,7 +54,7 @@ namespace PokiClash.Core
         {
             double atkP = h.stats[0], defP = h.stats[1], matk = h.stats[2], mdef = h.stats[3], hpS = h.stats[4], spd = h.stats[5];
             double a = Math.Max(atkP, matk), d = (defP + mdef) / 2, mean = (a + d + hpS) / 3;
-            double m = RarityPower[(int)h.rarity] * LevelMult(cfg, level) * StarMult(cfg, star);
+            double m = PowerOfHero(h) * LevelMult(cfg, level) * StarMult(cfg, star);
             double hp = cfg.hpBase * Math.Sqrt(hpS / mean) * m * (boss ? cfg.bossHp : 1);
             double atk = cfg.atkBase * Math.Sqrt(a / mean) * m * (boss ? cfg.bossAtk : 1);
             double def = cfg.defBase * Math.Sqrt(d / mean) * m;

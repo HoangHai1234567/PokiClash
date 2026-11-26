@@ -210,7 +210,7 @@ namespace PokiClash
         }
 
         static Color OfferColor(ActiveOffer o) =>
-            o.pack == "starter3" ? Pink : o.pack == "launch" ? Sky : o.tpl == "hot" ? Peach : o.tpl == "relief" ? Mint : Warm;
+            o.pack == "starter3" ? Pink : o.pack != null && C.Pack(o.pack)?.group == "launch" ? Sky : o.tpl == "hot" ? Peach : o.tpl == "relief" ? Mint : Warm;
 
         void DrawOffers()
         {
@@ -259,7 +259,8 @@ namespace PokiClash
             var pk = C.Pack("piggy");
             var c = Card(Loc.T("Lọ Bi"), Loc.F("Lọ đang có {0}/{1} bi. Mỗi bi bạn thả bỏ 1 bi vào lọ.", n, cap), Warm)
                 .Art(App.Art.Get("goi_bi_2")).Value(pk.price > 0 ? n / (pk.price * C.valuePerUsd) : 0);
-            if (Shop.PiggyCanBreak(S, C)) c.Button(Loc.F("Đập lọ {0}", ShopService.Price(pk.price)), BtnColor.Orange, () => ShopService.BuyPack("piggy", ok => After(ok)));
+            if (Shop.PiggyCanBreak(S, C, Now)) c.Button(Loc.F("Đập lọ {0}", ShopService.Price(pk.price)), BtnColor.Orange, () => ShopService.BuyPack("piggy", ok => After(ok)));
+            else if (Shop.PiggyWait(S, C, Now) > 0) c.Note(Loc.F("Lọ vừa đập. Đập lại được sau {0}.", ShopUi.Clock(Shop.PiggyWait(S, C, Now))));
             else c.Note(Loc.F("Đủ {0} bi mới đập được.", Math.Ceiling(cap * C.piggy.minPct)));
         }
 

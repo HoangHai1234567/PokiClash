@@ -140,6 +140,9 @@ namespace PokiClash.Core
         public List<AdLimit> limits = new List<AdLimit>();
         public PassConfig pass = new PassConfig();
         public List<ProductDef> products = new List<ProductDef>();
+        // Bỏ quảng cáo: số lượt trao ngay mỗi ngày, các lượt sau vẫn xem được như thường (0: không giới hạn). Trước 2026-11-26 không
+        // giới hạn: gói 4,99 USD thành khoảng 20 lượt, +1.500 bi mỗi ngày mãi mãi (GD_Claude/33 mục 2.4)
+        public int noAdsInstant = 8;
     }
 
     // Cây bi (Web/src/core/data/trees.ts): mỗi cây perHour bi/giờ, chứa tối đa cap; cây 1 mở khi qua ải 1, cây sau mở theo cấp người
@@ -158,6 +161,9 @@ namespace PokiClash.Core
     public class StageBallsConfig
     {
         public int @base = 1, step = 14, boss = 8, mini = 4, hero = 2;
+        // đánh lại ải đã qua: replayFull trận đầu mỗi ngày nhận đủ bi, các trận sau nhận replayPct (GD_Claude/33 việc 13); 0: không giới hạn
+        public int replayFull = 10;
+        public double replayPct = 0.25;
     }
 
     // Trang trại (Web/src/core/data/farm.ts)
@@ -280,6 +286,10 @@ namespace PokiClash.Core
         public int saveVersion;
         public int maxLevel;
         public double expBase = 40, expPow = 1.35; // EXP lên cấp sau = expBase × cấp^expPow
+        // đoạn sau của đường EXP (2026-11-26, GD_Claude/34 mục 1): EXP lên cấp = max(expBase × cấp^expPow, expLateBase × cấp^expLatePow).
+        // Với 45 × cấp và 9 × cấp^1,54 hai đường cắt nhau ở khoảng cấp 20: đầu game y như cũ (hướng dẫn người mới không đổi), cấp 100
+        // tốn gấp 2,4, cấp 200 gấp 3,5. Để mỗi cấp đủ đắt cho tường thiếu cấp có nghĩa và gói bi có lý do. expLateBase 0: tắt
+        public double expLateBase, expLatePow = 1;
         public double afkCapH;
         public int legendMilestone;
         public int cardMax;
@@ -412,7 +422,7 @@ namespace PokiClash.Core
                 cardLvStep = J.Num(o, "cardLvStep"),
                 maxRounds = J.Int(o, "maxRounds", 60),
                 saveVersion = J.Int(p, "saveVersion"),
-                maxLevel = J.Int(p, "maxLevel"), expBase = J.Num(p, "expBase"), expPow = J.Num(p, "expPow"),
+                maxLevel = J.Int(p, "maxLevel"), expBase = J.Num(p, "expBase"), expPow = J.Num(p, "expPow"), expLateBase = J.Num(p, "expLateBase"), expLatePow = J.Num(p, "expLatePow", 1),
                 afkCapH = J.Num(p, "afkCapH"),
                 legendMilestone = J.Int(p, "legendMilestone"),
                 cardMax = J.Int(p, "cardMax"),
@@ -478,13 +488,14 @@ namespace PokiClash.Core
                 c.stageBalls = new StageBallsConfig
                 {
                     @base = J.Int(sb, "base"), step = Math.Max(1, J.Int(sb, "step")), boss = J.Int(sb, "boss"), mini = J.Int(sb, "mini"),
-                    hero = J.Int(sb, "hero"),
+                    hero = J.Int(sb, "hero"), replayFull = J.Int(sb, "replayFull", 10), replayPct = J.Num(sb, "replayPct", 0.25),
                 };
             if (J.Obj(root, "sophep") is Dictionary<string, object> spo) c.sophep = SoPhepConfig.Parse(spo);
             var adc = J.Obj(root, "ads");
             if (adc != null)
             {
                 c.ads = new AdsConfig();
+                c.ads.noAdsInstant = J.Int(adc, "noAdsInstant", c.ads.noAdsInstant);
                 foreach (var kv in J.Obj(adc, "limits") ?? new Dictionary<string, object>()) c.ads.limits.Add(new AdLimit { p = kv.Key, n = (int)(double)kv.Value });
                 var ps = J.Obj(adc, "pass");
                 c.ads.pass = new PassConfig { days = J.Int(ps, "days"), treeMult = J.Num(ps, "treeMult"), afkSlots = J.Int(ps, "afkSlots"), afkOpenH = J.Num(ps, "afkOpenH") };

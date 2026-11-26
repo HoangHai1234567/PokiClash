@@ -44,6 +44,9 @@ namespace PokiClash.Core
         public double hours; // gói hẹn giờ: mở bao lâu kể từ lần hiện đầu (0: không hẹn giờ)
         public bool firstDouble; // lần đầu mua tặng gấp đôi bi
         public bool scale; // số bi nhân theo bậc cấp người chơi
+        // nhóm chọn một (nạp đầu 3 bậc): các gói cùng group chỉ mua được MỘT gói, mua rồi thì ưu đãi của các gói còn lại đóng.
+        // group ghi id của gói đứng đầu nhóm (gói có popup và bong bóng); rỗng: gói thường
+        public string group;
         public int sort;
         public List<ShopItem> items = new List<ShopItem>();
         public List<ShopDay> days = new List<ShopDay>(); // kind days: ngày 1, 2, 3...
@@ -82,12 +85,18 @@ namespace PokiClash.Core
         public int reliefLosses = 3;
         public double reliefGapH = 24, refillGapMin = 20, comebackDays = 3, ladderDownDays = 7, bigBuy = 19.99, nearStarPct = 0.8;
         public double reopenMin = 30; // quay lại game sau bấy nhiêu phút thì tính là một lần vào game mới (hàng popup lúc vào)
+        // Gói Vượt Mốc (mẫu "jump", GD_Claude/34 mục 2): qua ải tướng mốc jumpFrom trở lên thì chào tướng đi trước jumpAhead mốc;
+        // lên sao tối đa tới sao tổng jumpMaxStar (15 = hết bậc Vàng); jumpCopies bản sao thẻ mỗi bậc sao; giá là bậc thấp nhất
+        // của jumpPrices mà gói đạt × value của mẫu (thang riêng, dày hơn thang ưu đãi, để gói không phải độn nhiều bi cho đủ giá)
+        public int jumpFrom = 3, jumpAhead = 3, jumpMaxStar = 15, jumpCopies = 3;
+        public double[] jumpPrices = { 4.99, 9.99, 14.99, 19.99, 29.99, 49.99, 99.99 };
     }
 
     [Serializable]
     public class PiggyConfig
     {
         public double cap = 2000, minPct = 0.4, grow = 0.2, maxMult = 2, price = 4.99;
+        public double gapDays = 3; // số ngày tối thiểu giữa hai lần đập (GD_Claude/33 việc 15)
     }
 
     [Serializable]
@@ -203,7 +212,7 @@ namespace PokiClash.Core
             }
             if (bandLv.Length != bandMult.Length) err.Add("shop.bands: lv và mult khác số phần tử");
             if (ladder.Length == 0) err.Add("shop.ladder: rỗng");
-            foreach (var id in new[] { "flash", "hot", "relief", "companion", "nearstar", "newisle", "comeback", "refill" })
+            foreach (var id in new[] { "flash", "hot", "relief", "companion", "nearstar", "newisle", "jump", "comeback", "refill" })
                 if (Offer(id) == null) err.Add($"shop.offers: thiếu mẫu {id}");
             foreach (var id in new[] { "week", "month" })
                 if (Card(id) == null) err.Add($"shop.cards: thiếu thẻ {id}");
@@ -256,7 +265,7 @@ namespace PokiClash.Core
                 {
                     id = J.Str(p, "id"), name = J.Str(p, "name", ""), desc = J.Str(p, "desc", ""), tab = J.Str(p, "tab", ""),
                     kind = J.Str(p, "kind", "pack"), price = J.Num(p, "price"), limit = J.Int(p, "limit"), daily = J.Bool(p, "daily"),
-                    weekly = J.Bool(p, "weekly"), hours = J.Num(p, "hours"), firstDouble = J.Bool(p, "firstDouble"), scale = J.Bool(p, "scale"),
+                    weekly = J.Bool(p, "weekly"), hours = J.Num(p, "hours"), firstDouble = J.Bool(p, "firstDouble"), scale = J.Bool(p, "scale"), group = J.Str(p, "group"),
                     sort = J.Int(p, "sort"), items = Items(J.Get(p, "items")),
                 };
                 foreach (var d in J.Arr(p, "days")) pk.days.Add(new ShopDay { items = Items(d) });
@@ -303,6 +312,11 @@ namespace PokiClash.Core
                 k.comebackDays = J.Num(cp, "comebackDays", k.comebackDays);
                 k.ladderDownDays = J.Num(cp, "ladderDownDays", k.ladderDownDays);
                 k.bigBuy = J.Num(cp, "bigBuy", k.bigBuy);
+                k.jumpFrom = J.Int(cp, "jumpFrom", k.jumpFrom);
+                k.jumpAhead = J.Int(cp, "jumpAhead", k.jumpAhead);
+                k.jumpMaxStar = J.Int(cp, "jumpMaxStar", k.jumpMaxStar);
+                k.jumpCopies = J.Int(cp, "jumpCopies", k.jumpCopies);
+                if (J.Arr(cp, "jumpPrices").Count > 0) k.jumpPrices = Nums(J.Get(cp, "jumpPrices"));
                 k.nearStarPct = J.Num(cp, "nearStarPct", k.nearStarPct);
                 k.reopenMin = J.Num(cp, "reopenMin", k.reopenMin);
             }
@@ -311,7 +325,7 @@ namespace PokiClash.Core
                 c.piggy = new PiggyConfig
                 {
                     cap = J.Num(pg, "cap", 2000), minPct = J.Num(pg, "minPct", 0.4), grow = J.Num(pg, "grow", 0.2), maxMult = J.Num(pg, "maxMult", 2),
-                    price = J.Num(pg, "price", 4.99),
+                    price = J.Num(pg, "price", 4.99), gapDays = J.Num(pg, "gapDays", 3),
                 };
             c.chainHours = J.Num(o, "chainHours", c.chainHours);
             c.chainEveryDays = J.Int(o, "chainEveryDays", c.chainEveryDays);

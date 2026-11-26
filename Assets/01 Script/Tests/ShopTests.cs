@@ -164,6 +164,197 @@ namespace PokiClash.Tests
         }
 
         [Test]
+        public void LoBi_DapXong_PhaiChoGapDays()
+        {
+            var d = TestData.Load();
+            var c = d.Cfg.shop;
+            var s = New(d);
+            for (int i = 0; i < 400; i++) Shop.PiggyAdd(s, c, 10);
+            Assert.IsTrue(Shop.PiggyCanBreak(s, c, T0));
+            Assert.NotNull(Shop.BuyPack(s, d, "piggy", T0, new Rng(1)));
+            for (int i = 0; i < 400; i++) Shop.PiggyAdd(s, c, 10);
+            Assert.IsTrue(Shop.PiggyFull(s, c));
+            Assert.IsFalse(Shop.PiggyCanBreak(s, c, T0 + H), "vừa đập: phải chờ");
+            Assert.IsNull(Shop.BuyPack(s, d, "piggy", T0 + H, new Rng(1)));
+            Assert.Greater(Shop.PiggyWait(s, c, T0 + H), 0);
+            Assert.IsTrue(Shop.PiggyCanBreak(s, c, T0 + c.piggy.gapDays * D + H));
+            Assert.AreEqual(LoadStatus.Ok, SaveCodec.Read(SaveCodec.Write(s), d, out var s2));
+            Assert.AreEqual(s.shop.piggyAt, s2.shop.piggyAt, "bản lưu giữ mốc đập");
+        }
+
+        [Test]
+        public void BoQuangCao_TraoNgay_CoTranMoiNgay()
+        {
+            var d = TestData.Load();
+            var s = New(d);
+            int day = Shop.Today(T0), lim = d.Cfg.ads.noAdsInstant;
+            Assert.Greater(lim, 0);
+            Assert.IsFalse(AdGate.UseInstant(s, d.Cfg, day), "chưa mua Bỏ quảng cáo");
+            AdGate.Buy(s, d.Cfg, "no_ads", T0);
+            for (int i = 0; i < lim; i++) Assert.IsTrue(AdGate.UseInstant(s, d.Cfg, day));
+            Assert.IsFalse(AdGate.UseInstant(s, d.Cfg, day), "hết lượt trao ngay hôm nay: xem quảng cáo như thường");
+            Assert.AreEqual(0, AdGate.InstantLeft(s, d.Cfg, day));
+            Assert.IsTrue(AdGate.UseInstant(s, d.Cfg, day + 1), "ngày mới có lại");
+        }
+
+        [Test]
+        public void TiepSuc_ThaBi_ChiTinhKhiDuLenMotCap()
+        {
+            var d = TestData.Load();
+            var s = New(d);
+            s.level = 100;
+            s.exp = 0;
+            s.balls = 25;
+            Assert.IsNull(Offers.FreeFix(s, d), "25 bi ở cấp 100 không đủ lên cấp: không coi là còn cách miễn phí");
+            s.balls = (int)(Progress.ExpToNext(100, d.Cfg) / Offers.ExpPerBall) + 5;
+            Assert.IsNotNull(Offers.FreeFix(s, d));
+        }
+
+        [Test]
+        public void ThieuCap_TinhSoCapVaSoBiCanTha()
+        {
+            var d = TestData.Load();
+            var s = New(d);
+            var st = d.Stages.First(x => x.enemies.Max(e => e.level) >= 60);
+            int foe = st.enemies.Max(e => e.level);
+            s.level = foe - 4;
+            s.exp = 0;
+            var g = Offers.GapTo(s, d, st);
+            Assert.AreEqual(foe, g.foe);
+            Assert.AreEqual(4, g.gap);
+            double exp = 0;
+            for (int lv = s.level; lv < foe; lv++) exp += Progress.ExpToNext(lv, d.Cfg);
+            Assert.GreaterOrEqual(g.balls, exp / Offers.ExpPerBall, "làm tròn lên");
+            Assert.LessOrEqual(g.balls, exp / Offers.ExpPerBall * 1.1, "lệch không quá 10%");
+            s.level = foe;
+            Assert.AreEqual(0, Offers.GapTo(s, d, st).gap, "ngang cấp địch: không thiếu");
+            Assert.AreEqual(0, Offers.GapTo(s, d, st).balls);
+            Assert.AreEqual(0, Offers.GapTo(s, d, null).gap);
+        }
+
+        [Test]
+        public void TiepSuc_DangThieuCap_ChuYeuLaBi()
+        {
+            var d = TestData.Load();
+            var c = d.Cfg.shop;
+            var st = d.Stages.First(x => x.enemies.Max(e => e.level) >= 60);
+            double BallShare(int level)
+            {
+                var s = New(d);
+                s.level = level;
+                s.shop = new ShopState { installAt = T0 - 10 * D, lastSeen = T0 - H, sessions = 5 };
+                s.shop.offers.lossStage = st.id;
+                var o = Offers.Build(s, d, "relief", null, T0, new Rng(1));
+                Assert.NotNull(o);
+                double all = o.items.Sum(it => Shop.Value(c, d, it)), balls = o.items.Where(it => it.k == "balls").Sum(it => Shop.Value(c, d, it));
+                return balls / all;
+            }
+            int foe = st.enemies.Max(e => e.level);
+            Assert.Greater(BallShare(foe - 10), 0.7, "thiếu cấp: trên 70% giá trị gói là bi");
+            Assert.Less(BallShare(foe + 5), BallShare(foe - 10), "đủ cấp: gói nghiêng về mảnh, thẻ của tướng chủ lực");
+        }
+
+        [Test]
+        public void VuotMoc_QuaMoc3_ChaoTuongDiTruoc3Moc_TronBo()
+        {
+            var d = TestData.Load();
+            var c = d.Cfg.shop;
+            var s = New(d);
+            s.level = 40; // đã mở bậc Bạc (cấp 30), chưa mở bậc Vàng (cấp 95)
+            s.shop = new ShopState { installAt = T0 - 10 * D, lastSeen = T0 - H, sessions = 5 };
+            var ms = Offers.MilestoneStages(d, Elem.Thuy);
+            Assert.AreEqual(10, ms.Count, "mỗi đảo 10 mốc");
+            List<Popup> Win(StageDef st)
+            {
+                s.clears[st.id] = (s.clears.TryGetValue(st.id, out var n) ? n : 0) + 1;
+                return Offers.On(s, d, new OfferCtx { e = OfferEvent.BattleWon, stage = st.id }, T0, new Rng(1));
+            }
+            Assert.IsFalse(Win(ms[1]).Any(p => p.key == "jump"), "mốc 2: chưa chào");
+            var pops = Win(ms[2]).Where(p => p.key == "jump").ToList();
+            Assert.AreEqual(1, pops.Count, "lần đầu qua mốc 3: chào Gói Vượt Mốc");
+            var o = Shop.FindOffer(s, pops[0].id);
+            string hero = Teams.StageLead(ms[5], d).hero;
+            Assert.AreEqual(hero, o.hero, "tướng mốc 6 của đảo");
+            Assert.GreaterOrEqual(o.price, c.caps.jumpPrices[0] - 0.001);
+            Assert.GreaterOrEqual(Shop.OfferMult(s, d, o), 4.9, "giá trị khoảng ×5 trở lên");
+            Assert.IsFalse(Win(ms[2]).Any(p => p.key == "jump"), "đánh lại ải mốc: không chào nữa");
+            Assert.IsFalse(Win(ms[3]).Any(p => p.key == "jump"), "đang có một gói mở: không chồng gói");
+            int evo0 = s.evoStones;
+            Assert.NotNull(Shop.BuyOffer(s, d, o.uid, T0, new Rng(2)));
+            Assert.IsTrue(s.Hero(hero).owned, "mua xong có tướng");
+            // dùng hết đồ trong gói: lên sao / tiến hóa tới hết bậc Bạc (cấp 40 chưa cho lên Vàng)
+            for (int i = 0; i < 40 && (Progress.StarUp(s, d, hero) || Progress.Evolve(s, d, hero)); i++) { }
+            var path = Progress.PathCost(d.Cfg, d.Hero(hero), 1, s.level, c.caps.jumpMaxStar);
+            Assert.AreEqual(path.to, s.Hero(hero).star, "đủ mảnh và đá để lên tới mức cấp người chơi cho phép");
+            Assert.Greater(path.to, 5, "cấp 40: sang được bậc Bạc");
+            Assert.GreaterOrEqual(s.evoStones, evo0, "đá của gói vừa đủ, không ăn vào đá người chơi đang có");
+            // qua mốc cao: tướng chào là mốc cuối; đã có tướng đó thì thôi
+            Assert.AreEqual(Teams.StageLead(ms[9], d).hero, Offers.JumpHero(s, d, ms[7]));
+            s.Hero(Teams.StageLead(ms[9], d).hero).owned = true;
+            Assert.IsNull(Offers.JumpHero(s, d, ms[7]));
+            Assert.IsNull(Offers.JumpHero(s, d, ms[9]), "mốc cuối: không còn tướng đi trước");
+        }
+
+        [Test]
+        public void VuotMoc_LucChienTuongTrongGoi_HonTuongDangCo()
+        {
+            var d = TestData.Load();
+            var s = New(d);
+            s.level = 40;
+            var ms = Offers.MilestoneStages(d, Elem.Thuy);
+            string hero = Teams.StageLead(ms[5], d).hero;
+            var pw = Offers.JumpPower(s, d, hero);
+            Assert.Greater(pw.best, 0, "người chơi có tướng khởi đầu");
+            Assert.Greater(pw.pack, pw.best, "tướng mốc 6 lên hết bậc Bạc mạnh hơn tướng khởi đầu 1 sao cùng cấp");
+            Assert.AreEqual((0, 0), Offers.JumpPower(s, d, null));
+        }
+
+        [Test]
+        public void VuotMoc_CapThapGoiRe_CapCaoGoiDat()
+        {
+            var d = TestData.Load();
+            var ms = Offers.MilestoneStages(d, Elem.Thuy);
+            double Price(int level, int moc)
+            {
+                var s = New(d);
+                s.level = level;
+                s.shop = new ShopState { installAt = T0 - 10 * D, lastSeen = T0 - H, sessions = 5 };
+                var o = Offers.Build(s, d, "jump", Teams.StageLead(ms[moc - 1], d).hero, T0, new Rng(1));
+                Assert.NotNull(o);
+                return o.price;
+            }
+            Assert.LessOrEqual(Price(20, 6), 9.99, "mới chơi: gói tướng mốc 6 rẻ");
+            Assert.Greater(Price(100, 10), Price(20, 6), "mốc 10 ở cấp cao đắt hơn hẳn");
+            Assert.GreaterOrEqual(Price(100, 10), 19.99);
+        }
+
+        [Test]
+        public void NapDau3Bac_MuaMotGoi_HaiGoiKiaDong()
+        {
+            var d = TestData.Load();
+            var c = d.Cfg.shop;
+            var tiers = c.packs.Where(p => p.group == "launch").OrderBy(p => p.price).ToList();
+            Assert.AreEqual(3, tiers.Count, "ba bậc Khởi Hành");
+            Assert.AreEqual("launch", tiers[0].id, "bậc rẻ nhất đứng đầu nhóm");
+            for (int i = 1; i < tiers.Count; i++)
+                Assert.Greater(Shop.PackMult(New(d), d, tiers[i]), Shop.PackMult(New(d), d, tiers[i - 1]), "bậc cao hơn thì hời hơn");
+            var s = New(d);
+            s.shop = new ShopState { installAt = T0 - 3 * D, lastSeen = T0 - H, sessions = 5 };
+            s.shop.offers.done.Add("starter3");
+            var pops = Offers.Open(s, d, T0, new Rng(1));
+            Assert.IsTrue(pops.Any(p => p.key == "launch"), "ngày 2 trở đi: popup Gói Khởi Hành");
+            var live = Shop.Live(s, T0).Where(o => o.pack != null && c.Pack(o.pack).group == "launch").ToList();
+            Assert.AreEqual(3, live.Count, "ba gói mở cùng lúc");
+            Assert.AreEqual(1, live.Select(o => o.until).Distinct().Count(), "cùng một đồng hồ");
+            var mid = live.First(o => o.pack == tiers[1].id);
+            Assert.NotNull(Shop.BuyOffer(s, d, mid.uid, T0 + H, new Rng(2)));
+            Assert.IsEmpty(Shop.Live(s, T0 + H).Where(o => o.pack != null && c.Pack(o.pack).group == "launch"), "mua một gói: cả nhóm đóng");
+            Assert.IsFalse(Shop.CanBuy(s, d, tiers[0], T0 + H));
+            Assert.IsFalse(Shop.CanBuy(s, d, tiers[2], T0 + H));
+            Assert.IsNull(Shop.BuyPack(s, d, tiers[2].id, T0 + H, new Rng(3)), "không mua bù bậc khác");
+        }
+
+        [Test]
         public void LoBi_TichDayDap()
         {
             var d = TestData.Load();
@@ -171,7 +362,7 @@ namespace PokiClash.Tests
             var s = New(d);
             double cap = Shop.PiggyCap(s, c);
             Assert.AreEqual(c.piggy.cap, cap);
-            Assert.IsFalse(Shop.PiggyCanBreak(s, c));
+            Assert.IsFalse(Shop.PiggyCanBreak(s, c, T0));
             Assert.IsNull(Shop.BuyPack(s, d, "piggy", T0, new Rng(1)), "chưa đủ 40%");
             bool full = false;
             for (int i = 0; i < 300 && !full; i++) full = Shop.PiggyAdd(s, c, 10);

@@ -113,7 +113,7 @@ namespace PokiClash
                     var o = Shop.FindOffer(S, p.id);
                     return o != null && !o.bought && (o.until <= 0 || o.until > Now);
                 case "claims": return Offers.AnyClaim(S, D, Now);
-                case "piggy": return Shop.PiggyCanBreak(S, D.Cfg.shop);
+                case "piggy": return Shop.PiggyCanBreak(S, D.Cfg.shop, Now);
                 case "chain": return Shop.ChainLive(S, Now);
                 default: return true;
             }

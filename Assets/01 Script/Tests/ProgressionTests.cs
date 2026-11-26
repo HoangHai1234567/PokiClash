@@ -323,6 +323,45 @@ namespace PokiClash.Tests
 
         // đá tiến hóa: lần đầu qua ải tướng / mini boss / boss cuối đảo, rương mốc đảo; qua lại boss có tỉ lệ nhỏ, ải thường không có
         [Test]
+        public void DuongExp_DauGameNhuCu_VeSauDocHon()
+        {
+            var cfg = TestData.Load().Cfg;
+            Assert.Greater(cfg.expLateBase, 0);
+            for (int lv = 1; lv <= 15; lv++)
+                Assert.AreEqual(Js.RoundInt(cfg.expBase * System.Math.Pow(lv, cfg.expPow)), Progress.ExpToNext(lv, cfg), $"cấp {lv}: đầu game không đổi");
+            Assert.Greater(Progress.ExpToNext(100, cfg), 2 * cfg.expBase * System.Math.Pow(100, cfg.expPow), "cấp 100 đắt hơn gấp đôi đường cũ");
+            Assert.Greater(Progress.ExpToNext(200, cfg), 3 * cfg.expBase * System.Math.Pow(200, cfg.expPow), "cấp 200 đắt hơn gấp ba đường cũ");
+            for (int lv = 2; lv <= cfg.maxLevel; lv++) Assert.GreaterOrEqual(Progress.ExpToNext(lv, cfg), Progress.ExpToNext(lv - 1, cfg));
+        }
+
+        [Test]
+        public void DanhLaiAi_QuaSoTranDuBi_ThiGiamBi()
+        {
+            var d = TestData.Load();
+            var sb = d.Cfg.stageBalls;
+            Assert.Greater(sb.replayFull, 0);
+            var s = SaveData.New(d, 0);
+            var r = new Rng(5);
+            var st = d.ZoneStages(Elem.Thuy).First(x => x.idx == 30);
+            double now = 20500 * 86400000.0 + 3600000;
+            Assert.IsTrue(Progress.WinStage(s, d, st.id, r, now).first);
+            int full = Progress.StageBalls(d, st, false);
+            for (int i = 0; i < sb.replayFull; i++)
+            {
+                var w = Progress.WinStage(s, d, st.id, r, now);
+                Assert.AreEqual(full, w.balls);
+                Assert.IsFalse(w.reduced);
+            }
+            var w2 = Progress.WinStage(s, d, st.id, r, now);
+            Assert.IsTrue(w2.reduced);
+            Assert.AreEqual(System.Math.Max(1, (int)System.Math.Round(full * sb.replayPct)), w2.balls);
+            Assert.IsFalse(Progress.WinStage(s, d, st.id, r, now + 86400000.0).reduced, "ngày mới nhận đủ lại");
+            Assert.IsFalse(Progress.WinStage(s, d, st.id, r).reduced, "không truyền giờ thì không tính");
+            var next = d.ZoneStages(Elem.Thuy).First(x => x.idx == 31);
+            Assert.IsFalse(Progress.WinStage(s, d, next.id, r, now).reduced, "ải mới luôn đủ bi");
+        }
+
+        [Test]
         public void DaTienHoa_LanDauQuaAi_RuongMoc_QuaLaiBoss()
         {
             var d = TestData.Load();

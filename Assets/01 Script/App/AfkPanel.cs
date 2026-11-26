@@ -100,7 +100,7 @@ namespace PokiClash
             p.claim.SetOnClick(Claim);
             p.adsNote.gameObject.SetActive(Ads.Ready);
             if (Ads.Ready)
-                p.adsNote.text = Ads.NoAds ? Loc.T("Đã mua Bỏ quảng cáo: nút có hình TV nhận thưởng ngay.") : Loc.T("Nút có hình TV: xem một quảng cáo ngắn để nhận thưởng.");
+                p.adsNote.text = Ads.InstantLeft > 0 ? Loc.T("Đã mua Bỏ quảng cáo: nút có hình TV nhận thưởng ngay.") : Loc.T("Nút có hình TV: xem một quảng cáo ngắn để nhận thưởng.");
         }
 
         // ---------- làm mới ----------

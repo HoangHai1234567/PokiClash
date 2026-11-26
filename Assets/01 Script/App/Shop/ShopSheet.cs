@@ -180,6 +180,16 @@ namespace PokiClash
 
         public static void OpenChain() => Sub(DrawChainOn);
 
+        // dòng giới thiệu Gói Vượt Mốc: lực chiến tướng trong gói (sau khi dùng hết đồ của gói) cạnh tướng mạnh nhất đang có
+        static string JumpLine(ActiveOffer o)
+        {
+            string name = D.Hero(o.hero).name;
+            var pw = Offers.JumpPower(S, D, o.hero);
+            return pw.pack > pw.best && pw.best > 0
+                ? Loc.F("{0} về đội ngay, lực chiến {1} (tướng mạnh nhất của bạn: {2}). Đủ mảnh lên sao, kèm thẻ và đá tiến hóa.", name, pw.pack, pw.best)
+                : Loc.F("{0} về đội ngay: đủ mảnh lên sao, kèm thẻ và đá tiến hóa.", name);
+        }
+
         void OfferCell(ActiveOffer o, bool popup)
         {
             var pk = o.pack != null ? C.Pack(o.pack) : null;
@@ -252,8 +262,9 @@ namespace PokiClash
             var c = Cell(Loc.T("Lọ Bi"), Loc.F("Lọ đang có {0}/{1} bi. Mỗi bi bạn thả bỏ 1 bi vào lọ.", n, cap))
                 .Items(new[] { new ShopItem { k = "balls", n = Math.Max(n, 0) } })
                 .Value(pk.price > 0 ? n / (pk.price * C.valuePerUsd) : 0);
-            if (Shop.PiggyCanBreak(S, C))
+            if (Shop.PiggyCanBreak(S, C, Now))
                 c.Button(Loc.F("Đập lọ {0}", ShopService.Price(pk.price)), BtnColor.Orange, () => ShopService.BuyPack("piggy", ok => AfterBuy(ok, popup)));
+            else if (Shop.PiggyWait(S, C, Now) > 0) c.Note(Loc.F("Lọ vừa đập. Đập lại được sau {0}.", ShopUi.Clock(Shop.PiggyWait(S, C, Now))));
             else c.Note(Loc.F("Đủ {0} bi mới đập được.", Math.Ceiling(cap * C.piggy.minPct)));
         }
 
@@ -357,12 +368,21 @@ namespace PokiClash
                 case "offer":
                 {
                     var o = Shop.FindOffer(S, pop.id);
-                    string sub = pop.warn ? Loc.T("Sắp hết giờ!") : o?.tpl == "relief" ? Loc.T("Mạnh hơn cho ải đang kẹt.") :
-                        o?.tpl == "hot" ? Loc.T("Chỉ trong 10 phút!") : null;
+                    // nhóm chọn một (nạp đầu 3 bậc): các gói cùng nhóm vẽ ngay dưới gói đứng đầu
+                    var sibs = o?.pack != null && C.Pack(o.pack)?.group == o.pack
+                        ? Shop.Live(S, Now).Where(x => x.pack != null && x.pack != o.pack && C.Pack(x.pack)?.group == o.pack).OrderBy(x => x.price).ToList()
+                        : new List<ActiveOffer>();
+                    string sub = pop.warn ? Loc.T("Sắp hết giờ!") : sibs.Count > 0 ? Loc.T("Chọn một trong các gói: mua gói nào thì các gói kia đóng lại.") :
+                        o?.tpl == "relief" ? Loc.T("Mạnh hơn cho ải đang kẹt.") :
+                        o?.tpl == "hot" ? Loc.T("Chỉ trong 10 phút!") :
+                        o?.tpl == "jump" && o.hero != null && D.Hero(o.hero) != null
+                            ? JumpLine(o) : null;
                     Header(o != null ? ShopService.OfferName(o) : Loc.T("Ưu đãi"), sub);
                     redraw = () =>
                     {
                         if (o != null) OfferCell(o, true);
+                        foreach (var x in sibs)
+                            if (!x.bought && (x.until <= 0 || x.until > Now)) OfferCell(x, true);
                     };
                     break;
                 }
@@ -434,7 +454,7 @@ namespace PokiClash
                 });
             }
             else Cell(Loc.T("Thắng ải để có thêm bi"), Loc.T("Mỗi trận thắng cho bi; ải lần đầu cho nhiều hơn."));
-            if (Shop.PiggyCanBreak(S, C)) PiggyCell(true);
+            if (Shop.PiggyCanBreak(S, C, Now)) PiggyCell(true);
             if (first) return;
             for (int i = 1; i <= 3; i++)
                 if (C.Pack("refill_" + i) is ShopPack pk)

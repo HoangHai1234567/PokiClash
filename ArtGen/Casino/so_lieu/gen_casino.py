@@ -59,8 +59,10 @@ TIER_NAME = ["Đá", "Đồng", "Bạc", "Vàng", "Bạch Kim", "Lục Bảo", "
 TIER_WORD = ["tân binh", "lính mới", "đấu sĩ", "cựu binh", "tinh nhuệ", "đội trưởng", "thủ lĩnh", "cao thủ", "bá chủ", "huyền thoại"]
 TIER_PLAYER_LV = [35, 45, 55, 65, 80, 95, 110, 120, 130, 140]   # cấp đội mẫu khi xem tỉ lệ thắng (runner ug); không khoá bậc
 TIER_FEE = [20, 30, 40, 55, 75, 100, 130, 165, 205, 250]
-TIER_SHARDS = [1, 1, 2, 2, 3, 4, 5, 6, 7, 8]
-TIER_ITEMS = [[], [], [{"k": "stones", "n": 1}], [{"k": "stones", "n": 2}], [{"k": "stones", "n": 3}], [{"k": "evo", "n": 1}], [{"k": "evo", "n": 1}],
+# 2026-11-26 (GD_Claude/33 việc 2–4): Hầm đấu thưởng mảnh và đá, không lãi bi. Mảnh giảm khoảng nửa (trước 1,1,2,2,3,4,5,6,7,8: 22 mảnh mỗi
+# ngày, nhiều hơn mọi gói trứng); đá tiến hóa chỉ còn ở 3 bậc trên cùng (trước 5 bậc: +37% nguồn đá)
+TIER_SHARDS = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4]
+TIER_ITEMS = [[], [], [{"k": "stones", "n": 1}], [{"k": "stones", "n": 2}], [{"k": "stones", "n": 3}], [{"k": "stones", "n": 4}], [{"k": "stones", "n": 5}],
               [{"k": "evo", "n": 1}, {"k": "stones", "n": 2}], [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}], [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]]
 UG_DAILY = 5   # số trận mỗi ngày (thắng, thua, đánh lại đều tính)
 THEME = {"kim": "Xưởng Thép", "moc": "Rừng Gai", "thuy": "Sóng Ngầm", "hoa": "Lò Lửa", "tho": "Mỏ Đá"}
@@ -150,7 +152,7 @@ block = {
         {"id": "dem_bai", "name": "Đêm Bài", "booth": "blackjack", "period": 14, "offset": 0, "length": 3},
         {"id": "vong_xoay", "name": "Vòng Xoay Ngũ Hành", "booth": "roulette", "period": 14, "offset": 4, "length": 3},
         {"id": "hoi_may_qua", "name": "Hội Máy Quả", "booth": "slot", "period": 14, "offset": 8, "length": 3},
-        {"id": "le_hoi_dua", "name": "Lễ Hội Đua", "booth": "race_fest", "period": 14, "offset": 11, "length": 3, "mult": 1.5},
+        {"id": "le_hoi_dua", "name": "Lễ Hội Đua", "booth": "race_fest", "period": 14, "offset": 11, "length": 3, "mult": 1.25},
     ],
     "blackjack": {
         "bets": [5, 10, 20, 40], "betLevel": [20, 20, 45, 70], "daily": 30, "jarBets": 30, "bjPays": 1.5,
@@ -177,33 +179,33 @@ block = {
     "race": {
         # luật cược (người dùng 2026-11-26): đặt 1 trong 5 con, tối đa 500 bi, 5 lần mỗi ngày; nhất ×3, nhì ×2, ba hoà, còn lại mất.
         # Hạng của con được chọn rút theo oddsLow (cược betMin) … oddsHigh (cược betMax): cược càng cao càng khó thắng.
-        # Hoàn trả trung bình: cược 10 ≈ 1,18; 100 ≈ 1,10; 200 ≈ 1,02; 350 ≈ 0,89; 500 = 0,77 (build.py run race).
+        # 2026-11-26 (GD_Claude/33 việc 9): cược nhỏ không còn lãi chắc. Hoàn trả trung bình: cược 10 = 0,98 (trước 1,18) … 500 = 0,77.
         "seg": 60, "segs": 3, "daily": 5, "runners": 5, "betMin": 10, "betMax": 500, "chips": [50, 100, 200, 500],
-        "pay": [3, 2, 1, 0, 0], "oddsLow": [0.18, 0.20, 0.24], "oddsHigh": [0.09, 0.13, 0.24],
+        "pay": [3, 2, 1, 0, 0], "oddsLow": [0.135, 0.17, 0.235], "oddsHigh": [0.09, 0.13, 0.24],
         # kịch bản cuộc đua: về nhất sau raceSec giây, hai hạng liền nhau cách gapMin..gapMax giây, cả đoàn lệch nhịp chung ±spread
         "raceSec": 20, "gapMin": 0.12, "gapMax": 0.5, "spread": 4.5, "keyMin": 1.3, "keyMax": 2.3, "startSec": 0.8, "endSec": 2.6,
         "surge": 3.2, "surgeSec": 0.9, "stunDrop": 3.6, "stunMax": 1.2, "comeback": 0.55, "tease": 0.6,
         "points": [3, 2, 1, 0, 0], "weekPts": 10,
         "cups": [
-            {"name": "Cúp Đồng", "level": 15, "oppLevel": 15, "oppStar": 2, "fee": 15, "skill": 0.45, "week": [{"k": "balls", "n": 120}, {"k": "stones", "n": 3}]},
-            {"name": "Cúp Bạc", "level": 40, "oppLevel": 45, "oppStar": 5, "fee": 25, "skill": 0.55, "week": [{"k": "balls", "n": 200}, {"k": "shards", "n": 3, "h": "*carry"}]},
-            {"name": "Cúp Vàng", "level": 70, "oppLevel": 80, "oppStar": 7, "fee": 40, "skill": 0.65, "week": [{"k": "balls", "n": 300}, {"k": "evo", "n": 1}]},
+            {"name": "Cúp Đồng", "level": 15, "oppLevel": 15, "oppStar": 2, "fee": 15, "skill": 0.45, "week": [{"k": "balls", "n": 40}, {"k": "stones", "n": 3}]},
+            {"name": "Cúp Bạc", "level": 40, "oppLevel": 45, "oppStar": 5, "fee": 25, "skill": 0.55, "week": [{"k": "balls", "n": 66}, {"k": "shards", "n": 3, "h": "*carry"}]},
+            {"name": "Cúp Vàng", "level": 70, "oppLevel": 80, "oppStar": 7, "fee": 40, "skill": 0.65, "week": [{"k": "balls", "n": 100}, {"k": "evo", "n": 1}]},
             {"name": "Cúp Kim Cương", "level": 100, "oppLevel": 110, "oppStar": 10, "fee": 60, "skill": 0.7, "week": [{"k": "shards", "n": 6, "h": "*carry"}, {"k": "evo", "n": 1}]},
             {"name": "Cúp Huyền Thoại", "level": 140, "oppLevel": 150, "oppStar": 12, "fee": 80, "skill": 0.75, "week": [{"k": "shards", "n": 10, "h": "*carry"}, {"k": "evo", "n": 2}, {"k": "crystal", "n": 1}]},
         ],
     },
     "fishing": {
         "freeBait": 10, "baitPack": 5, "baitPrice": 30, "farBonus": 1, "biteWindow": 0.6,
-        "pull": [1, 1.5, 2.2, 3, 4], "first": [10, 15, 25, 50, 100], "price": [3, 6, 12, 30, 80], "setShards": 5,
+        "pull": [1, 1.5, 2.2, 3, 4], "first": [3, 5, 8, 15, 30], "price": [1, 1, 2, 6, 15], "setShards": 5,
         "kingChance": 0.15, "kingAssist": 0.25, "kingRod": 3,
         "rods": [{"cost": 0, "zone": 0.30, "spots": 1}, {"cost": 300, "zone": 0.33, "spots": 2}, {"cost": 900, "zone": 0.36, "spots": 2},
                  {"cost": 2000, "zone": 0.40, "spots": 3}, {"cost": 4000, "zone": 0.44, "spots": 3}],
         "spots": [{"name": "Gần bờ", "rar": [70, 25, 5, 0, 0]}, {"name": "Xa bờ", "rar": [35, 35, 22, 7, 1]}, {"name": "Rạn đá", "rar": [10, 25, 30, 25, 10]}],
         "fish": fish, "kings": kings,
-        "king": [{"k": "shards", "n": 5, "h": "*elem"}, {"k": "evo", "n": 1}, {"k": "balls", "n": 150}],
+        "king": [{"k": "shards", "n": 5, "h": "*elem"}, {"k": "evo", "n": 1}, {"k": "balls", "n": 50}],
     },
     "market": {
-        "slots": 6, "nightSlots": 2, "periods": [0, 8, 16], "refresh": [20, 40, 80, 120, 160], "copySell": 6,
+        "slots": 6, "nightSlots": 2, "periods": [0, 8, 16], "refresh": [20, 40, 80, 120, 160], "copyPerStone": 20, "stoneDaily": 10,
         "offers": [
             {"kind": "shards", "n": 5, "w": 30, "mark": 1.45, "rar": "uncommon"},
             {"kind": "copies", "n": 3, "w": 15, "mark": 1.4},
@@ -221,11 +223,11 @@ block = {
                     {"w": 20, "k": "shards", "min": 3, "max": 5}, {"w": 5, "k": "egg", "min": 1, "max": 1, "tier": 0}],
     },
     "underground": {
-        "winMult": 2.5, "rewinMult": 1, "rewin": [{"k": "stones", "n": 1}],
+        "winMult": 1.0, "rewinMult": 1, "rewin": [{"k": "stones", "n": 1}],
         "daily": UG_DAILY,
         "tiers": [dict({"name": TIER_NAME[t], "level": TIER_PLAYER_LV[t], "fee": TIER_FEE[t], "shards": TIER_SHARDS[t]},
                        **({"items": TIER_ITEMS[t]} if TIER_ITEMS[t] else {})) for t in range(TIERS)] + [
-            {"name": "Nhà Vô Địch", "level": 160, "fee": 300, "shards": 10, "weekly": True, "items": [{"k": "evo", "n": 2}, {"k": "crystal", "n": 2}]},
+            {"name": "Nhà Vô Địch", "level": 160, "fee": 300, "shards": 5, "weekly": True, "items": [{"k": "evo", "n": 2}, {"k": "crystal", "n": 2}]},
         ],
         "rotation": rotation,
         "dates": [],
@@ -233,16 +235,16 @@ block = {
     "inn": {
         "count": 3,
         "quests": [
-            {"id": "fish5", "kind": "fish", "n": 5, "text": "Câu {0} con cá", "need": "fishing", "items": [{"k": "balls", "n": 30}]},
-            {"id": "fish_rare", "kind": "fish_rare", "n": 1, "text": "Câu {0} con cá Hiếm trở lên", "need": "fishing", "items": [{"k": "bait", "n": 3}, {"k": "balls", "n": 30}]},
-            {"id": "drop30", "kind": "drop", "n": 30, "text": "Thả {0} bi ở Tháp Máy Bi", "items": [{"k": "balls", "n": 30}]},
-            {"id": "race2", "kind": "race", "n": 2, "text": "Đua {0} lần", "need": "race", "items": [{"k": "balls", "n": 40}]},
+            {"id": "fish5", "kind": "fish", "n": 5, "text": "Câu {0} con cá", "need": "fishing", "items": [{"k": "balls", "n": 6}]},
+            {"id": "fish_rare", "kind": "fish_rare", "n": 1, "text": "Câu {0} con cá Hiếm trở lên", "need": "fishing", "items": [{"k": "bait", "n": 3}, {"k": "balls", "n": 6}]},
+            {"id": "drop30", "kind": "drop", "n": 30, "text": "Thả {0} bi ở Tháp Máy Bi", "items": [{"k": "balls", "n": 6}]},
+            {"id": "race2", "kind": "race", "n": 2, "text": "Đua {0} lần", "need": "race", "items": [{"k": "balls", "n": 8}]},
             {"id": "race_top3", "kind": "race_top3", "n": 1, "text": "Về top 3 {0} lần ở Trường đua", "need": "race", "items": [{"k": "stones", "n": 2}]},
-            {"id": "table10", "kind": "table", "n": 10, "text": "Chơi {0} ván ở lều lữ khách", "need": "booths", "items": [{"k": "balls", "n": 40}]},
-            {"id": "market1", "kind": "market_buy", "n": 1, "text": "Mua {0} món ở Chợ đen", "need": "market", "items": [{"k": "balls", "n": 30}]},
-            {"id": "ug1", "kind": "ug_win", "n": 1, "text": "Thắng {0} trận ở Hầm đấu", "need": "underground", "items": [{"k": "stones", "n": 2}, {"k": "balls", "n": 40}]},
+            {"id": "table10", "kind": "table", "n": 10, "text": "Chơi {0} ván ở lều lữ khách", "need": "booths", "items": [{"k": "balls", "n": 8}]},
+            {"id": "market1", "kind": "market_buy", "n": 1, "text": "Mua {0} món ở Chợ đen", "need": "market", "items": [{"k": "balls", "n": 6}]},
+            {"id": "ug1", "kind": "ug_win", "n": 1, "text": "Thắng {0} trận ở Hầm đấu", "need": "underground", "items": [{"k": "stones", "n": 2}, {"k": "balls", "n": 8}]},
         ],
-        "all": [{"k": "bait", "n": 5}, {"k": "balls", "n": 60}],
+        "all": [{"k": "bait", "n": 3}, {"k": "balls", "n": 10}],
     },
 }
 

@@ -208,7 +208,9 @@ namespace PokiClash.Core
         public int slots = 6, nightSlots = 2;
         public int[] periods = { 0, 8, 16 }; // giờ đổi hàng
         public int[] refresh = { 20, 40, 80, 120, 160 }; // giá làm mới sớm, hết mảng thì hết lượt
-        public int copySell = 6; // bi mỗi bản sao thừa (thẻ đã tối đa cấp)
+        // thẻ thừa (bản sao của thẻ đã tối đa cấp) đổi đá tiềm năng: copyPerStone bản một đá, tối đa stoneDaily đá mỗi ngày.
+        // Trước 2026-11-26 là copySell bi mỗi bản, không trần: vòng lặp bi vô hạn (GD_Claude/33 mục 2.1)
+        public int copyPerStone = 20, stoneDaily = 10;
         public List<MarketOffer> offers = new List<MarketOffer>();
         public List<ChestRoll> mystery = new List<ChestRoll>(); // Túi hàng lậu (công bố tỉ lệ)
     }
@@ -584,7 +586,8 @@ namespace PokiClash.Core
                 m.nightSlots = J.Int(mo, "nightSlots", m.nightSlots);
                 if (J.Get(mo, "periods") != null) m.periods = Ints(J.Get(mo, "periods"));
                 if (J.Get(mo, "refresh") != null) m.refresh = Ints(J.Get(mo, "refresh"));
-                m.copySell = J.Int(mo, "copySell", m.copySell);
+                m.copyPerStone = Math.Max(1, J.Int(mo, "copyPerStone", m.copyPerStone));
+                m.stoneDaily = J.Int(mo, "stoneDaily", m.stoneDaily);
                 foreach (var x in J.Arr(mo, "offers"))
                 {
                     var of = J.Obj(x);

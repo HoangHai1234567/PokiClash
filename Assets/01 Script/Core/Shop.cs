@@ -62,6 +62,7 @@ namespace PokiClash.Core
         public Dictionary<string, DaysState> days = new Dictionary<string, DaysState>();
         public Dictionary<string, CardState> cards = new Dictionary<string, CardState>();
         public double piggy;
+        public double piggyAt; // ms lần đập Lọ Bi gần nhất (0: chưa đập)
         public int piggyBreaks;
         public bool piggyFullShown;
         public int chainCycle = -1, chainStep;
@@ -403,11 +404,21 @@ namespace PokiClash.Core
             return Math.Max(0, p.limit - Bought(s, p.id));
         }
 
+        // gói thuộc nhóm chọn một mà người chơi đã mua một gói khác trong nhóm
+        public static bool GroupTaken(SaveData s, ShopConfig c, ShopPack p)
+        {
+            if (p == null || string.IsNullOrEmpty(p.group)) return false;
+            foreach (var q in c.packs)
+                if (q.group == p.group && q.id != p.id && Bought(s, q.id) > 0) return true;
+            return false;
+        }
+
         public static bool CanBuy(SaveData s, GameData d, ShopPack p, double now)
         {
             if (p == null || Left(s, p, now) <= 0) return false;
+            if (GroupTaken(s, d.Cfg.shop, p)) return false;
             if (p.kind == "noads" && AdGate.NoAds(s)) return false;
-            if (p.kind == "piggy" && !PiggyCanBreak(s, d.Cfg.shop)) return false;
+            if (p.kind == "piggy" && !PiggyCanBreak(s, d.Cfg.shop, now)) return false;
             if (p.kind == "fund" && Of(s).fund) return false;
             if (p.kind == "days" && Of(s).days.ContainsKey(p.id)) return false;
             return true;
@@ -442,6 +453,10 @@ namespace PokiClash.Core
             var p = c.Pack(id);
             if (!CanBuy(s, d, p, now)) return null;
             var st = Of(s);
+            // nhóm chọn một: mua gói này thì ưu đãi đang mở của các gói còn lại trong nhóm đóng ngay
+            if (!string.IsNullOrEmpty(p.group))
+                foreach (var o in st.offers.active)
+                    if (o.pack != null && o.pack != p.id && !o.bought && c.Pack(o.pack)?.group == p.group) o.until = now;
             List<Reward> got;
             switch (p.kind)
             {
@@ -459,6 +474,7 @@ namespace PokiClash.Core
                     s.balls += n;
                     st.piggy = 0;
                     st.piggyBreaks++;
+                    st.piggyAt = now;
                     st.piggyFullShown = false;
                     got = new List<Reward> { new Reward { k = RewardKind.Balls, n = n } };
                     break;
@@ -561,7 +577,17 @@ namespace PokiClash.Core
 
         public static bool PiggyOpen(SaveData s) => Tutorial.CoreDone(s);
         public static bool PiggyFull(SaveData s, ShopConfig c) => Of(s).piggy >= PiggyCap(s, c);
-        public static bool PiggyCanBreak(SaveData s, ShopConfig c) => Of(s).piggy >= PiggyCap(s, c) * c.piggy.minPct;
+        // đập được: đủ minPct sức chứa và đã qua gapDays từ lần đập trước. Không có thời gian chờ thì người thả nhiều bi đập liên tục
+        // (giả lập: 28 lần một tháng), Lọ Bi rẻ gấp 5 lần gói bi nên gói bi thành thừa (GD_Claude/33 mục 2.5)
+        public static bool PiggyCanBreak(SaveData s, ShopConfig c, double now) =>
+            Of(s).piggy >= PiggyCap(s, c) * c.piggy.minPct && PiggyWait(s, c, now) <= 0;
+
+        // còn bao lâu (ms) mới đập lại được; 0: không phải chờ
+        public static double PiggyWait(SaveData s, ShopConfig c, double now)
+        {
+            double at = Of(s).piggyAt;
+            return at <= 0 ? 0 : Math.Max(0, at + c.piggy.gapDays * Day - now);
+        }
 
         // mỗi bi thả (đã tính cược) bỏ vào lọ; đầy thì thôi. Trả true khi vừa đầy.
         public static bool PiggyAdd(SaveData s, ShopConfig c, int balls)
@@ -813,7 +839,7 @@ namespace PokiClash.Core
                 ["ladder"] = st.ladder, ["ladderAt"] = st.ladderAt, ["installAt"] = st.installAt, ["lastSeen"] = st.lastSeen, ["sessions"] = st.sessions,
                 ["days"] = st.days.ToDictionary(kv => kv.Key, kv => (object)new Dictionary<string, object> { ["buyDay"] = kv.Value.buyDay, ["claimed"] = kv.Value.claimed }),
                 ["cards"] = st.cards.ToDictionary(kv => kv.Key, kv => (object)new Dictionary<string, object> { ["until"] = kv.Value.until, ["lastDay"] = kv.Value.lastDay }),
-                ["piggy"] = st.piggy, ["piggyBreaks"] = st.piggyBreaks, ["piggyFullShown"] = st.piggyFullShown,
+                ["piggy"] = st.piggy, ["piggyAt"] = st.piggyAt, ["piggyBreaks"] = st.piggyBreaks, ["piggyFullShown"] = st.piggyFullShown,
                 ["chainCycle"] = st.chainCycle, ["chainStep"] = st.chainStep, ["chainUntil"] = st.chainUntil, ["chainNext"] = st.chainNext,
                 ["fund"] = st.fund, ["fundPaid"] = Ints(st.fundPaid), ["fundFree"] = Ints(st.fundFree),
                 ["adDay"] = st.adDay, ["adCount"] = st.adCount, ["adClaimed"] = Ints(st.adClaimed),
@@ -843,7 +869,7 @@ namespace PokiClash.Core
                 bought = ReadIntMap(J.Get(o, "bought")), periodKey = ReadIntMap(J.Get(o, "periodKey")), periodN = ReadIntMap(J.Get(o, "periodN")),
                 firstDone = ReadStrs(J.Get(o, "firstDone")), items = ReadIntMap(J.Get(o, "items")), tickets = J.Arr(o, "tickets").Where(x => x is double).Select(x => (int)(double)x).ToList(),
                 ladder = J.Int(o, "ladder"), ladderAt = J.Num(o, "ladderAt"), installAt = J.Num(o, "installAt"), lastSeen = J.Num(o, "lastSeen"), sessions = J.Int(o, "sessions"),
-                piggy = J.Num(o, "piggy"), piggyBreaks = J.Int(o, "piggyBreaks"), piggyFullShown = J.Bool(o, "piggyFullShown"),
+                piggy = J.Num(o, "piggy"), piggyAt = J.Num(o, "piggyAt"), piggyBreaks = J.Int(o, "piggyBreaks"), piggyFullShown = J.Bool(o, "piggyFullShown"),
                 chainCycle = J.Int(o, "chainCycle", -1), chainStep = J.Int(o, "chainStep"), chainUntil = J.Num(o, "chainUntil"), chainNext = J.Num(o, "chainNext"),
                 fund = J.Bool(o, "fund"), fundPaid = ReadInts(J.Get(o, "fundPaid")), fundFree = ReadInts(J.Get(o, "fundFree")),
                 adDay = J.Int(o, "adDay", -1), adCount = J.Int(o, "adCount"), adClaimed = ReadInts(J.Get(o, "adClaimed")),

@@ -71,7 +71,7 @@ namespace PokiClash.Core
             }
             if (@long)
             {
-                double r = HeroStats.PowerOf(NormRarity) / HeroStats.PowerOf(h.rarity);
+                double r = HeroStats.PowerOf(NormRarity) / HeroStats.PowerOfHero(h);
                 hp *= r * (e.boss ? (e.evo ? BossHp : MiniHp) : 1) * LevelNorm;
                 atk *= r * (e.boss ? BossAtk : 1) * LevelNorm;
                 def *= r;

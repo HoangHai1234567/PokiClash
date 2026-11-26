@@ -83,7 +83,10 @@ namespace PokiClash
             foreach (var o in live)
             {
                 if (i >= bubbles.Length) break;
-                Bind(i++, o.uid, o.tpl == "relief" ? "fist" : o.tpl == "hot" ? "flame" : o.pack == "starter3" || o.pack == "launch" ? "star" : "coin",
+                // nhóm chọn một: chỉ gói đứng đầu nhóm có bong bóng (mở ra thấy cả nhóm)
+                var grp = o.pack != null ? App.Data.Cfg.shop.Pack(o.pack)?.group : null;
+                if (!string.IsNullOrEmpty(grp) && grp != o.pack) continue;
+                Bind(i++, o.uid, o.tpl == "relief" ? "fist" : o.tpl == "hot" ? "flame" : o.tpl == "jump" ? "crown" : o.pack == "starter3" || o.pack == "launch" ? "star" : "coin",
                     o.until, () => ShopSheet.OpenPopup(new Popup { kind = "offer", id = o.uid, free = true }, null));
             }
             if (i < bubbles.Length && Shop.ChainLive(S, now))

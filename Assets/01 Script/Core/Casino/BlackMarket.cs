@@ -4,7 +4,7 @@
 // - Giá = giá gốc "bi quy đổi" của cửa hàng (ShopConfig.value) × mark × bậc cấp; bait, mystery có giá cố định (× bậc cấp).
 // - Mảnh tướng: tướng đã có hoặc đã có mảnh, từ độ hiếm `rar` trở lên; không may rủi (biết trước tướng nào, bao nhiêu mảnh).
 // - Túi hàng lậu: bảng `mystery` (công bố tỉ lệ), mở bằng Pachinko.RollChest.
-// - Thu mua: cá trong giỏ (Fishing.SellCreel), bản sao thẻ thừa (thẻ đã tối đa cấp) giá copySell × bậc cấp mỗi bản.
+// - Thu mua: cá trong giỏ (Fishing.SellCreel), bản sao thẻ thừa (thẻ đã tối đa cấp) đổi đá tiềm năng (copyPerStone bản một đá, trần stoneDaily mỗi ngày).
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -228,23 +228,35 @@ namespace PokiClash.Core
             return n;
         }
 
-        public static int SpareValue(SaveData s, GameData d) => SpareCopies(s, d) <= 0 ? 0 : Shop.RoundBalls(SpareCopies(s, d) * C(d).copySell * Casino.Band(s, d));
+        // số đá tiềm năng đổi được ngay từ thẻ thừa: copyPerStone bản một đá, không quá phần trần còn lại hôm nay
+        public static int SpareValue(SaveData s, GameData d, double now) =>
+            Math.Min(SpareCopies(s, d) / Math.Max(1, C(d).copyPerStone), SpareStonesLeft(s, d, now));
 
-        public static int SellSpare(SaveData s, GameData d)
+        public static int SpareStonesLeft(SaveData s, GameData d, double now) => Math.Max(0, C(d).stoneDaily - Casino.Roll(s, d, now).spareStones);
+
+        // đổi thẻ thừa lấy đá tiềm năng; trả số đá. Chỉ trừ đúng số bản đã đổi (theo thứ tự tướng trong dữ liệu), phần lẻ và phần quá
+        // trần giữ lại cho hôm sau. KHÔNG đổi ra bi: bi thả ra lại ra thẻ và trứng, thành vòng lặp tự nuôi (GD_Claude/33 mục 2.1)
+        public static int SellSpare(SaveData s, GameData d, double now)
         {
-            int v = SpareValue(s, d);
-            if (v <= 0) return 0;
-            foreach (var kv in s.heroes)
+            int stones = SpareValue(s, d, now);
+            if (stones <= 0) return 0;
+            int need = stones * Math.Max(1, C(d).copyPerStone);
+            foreach (var h in d.Heroes)
             {
-                if (!kv.Value.owned) continue;
+                var hp = s.Hero(h.id);
+                if (hp == null || !hp.owned) continue;
                 foreach (var slot in Progress.Slots)
                 {
-                    var cp = kv.Value.Card(slot);
-                    if (cp.lv >= d.Cfg.cardMax) cp.copies = 0;
+                    var cp = hp.Card(slot);
+                    if (need <= 0 || cp.lv < d.Cfg.cardMax || cp.copies <= 0) continue;
+                    int take = Math.Min(cp.copies, need);
+                    cp.copies -= take;
+                    need -= take;
                 }
             }
-            s.balls += v;
-            return v;
+            s.potentialStones += stones;
+            Casino.Of(s).spareStones += stones;
+            return stones;
         }
 
         // tỉ lệ Túi hàng lậu (để hiện)

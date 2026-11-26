@@ -57,8 +57,38 @@ def data():
         for f in glob.glob(os.path.join(base, "*.json")):
             if os.path.basename(f) != "balance.json":
                 shutil.copy2(f, dd)
+        if hasattr(mod, "patch_stages"):  # bộ số sửa cả ải (ví dụ địch mạnh dần theo mốc)
+            with open(os.path.join(base, "stages.json"), encoding="utf-8") as f:
+                stg = json.load(f)
+            mod.patch_stages(stg)
+            with open(os.path.join(dd, "stages.json"), "w", encoding="utf-8") as f:
+                json.dump(stg, f, ensure_ascii=False)
         with open(os.path.join(dd, "balance.json"), "w", encoding="utf-8") as f:
             json.dump(b, f, ensure_ascii=False)
+
+
+def stage_patch():
+    """Vá BẢN SAO Core trong stage/ (không đụng Assets) để thử luật chưa có trong game: hệ số sức theo từng tướng
+    (HeroStats.HeroMult). Mặc định HeroMult = null: mọi số y như game."""
+    def sub(rel, pairs):
+        f = os.path.join(STAGE, "Core", rel)
+        with open(f, encoding="utf-8") as fh:
+            t = fh.read()
+        for a, b in pairs:
+            assert a in t, (rel, a)
+            t = t.replace(a, b)
+        with open(f, "w", encoding="utf-8") as fh:
+            fh.write(t)
+    sub("HeroStats.cs", [
+        ("using System;", "using System;\nusing System.Collections.Generic;"),
+        ("        public static double PowerOf(Rarity r) => RarityPower[(int)r];",
+         "        public static double PowerOf(Rarity r) => RarityPower[(int)r];\n"
+         "        public static Dictionary<string, double> HeroMult;\n"
+         "        public static double PowerOfHero(HeroDef h) => HeroMult != null && HeroMult.TryGetValue(h.id, out var v) ? v : RarityPower[(int)h.rarity];"),
+        ("double m = RarityPower[(int)h.rarity] * LevelMult", "double m = PowerOfHero(h) * LevelMult"),
+    ])
+    sub("Islands.cs", [("HeroStats.PowerOf(NormRarity) / HeroStats.PowerOf(h.rarity)", "HeroStats.PowerOf(NormRarity) / HeroStats.PowerOfHero(h)")])
+    sub("Badges.cs", [("HeroStats.PowerOf(Islands.NormRarity) / HeroStats.PowerOf(h.rarity)", "HeroStats.PowerOf(Islands.NormRarity) / HeroStats.PowerOfHero(h)")])
 
 
 def build():
@@ -66,6 +96,7 @@ def build():
     if os.path.isdir(STAGE):
         shutil.rmtree(STAGE)
     shutil.copytree(os.path.join(PROJ, "Assets", "01 Script", "Core"), os.path.join(STAGE, "Core"), ignore=shutil.ignore_patterns("*.meta"))
+    stage_patch()
     csc(os.path.join(OUT, "Core.dll"), cs_files(os.path.join(STAGE, "Core")), [])
     csc(os.path.join(OUT, "sim.exe"), cs_files(os.path.join(HERE, "runner")), [os.path.join(OUT, "Core.dll")], target="exe")
     data()

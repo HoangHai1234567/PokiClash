@@ -31,6 +31,8 @@ namespace PokiClash.Core
     public static class Offers
     {
         const double H = Shop.Hour, D = Shop.Day, M = 60000;
+        // EXP trung bình mỗi bi thả ở máy bi, tính cả rương và mốc quà (đo bằng giả lập 300 người, GD_Claude/34 mục 1.1)
+        public const double ExpPerBall = 9;
 
         static ShopConfig C(GameData d) => d.Cfg.shop;
 
@@ -158,7 +160,7 @@ namespace PokiClash.Core
             // 1. quà miễn phí hôm nay
             if (AnyClaim(s, d, now)) Take(new Popup { kind = "claims", free = true });
             // 2. Lọ Bi vừa đầy
-            if (Shop.PiggyFull(s, c) && !st.piggyFullShown) Take(new Popup { kind = "piggy", key = "piggy" });
+            if (Shop.PiggyFull(s, c) && !st.piggyFullShown && Shop.PiggyCanBreak(s, c, now)) Take(new Popup { kind = "piggy", key = "piggy" });
             // 3. gói sắp hết giờ (đã từng popup, còn dưới 1 giờ)
             foreach (var o in Shop.Live(s, now).Where(o => o.until > 0 && o.until - now < H && o.popped && !o.warned).ToList())
                 Take(new Popup { kind = "offer", id = o.uid, key = o.tpl + "_warn", warn = true });
@@ -176,7 +178,12 @@ namespace PokiClash.Core
             if (!b.done.Contains("launch") && (Shop.Today(now) >= Shop.Today(st.installAt) + 1 || Shop.Bought(s, "starter3") > 0))
             {
                 var o = Fixed(s, d, "launch", now);
-                if (o != null && Take(new Popup { kind = "offer", id = o.uid, key = "launch" })) b.done.Add("launch");
+                if (o != null && Take(new Popup { kind = "offer", id = o.uid, key = "launch" }))
+                {
+                    b.done.Add("launch");
+                    // nạp đầu 3 bậc: các gói cùng nhóm mở cùng lúc, cùng đồng hồ (popup và bong bóng chỉ của gói đứng đầu)
+                    foreach (var sib in c.packs.Where(q => q.group == "launch" && q.id != "launch").ToList()) Fixed(s, d, sib.id, now);
+                }
             }
             // 6. Ưu Đãi Bất Ngờ (xác suất)
             if (paid < room && FlashOk(s, d, now))
@@ -324,6 +331,7 @@ namespace PokiClash.Core
                 case OfferEvent.BattleWon:
                     if (x.stage == b.lossStage) b.lossStreak = 0;
                     if (x.boss) Hot(s, d, now, rng, outL);
+                    Jump(s, d, x.stage, now, rng, outL);
                     break;
                 case OfferEvent.Jackpot:
                 case OfferEvent.LegendChest:
@@ -369,8 +377,74 @@ namespace PokiClash.Core
                 foreach (var slot in Progress.Slots)
                     if (Progress.CanUpCard(s, d.Cfg, h, slot)) return Loc.F("Nâng thẻ của {0}", d.Hero(h).name);
             }
-            if (s.balls >= 20) return Loc.T("Thả bi ở Máy bi để lên cấp");
+            // "thả bi" chỉ là cách miễn phí khi số bi đang có đủ lên ít nhất một cấp. Trước 2026-11-26 cứ có 20 bi là tính, mà sau trận
+            // nào cũng có hơn 20 bi, nên Gói Tiếp Sức không bao giờ bật (giả lập: 0 lần trên 300 người, GD_Claude/33 mục 2.6)
+            if (s.level < d.Cfg.maxLevel && s.balls * ExpPerBall >= Progress.ExpToNext(s.level, d.Cfg) - s.exp)
+                return Loc.T("Thả bi ở Máy bi để lên cấp");
             return null;
+        }
+
+        // ---------- Gói Vượt Mốc (GD_Claude/34 mục 2) ----------
+
+        // các ải "mốc" của một đảo theo thứ tự: ải tướng, mini boss, boss (10 mốc mỗi đảo); tướng mốc k là tướng chủ lực của ải thứ k
+        public static List<StageDef> MilestoneStages(GameData d, Elem zone) =>
+            d.ZoneStages(zone).Where(st => st.tag == StageTag.Hero || st.kind != StageKind.Normal).OrderBy(st => st.idx).ToList();
+
+        // vừa qua ải st: tướng để chào trong Gói Vượt Mốc (đi trước jumpAhead mốc, chưa có thì mới chào; hết mốc thì lấy mốc cuối).
+        // null: ải không phải mốc, mốc còn thấp hơn jumpFrom, hoặc các tướng mốc trên đều đã có
+        public static string JumpHero(SaveData s, GameData d, StageDef st)
+        {
+            if (st == null) return null;
+            var k = C(d).caps;
+            var ms = MilestoneStages(d, st.zone);
+            int at = ms.FindIndex(m => m.id == st.id) + 1;
+            if (at < Math.Max(1, k.jumpFrom) || at >= ms.Count) return null;
+            for (int t = Math.Min(ms.Count, at + Math.Max(1, k.jumpAhead)); t <= ms.Count; t++)
+            {
+                string h = Teams.StageLead(ms[t - 1], d)?.hero;
+                if (h == null || d.Hero(h) == null || d.Hero(h).minion) continue;
+                var hp = s.Hero(h);
+                if (hp == null || !hp.owned) return h;
+            }
+            return null;
+        }
+
+        // lần ĐẦU qua một ải mốc: dựng Gói Vượt Mốc cho tướng đi trước (mỗi lúc một gói đang mở)
+        static void Jump(SaveData s, GameData d, int stageId, double now, Rng rng, List<Popup> outL)
+        {
+            var c = C(d);
+            if (c.Offer("jump") == null || !Tutorial.CoreDone(s)) return;
+            if (!s.clears.TryGetValue(stageId, out var n) || n != 1) return;
+            string hero = JumpHero(s, d, d.Stage(stageId));
+            if (hero == null) return;
+            if (Shop.Of(s).offers.active.Any(o => o.tpl == "jump" && !o.bought && (o.until <= 0 || o.until > now))) return;
+            var of = Build(s, d, "jump", hero, now, rng);
+            if (of != null) outL.Add(new Popup { kind = "offer", id = of.uid, key = "jump" });
+        }
+
+        // ---------- thiếu cấp so với ải (GD_Claude/34 mục 1.5) ----------
+
+        public struct LevelGap
+        {
+            public int foe, gap; // cấp địch mạnh nhất của ải; số cấp người chơi còn thiếu so với nó (0: không thiếu)
+            public int balls; // số bi cần thả để lên đủ số cấp đó (ước lượng ExpPerBall EXP mỗi bi, làm tròn lên hai chữ số đầu)
+        }
+
+        // màn thua ghi "địch cấp X, bạn cấp Y: thả khoảng N bi để lên Z cấp"; Gói Tiếp Sức dựa vào đây để nghiêng về bi
+        public static LevelGap GapTo(SaveData s, GameData d, StageDef st)
+        {
+            var g = new LevelGap();
+            if (st == null) return g;
+            foreach (var e in st.enemies) g.foe = Math.Max(g.foe, e.level);
+            int to = Math.Min(g.foe, d.Cfg.maxLevel);
+            g.gap = Math.Max(0, to - s.level);
+            if (g.gap <= 0) return g;
+            double exp = -s.exp;
+            for (int lv = s.level; lv < to; lv++) exp += Progress.ExpToNext(lv, d.Cfg);
+            double n = Math.Max(1, exp / ExpPerBall);
+            double unit = Math.Pow(10, Math.Max(0, Math.Floor(Math.Log10(n)) - 1));
+            g.balls = (int)(Math.Ceiling(n / unit) * unit);
+            return g;
         }
 
         // ---------- dựng nội dung ưu đãi ----------
@@ -417,8 +491,11 @@ namespace PokiClash.Core
                     break;
                 case "relief":
                     hero = Shop.Carry(s, d);
-                    Shards(hero, 0.5);
-                    if (s.Hero(hero)?.owned == true) Add(new ShopItem { k = "copies", h = hero, n = 2 });
+                    // đang thiếu cấp so với ải vừa thua: gói chủ yếu là bi (bi → cấp → vượt ải, GD_Claude/34 mục 1.5);
+                    // không thiếu cấp: mảnh và bản sao thẻ của tướng chủ lực như trước
+                    bool lowLv = GapTo(s, d, d.Stage(st.offers.lossStage)).gap > 0;
+                    Shards(hero, lowLv ? 0.2 : 0.5);
+                    if (!lowLv && s.Hero(hero)?.owned == true) Add(new ShopItem { k = "copies", h = hero, n = 2 });
                     break;
                 case "companion":
                     hero = ctx;
@@ -431,6 +508,31 @@ namespace PokiClash.Core
                     Shards(hero, 1);
                     Add(new ShopItem { k = "evo", n = 1 });
                     break;
+                case "jump":
+                {
+                    // tướng trọn bộ: mảnh mở khoá + mảnh lên sao tới mức cấp người chơi cho phép (không quá jumpMaxStar), bản sao thẻ,
+                    // đá tiến hóa của các bậc trên đường. Giá: bậc thấp nhất của caps.jumpPrices mà gói đạt × t.value
+                    hero = ctx;
+                    var hd = hero != null ? d.Hero(hero) : null;
+                    if (hd == null) return null;
+                    var hp = s.Hero(hero);
+                    bool own = hp != null && hp.owned;
+                    var path = Progress.PathCost(d.Cfg, hd, own ? hp.star : 1, s.level, c.caps.jumpMaxStar);
+                    int sh = Math.Max(0, path.shards + (own ? 0 : hd.shards) - (hp?.shards ?? 0));
+                    var core = new List<ShopItem>();
+                    if (sh > 0) core.Add(new ShopItem { k = "shards", h = hero, n = sh });
+                    core.Add(new ShopItem { k = "copies", h = hero, n = Math.Max(1, c.caps.jumpCopies) * (1 + StarTier.Tier(path.to)) });
+                    if (path.stones > 0) core.Add(new ShopItem { k = "evo", n = path.stones });
+                    double cv = Shop.Value(c, d, core);
+                    price = 0;
+                    foreach (double step in c.caps.jumpPrices)
+                        if (price <= 0 && step * c.valuePerUsd * t.value >= cv * 0.9) price = step; // sát bậc dưới (lệch dưới 10%) thì lấy bậc dưới
+                    if (price <= 0) price = c.caps.jumpPrices[c.caps.jumpPrices.Length - 1];
+                    ladder = false;
+                    v = Math.Max(cv, t.value * price * c.valuePerUsd);
+                    foreach (var it in core) Add(it);
+                    break;
+                }
                 case "newisle":
                     Add(new ShopItem { k = Shop.Ticket, n = 1, r = (int)Rarity.Epic, h = ctx });
                     break;

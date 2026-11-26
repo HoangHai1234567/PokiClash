@@ -31,6 +31,8 @@
   "maxLevel": 200,
   "expBase": 45,
   "expPow": 1.0,
+  "expLateBase": 9,
+  "expLatePow": 1.54,
   "afkCapH": 12,
   "legendMilestone": 300,
   "cardMax": 5,
@@ -144,7 +146,7 @@
      "max": 6
     },
     {
-     "w": 27.6,
+     "w": 31.2,
      "k": "exp",
      "min": 40,
      "max": 70
@@ -162,7 +164,7 @@
      }
     },
     {
-     "w": 4.6,
+     "w": 1.0,
      "k": "egg",
      "tier": 0,
      "min": 1,
@@ -189,7 +191,7 @@
      "max": 12
     },
     {
-     "w": 17.6,
+     "w": 23.9,
      "k": "exp",
      "min": 100,
      "max": 160
@@ -207,7 +209,7 @@
      }
     },
     {
-     "w": 8.8,
+     "w": 2.5,
      "k": "egg",
      "tier": 1,
      "min": 1,
@@ -979,9 +981,12 @@
   "step": 1,
   "boss": 24,
   "mini": 12,
-  "hero": 2
+  "hero": 2,
+  "replayFull": 10,
+  "replayPct": 0.25
  },
  "ads": {
+  "noAdsInstant": 8,
   "limits": {
    "tree_double": 3,
    "afk_chest_open": 4,
@@ -1011,7 +1016,7 @@
    {
     "id": "no_ads",
     "name": "Bỏ quảng cáo",
-    "desc": "Mọi chỗ quảng cáo thưởng trao thưởng ngay, không cần xem (vẫn theo giới hạn mỗi ngày)."
+    "desc": "Mỗi ngày 8 lượt quảng cáo thưởng trao ngay, không cần xem; các lượt sau xem như thường."
    }
   ]
  },
@@ -1404,7 +1409,34 @@
     "hours": 48,
     "scale": true,
     "sort": 2,
-    "items": [{"k": "balls", "n": 1200}, {"k": "egg", "n": 2, "r": 2}, {"k": "egg", "n": 1, "r": 3}, {"k": "evo", "n": 2}]
+    "group": "launch",
+    "items": [{"k": "balls", "n": 2000}, {"k": "egg", "n": 2, "r": 2}, {"k": "egg", "n": 1, "r": 3}, {"k": "evo", "n": 5}]
+   },
+   {
+    "id": "launch_2",
+    "name": "Gói Khởi Hành Lớn",
+    "desc": "Nhiều bi, trứng, đá hơn và 1 vé chọn tướng Hiếm.",
+    "tab": "offers",
+    "price": 9.99,
+    "limit": 1,
+    "hours": 48,
+    "scale": true,
+    "sort": 2,
+    "group": "launch",
+    "items": [{"k": "balls", "n": 4500}, {"k": "egg", "n": 3, "r": 2}, {"k": "egg", "n": 2, "r": 3}, {"k": "evo", "n": 12}, {"k": "ticket", "n": 1, "r": 2}]
+   },
+   {
+    "id": "launch_3",
+    "name": "Gói Khởi Hành Đại",
+    "desc": "Thật nhiều bi, trứng Sử Thi, đá và 1 vé chọn tướng Sử Thi.",
+    "tab": "offers",
+    "price": 19.99,
+    "limit": 1,
+    "hours": 48,
+    "scale": true,
+    "sort": 2,
+    "group": "launch",
+    "items": [{"k": "balls", "n": 10000}, {"k": "egg", "n": 4, "r": 3}, {"k": "evo", "n": 30}, {"k": "ticket", "n": 1, "r": 3}]
    },
    {
     "id": "balls_1",
@@ -1514,15 +1546,6 @@
     "items": [{"k": "egg", "n": 1, "r": 2}]
    },
    {
-    "id": "egg_1",
-    "name": "Trứng Khá",
-    "desc": "",
-    "tab": "eggs",
-    "price": 0.99,
-    "sort": 30,
-    "items": [{"k": "egg", "n": 1, "r": 1}]
-   },
-   {
     "id": "egg_2",
     "name": "Trứng Hiếm",
     "desc": "",
@@ -1588,6 +1611,39 @@
     "items": [{"k": "ticket_week", "n": 1}, {"k": "egg", "n": 4, "r": 2}]
    },
    {
+    "id": "evo_daily",
+    "name": "Đá tiến hóa hôm nay",
+    "desc": "Mỗi ngày mua được 1 lần.",
+    "tab": "eggs",
+    "price": 1.99,
+    "limit": 1,
+    "daily": true,
+    "sort": 37,
+    "items": [{"k": "evo", "n": 5}]
+   },
+   {
+    "id": "evo_week",
+    "name": "Túi đá tuần",
+    "desc": "Mỗi tuần mua được 1 lần.",
+    "tab": "eggs",
+    "price": 4.99,
+    "limit": 1,
+    "weekly": true,
+    "sort": 38,
+    "items": [{"k": "evo", "n": 15}, {"k": "egg", "n": 1, "r": 3}]
+   },
+   {
+    "id": "ticket_rare",
+    "name": "Vé chọn tướng Hiếm",
+    "desc": "Chọn 1 trong 6 tướng gợi ý. Mỗi tuần mua được 1 lần.",
+    "tab": "eggs",
+    "price": 2.99,
+    "limit": 1,
+    "weekly": true,
+    "sort": 39,
+    "items": [{"k": "ticket", "n": 1, "r": 2}]
+   },
+   {
     "id": "week_card",
     "name": "Thẻ Tuần",
     "desc": "Nhận ngay 300 bi; mỗi ngày 100 bi trong 7 ngày; cây bi chứa ×1,5.",
@@ -1601,7 +1657,7 @@
    {
     "id": "adventure_pass",
     "name": "Thẻ Phiêu Lưu 30 ngày",
-    "desc": "Cây bi ×1,5; khay rương AFK 5 ô, rương mở trong 1 giờ; nhận ngay 1 Trứng Sử Thi; mỗi ngày 150 bi và 1 lượt quảng cáo không cần xem.",
+    "desc": "Cây bi ×1,5; khay rương AFK 5 ô, rương mở trong 1 giờ; nhận ngay 1 Trứng Sử Thi; mỗi ngày 150 bi, 1 đá tiến hóa và 1 lượt quảng cáo không cần xem.",
     "tab": "perks",
     "kind": "card",
     "price": 4.99,
@@ -1622,7 +1678,7 @@
    {
     "id": "no_ads",
     "name": "Bỏ quảng cáo",
-    "desc": "Mọi chỗ quảng cáo thưởng trao ngay, không cần xem (vẫn theo giới hạn mỗi ngày).",
+    "desc": "Mỗi ngày 8 lượt quảng cáo thưởng trao ngay, không cần xem; các lượt sau xem như thường.",
     "tab": "perks",
     "kind": "noads",
     "price": 4.99,
@@ -1647,6 +1703,7 @@
    {"id": "companion", "name": "Gói Đồng Hành", "hours": 24, "value": 4, "price": 2.99},
    {"id": "nearstar", "name": "Gói Sắp Lên Sao", "hours": 3, "value": 4, "price": 1.99},
    {"id": "newisle", "name": "Gói Đảo Mới", "hours": 48, "value": 4, "price": 4.99},
+   {"id": "jump", "name": "Gói Vượt Mốc", "hours": 48, "value": 5},
    {
     "id": "comeback",
     "name": "Gói Trở Lại",
@@ -1658,6 +1715,11 @@
    {"id": "refill", "name": "Bổ Sung Bi", "hours": 0, "value": 0}
   ],
   "caps": {
+   "jumpFrom": 3,
+   "jumpAhead": 3,
+   "jumpMaxStar": 15,
+   "jumpCopies": 3,
+   "jumpPrices": [4.99, 9.99, 14.99, 19.99, 29.99, 49.99, 99.99],
    "perOpen": 2,
    "perDay": 4,
    "firstDay": 1,
@@ -1682,7 +1744,7 @@
    "nearStarPct": 0.8,
    "reopenMin": 30
   },
-  "piggy": {"cap": 2000, "minPct": 0.4, "grow": 0.2, "maxMult": 2, "price": 4.99},
+  "piggy": {"cap": 2000, "minPct": 0.4, "grow": 0.2, "maxMult": 2, "price": 4.99, "gapDays": 7},
   "chainHours": 72,
   "chainEveryDays": 14,
   "chains": [
@@ -1873,7 +1935,7 @@
     "name": "Thẻ Phiêu Lưu",
     "days": 30,
     "now": [{"k": "egg", "n": 1, "r": 3}],
-    "daily": [{"k": "balls", "n": 150}],
+    "daily": [{"k": "balls", "n": 150}, {"k": "evo", "n": 1}],
     "adSkips": 1
    }
   ],
@@ -1949,7 +2011,7 @@
    {"id": "dem_bai", "name": "Đêm Bài", "booth": "blackjack", "period": 14, "offset": 0, "length": 3},
    {"id": "vong_xoay", "name": "Vòng Xoay Ngũ Hành", "booth": "roulette", "period": 14, "offset": 4, "length": 3},
    {"id": "hoi_may_qua", "name": "Hội Máy Quả", "booth": "slot", "period": 14, "offset": 8, "length": 3},
-   {"id": "le_hoi_dua", "name": "Lễ Hội Đua", "booth": "race_fest", "period": 14, "offset": 11, "length": 3, "mult": 1.5}
+   {"id": "le_hoi_dua", "name": "Lễ Hội Đua", "booth": "race_fest", "period": 14, "offset": 11, "length": 3, "mult": 1.25}
   ],
   "blackjack": {
    "bets": [5, 10, 20, 40],
@@ -2022,7 +2084,7 @@
    "betMax": 500,
    "chips": [50, 100, 200, 500],
    "pay": [3, 2, 1, 0, 0],
-   "oddsLow": [0.18, 0.2, 0.24],
+   "oddsLow": [0.135, 0.17, 0.235],
    "oddsHigh": [0.09, 0.13, 0.24],
    "raceSec": 20,
    "gapMin": 0.12,
@@ -2048,7 +2110,7 @@
      "oppStar": 2,
      "fee": 15,
      "skill": 0.45,
-     "week": [{"k": "balls", "n": 120}, {"k": "stones", "n": 3}]
+     "week": [{"k": "balls", "n": 40}, {"k": "stones", "n": 3}]
     },
     {
      "name": "Cúp Bạc",
@@ -2057,7 +2119,7 @@
      "oppStar": 5,
      "fee": 25,
      "skill": 0.55,
-     "week": [{"k": "balls", "n": 200}, {"k": "shards", "n": 3, "h": "*carry"}]
+     "week": [{"k": "balls", "n": 66}, {"k": "shards", "n": 3, "h": "*carry"}]
     },
     {
      "name": "Cúp Vàng",
@@ -2066,7 +2128,7 @@
      "oppStar": 7,
      "fee": 40,
      "skill": 0.65,
-     "week": [{"k": "balls", "n": 300}, {"k": "evo", "n": 1}]
+     "week": [{"k": "balls", "n": 100}, {"k": "evo", "n": 1}]
     },
     {
      "name": "Cúp Kim Cương",
@@ -2095,8 +2157,8 @@
    "farBonus": 1,
    "biteWindow": 0.6,
    "pull": [1, 1.5, 2.2, 3, 4],
-   "first": [10, 15, 25, 50, 100],
-   "price": [3, 6, 12, 30, 80],
+   "first": [3, 5, 8, 15, 30],
+   "price": [1, 1, 2, 6, 15],
    "setShards": 5,
    "kingChance": 0.15,
    "kingAssist": 0.25,
@@ -2148,14 +2210,15 @@
     {"id": "vua_moc", "name": "Mộc Lão Ngư", "elem": "moc", "rar": "legend", "min": 260, "max": 520},
     {"id": "vua_tho", "name": "Thạch Ngư Vương", "elem": "tho", "rar": "legend", "min": 320, "max": 640}
    ],
-   "king": [{"k": "shards", "n": 5, "h": "*elem"}, {"k": "evo", "n": 1}, {"k": "balls", "n": 150}]
+   "king": [{"k": "shards", "n": 5, "h": "*elem"}, {"k": "evo", "n": 1}, {"k": "balls", "n": 50}]
   },
   "market": {
    "slots": 6,
    "nightSlots": 2,
    "periods": [0, 8, 16],
    "refresh": [20, 40, 80, 120, 160],
-   "copySell": 6,
+   "copyPerStone": 20,
+   "stoneDaily": 10,
    "offers": [
     {"kind": "shards", "n": 5, "w": 30, "mark": 1.45, "rar": "uncommon"},
     {"kind": "copies", "n": 3, "w": 15, "mark": 1.4},
@@ -2177,22 +2240,22 @@
    ]
   },
   "underground": {
-   "winMult": 2.5,
+   "winMult": 1.0,
    "rewinMult": 1,
    "rewin": [{"k": "stones", "n": 1}],
    "daily": 5,
    "tiers": [
     {"name": "Đá", "level": 35, "fee": 20, "shards": 1},
     {"name": "Đồng", "level": 45, "fee": 30, "shards": 1},
-    {"name": "Bạc", "level": 55, "fee": 40, "shards": 2, "items": [{"k": "stones", "n": 1}]},
-    {"name": "Vàng", "level": 65, "fee": 55, "shards": 2, "items": [{"k": "stones", "n": 2}]},
-    {"name": "Bạch Kim", "level": 80, "fee": 75, "shards": 3, "items": [{"k": "stones", "n": 3}]},
-    {"name": "Lục Bảo", "level": 95, "fee": 100, "shards": 4, "items": [{"k": "evo", "n": 1}]},
-    {"name": "Kim Cương", "level": 110, "fee": 130, "shards": 5, "items": [{"k": "evo", "n": 1}]},
-    {"name": "Cao Thủ", "level": 120, "fee": 165, "shards": 6, "items": [{"k": "evo", "n": 1}, {"k": "stones", "n": 2}]},
-    {"name": "Đại Cao Thủ", "level": 130, "fee": 205, "shards": 7, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
-    {"name": "Huyền Thoại", "level": 140, "fee": 250, "shards": 8, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
-    {"name": "Nhà Vô Địch", "level": 160, "fee": 300, "shards": 10, "weekly": true, "items": [{"k": "evo", "n": 2}, {"k": "crystal", "n": 2}]}
+    {"name": "Bạc", "level": 55, "fee": 40, "shards": 1, "items": [{"k": "stones", "n": 1}]},
+    {"name": "Vàng", "level": 65, "fee": 55, "shards": 1, "items": [{"k": "stones", "n": 2}]},
+    {"name": "Bạch Kim", "level": 80, "fee": 75, "shards": 2, "items": [{"k": "stones", "n": 3}]},
+    {"name": "Lục Bảo", "level": 95, "fee": 100, "shards": 2, "items": [{"k": "stones", "n": 4}]},
+    {"name": "Kim Cương", "level": 110, "fee": 130, "shards": 2, "items": [{"k": "stones", "n": 5}]},
+    {"name": "Cao Thủ", "level": 120, "fee": 165, "shards": 3, "items": [{"k": "evo", "n": 1}, {"k": "stones", "n": 2}]},
+    {"name": "Đại Cao Thủ", "level": 130, "fee": 205, "shards": 3, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
+    {"name": "Huyền Thoại", "level": 140, "fee": 250, "shards": 4, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
+    {"name": "Nhà Vô Địch", "level": 160, "fee": 300, "shards": 5, "weekly": true, "items": [{"k": "evo", "n": 2}, {"k": "crystal", "n": 2}]}
    ],
    "rotation": [
     {
@@ -3545,30 +3608,30 @@
   "inn": {
    "count": 3,
    "quests": [
-    {"id": "fish5", "kind": "fish", "n": 5, "text": "Câu {0} con cá", "need": "fishing", "items": [{"k": "balls", "n": 30}]},
+    {"id": "fish5", "kind": "fish", "n": 5, "text": "Câu {0} con cá", "need": "fishing", "items": [{"k": "balls", "n": 6}]},
     {
      "id": "fish_rare",
      "kind": "fish_rare",
      "n": 1,
      "text": "Câu {0} con cá Hiếm trở lên",
      "need": "fishing",
-     "items": [{"k": "bait", "n": 3}, {"k": "balls", "n": 30}]
+     "items": [{"k": "bait", "n": 3}, {"k": "balls", "n": 6}]
     },
-    {"id": "drop30", "kind": "drop", "n": 30, "text": "Thả {0} bi ở Tháp Máy Bi", "items": [{"k": "balls", "n": 30}]},
-    {"id": "race2", "kind": "race", "n": 2, "text": "Đua {0} lần", "need": "race", "items": [{"k": "balls", "n": 40}]},
+    {"id": "drop30", "kind": "drop", "n": 30, "text": "Thả {0} bi ở Tháp Máy Bi", "items": [{"k": "balls", "n": 6}]},
+    {"id": "race2", "kind": "race", "n": 2, "text": "Đua {0} lần", "need": "race", "items": [{"k": "balls", "n": 8}]},
     {"id": "race_top3", "kind": "race_top3", "n": 1, "text": "Về top 3 {0} lần ở Trường đua", "need": "race", "items": [{"k": "stones", "n": 2}]},
-    {"id": "table10", "kind": "table", "n": 10, "text": "Chơi {0} ván ở lều lữ khách", "need": "booths", "items": [{"k": "balls", "n": 40}]},
-    {"id": "market1", "kind": "market_buy", "n": 1, "text": "Mua {0} món ở Chợ đen", "need": "market", "items": [{"k": "balls", "n": 30}]},
+    {"id": "table10", "kind": "table", "n": 10, "text": "Chơi {0} ván ở lều lữ khách", "need": "booths", "items": [{"k": "balls", "n": 8}]},
+    {"id": "market1", "kind": "market_buy", "n": 1, "text": "Mua {0} món ở Chợ đen", "need": "market", "items": [{"k": "balls", "n": 6}]},
     {
      "id": "ug1",
      "kind": "ug_win",
      "n": 1,
      "text": "Thắng {0} trận ở Hầm đấu",
      "need": "underground",
-     "items": [{"k": "stones", "n": 2}, {"k": "balls", "n": 40}]
+     "items": [{"k": "stones", "n": 2}, {"k": "balls", "n": 8}]
     }
    ],
-   "all": [{"k": "bait", "n": 5}, {"k": "balls", "n": 60}]
+   "all": [{"k": "bait", "n": 3}, {"k": "balls", "n": 10}]
   }
  }
 }

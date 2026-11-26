@@ -54,6 +54,7 @@ namespace PokiClash.Core
         public int mkRoll; // số lần làm mới trong lượt (đổi hạt giống)
         public int mkRefreshDay = -1, mkRefresh; // lần làm mới đã trả trong ngày
         public List<int> mkBought = new List<int>(); // ô đã mua trong lượt hàng
+        public int spareStones; // đá tiềm năng đã đổi từ thẻ thừa hôm nay (trần MarketConfig.stoneDaily)
         // đấu trường ngầm
         public int ugWon; // bit theo bậc: đã thắng hôm nay
         public int ugChampWeek = -1;
@@ -77,7 +78,7 @@ namespace PokiClash.Core
                 freeBaitUsed = J.Int(o, "freeBait"), bait = J.Int(o, "bait"), rod = Math.Max(1, J.Int(o, "rod", 1)), kingWeek = J.Int(o, "kingWeek", -1),
                 raceWeek = J.Int(o, "raceWeek", -1), cupClaimed = J.Int(o, "cupClaimed"),
                 mkStamp = J.Int(o, "mkStamp", -1), mkRoll = J.Int(o, "mkRoll"), mkRefreshDay = J.Int(o, "mkRefreshDay", -1), mkRefresh = J.Int(o, "mkRefresh"),
-                ugWon = J.Int(o, "ugWon"), ugChampWeek = J.Int(o, "ugChampWeek", -1), innAll = J.Bool(o, "innAll"),
+                ugWon = J.Int(o, "ugWon"), ugChampWeek = J.Int(o, "ugChampWeek", -1), innAll = J.Bool(o, "innAll"), spareStones = J.Int(o, "spareStones"),
             };
             foreach (var x in J.Arr(o, "seen")) if (x is string t) s.seen.Add(t);
             foreach (var kv in J.Obj(o, "plays") ?? new Dictionary<string, object>()) if (kv.Value is double n) s.plays[kv.Key] = (int)n;
@@ -121,7 +122,7 @@ namespace PokiClash.Core
             ["mkBought"] = mkBought.Select(x => (object)(double)x).ToList(),
             ["ugWon"] = (double)ugWon, ["ugChampWeek"] = (double)ugChampWeek,
             ["inn"] = inn.Cast<object>().ToList(), ["innProg"] = innProg.ToDictionary(kv => kv.Key, kv => (object)(double)kv.Value),
-            ["innClaimed"] = innClaimed.Cast<object>().ToList(), ["innAll"] = innAll,
+            ["innClaimed"] = innClaimed.Cast<object>().ToList(), ["innAll"] = innAll, ["spareStones"] = (double)spareStones,
         };
     }
 
@@ -223,6 +224,7 @@ namespace PokiClash.Core
             st.betToday = st.wonToday = 0;
             st.freeBaitUsed = 0;
             st.ugWon = 0;
+            st.spareStones = 0;
             st.inn.Clear();
             st.innProg.Clear();
             st.innClaimed.Clear();

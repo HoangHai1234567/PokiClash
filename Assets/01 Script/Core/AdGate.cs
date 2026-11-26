@@ -57,6 +57,35 @@ namespace PokiClash.Core
             return true;
         }
 
+        // ---------- bộ đếm theo ngày dùng chung đồng hồ ngày của cổng quảng cáo ----------
+        // Khoá bắt đầu bằng "_" không phải chỗ đặt quảng cáo: lượt trao ngay của Bỏ quảng cáo, số trận đánh lại ải trong ngày.
+
+        public const string InstantKey = "_instant", ReplayKey = "_replay";
+
+        public static int Bump(SaveData s, int day, string key)
+        {
+            var a = Roll(s, day);
+            int n = (a.used.TryGetValue(key, out var k) ? k : 0) + 1;
+            a.used[key] = n;
+            return n;
+        }
+
+        // Bỏ quảng cáo: hôm nay còn lượt trao ngay không (cfg.ads.noAdsInstant; 0 = không giới hạn)
+        public static int InstantLeft(SaveData s, BalanceConfig cfg, int day)
+        {
+            if (!NoAds(s)) return 0;
+            int lim = cfg.ads.noAdsInstant;
+            return lim <= 0 ? Unlimited : Math.Max(0, lim - Used(s, day, InstantKey));
+        }
+
+        // dùng một lượt trao ngay của Bỏ quảng cáo; false nếu chưa mua gói hoặc hết lượt hôm nay (lúc đó xem quảng cáo như thường)
+        public static bool UseInstant(SaveData s, BalanceConfig cfg, int day)
+        {
+            if (InstantLeft(s, cfg, day) <= 0) return false;
+            if (cfg.ads.noAdsInstant > 0) Bump(s, day, InstantKey);
+            return true;
+        }
+
         public static Entitlements Ent(SaveData s) => s.ent ?? (s.ent = new Entitlements());
         public static bool PassActive(SaveData s, double now) => s.ent != null && s.ent.passUntil > now;
         public static bool NoAds(SaveData s) => s.ent != null && s.ent.noAds;

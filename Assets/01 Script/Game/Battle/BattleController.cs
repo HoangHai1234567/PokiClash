@@ -665,7 +665,8 @@ namespace PokiClash
             bool tutCounter = win && b.script != null && !tutFirst && stage.zone == Tutorial.CounterIsland(s, d) && !Tutorial.Done(s, Tutorial.Shards);
             bool firstLoss = !win && !Tutorial.Done(s, Tutorial.FirstLoss);
             StageReward rw = null;
-            if (win) rw = Progress.WinStage(s, d, stage.id, new Rng(Rng.RandomSeed()));
+            double nowMs = PokiClash.Game.SaveService.Now();
+            if (win) rw = Progress.WinStage(s, d, stage.id, new Rng(Rng.RandomSeed()), nowMs);
             else s.stats.battles++;
             if (win) Tutorial.SeedTree(s, d.Cfg, PokiClash.Game.SaveService.Now()); // cây bi đầu tiên có sẵn 10 bi
             if (tutCounter) Tutorial.MarkAll(s, Tutorial.CounterIsle, Tutorial.CounterGo, Tutorial.Counter);
@@ -687,7 +688,12 @@ namespace PokiClash
             m.Show(win, Loc.F("{0} · Ải {1} · {2}", zone.name, stage.idx, stage.name), 40, Loc.F("{0} hiệp · gây {1} sát thương", b.round, b.dmgDealt[0]));
             if (rw != null)
             {
-                m.Reward().Item(App.Art.Icon("ball"), $"×{rw.balls}", Loc.T("Bi")).Tag(rw.first ? Loc.T("Lần đầu") : "", Theme.Yellow);
+                m.Reward().Item(App.Art.Icon("ball"), $"×{rw.balls}", Loc.T("Bi")).Tag(rw.first ? Loc.T("Lần đầu") : rw.reduced ? Loc.T("Đã giảm") : "", Theme.Yellow);
+                // trận đánh lại đầu tiên bị giảm bi trong ngày: nói rõ một lần (các trận sau chỉ còn nhãn "Đã giảm")
+                var sbc = d.Cfg.stageBalls;
+                if (rw.reduced && AdGate.Used(s, Afk.Today(nowMs), AdGate.ReplayKey) == sbc.replayFull + 1)
+                    App.Toasts.Show(Loc.F("Hôm nay đã đánh lại ải cũ {0} trận: các trận đánh lại sau chỉ còn {1}% bi. Ải mới vẫn đủ bi.",
+                        sbc.replayFull, Math.Round(sbc.replayPct * 100)), App.Art.Icon("info"));
                 foreach (var sh in rw.shards)
                 {
                     var hero = d.Hero(sh.hero);
@@ -737,8 +743,13 @@ namespace PokiClash
                 string streakLine = lossStreak >= 2
                     ? Loc.F("Thua {0} lần liền ở ải này. ", lossStreak) + (freeFix != null ? Loc.F("Làm ngay được: {0}.\n", freeFix) : Loc.T("Thử đánh ải dễ hơn, hoặc nhận AFK rồi quay lại.\n"))
                     : "";
-                m.Tips((firstLoss ? Loc.T("Thua không mất gì! Mạnh hơn bằng:\n") : "") + streakLine +
-                       Loc.T("• Thả bi ở Máy bi để lên cấp: mọi tướng mạnh lên.\n• Nâng thẻ và tiến hóa ở mục Tướng.\n") +
+                // thiếu cấp so với địch: nói rõ thiếu mấy cấp, cần thả khoảng bao nhiêu bi (GD_Claude/34 mục 1.5); trận hướng dẫn giữ câu chung
+                var lg = Offers.GapTo(s, d, stage);
+                string lvLine = lg.gap > 0 && !firstLoss && !scripted
+                    ? Loc.F("• Địch cấp {0}, bạn cấp {1}: thả khoảng {2} bi ở Máy bi để lên {3} cấp.\n", lg.foe, s.level, lg.balls, lg.gap) +
+                      Loc.T("• Nâng thẻ và tiến hóa ở mục Tướng.\n")
+                    : Loc.T("• Thả bi ở Máy bi để lên cấp: mọi tướng mạnh lên.\n• Nâng thẻ và tiến hóa ở mục Tướng.\n");
+                m.Tips((firstLoss ? Loc.T("Thua không mất gì! Mạnh hơn bằng:\n") : "") + streakLine + lvLine +
                        Loc.F("• Chọn tướng khắc hệ địch ({0} bị {1} khắc), hoặc đánh ải dễ hơn ở đảo khác.", Elements.Name(foeElem), Elements.Name(strong)));
                 if (lossStreak >= 2 && !scripted)
                     m.AdButton(Loc.F("Tiếp sức +{0}%", Math.Round(d.Cfg.shop.retryBoost * 100)), Ads.BattleRetry, false,

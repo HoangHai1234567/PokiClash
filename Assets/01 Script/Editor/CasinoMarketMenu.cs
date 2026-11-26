@@ -248,7 +248,7 @@ namespace PokiClash.EditorTools
                 foreach (var f in fish) st.creel.Add(new CaughtFish { id = f.id, size = f.max });
                 var hp = s.Hero(d.Heroes.First(h => !h.minion).id);
                 hp.Card(Core.Progress.Slots[0]).lv = d.Cfg.cardMax;
-                hp.Card(Core.Progress.Slots[0]).copies = 7;
+                hp.Card(Core.Progress.Slots[0]).copies = 45;
                 // nhiệm vụ quán trọ: xong một việc để thấy nút Nhận
                 double now = Game.SaveService.Now();
                 var qs = Casino.InnToday(s, d, now);

@@ -116,7 +116,7 @@ namespace PokiClash.Core
         public static double NormBuff(GameData d, string hero, double extra)
         {
             var h = d.Hero(hero);
-            double norm = HeroStats.PowerOf(Islands.NormRarity) / HeroStats.PowerOf(h.rarity);
+            double norm = HeroStats.PowerOf(Islands.NormRarity) / HeroStats.PowerOfHero(h);
             return Math.Round(norm * (1 + extra) - 1, 2);
         }
 

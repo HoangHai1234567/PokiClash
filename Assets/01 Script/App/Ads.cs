@@ -36,7 +36,9 @@ namespace PokiClash
         static int Today => Afk.Today(SaveService.Now());
 
         public static bool NoAds => AdGate.NoAds(S);
-        public static bool Ready => Current != null || NoAds;
+        // Bỏ quảng cáo: số lượt trao ngay còn hôm nay (cfg.ads.noAdsInstant; chưa mua gói: 0). Hết lượt thì xem quảng cáo như thường
+        public static int InstantLeft => AdGate.InstantLeft(S, App.Data.Cfg, Today);
+        public static bool Ready => Current != null || InstantLeft > 0;
         public static int Left(string p) => AdGate.Left(S, App.Data.Cfg, Today, p);
 
         public static void Show(string placement, Action<bool> done)
@@ -47,8 +49,9 @@ namespace PokiClash
                 done?.Invoke(false);
                 return;
             }
-            // Bỏ quảng cáo; Thẻ Phiêu Lưu: 1 lượt trao ngay mỗi ngày (GD_Claude/26 mục 6.8)
-            if (NoAds || Shop.UseAdSkip(S, App.Data.Cfg.shop, SaveService.Now()))
+            // Bỏ quảng cáo: noAdsInstant lượt trao ngay mỗi ngày (GD_Claude/33 việc 14); Thẻ Phiêu Lưu: 1 lượt trao ngay mỗi ngày
+            // (GD_Claude/26 mục 6.8)
+            if (AdGate.UseInstant(S, App.Data.Cfg, Today) || Shop.UseAdSkip(S, App.Data.Cfg.shop, SaveService.Now()))
             {
                 Grant();
                 return;

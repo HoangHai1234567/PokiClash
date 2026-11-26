@@ -5,7 +5,8 @@
 //   (Items/OThuong), dòng ghi chú loại hàng, nút giá; mua xong thì dấu "Đã mua" và tô xanh như ô cửa hàng.
 // - Mua: hỏi lại (tên, giá); Túi hàng lậu mở bằng hộp rương chung (ChestBox), món khác báo bằng dòng thưởng.
 // - Làm mới sớm (giá tăng dần, hết lượt thì khoá), Tỉ lệ túi lậu (công bố tỉ lệ, hộp may rủi).
-// - Thu mua: bán cả giỏ cá (Fishing.SellCreel), bán bản sao thẻ thừa của thẻ đã tối đa cấp (BlackMarket.SellSpare).
+// - Thu mua: bán cả giỏ cá (Fishing.SellCreel); bản sao thẻ thừa của thẻ đã tối đa cấp đổi lấy đá tiềm năng, có trần mỗi ngày
+//   (BlackMarket.SellSpare; không đổi ra bi, GD_Claude/33 mục 2.1).
 // Mọi vật dựng sẵn trong prefab (8 ô), không sinh lúc chạy.
 using System.Collections.Generic;
 using System.Linq;
@@ -120,9 +121,11 @@ namespace PokiClash
             fishText.text = st.creel.Count > 0 ? Loc.F("Giỏ cá: {0} con", st.creel.Count) : Loc.T("Giỏ cá trống");
             sellFish.SetText(fishV > 0 ? Loc.F("Bán · {0} bi", fishV) : Loc.T("Bán"));
             sellFish.Locked = fishV <= 0;
-            int spareN = BlackMarket.SpareCopies(s, d), spareV = BlackMarket.SpareValue(s, d);
-            spareText.text = spareN > 0 ? Loc.F("Bản sao thẻ thừa: {0}", spareN) : Loc.T("Chưa có bản sao thẻ thừa (thẻ đã tối đa cấp)");
-            sellSpare.SetText(spareV > 0 ? Loc.F("Bán · {0} bi", spareV) : Loc.T("Bán"));
+            int spareN = BlackMarket.SpareCopies(s, d), spareV = BlackMarket.SpareValue(s, d, now);
+            bool spareCap = spareN >= c.copyPerStone && BlackMarket.SpareStonesLeft(s, d, now) <= 0; // đủ thẻ nhưng hết lượt đổi hôm nay
+            spareText.text = spareN > 0 ? Loc.F("Bản sao thẻ thừa: {0} ({1} bản đổi 1 đá tiềm năng)", spareN, c.copyPerStone)
+                : Loc.T("Chưa có bản sao thẻ thừa (thẻ đã tối đa cấp)");
+            sellSpare.SetText(spareV > 0 ? Loc.F("Đổi · {0} đá", spareV) : spareCap ? Loc.T("Hết lượt hôm nay") : Loc.T("Đổi"));
             sellSpare.Locked = spareV <= 0;
         }
 
@@ -139,7 +142,7 @@ namespace PokiClash
         {
             var s = S;
             if (Casino.Of(s).creel.Count > 0 || BlackMarket.SpareCopies(s, D) > 0)
-                return Loc.T("Có cá trong giỏ hay thẻ thừa thì để ta mua lại, giá phải chăng.");
+                return Loc.T("Có cá trong giỏ thì ta mua, thẻ thừa thì ta đổi đá tiềm năng cho.");
             if (night) return Loc.T("Hàng đêm bày rồi đấy. Thứ này ban ngày không có đâu.");
             if (stock.Count > 0 && stock.All(x => x.bought)) return Loc.T("Hết hàng rồi! Đợi lượt hàng sau, hoặc trả chút bi để ta lục kho.");
             string[] lines =
@@ -334,16 +337,17 @@ namespace PokiClash
         void SellSpare()
         {
             var s = S;
-            int n = BlackMarket.SpareCopies(s, D), v = BlackMarket.SpareValue(s, D);
+            int v = BlackMarket.SpareValue(s, D, Now), n = v * D.Cfg.casino.market.copyPerStone;
             if (v <= 0) return;
-            App.Modals.Confirm(Loc.T("Bán thẻ thừa"), Loc.F("Bán {0} bản sao thẻ thừa (thẻ đã tối đa cấp, không dùng được nữa) lấy {1} bi?", n, v),
-                Loc.T("Bán"), () =>
+            App.Modals.Confirm(Loc.T("Đổi thẻ thừa"),
+                Loc.F("Đổi {0} bản sao thẻ thừa (thẻ đã tối đa cấp, không dùng được nữa) lấy {1} đá tiềm năng? Mỗi ngày đổi tối đa {2} đá.", n, v, D.Cfg.casino.market.stoneDaily),
+                Loc.T("Đổi"), () =>
                 {
-                    int got = BlackMarket.SellSpare(S, D);
+                    int got = BlackMarket.SellSpare(S, D, Now);
                     if (got <= 0) return;
                     App.Save.Save();
                     App.Audio.Play("coin");
-                    App.Toasts.Show(Loc.F("Bán thẻ thừa được {0} bi", got), Icon("ball"));
+                    App.Toasts.Show(Loc.F("Đổi thẻ thừa được {0} đá tiềm năng", got), Icon("rock"));
                     Render();
                 }, null, BtnColor.Green);
         }
