@@ -80,10 +80,15 @@ namespace PokiClash
             public RectTransform scoreSlot, trayFrame;
             public SketchButton betCycle;
             public UnityEngine.UI.Image betCycleArt;
+            // thanh túi bi (menu "PokiClash/Prefab/Máy bi: thanh túi bi, ô cấp tròn", 2026-11-27, học thanh "10/30" dưới nút thả của Clash of
+            // Critters): phần tô trong khung đếm, neo phải = bi / trần túi (BallBag); chữ đếm ghi "bi/trần"
+            public RectTransform bagFill;
+            public UnityEngine.UI.Image bagFillImg;
         }
 
         [SerializeField] Parts p;
         bool V2 => p.scoreSlot;
+        static readonly Color BagFill = Theme.Hex("#ff8fc0"), BagFull = Theme.Hex("#ffa630");
 
         Board board;
         MachineBoard view;
@@ -150,7 +155,8 @@ namespace PokiClash
             from = args as string;
             if (toIsland)
             {
-                toIsland.gameObject.SetActive(Casino.Open(S, D));
+                // bỏ nút Ra đảo (người dùng 2026-11-27: "bỏ nút ra đảo đi"): ra đảo Casino từ bản đồ sảnh
+                toIsland.gameObject.SetActive(false);
                 toIsland.SetOnClick(() =>
                 {
                     if (Busy) return;
@@ -177,6 +183,9 @@ namespace PokiClash
             p.dropHold.Down = StartHold;
             p.dropHold.Up = () => holding = false;
             p.auto.SetOnClick(Auto);
+            // bỏ nút thả liền (người dùng 2026-11-27: "bro cái thả liền 20 này đi"): thả bằng chạm / giữ nút thả
+            p.auto.gameObject.SetActive(false);
+            if (p.autoDome) p.autoDome.gameObject.SetActive(false);
             if (p.giftButton) p.giftButton.onClick.AddListener(GiftInfo);
             barBtn = p.legendBar.GetComponent<UnityEngine.UI.Button>();
             if (barBtn) barBtn.onClick.AddListener(GiftInfo);
@@ -190,10 +199,189 @@ namespace PokiClash
                 p.expBar.LeveledUp += OnBarLevel;
             }
             BuildScore();
+            LiftHeader();
+            BuildPushGlow();
+            BuildBetNote();
             RefreshUi();
             view.SetMult(x, false);
             RebuildTray();
             TutorEnter();
+        }
+
+        // ---------- đầu máy, nút PUSH, bong bóng mốc cược (người dùng 2026-11-27) ----------
+
+        // "đẩy các ô level và thanh kinh nghiệm lên": khối máy cao cố định, đứng giữa vùng nội dung, nên màn dài (18:9 trở lên) dư một
+        // khoảng giữa thanh trên và đầu máy. Dời thanh kinh nghiệm (kèm ô cấp tròn) và nút Tỉ lệ lên theo khoảng dư thật, chừa HeaderGap px
+        // dưới thanh trên; màn 9:16 không dư thì giữ chỗ cũ. Bảng số trên đỉnh vòm không dời.
+        const float HeaderGap = 16, HeaderLiftMax = 150;
+        Vector2 expHome, ratesHome;
+        bool headerHome;
+
+        void LiftHeader()
+        {
+            if (!p.expBar) return;
+            var bar = (RectTransform)p.expBar.transform;
+            var area = bar.parent ? bar.parent.parent as RectTransform : null; // khối máy → vùng nội dung (dưới thanh trên)
+            if (!area) return;
+            if (!headerHome)
+            {
+                expHome = bar.anchoredPosition;
+                ratesHome = p.rates ? p.rates.Rect.anchoredPosition : Vector2.zero;
+                headerHome = true;
+            }
+            bar.anchoredPosition = expHome;
+            if (p.rates) p.rates.Rect.anchoredPosition = ratesHome;
+            Canvas.ForceUpdateCanvases();
+            // mép trên cao nhất của thanh và huy hiệu cấp (sao trên huy hiệu nhô quá thanh), toạ độ vùng nội dung
+            float top = float.MinValue;
+            var c = new Vector3[4];
+            foreach (var g in bar.GetComponentsInChildren<UnityEngine.UI.Graphic>())
+            {
+                g.rectTransform.GetWorldCorners(c);
+                top = Mathf.Max(top, area.InverseTransformPoint(c[1]).y);
+            }
+            if (top == float.MinValue) return;
+            float lift = Mathf.Clamp(area.rect.yMax - top - HeaderGap, 0, HeaderLiftMax);
+            bar.anchoredPosition = expHome + new Vector2(0, lift);
+            if (p.rates) p.rates.Rect.anchoredPosition = ratesHome + new Vector2(0, lift);
+        }
+
+        // "làm nút ấn khi thả bóng to hơn chút nữa, làm nó sáng lên để người chơi biết là ấn được": nút PUSH to thêm PushGrow; quầng
+        // sáng mềm cộng sáng (pk_g_quang, material UIAdditive) sau vòm, thở khi bấm được (hết bi / hết lượt đợt thì tắt).
+        const float PushGrow = 1.16f;
+        Vector2 dropHome, dropPosHome;
+        UnityEngine.UI.Image pushGlow;
+
+        void BuildPushGlow()
+        {
+            if (!p.dropDome || !V2) return;
+            var dr = p.drop.Rect;
+            if (dropHome == Vector2.zero)
+            {
+                dropHome = dr.sizeDelta;
+                dropPosHome = dr.anchoredPosition;
+            }
+            // to lên từ chân nút (mép dưới đứng yên, khỏi đè thanh túi bi bên dưới)
+            dr.sizeDelta = dropHome * PushGrow;
+            dr.anchoredPosition = dropPosHome + new Vector2(0, dr.pivot.y * (dr.sizeDelta.y - dropHome.y));
+            if (pushGlow) return;
+            var go = new GameObject("sang_nut", typeof(RectTransform), typeof(CanvasRenderer), typeof(UnityEngine.UI.Image));
+            go.layer = dr.gameObject.layer;
+            var rt = (RectTransform)go.transform;
+            rt.SetParent(p.dropDome.transform.parent, false);
+            rt.SetSiblingIndex(p.dropDome.transform.GetSiblingIndex()); // ngay sau vòm (dưới vòm)
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = p.dropDome.rectTransform.anchoredPosition;
+            rt.sizeDelta = dropHome * PushGrow * 1.45f;
+            pushGlow = go.GetComponent<UnityEngine.UI.Image>();
+            pushGlow.sprite = Art("pk_g_quang");
+            pushGlow.material = Resources.Load<Material>("UIAdditive");
+            pushGlow.raycastTarget = false;
+            pushGlow.color = new Color(1f, 0.82f, 0.36f, 0);
+        }
+
+        void UpdatePushGlow(bool ready)
+        {
+            if (!pushGlow) return;
+            // bấm được: thở 1,0 ↔ 1,07, sáng 0,30 ↔ 0,62 (chu kỳ 1,6 giây); đang giữ thì sáng hẳn; không bấm được thì tắt dần
+            float b = 0.5f + 0.5f * Mathf.Sin(time * Mathf.PI * 2 / 1.6f);
+            float target = !ready ? 0 : holding ? 0.75f : 0.30f + 0.32f * b;
+            var col = pushGlow.color;
+            col.a = Mathf.MoveTowards(col.a, target, Time.unscaledDeltaTime * 3f);
+            pushGlow.color = col;
+            pushGlow.rectTransform.localScale = Vector3.one * (ready ? 1 + 0.07f * b : 1);
+        }
+
+        // "nút multiply khi đến giới hạn phải có 1 noti mốc sau yêu cầu bao nhiêu bi (ở ngay nút đó)" (học pbui_pinball_multi_popup của Clash
+        // of Critters: ở mức cao nhất, bóng nổi trên nút ghi "Mốc sau" + số tiền + viên ×N kế): viên cược đang ở mức cao nhất đã mở mà còn
+        // mức chưa đủ bi thì hiện bong bóng ngay trên viên "Mốc sau ×M / cần N bi"; nhún vào khi mới hiện, dập dềnh nhẹ; đang thả thì ẩn.
+        RectTransform betNote;
+        TextMeshProUGUI betNoteText;
+        float betNoteT = -1;
+        Vector2 betNoteHome;
+
+        void BuildBetNote()
+        {
+            if (!p.betCycle || betNote) return;
+            var br = p.betCycle.Rect;
+            var parent = br.parent as RectTransform;
+            if (!parent) return;
+            var go = new GameObject("bao_moc_cuoc", typeof(RectTransform), typeof(CanvasRenderer), typeof(UnityEngine.UI.Image));
+            go.layer = br.gameObject.layer;
+            betNote = (RectTransform)go.transform;
+            betNote.SetParent(parent, false);
+            betNote.SetSiblingIndex(br.GetSiblingIndex() + 1);
+            // giữa mép trên viên cược (viên neo trên trái), chân bong bóng chạm mép trên viên
+            betNote.anchorMin = betNote.anchorMax = br.anchorMin;
+            betNote.pivot = new Vector2(0.5f, 0);
+            float cx = br.anchoredPosition.x + (0.5f - br.pivot.x) * br.rect.width;
+            float topY = br.anchoredPosition.y + (1 - br.pivot.y) * br.rect.height;
+            betNoteHome = new Vector2(cx, topY + 6);
+            betNote.anchoredPosition = betNoteHome;
+            betNote.sizeDelta = new Vector2(Mathf.Max(260, br.rect.width + 40), 104);
+            var bg = go.GetComponent<UnityEngine.UI.Image>();
+            Theme.SetSprite(bg, Sketch.Panel);
+            bg.type = UnityEngine.UI.Image.Type.Sliced;
+            bg.color = Theme.Hex("#4a1d5e");
+            bg.raycastTarget = false;
+            var tgo = new GameObject("chu", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            tgo.layer = go.layer;
+            var tr = (RectTransform)tgo.transform;
+            tr.SetParent(betNote, false);
+            tr.anchorMin = Vector2.zero;
+            tr.anchorMax = Vector2.one;
+            tr.offsetMin = new Vector2(14, 8);
+            tr.offsetMax = new Vector2(-14, -8);
+            betNoteText = tgo.GetComponent<TextMeshProUGUI>();
+            // chữ thường (Pangolin), không đậm (người dùng 2026-11-27: không dùng chữ đen đậm làm tiêu đề, chữ đậm khó nhìn)
+            if (Theme.Body)
+            {
+                betNoteText.font = Theme.Body;
+                betNoteText.fontSharedMaterial = Theme.Body.material;
+            }
+            betNoteText.fontSize = 28;
+            betNoteText.enableAutoSizing = true;
+            betNoteText.fontSizeMin = 18;
+            betNoteText.fontSizeMax = 28;
+            betNoteText.alignment = TextAlignmentOptions.Center;
+            betNoteText.color = Theme.Hex("#f6eedb");
+            betNoteText.lineSpacing = -8;
+            betNoteText.raycastTarget = false;
+            betNote.gameObject.SetActive(false);
+        }
+
+        // mức kế chưa đủ bi khi viên đang ở mức cao nhất đã mở; null: chưa tới giới hạn hoặc đã mở hết
+        XStep NextLockedStep(List<int> allowed)
+        {
+            var steps = D.Cfg.xSteps;
+            if (steps.Count == 0 || x != Progress.XBest(S, D.Cfg, int.MaxValue)) return null;
+            return steps.Find(q => q.x > x && !allowed.Contains(q.x));
+        }
+
+        void RefreshBetNote(List<int> allowed, bool idle)
+        {
+            if (!betNote) return;
+            var nx = idle ? NextLockedStep(allowed) : null;
+            bool on = nx != null;
+            if (on)
+                betNoteText.text = Loc.F("Mốc sau ×{0}", nx.x) + "\n<color=#ffd44f>" + Loc.F("cần {0} bi", nx.balls) + "</color>";
+            if (on && !betNote.gameObject.activeSelf) betNoteT = 0; // mới hiện: nhún vào
+            if (betNote.gameObject.activeSelf != on) betNote.gameObject.SetActive(on);
+        }
+
+        void AnimateBetNote(float dt)
+        {
+            if (!betNote || !betNote.gameObject.activeSelf) return;
+            float s = 1;
+            if (betNoteT >= 0)
+            {
+                betNoteT += dt;
+                float k = betNoteT / 0.3f;
+                s = k < 0.6f ? Mathf.Lerp(0.2f, 1.1f, k / 0.6f) : Mathf.Lerp(1.1f, 1, Mathf.Clamp01((k - 0.6f) / 0.4f));
+                if (k >= 1) betNoteT = -1;
+            }
+            betNote.localScale = Vector3.one * s;
+            betNote.anchoredPosition = betNoteHome + new Vector2(0, 4 * Mathf.Sin(time * Mathf.PI * 2 / 2.2f));
         }
 
         // ---------- hướng dẫn người mới (GD_Claude/25_FTUE.md bước C1–C7, F4–F6) ----------
@@ -372,8 +560,13 @@ namespace PokiClash
                 p.betCycle.Interactable = true;
                 if (p.betCycleArt) SetSprite(p.betCycleArt, "pk_v2_cuoc");
             }
+            RefreshBetNote(allowed, idle);
             // thanh đếm bản 2 có icon bi ở đầu: chỉ số; bản cũ: câu đủ
-            p.counter.text = V2 ? (session > 0 ? $"{session}/{max}" : $"{s.balls}") : session > 0 ? Loc.F("Đợt này: {0}/{1}", session, max) : Loc.F("{0} bi · tốn {1}/lần", s.balls, x);
+            // thanh túi bi: bi đang có / trần túi (BallBag); vượt trần (quà, gói nạp) thì thanh đầy, đổi màu cam
+            int cap = BallBag.Cap(s, D.Cfg, Game.SaveService.Now());
+            p.counter.text = V2 ? $"{s.balls}/{cap}" : session > 0 ? Loc.F("Đợt này: {0}/{1}", session, max) : Loc.F("{0} bi · tốn {1}/lần", s.balls, x);
+            if (p.bagFill) p.bagFill.anchorMax = new Vector2(Mathf.Clamp01(s.balls / (float)Mathf.Max(1, cap)), 1);
+            if (p.bagFillImg) p.bagFillImg.color = s.balls >= cap ? BagFull : BagFill;
             p.auto.SetText(V2 ? Loc.F("Liền ×{0}", max) : p.autoDome ? Loc.F("Thả liền\n{0}", max) : Loc.F("Thả liền {0}", max)); // bản 2: chú thích dưới nút
             if (p.dropDome) p.drop.SetColor(Clear);
             else p.drop.SetColor(CanDrop() ? Theme.Red : Color.Lerp(Theme.Red, Theme.Paper3, 0.6f));
@@ -434,6 +627,7 @@ namespace PokiClash
                 }
                 var dr = p.dropDome.rectTransform;
                 dr.localScale = new Vector3(1 + (1 - sy) * 0.4f, sy, 1);
+                UpdatePushGlow(ready);
             }
             else if (p.dropDome)
             {
@@ -1017,6 +1211,7 @@ namespace PokiClash
             }
             view.Sync(dt, dt * sim, CanDrop() ? x : 0);
             UpdateDomes(dt);
+            AnimateBetNote(dt);
             UpdateBulbs(dt);
             AnimateMilestone(dt);
             if (session > 0 && board.balls.Count == 0 && !holding && autoLeft == 0 && !ending) StartCoroutine(SessionEnd());
@@ -1278,6 +1473,16 @@ namespace PokiClash
             ending = false;
             RefreshUi();
             TutorIdle();
+            if (!leaving) BallsCheck();
+        }
+
+        // thả xong một đợt mà hết bi hay không đủ một đợt đầy ở cược đang chọn: popup Hết bi / Sắp hết bi bán Gói Bổ Sung Bi (người dùng
+        // 2026-11-27), hiện khi máy rảnh (sau bảng lên cấp). Chưa xong bước hướng dẫn hết bi thì để gợi ý "về đánh ải" lo
+        void BallsCheck()
+        {
+            if (!Tutorial.Done(S, Tutorial.NoBalls) || S.shop == null) return;
+            if (S.balls <= 0) OfferHost.Raise(new OfferCtx { e = OfferEvent.OutOfBalls });
+            else if (S.balls < D.Cfg.MaxPerDrop(S.level) * x) OfferHost.Raise(new OfferCtx { e = OfferEvent.LowBalls });
         }
 
         void LevelUp()

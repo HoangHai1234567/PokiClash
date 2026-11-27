@@ -1,5 +1,7 @@
-// Ô đứng trong lưới cửa hàng (prefab Items/OCuaHang): trứng, gói bi, quà miễn phí, đặc quyền: nền màu, nhãn góc trái (Lần đầu ×2,
-// Bán chạy), hình to (một hình hoặc chồng 3 quả), số "×10", tên, dòng phụ, sticker "×N", nút giá, dấu "Đã mua", chấm đỏ. ShopPage.
+// Ô đứng trong lưới cửa hàng (prefab Items/OCuaHang): trứng, gói bi, quà miễn phí, đặc quyền. Bản 3 (2026-11-27, học ô gói Clash of
+// Critters, GD_Claude/26 mục 15): nền màu tươi có caro thoi và sao nổ sau hình, tên trắng viền mực trên đầu, hình to (một hình hoặc chồng 3
+// quả), số "×10", dòng phụ, nhãn góc trái (Lần đầu ×2, Bán chạy), nhãn đỏ "×N" góc phải, dải tối dưới đáy chứa nút giá xanh lá / dấu
+// "Đã mua", chấm đỏ. ShopPage.
 using System;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -16,29 +18,36 @@ namespace PokiClash
         [Serializable]
         public struct Parts
         {
-            public Image bg, art, ribbon, dot;
+            public Image bg, rays, art, ribbon, dot, valueBg;
             public Image[] stack; // các quả xếp chồng (gói nhiều trứng), bật theo số
-            public TextMeshProUGUI title, sub, count, ribbonText, done;
-            public UiStamp value;
+            public TextMeshProUGUI title, sub, count, ribbonText, done, valueText;
             public SketchButton buy;
         }
 
         [SerializeField] Parts p;
+        ShopHue hue;
         public void Setup(Parts parts) => p = parts;
         public RectTransform Rect => (RectTransform)transform;
         public SketchButton Buy => p.buy;
 
-        public ShopTile Set(string title, string sub, Color bg)
+        void Paint(ShopHue h)
         {
+            p.bg.color = h.fill;
+            p.rays.color = h.rays;
+        }
+
+        public ShopTile Set(string title, string sub, ShopHue h)
+        {
+            hue = h;
+            Paint(h);
             p.title.text = title;
             p.sub.text = sub ?? "";
             p.sub.gameObject.SetActive(!string.IsNullOrEmpty(sub));
-            p.bg.color = bg;
             p.art.gameObject.SetActive(false);
             foreach (var s in p.stack) s.gameObject.SetActive(false);
             p.count.gameObject.SetActive(false);
             p.ribbon.gameObject.SetActive(false);
-            p.value.gameObject.SetActive(false);
+            p.valueBg.gameObject.SetActive(false);
             p.done.gameObject.SetActive(false);
             p.dot.gameObject.SetActive(false);
             p.buy.gameObject.SetActive(false);
@@ -80,12 +89,12 @@ namespace PokiClash
             return this;
         }
 
-        // sticker giá trị: chỉ khi hời rõ (×1,5 trở lên)
+        // nhãn giá trị: chỉ khi hời rõ (×1,5 trở lên)
         public ShopTile Value(double mult)
         {
             bool on = mult >= 1.5;
-            p.value.gameObject.SetActive(on);
-            if (on) p.value.Set("×" + Math.Round(mult), Theme.Red);
+            p.valueBg.gameObject.SetActive(on);
+            if (on) p.valueText.text = "×" + Math.Round(mult);
             return this;
         }
 
@@ -99,7 +108,7 @@ namespace PokiClash
         {
             p.buy.gameObject.SetActive(true);
             p.buy.name = "nut_" + label;
-            p.buy.SetRole(role);
+            ShopHue.Paint(p.buy, role);
             p.buy.SetText(label);
             p.buy.Interactable = on;
             p.buy.SetOnClick(click);
@@ -121,7 +130,7 @@ namespace PokiClash
             p.done.gameObject.SetActive(true);
             p.done.text = text;
             p.buy.gameObject.SetActive(false);
-            p.bg.color = Color.Lerp(p.bg.color, Theme.Paper3, 0.55f);
+            Paint(hue.Dim());
             return this;
         }
     }

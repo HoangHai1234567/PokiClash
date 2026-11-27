@@ -12,6 +12,11 @@
 // - Kéo: mọi con đều qua thanh chạy, chạm trúng vùng vàng đủ max(1, Fishing.Ticks) nhịp trong ReelTime giây (cá nhỏ 1 nhịp), trượt
 //   mất MissCost giây. Mỗi nhịp trúng: clip nhip, nước bắn ở phao, phao bị kéo lại gần. Trúng: clip trung, sự kiện
 //   "ca_len" thì cá vọt khỏi nước bay về đầu cần, rồi thẻ kết quả. Sổng: clip hut, dây chùng, bóng cá lao đi.
+// - Cảm giác chạm (người dùng 2026-11-27: "feeling chưa đã, khi click chuẩn có 1 ít fx bloom, stunt nhẹ lại tạo feeling và có fx text kiểu good
+//   job, excellent"): mỗi nhịp trúng chấm theo độ lệch kim với tâm vùng vàng: "Tốt lắm!" (lá) / "Xuất sắc!" (lam) / "Hoàn hảo!" (vàng, liền
+//   mạch thì "×N"); khựng hình (kim, đồng hồ, người câu đứng lại 0,06 / 0,09 / 0,14 giây); quầng sáng + vòng sóng + lấp lánh văng ở kim,
+//   quầng ở phao, tấm kéo nhún; chữ đánh giá bật to rồi bay lên tan (Hoàn hảo có tia xoay sau chữ); tiếng guồng cao dần theo bậc. Lớp hiệu
+//   ứng (HitFx) nằm ngoài tấm kéo nên nhịp cuối (tấm tắt) vẫn thấy.
 // Lõi: Core/Casino/Fishing.cs (mồi, chỗ câu = vùng phao rơi, chọn cá, Sổ Cá, bán cá, Cá Vua; cần câu không còn nâng). Hình 35 con cá
 // (30 loài + 5 Cá Vua) ở Assets/03 Art/Casino/BenCau/Ca (GPT 2.6, càng hiếm càng dị): thẻ kết quả, Sổ Cá (chưa bắt: bóng đen), cá vọt. Mọi phần tử dựng sẵn trong
 // prefab (menu "PokiClash/Prefab/Đảo Casino/Bến câu: dựng scene"); ở đây không sinh GameObject.
@@ -45,6 +50,17 @@ namespace PokiClash
             public Image zoneImg, timerRing;
             public Image[] pips;
             public TextMeshProUGUI timer, penalty, hint;
+        }
+
+        // hiệu ứng chạm trúng (phủ đúng chỗ tấm kéo, nằm ngoài tấm): quầng sáng, vòng sóng, tia xoay sau chữ, lấp lánh văng, chữ đánh giá,
+        // quầng ở phao (con của phao)
+        [Serializable]
+        public struct HitFx
+        {
+            public RectTransform root;
+            public Image glow, ring, rays, bobGlow;
+            public Image[] sparks;
+            public TextMeshProUGUI rating;
         }
 
         [Serializable]
@@ -82,6 +98,7 @@ namespace PokiClash
         [SerializeField] HoldArea actTap;
         [Header("Kéo")]
         [SerializeField] ReelUi reel;
+        [SerializeField] HitFx fx;
         [Header("Trên")]
         [SerializeField] TextMeshProUGUI baitText;
         [Header("Dưới")]
@@ -201,6 +218,169 @@ namespace PokiClash
         // Dùng khi dựng prefab (Editor).
         public void SetFishArt(Sprite[] art) => fishArt = art;
 
+        // Dùng khi dựng prefab (Editor): lớp hiệu ứng chạm trúng
+        public void SetupFx(HitFx f) => fx = f;
+
+        // ---------- cảm giác chạm ----------
+
+        static readonly Color[] TierColor = { new Color32(0x8d, 0xe0, 0x2e, 0xff), new Color32(0x2f, 0xd4, 0xff, 0xff), new Color32(0xff, 0xd2, 0x3f, 0xff) };
+        static readonly float[] TierStop = { 0.06f, 0.09f, 0.14f };
+        float hitStop, fxT = -1, ratingT = -1, bobGlowT = -1, punch, bobDt;
+        int fxTier, perfectRun;
+        bool rigFrozen;
+        Vector2 fxPos, ratingPos;
+        readonly float[] sparkAng = new float[8];
+
+        // bậc theo độ lệch kim so với nửa vùng vàng: 0 Tốt lắm, 1 Xuất sắc, 2 Hoàn hảo
+        int HitTier()
+        {
+            float d = Mathf.Abs(needleP - zoneC) / Mathf.Max(0.001f, zoneW / 2 + NeedleTol);
+            return d <= 0.28f ? 2 : d <= 0.62f ? 1 : 0;
+        }
+
+        void HitFeel(int tier)
+        {
+            fxTier = tier;
+            perfectRun = tier == 2 ? perfectRun + 1 : 0;
+            hitStop = TierStop[tier];
+            punch = 1;
+            App.Audio.Play("reel", 1f, 1f + 0.09f * tier);
+            if (tier == 2) App.Audio.Play("stamp", 0.75f, 1.12f + 0.05f * Mathf.Min(perfectRun, 4));
+            Haptics.Play(tier == 2 ? Haptic.Win : Haptic.UiTap);
+            if (!fx.root) return;
+            Vector3 w = reel.needle ? reel.needle.position : fx.root.position;
+            fxPos = fx.root.InverseTransformPoint(w);
+            float half = fx.root.rect.width / 2 - 230;
+            ratingPos = new Vector2(Mathf.Clamp(fxPos.x, -half, half), fxPos.y + 236);
+            fxT = 0;
+            ratingT = 0;
+            bobGlowT = 0;
+            for (int i = 0; i < sparkAng.Length; i++) sparkAng[i] = (i + UnityEngine.Random.Range(-0.3f, 0.3f)) * Mathf.PI * 2 / sparkAng.Length;
+            var c = TierColor[tier];
+            fx.rating.text = tier == 2 ? (perfectRun >= 2 ? Loc.F("Hoàn hảo! ×{0}", perfectRun) : Loc.T("Hoàn hảo!")) : tier == 1 ? Loc.T("Xuất sắc!") : Loc.T("Tốt lắm!");
+            fx.rating.color = c;
+            fx.rating.rectTransform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(-7f, 7f));
+            fx.rating.gameObject.SetActive(true);
+            fx.glow.gameObject.SetActive(true);
+            fx.ring.gameObject.SetActive(true);
+            foreach (var sp in fx.sparks) sp.gameObject.SetActive(true);
+            if (fx.rays) fx.rays.gameObject.SetActive(tier == 2);
+            if (fx.bobGlow) fx.bobGlow.gameObject.SetActive(true);
+            StepHitFx(0);
+        }
+
+        static float EaseOut(float k) => 1 - (1 - k) * (1 - k);
+
+        void StepHitFx(float dt)
+        {
+            if (punch > 0)
+            {
+                punch = Mathf.Max(0, punch - dt * 5);
+                if (reel.panel) reel.panel.localScale = Vector3.one * (1 + 0.045f * (1 + fxTier * 0.5f) * Mathf.Sin(punch * Mathf.PI * 0.5f));
+            }
+            if (!fx.root) return;
+            float big = 1 + 0.35f * fxTier;
+            var tint = TierColor[fxTier];
+            if (fxT >= 0)
+            {
+                fxT += dt;
+                float k = fxT / (fxTier == 2 ? 0.5f : 0.38f);
+                if (k >= 1)
+                {
+                    fxT = -1;
+                    fx.glow.gameObject.SetActive(false);
+                    fx.ring.gameObject.SetActive(false);
+                    foreach (var sp in fx.sparks) sp.gameObject.SetActive(false);
+                }
+                else
+                {
+                    float e = EaseOut(k);
+                    var g = fx.glow.rectTransform;
+                    g.anchoredPosition = fxPos;
+                    g.localScale = Vector3.one * Mathf.Lerp(0.5f, 1.7f, e) * big;
+                    var gc = Color.Lerp(Color.white, tint, 0.35f);
+                    gc.a = 0.95f * Mathf.Pow(1 - k, 1.5f);
+                    fx.glow.color = gc;
+                    var r = fx.ring.rectTransform;
+                    r.anchoredPosition = fxPos;
+                    r.localScale = Vector3.one * Mathf.Lerp(0.3f, 2.1f, e) * big;
+                    var rc = tint;
+                    rc.a = 0.9f * (1 - k);
+                    fx.ring.color = rc;
+                    for (int i = 0; i < fx.sparks.Length; i++)
+                    {
+                        float a = sparkAng[i % sparkAng.Length];
+                        var sr = fx.sparks[i].rectTransform;
+                        sr.anchoredPosition = fxPos + new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.75f) * e * (110 + 45 * fxTier);
+                        sr.localScale = Vector3.one * Mathf.Sin(Mathf.Min(1, k * 1.3f) * Mathf.PI) * (0.8f + 0.25f * fxTier);
+                        sr.localEulerAngles = new Vector3(0, 0, 160 * k);
+                        var sc2 = Color.Lerp(Color.white, tint, 0.3f);
+                        sc2.a = 1 - k;
+                        fx.sparks[i].color = sc2;
+                    }
+                }
+            }
+            if (bobGlowT >= 0 && fx.bobGlow)
+            {
+                bobGlowT += dt;
+                float k = bobGlowT / 0.4f;
+                if (k >= 1)
+                {
+                    bobGlowT = -1;
+                    fx.bobGlow.gameObject.SetActive(false);
+                }
+                else
+                {
+                    fx.bobGlow.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.6f, 1.8f, EaseOut(k)) * big;
+                    var bc = Color.Lerp(Color.white, tint, 0.3f);
+                    bc.a = 0.85f * (1 - k);
+                    fx.bobGlow.color = bc;
+                }
+            }
+            if (ratingT >= 0)
+            {
+                ratingT += dt;
+                const float pop = 0.16f, hold = 0.45f, fade = 0.3f;
+                float s, a = 1, rise = 30 * Mathf.Min(1, ratingT / pop);
+                if (ratingT < pop)
+                {
+                    float k = ratingT / pop;
+                    s = k < 0.7f ? Mathf.Lerp(0, 1.35f, k / 0.7f) : Mathf.Lerp(1.35f, 1f, (k - 0.7f) / 0.3f);
+                }
+                else if (ratingT < pop + hold) s = 1 + 0.035f * Mathf.Sin((ratingT - pop) * 20);
+                else
+                {
+                    float k = (ratingT - pop - hold) / fade;
+                    s = 1 + 0.12f * k;
+                    a = 1 - k;
+                    rise += 50 * k;
+                    if (k >= 1)
+                    {
+                        ratingT = -1;
+                        fx.rating.gameObject.SetActive(false);
+                        if (fx.rays) fx.rays.gameObject.SetActive(false);
+                    }
+                }
+                if (ratingT >= 0)
+                {
+                    var tr = fx.rating.rectTransform;
+                    tr.anchoredPosition = ratingPos + new Vector2(0, rise);
+                    tr.localScale = Vector3.one * s * (fxTier == 2 ? 1.12f : 1f);
+                    fx.rating.alpha = a;
+                    if (fx.rays && fx.rays.gameObject.activeSelf)
+                    {
+                        var rr = fx.rays.rectTransform;
+                        rr.anchoredPosition = tr.anchoredPosition;
+                        rr.localScale = Vector3.one * (0.8f + 0.4f * Mathf.Min(1, ratingT / pop));
+                        rr.Rotate(0, 0, -50 * dt);
+                        var yc = tint;
+                        yc.a = 0.6f * a;
+                        fx.rays.color = yc;
+                    }
+                }
+            }
+        }
+
         Sprite FishArt(string id)
         {
             if (fishArt == null || id == null) return null;
@@ -316,6 +496,7 @@ namespace PokiClash
             App.Save.Save();
             App.Audio.Play("coin");
             App.Toasts.Show(Loc.F("Bán cá được {0} bi", v), Icon("ball"));
+            RewardFly.Balls(v, sellBtn.transform.position);
             Render();
             onRefresh?.Invoke();
         }
@@ -555,8 +736,7 @@ namespace PokiClash
                 hits++;
                 if (hits - 1 < reel.pips.Length) reel.pips[hits - 1].color = Theme.Yellow;
                 flash = 1;
-                Haptics.Play(Haptic.UiTap);
-                App.Audio.Play("reel");
+                HitFeel(HitTier());
                 App.Audio.PlayGap("reelCrank", 0.9f, 0.7f); // guồng quay thật (gen Magnific, ArtGen/Sfx/casino)
                 Splash(bob, 5, 0.9f);
                 Ripple(bob, 0.9f);
@@ -573,6 +753,7 @@ namespace PokiClash
             }
             else
             {
+                perfectRun = 0;
                 timeLeft -= (float)Fishing.MissCost;
                 shake = 1;
                 penaltyT = 1;
@@ -699,6 +880,24 @@ namespace PokiClash
         {
             if (!sc.world) return;
             float dt = Mathf.Min(Time.unscaledDeltaTime, 0.05f);
+            float fxDt = dt;
+            // khựng hình khi chạm trúng: kim, đồng hồ, phao, người câu đứng lại một nhịp ngắn; hiệu ứng vẫn chạy
+            if (hitStop > 0)
+            {
+                hitStop -= dt;
+                dt = 0;
+                if (sc.fisher && !sc.fisher.Paused)
+                {
+                    sc.fisher.Paused = true;
+                    rigFrozen = true;
+                }
+            }
+            else if (rigFrozen)
+            {
+                rigFrozen = false;
+                if (sc.fisher) sc.fisher.Paused = false;
+            }
+            StepHitFx(fxDt);
             if (sc.fisher) sc.fisher.pixelScale = LocalPerPlate * RigK;
             float wig = Time.unscaledTime;
             if (castFallback > 0)
@@ -741,6 +940,7 @@ namespace PokiClash
             }
             StepFish(dt);
             StepDrops(dt);
+            bobDt = dt; // khựng hình: phao cũng đứng
             DrawBobberAndLine(wig);
             PushShader();
         }
@@ -937,7 +1137,7 @@ namespace PokiClash
         // phao: lò xo dọc (cm ảnh nền), nghiêng theo vận tốc và dây; hai bản hình cắt theo mặt nước
         void DrawBobberAndLine(float wig)
         {
-            float dt = Mathf.Min(Time.unscaledDeltaTime, 0.05f);
+            float dt = bobDt;
             var tip = TipLocal();
             bool showBob = st == St.Fly && released || st == St.Wait || st == St.Bite || st == St.Reel || st == St.Pull && leapT < 0
                            || st == St.Idle && relaxT > 0;

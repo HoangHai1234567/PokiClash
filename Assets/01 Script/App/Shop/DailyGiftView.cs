@@ -3,7 +3,8 @@
 // (UiKit.dailyGift, menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết" hoặc "Cửa hàng: chỉ màn quà ngày"), canvas riêng mở chồng mọi màn.
 // Nhịp: nền tối dần sang đen · chữ "Quà hôm nay" rơi xuống · loé trắng, vệt loé ngang, vòng toả, quầng vàng mềm bung rồi thở, hai lớp tia quay
 // ngược nhau (ánh sáng mềm cộng sáng pk_g_* của màn mở rương máy bi; người dùng chọn glow ở màn nhận quà) · hình quà bật ra, dập dềnh, sao vẽ
-// tay lấp lánh quanh · số "+N" · 1,0 s nút "Nhận ×2" (quảng cáo) bật ra to rồi thở 1,0 ↔ 1,1, quầng sau nút · 2,6 s nút "Nhận thường" mờ hiện
+// tay lấp lánh quanh · số "+N" · 1,0 s nút "Nhận ×2" (quảng cáo) bật ra to rồi thở 1,0 ↔ 1,1, viền sáng mỏng bám mép nút (shader
+// PokiClash/UIEdgeGlow, thay quầng mềm to sau nút: người dùng 2026-11-27 "lố quá") · 2,6 s nút "Nhận thường" mờ hiện
 // dưới. Chưa có quảng cáo (hay hết lượt) thì không có ×2, nút Nhận hiện ngay. Bấm ×2 xem xong: dấu ×2 đập xuống, số đếm lên gấp đôi; rồi quà bay
 // lên góc phải trên (chỗ chip bi) và màn tắt.
 // Quà thẻ tuần / tháng, gói nhận theo ngày đang chờ nhận cùng lúc (hàng nhỏ "Kèm quà thẻ"); ×2 chỉ nhân quà hôm nay (Shop.ClaimGift).
@@ -40,6 +41,7 @@ namespace PokiClash
 
         // nền đen hẳn (người dùng: "nền đen thôi"; khoảng màu Linear: 0,93 rồi 0,98 vẫn thấy rõ sảnh, soi 2026-11-27)
         const float DimA = 1f, X2At = 1.0f, PlainAfter = 1.6f;
+        const float GlowA = 0.6f; // độ sáng viền nút ×2 lúc thở nhỏ nhất (to nhất GlowA + 0,25)
 
         public static bool Playing { get; private set; }
 
@@ -49,9 +51,29 @@ namespace PokiClash
         static double Now => SaveService.Now();
 
         bool giftReady, idle, chosen;
+        Material glowMat;
         Vector2 itemHome;
         float[] starNext;
         int mainN;
+        ShopItem mainItem;
+        List<ShopItem> extraItems = new List<ShopItem>();
+
+        // quà toả thành icon bay về ô chứa (RewardFly): quà chính từ hình quà, quà kèm từ từng ô
+        void FlyRewards(int mainCount)
+        {
+            if (mainItem != null)
+                RewardFly.Send(RewardFly.OfShop(mainItem.k), RewardFly.IconFor(mainItem.k) ?? p.art.sprite, p.item.TransformPoint(p.item.rect.center),
+                    Math.Max(1, mainCount));
+            int i = 0;
+            foreach (RectTransform c in p.extras)
+            {
+                if (i >= extraItems.Count) break;
+                var it = extraItems[i];
+                if (c.gameObject.activeSelf && c.TryGetComponent<RewardTile>(out var rt))
+                    RewardFly.Send(RewardFly.OfShop(it.k), RewardFly.IconFor(it.k) ?? rt.FlyIcon, rt.FlyFrom, Math.Max(1, Shop.Norm(it).n), 0.1f + 0.08f * i);
+                i++;
+            }
+        }
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(Parts parts, RewardTile tile)
@@ -76,7 +98,39 @@ namespace PokiClash
             return true;
         }
 
-        void OnDestroy() => Playing = false;
+        void OnDestroy()
+        {
+            Playing = false;
+            if (glowMat) Destroy(glowMat);
+        }
+
+        // viền sáng bám mép nút ×2: Image không ảnh phủ nút, tràn GlowReach px mỗi bên, shader PokiClash/UIEdgeGlow (material
+        // Resources/UIEdgeGlow). Mép vẽ của ảnh nút sk_Button (128 px, cắt 9 ô viền 52 px, không phóng) lùi vào trong khung: trái 5,
+        // phải 11, trên 5, dưới 13 px. Đặt theo cỡ nút thật nên prefab dựng trước đổi (quầng ảnh to) vẫn ra viền mới.
+        const float GlowReach = 30;
+
+        void FitGlow()
+        {
+            var g = p.btnGlow;
+            var src = Resources.Load<Material>("UIEdgeGlow");
+            if (!src)
+            {
+                g.gameObject.SetActive(false);
+                return;
+            }
+            var size = p.x2.Rect.rect.size;
+            var rt = g.rectTransform;
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = p.x2.Rect.anchoredPosition;
+            rt.sizeDelta = size + 2 * GlowReach * Vector2.one;
+            rt.localScale = Vector3.one;
+            g.sprite = null;
+            if (!glowMat) glowMat = new Material(src);
+            g.material = glowMat;
+            glowMat.SetVector("_Box", new Vector4(size.x * 0.5f - 8, size.y * 0.5f - 9, -3, 4));
+            glowMat.SetVector("_Size", new Vector4(rt.sizeDelta.x, rt.sizeDelta.y, 0, 0));
+            glowMat.SetFloat("_Width", GlowReach);
+        }
 
         // ---------- dữ liệu ----------
 
@@ -126,6 +180,8 @@ namespace PokiClash
         {
             var (main, extra) = Contents();
             var first = main.FirstOrDefault() ?? extra.FirstOrDefault();
+            mainItem = first;
+            extraItems = extra;
             mainN = first != null ? Shop.Norm(first).n : 0;
             Theme.SetSprite(p.art, first != null ? ShopPage.ArtFor(new List<ShopItem> { first }) : App.Art.Icon("star"));
             p.art.preserveAspect = true;
@@ -149,6 +205,7 @@ namespace PokiClash
             p.plain.SetRole(canX2 ? BtnColor.Paper : BtnColor.Green);
             p.plain.SetOnClick(() => Choose(false, closed));
             if (!canX2) p.plain.Rect.localScale = Vector3.one * 1.3f;
+            FitGlow();
 
             // trạng thái đầu
             itemHome = p.item.anchoredPosition;
@@ -209,7 +266,7 @@ namespace PokiClash
                 p.x2Wrap.gameObject.SetActive(true);
                 App.Audio.Play("peg", 0.6f, 1.2f);
                 yield return Pop(p.x2Wrap, 1.18f, 0.32f);
-                StartCoroutine(Fade(p.btnGlow, 0, 0.55f, 0.3f));
+                StartCoroutine(Fade(p.btnGlow, 0, GlowA, 0.3f));
                 yield return Wait(PlainAfter);
             }
             if (!chosen)
@@ -292,21 +349,21 @@ namespace PokiClash
             }
             else yield return Wait(0.1f);
 
-            // quà bay lên góc trái trên (chip bi của thanh trên sảnh), ánh sáng tắt, nền sáng lại
+            // quà toả thành icon bay về ô chứa (người dùng 2026-11-27: thu được gì thì icon cái đó bay vào chỗ chứa nó), hình quà thu nhỏ
+            // tại chỗ, ánh sáng tắt, nền sáng lại
             idle = false;
             App.Audio.Play("whoosh", 0.7f, 1.3f);
+            FlyRewards(twice ? mainN * 2 : mainN);
             var from = p.item.anchoredPosition;
-            var parentRt = (RectTransform)p.item.parent;
-            var to = new Vector2(-parentRt.rect.width * 0.5f + 250, parentRt.rect.height * 0.5f - 150);
             foreach (var g in new Graphic[] { p.rays, p.rays2, p.halo, p.haloCore, p.title, p.count, p.itemName, p.extrasTitle })
                 StartCoroutine(Fade(g, g.color.a, 0, 0.3f));
             StartCoroutine(Shrink(p.extras, 0.25f));
             if (p.stamp.gameObject.activeSelf) StartCoroutine(Shrink((RectTransform)p.stamp.transform, 0.2f));
-            for (float t = 0, d = 0.45f; t < d; t += Time.unscaledDeltaTime)
+            for (float t = 0, d = 0.3f; t < d; t += Time.unscaledDeltaTime)
             {
-                float x = t / d, e = x * x;
-                p.item.anchoredPosition = Vector2.Lerp(from, to, e) + new Vector2(0, 160 * Mathf.Sin(x * Mathf.PI));
-                p.item.localScale = Vector3.one * Mathf.Lerp(1, 0.18f, e);
+                float x = t / d;
+                p.item.anchoredPosition = from;
+                p.item.localScale = Vector3.one * (x < 0.3f ? Mathf.Lerp(1, 1.12f, x / 0.3f) : Mathf.Lerp(1.12f, 0, (x - 0.3f) / 0.7f));
                 yield return null;
             }
             p.item.gameObject.SetActive(false);
@@ -332,13 +389,12 @@ namespace PokiClash
             p.halo.rectTransform.localScale = Vector3.one * (1 + 0.07f * Mathf.Sin(tt * 2.6f));
             SetA(p.halo, 0.62f + 0.18f * Mathf.Sin(tt * 2.6f));
             p.item.anchoredPosition = itemHome + new Vector2(0, 10 * Mathf.Sin(tt * 2.2f));
-            // nút ×2 thở to nhỏ 1,0 ↔ 1,1, quầng sau nút thở theo
+            // nút ×2 thở to nhỏ 1,0 ↔ 1,1; viền sáng (con của khung thở nên to nhỏ theo nút) chỉ sáng tối nhẹ theo nhịp
             if (p.x2Wrap.gameObject.activeSelf && !chosen)
             {
                 float b = 0.5f - 0.5f * Mathf.Cos(tt * Mathf.PI * 2 / 1.1f);
                 p.x2Wrap.localScale = Vector3.one * (1 + 0.1f * b);
-                SetA(p.btnGlow, 0.35f + 0.35f * b);
-                p.btnGlow.rectTransform.localScale = Vector3.one * (0.95f + 0.15f * b);
+                SetA(p.btnGlow, GlowA + 0.25f * b);
             }
             // sao vẽ tay lấp lánh quanh quà
             for (int i = 0; i < p.stars.Length; i++)

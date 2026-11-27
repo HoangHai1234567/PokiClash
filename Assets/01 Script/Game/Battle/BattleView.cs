@@ -330,7 +330,8 @@ namespace PokiClash
             {
                 var c = d.Card(q.card);
                 var tile = Tile(i);
-                tile.Bind(Icon(c.icon), c.name, Theme.Of(c.rarity), Theme.CardFill, false);
+                var tranh = App.Art ? App.Art.CardArt(c.id) : null; // thẻ chung có tranh (GD_Claude/36): ô hàng thẻ dùng đúng tranh như thẻ chọn
+                tile.Bind(tranh ? tranh : Icon(c.icon), c.name, Theme.Of(c.rarity), Theme.CardFill, false);
                 tile.transform.SetAsLastSibling();
                 if (i < execIdx) tile.Done();
                 if (i == execIdx) Now(tile);

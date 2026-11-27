@@ -5,8 +5,8 @@
 // - Items/TheXayNha: thẻ khay xây (biến thể Kit/Nut_Vua) icon to trên, tên + giá dưới (HomeTrayItem).
 // - Items/NhaVat: bong bóng có vòng tiến độ (ảnh vành khuyên vong_tien_do.png, Filled Radial360) và chạm được (ClickCatcher).
 // - Screens/Home: dựng lại lớp nha_ui (HomeSceneMenu.BuildUi gọi vào đây): dòng tài nguyên, vòng nút "vong" (HomeRing, 6 nút + nhãn
-//   tên), gợi ý một dòng, tấm xây "tam_xay" (tab lọc + khay cuộn ngang 2 hàng), bảng chữ cũ (dự phòng, ẩn), hàng nút dưới bằng nút tròn
-//   icon (Xây, Lát ô, Thu hết, Ra đảo).
+//   tên), gợi ý một dòng, tấm xây "tam_xay" (tab lọc + khay cuộn ngang 2 hàng), bảng chữ cũ (dự phòng, ẩn), hàng nút dưới: kệ gỗ + 4 thẻ
+//   giấy (Xây, Lát ô, Thu hết, Ra đảo) dựng ở HomeDockMenu.BuildBar (2026-11-27).
 // Chạy lại được: nút, thẻ dựng lại; vòng bong bóng có rồi thì giữ.
 using System.IO;
 using PokiClash.UI;
@@ -28,8 +28,8 @@ namespace PokiClash.EditorTools
         const string CardPath = "Assets/04 Prefabs/Items/TheXayNha.prefab";
         const string RingSpritePath = "Assets/03 Art/Home/vong_tien_do.png";
 
-        // cỡ (px, khung rộng 1080): nút tròn, icon trong nút, nút hàng dưới phóng thêm, tấm xây (cao, đáy), thẻ khay
-        const float BtnSize = 112, IconSize = 64, HudScale = 1.12f, SheetH = 520, SheetY = 234, HudY = 100; // HudY 62 → 100, SheetY 196 → 234: chữ dưới nút bị cắt ở đáy màn (soát UI 2026-11-23)
+        // cỡ (px, khung rộng 1080): nút tròn, icon trong nút, tấm xây (cao, đáy: trên kệ gỗ hàng nút dưới cao ~200), thẻ khay
+        const float BtnSize = 112, IconSize = 64, SheetH = 520, SheetY = 234;
         static readonly Vector2 CardSize = new Vector2(176, 195);
 
         [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà: giao diện kiểu Critters", priority = 66)]
@@ -365,26 +365,13 @@ namespace PokiClash.EditorTools
             var d = M.Button(assets, row, "d", "Dời", BtnColor.Purple, bsz);
             panel.gameObject.SetActive(false);
 
-            // hàng nút dưới: nút tròn icon có chữ dưới (kiểu nút màn chính của Critters), chấm đỏ trên Thu hết khi có đồ chờ thu
-            var bar = M.Node(ui, "hang_nut_nha", typeof(HorizontalLayoutGroup));
-            M.At(bar, new Vector2(0.5f, 0), new Vector2(0, HudY), new Vector2(1040, BtnSize * HudScale), new Vector2(0.5f, 0));
-            var hl = bar.GetComponent<HorizontalLayoutGroup>();
-            hl.spacing = 96;
-            hl.childAlignment = TextAnchor.MiddleCenter;
-            hl.childControlWidth = hl.childControlHeight = false;
-            hl.childForceExpandWidth = hl.childForceExpandHeight = false;
-            HomeRingButton Hud(string name, string label, string icon, BtnColor color)
-            {
-                var hb = SpawnRing(ringBtn, bar, name);
-                hb.Rt.sizeDelta = new Vector2(BtnSize, BtnSize);
-                hb.Rt.localScale = Vector3.one * HudScale;
-                hb.Set(art ? art.Icon(icon) : null, label, null, color, true, null);
-                return hb;
-            }
-            var hBuild = Hud("xay", "Xây", "hammer", BtnColor.Green);
-            var hPaint = Hud("lat", "Lát ô", "pencil", BtnColor.Yellow);
-            var hHarvest = Hud("thu", "Thu hết", "seed", BtnColor.Orange);
-            var hSail = Hud("ra_dao", "Ra đảo", "map", BtnColor.Blue);
+            // hàng nút dưới: kệ gỗ + 4 thẻ giấy như hàng nút đáy sảnh (HomeDockMenu, người dùng 2026-11-27: "phải có 1 nền đằng sau, có thể
+            // làm giống phần đảo chính, icon quá nhỏ"); chấm đỏ trên Thu hết khi có đồ chờ thu
+            var hud = HomeDockMenu.BuildBar(ui);
+            var hBuild = hud[0];
+            var hPaint = hud[1];
+            var hHarvest = hud[2];
+            var hSail = hud[3];
 
             scene.SetupUi(res, hint, hBuild.Button, hPaint.Button, hHarvest.Button, hSail.Button, tray, assets.prefabs.buttonSmall, panel.rectTransform,
                 title, body, a, b, c, d);

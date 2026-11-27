@@ -6,7 +6,8 @@
 //   mép trên, icon to, nhãn chữ mực in trên thẻ; là SketchButton (lún, nảy, nét mực bung như mọi nút);
 // - Máy Bi: nút tròn sticker cũ, phóng to, nhô lên khỏi mép bàn, vẫn thở; nhãn là mảnh băng keo vàng đè dưới;
 // - chấm số đỏ: góc trên phải mỗi nút.
-// Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)" chạy lại được: giữ nút Máy Bi và chấm số của HubScene.bottom, icon thẻ lấy
+// Hàng nút nằm trong App.prefab, giao diện sảnh chung LobbyDock (2026-11-27, dời bằng LobbyDockMenu): menu sửa ở đó.
+// Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)" chạy lại được: giữ nút Máy Bi và chấm số của LobbyDock.bottom, icon thẻ lấy
 // theo tên trong Fallback/Icons (shop, house vẽ cùng nét bộ icon web, 2026-11-23), rồi dựng lại.
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace PokiClash.EditorTools
 {
     public static class HubDockMenu
     {
-        const string HubPath = "Assets/04 Prefabs/Screens/Hub.prefab";
+        const string HubPath = LobbyDockMenu.AppPath; // hàng nút ở App.prefab (sảnh chung)
         const string WoodPath = "Assets/03 Art/Boot/boot_ban_go.png";
         const string CardPath = "Assets/03 Art/Boot/boot_giay_ghi.png";
         const string TapePath = UiRefreshMenu.TapePath; // băng keo trắng gạch chéo, tô màu được
@@ -59,13 +60,18 @@ namespace PokiClash.EditorTools
             var root = PrefabUtility.LoadPrefabContents(HubPath);
             try
             {
-                var hub = root.GetComponent<HubScene>();
+                var hub = root.GetComponentInChildren<LobbyDock>(true);
+                if (!hub)
+                {
+                    Debug.LogError("[Sảnh] App.prefab chưa có LobbyDock: chạy menu \"Sảnh chung: dời hàng nút, cột công trình, cột ưu đãi sang App\" trước.");
+                    return;
+                }
                 var so = new SerializedObject(hub);
                 var arr = so.FindProperty("bottom");
                 var row = root.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.name == "hang_nut");
                 if (!row || arr.arraySize != 5)
                 {
-                    Debug.LogError("[Sảnh] Không thấy hang_nut hoặc HubScene.bottom không đủ 5 nút.");
+                    Debug.LogError("[Sảnh] Không thấy hang_nut hoặc LobbyDock.bottom không đủ 5 nút.");
                     return;
                 }
                 var kitButton = Theme.Prefabs.buttonNormal;

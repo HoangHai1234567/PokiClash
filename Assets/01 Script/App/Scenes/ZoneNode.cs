@@ -123,8 +123,9 @@ namespace PokiClash
 
         // pos: chỗ ải trong khung ảnh đảo (gốc trên trái), là tâm mặt bệ; side: bảng tên bên phải (1) hay trái (-1)
         // shadeLocked: ải chưa mở thì tướng thành bóng sẫm (đảo vùng đất để đủ màu, người dùng chốt 2026-11-13)
+        // mystery: boss cuối đảo còn giấu (ZoneHeader.BossHidden): bóng sẫm dù đảo để đủ màu, tên "???"
         public void Bind(StageDef st, HeroDef hero, int formStar, int level, bool open, bool cleared, bool current, Vector2 pos, int side,
-            Sprite pedestal, Action onClick, bool shadeLocked = true)
+            Sprite pedestal, Action onClick, bool shadeLocked = true, bool mystery = false)
         {
             name = "ai_" + st.idx;
             float w = Width(st.kind), hh = HeroHeight(st.kind);
@@ -144,7 +145,7 @@ namespace PokiClash
             p.glowPulse.enabled = current;
 
             // tướng đứng giữa mặt bệ (gốc ảnh chân dung ở chân)
-            p.hero.Bind(hero, hh, shadeLocked && !open, formStar);
+            p.hero.Bind(hero, hh, (shadeLocked && !open) || mystery, formStar);
             var hr = p.hero.Rect;
             hr.anchorMin = hr.anchorMax = new Vector2(0.5f, 0.5f);
             hr.anchoredPosition = new Vector2(0, 0.04f * ph);
@@ -187,7 +188,7 @@ namespace PokiClash
                 p.crown.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0, 26), new Vector2(46, 46), new Vector2(0.5f, 0.5f));
             }
 
-            p.heroName.text = hero.Form(App.Data.Cfg.formStars, formStar).name;
+            p.heroName.text = mystery ? "???" : hero.Form(App.Data.Cfg.formStars, formStar).name;
             p.heroName.color = open ? Theme.Ink : Theme.Ink3;
             p.level.text = st.kind == StageKind.Boss ? Loc.F("Boss · Cấp {0}", level) : st.kind == StageKind.Mini ? Loc.F("Mini boss · Cấp {0}", level) : Loc.F("Cấp {0}", level);
             p.level.color = open ? Theme.Ink2 : Theme.Ink3;

@@ -19,6 +19,18 @@ namespace PokiClash
         [SerializeField] RectTransform tileRow;
         [SerializeField] SketchButton adButton; // nút quảng cáo riêng dưới lời khuyên (Tiếp sức / Nhận ×2, GD_Claude/26 mục 8.1), menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"
         int used;
+        bool collected; // icon thưởng đã bay (một lần mỗi hộp)
+
+        // rời hộp: icon từng ô thưởng bay về ô chứa (RewardFly; màn trận không có ô chứa thì bay về hướng chỗ ô chứa rồi mờ)
+        void Collect()
+        {
+            if (collected) return;
+            collected = true;
+            int i = 0;
+            foreach (Transform c in tileRow)
+                if (c.gameObject.activeSelf && c.TryGetComponent<RewardTile>(out var t))
+                    RewardFly.Send(t.Dest, t.FlyIcon, t.FlyFrom, t.Amount, 0.08f * i++);
+        }
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(UiStamp stampView, TextMeshProUGUI titleText, TextMeshProUGUI statsText, TextMeshProUGUI tipsText, SketchButton[] btns,
@@ -44,6 +56,7 @@ namespace PokiClash
             for (int i = tileRow.childCount - 1; i >= 0; i--) Destroy(tileRow.GetChild(i).gameObject);
             tileRow.gameObject.SetActive(false);
             used = 0;
+            collected = false;
             foreach (var b in buttons) b.gameObject.SetActive(false);
             if (adButton) adButton.gameObject.SetActive(false);
         }
@@ -60,7 +73,11 @@ namespace PokiClash
             {
                 if (!ok) return;
                 if (keep) adButton.gameObject.SetActive(false);
-                else Close();
+                else
+                {
+                    Collect();
+                    Close();
+                }
                 onOk?.Invoke();
             }));
             return adButton;
@@ -95,6 +112,7 @@ namespace PokiClash
             if (le) le.preferredWidth = width;
             b.SetOnClick(() =>
             {
+                Collect();
                 Close();
                 onClick?.Invoke();
             });

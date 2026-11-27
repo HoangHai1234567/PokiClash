@@ -67,6 +67,7 @@ namespace PokiClash.Core
     public sealed class HomeYield
     {
         public int balls, wood, ore, evo, stones, bread;
+        public bool bagFull; // bi còn nằm lại vì túi bi đầy (BallBag)
         public List<Reward> other = new List<Reward>(); // câu cá: thẻ, kinh nghiệm
         public List<string> deco = new List<string>(); // câu cá: cúp
         public bool Any => balls + wood + ore + evo + stones + bread > 0 || other.Count > 0 || deco.Count > 0;
@@ -893,7 +894,7 @@ namespace PokiClash.Core
             Tick(s, d, now);
             var y = new HomeYield();
             var b = Find(s.home, id);
-            if (b != null) Collect(s, d, b, y);
+            if (b != null) Collect(s, d, b, y, now);
             return y;
         }
 
@@ -901,14 +902,14 @@ namespace PokiClash.Core
         {
             Tick(s, d, now);
             var y = new HomeYield();
-            foreach (var b in s.home.buildings) Collect(s, d, b, y);
+            foreach (var b in s.home.buildings) Collect(s, d, b, y, now);
             return y;
         }
 
         // đồ đang tích (phần nguyên) của công trình b
         public static int Stock(HomeBuilding b) => b.slots.Sum(sl => (int)Math.Floor(sl.stock + 1e-9));
 
-        static void Collect(SaveData s, GameData d, HomeBuilding b, HomeYield y)
+        static void Collect(SaveData s, GameData d, HomeBuilding b, HomeYield y, double now)
         {
             var df = Def(d.Cfg, b.def);
             if (df.kind != "prod") return;
@@ -919,6 +920,13 @@ namespace PokiClash.Core
                 if (df.output == "wood") n = Math.Min(n, (int)Math.Floor(WoodCap(h, d.Cfg) - h.wood));
                 else if (df.output == "ore") n = Math.Min(n, (int)Math.Floor(OreCap(h, d.Cfg) - h.ore));
                 else if (df.output == "bread") n = Math.Min(n, d.Cfg.home.breadCap - h.bread);
+                else if (df.output == "balls")
+                {
+                    // túi bi: chỉ lấy tới đầy, phần thừa nằm lại công trình
+                    int room = BallBag.Room(s, d.Cfg, now);
+                    if (n > room) y.bagFull = true;
+                    n = Math.Min(n, room);
+                }
                 if (n <= 0) continue;
                 sl.stock -= n;
                 switch (df.output)

@@ -3,6 +3,8 @@
 // - Habitat: mỗi ải tướng một bệ ZoneNode (Items/BeAi) đặt ở tâm bệ của ảnh nền, không vẽ bệ đất (ảnh nền đã có), phóng theo cỡ
 //   habitat; tướng chạy rig .atomik qua AolaSticker: idle liên tục, cứ 8–15 giây đánh một lần (hai con trong khung không đánh
 //   cùng lúc), chạm thì đánh ngay rồi camera lướt tới và mở hộp chuẩn bị. Ải chưa mở vẫn đủ màu (người dùng chốt 2026-11-13).
+//   Riêng boss cuối đảo còn giấu (ZoneHeader.BossHidden, người dùng 2026-11-27): bóng đen vẫn cử động, bảng tên "???", chạm chỉ vung
+//   đòn và báo cấp boss.
 //   Ải đã qua: idle chậm lại, thôi đánh. Ải vừa mở (thắng xong quay về): camera lướt từ ải trước tới, tướng diễn ra sân.
 // - Ải xen giữa: cờ LandFlag (Items/CoAi; góp ý 2026-11-18: chia đều, không số, nổi bật, đổi sang cờ), cỡ ở land.pip, rải đều
 //   trên phần đường ngoài vòng đá và thân tướng; điểm mốc mỗi habitat trượt trong đoạn đường ôm vòng đá cho các chặng thưa đều
@@ -74,6 +76,7 @@ namespace PokiClash
         public static float LandHeroH(int size) => size >= 4 ? 480 : 360;
         const float AtkMin = 8, AtkMax = 15, AtkGap = 2, TapOpen = 0.45f, SeaBleed = 20000;
         const string Idle = StageView.Idle, Attack = StageView.Attack, Appear = Game.AolaActor.Appear;
+        const float MysteryTint = 0.16f; // boss cuối còn giấu: hình xám nhân tối thành bóng đen
 
         sealed class LandHero
         {
@@ -83,6 +86,7 @@ namespace PokiClash
             public string form;
             public AolaSticker sticker;
             public bool failed, cleared, appear, locked; // locked: ở vùng boss chưa mở (đứng yên, tô tối)
+            public bool hidden; // boss cuối đảo còn giấu (ZoneHeader.BossHidden): bóng đen vẫn cử động, chạm chỉ báo cấp boss
             public string lockMsg;
             public float stand, scale, t, next;
             public string clip = Idle;
@@ -464,11 +468,11 @@ namespace PokiClash
                 {
                     st = st, hero = hero, cleared = cleared, pos = at, scale = scale, bodyH = LandHeroH(h.size) * 0.62f,
                     stand = ZoneNode.HeroHeight(st.kind) * 0.62f, form = hero.Form(d.Cfg.formStars, fs).aola,
-                    appear = newOpen && current, locked = Locked(h.stage),
+                    appear = newOpen && current, locked = Locked(h.stage), hidden = ZoneHeader.BossHidden(s, d, st),
                 };
                 if (lh.locked) lh.lockMsg = LockMsg(h.stage);
                 var node = Ui.Spawn(nodePrefab, p.nodeLayer);
-                node.Bind(st, hero, fs, en.level, open, cleared, current, at, h.plate, null, () => TapHabitat(lh), false);
+                node.Bind(st, hero, fs, en.level, open, cleared, current, at, h.plate, null, () => TapHabitat(lh), false, lh.hidden);
                 node.Rect.localScale = Vector3.one * scale;
                 if (lh.locked)
                 {
@@ -1093,6 +1097,18 @@ namespace PokiClash
                 App.Toasts.Show(h.lockMsg, Icon("lock"));
                 return;
             }
+            if (h.hidden)
+            {
+                // boss cuối còn giấu: bóng đen vung đòn tại chỗ, báo cấp boss, không mở hộp chuẩn bị
+                if (h.sticker != null && h.sticker.HasClip(Attack) && h.clip == Idle)
+                {
+                    h.clip = Attack;
+                    h.t = 0;
+                    lastAtk = landClock;
+                }
+                ZoneHeader.BossTip(App.Data, h.st);
+                return;
+            }
             if (h.sticker != null && h.sticker.HasClip(Attack))
             {
                 h.clip = Attack;
@@ -1192,7 +1208,7 @@ namespace PokiClash
                     h.sticker.Hold();
                     continue;
                 }
-                h.sticker.Show(h.clip, h.t, h.clip == Idle, 1, false, 0);
+                h.sticker.Show(h.clip, h.t, h.clip == Idle, 1, h.hidden, 0);
             }
         }
 
@@ -1211,6 +1227,7 @@ namespace PokiClash
                     continue;
                 }
                 h.sticker.Rect.localScale = Vector3.one / h.scale;
+                if (h.hidden) h.sticker.Tint = MysteryTint;
                 h.node.ShowPortraitBody(false);
                 if (h.locked)
                 {
@@ -1231,7 +1248,7 @@ namespace PokiClash
                     h.t = 0;
                     h.appear = false;
                 }
-                h.sticker.Show(h.clip, h.t, h.clip == Idle, 1, false, 0);
+                h.sticker.Show(h.clip, h.t, h.clip == Idle, 1, h.hidden, 0);
                 return;
             }
         }

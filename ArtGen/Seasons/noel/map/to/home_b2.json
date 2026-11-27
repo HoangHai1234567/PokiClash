@@ -1,0 +1,177 @@
+{
+ "sheet": "home_b2",
+ "W": 1536,
+ "H": 1024,
+ "items": [
+  {
+   "name": "home_b_storage",
+   "src": "Home/home_b_storage.png",
+   "crop": [
+    0,
+    0,
+    401,
+    374
+   ],
+   "dst": [
+    26,
+    26,
+    352,
+    328
+   ],
+   "scale": 0.8778054862842892
+  },
+  {
+   "name": "home_b_sawmill",
+   "src": "Home/home_b_sawmill.png",
+   "crop": [
+    0,
+    0,
+    397,
+    369
+   ],
+   "dst": [
+    412,
+    26,
+    349,
+    324
+   ],
+   "scale": 0.8790931989924433
+  },
+  {
+   "name": "home_b_orchard",
+   "src": "Home/home_b_orchard.png",
+   "crop": [
+    0,
+    0,
+    397,
+    351
+   ],
+   "dst": [
+    795,
+    26,
+    349,
+    308
+   ],
+   "scale": 0.8790931989924433
+  },
+  {
+   "name": "home_b_hotspring",
+   "src": "Home/home_b_hotspring.png",
+   "crop": [
+    0,
+    0,
+    413,
+    346
+   ],
+   "dst": [
+    26,
+    388,
+    363,
+    304
+   ],
+   "scale": 0.8789346246973365
+  },
+  {
+   "name": "home_b_pond",
+   "src": "Home/home_b_pond.png",
+   "crop": [
+    0,
+    0,
+    407,
+    328
+   ],
+   "dst": [
+    423,
+    388,
+    357,
+    288
+   ],
+   "scale": 0.8771498771498771
+  },
+  {
+   "name": "home_b_swing",
+   "src": "Home/home_b_swing.png",
+   "crop": [
+    0,
+    0,
+    254,
+    325
+   ],
+   "dst": [
+    814,
+    388,
+    223,
+    285
+   ],
+   "scale": 0.8779527559055118
+  },
+  {
+   "name": "home_b_tree",
+   "src": "Home/home_b_tree.png",
+   "crop": [
+    0,
+    0,
+    254,
+    324
+   ],
+   "dst": [
+    1071,
+    388,
+    223,
+    285
+   ],
+   "scale": 0.8779527559055118
+  },
+  {
+   "name": "home_b_field",
+   "src": "Home/home_b_field.png",
+   "crop": [
+    0,
+    0,
+    397,
+    310
+   ],
+   "dst": [
+    26,
+    726,
+    349,
+    272
+   ],
+   "scale": 0.8790931989924433
+  },
+  {
+   "name": "home_b_well",
+   "src": "Home/home_b_well.png",
+   "crop": [
+    0,
+    0,
+    254,
+    303
+   ],
+   "dst": [
+    409,
+    726,
+    223,
+    266
+   ],
+   "scale": 0.8779527559055118
+  },
+  {
+   "name": "home_b_bench",
+   "src": "Home/home_b_bench.png",
+   "crop": [
+    0,
+    0,
+    254,
+    252
+   ],
+   "dst": [
+    666,
+    726,
+    223,
+    221
+   ],
+   "scale": 0.8779527559055118
+  }
+ ]
+}

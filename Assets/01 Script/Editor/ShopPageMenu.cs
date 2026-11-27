@@ -1,10 +1,15 @@
 // Dựng prefab màn cửa hàng toàn màn hình (ShopPage) và màn nở trứng (EggHatchView), gọi từ menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"
 // (ShopMenu.BuildAll). GD_Claude/26 mục 13. Prefab:
-// - Items/MucCuaHang (ShopSection): ruy băng đỏ máy bi (pk_ruy_bang) ghi tên mục, đồng hồ bên phải;
+// Bản 3 (2026-11-27, học cửa hàng Clash of Critters, mục 15): sprite Assets/03 Art/Shop/v3 (ArtGen/Shop/v3/ve_ui.py --assets), màu ShopHue.
+// - Items/MucCuaHang (ShopSection): băng tím caro thoi viền mực, tên mục vàng, đồng hồ bên phải;
 // - Items/LuoiCuaHang (ShopGrid): GridLayoutGroup, cột / cỡ ô đặt lúc chạy;
-// - Items/OCuaHang (ShopTile): tờ giấy pha màu, hình to (hoặc chồng 3 quả), số, tên, dòng phụ, nhãn góc, sticker ×N, nút giá, chấm đỏ;
-// - Items/TheCuaHang (ShopCard): thẻ ngang to: hình / mặt tướng trái, tên, mô tả, hàng ô thưởng thu nhỏ, đồng hồ, sticker, hai nút;
-// - Dialogs/CuaHangLon (ShopPage): biến thể tờ giấy gốc HopThoai trải kín màn: tiêu đề, số bi, hàng 5 nút mục, trang cuộn dọc; vào UiKit;
+// - Items/OMonCuaHang (ShopItemCell): ô món kem viền mực, hình, vạch tối ghi số;
+// - Items/OCuaHang (ShopTile): nền màu tươi caro + sao nổ, tên trên đầu, hình to (hoặc chồng 3 quả), số, dòng phụ, nhãn góc, nhãn đỏ ×N,
+//   dải tối đáy có nút giá xanh lá, chấm đỏ;
+// - Items/TheCuaHang (ShopCard): thẻ ngang: nền ba lớp (màu chính + mảng phải cắt chéo + sao nổ), dải tên tối, hình / mặt tướng trái,
+//   ô món canh phải, mô tả, đồng hồ, nhãn đỏ "Giá trị ×N", nút giá xanh lá và nút phụ;
+// - Dialogs/CuaHangLon (ShopPage): biến thể tờ giấy gốc HopThoai trải kín màn, phủ nền tối: thanh trên (số bi, tiêu đề vàng, nút đóng), cột
+//   5 mục bên trái (hình gói + tên, ô chọn tím → lam), trang cuộn dọc bên phải; vào UiKit;
 // - Items/NoTrung (EggHatchView): canvas riêng: nền tối, hai lớp tia, vòng toả, trứng hai nửa (vòm / thân), chớp trắng, 16 sao, chữ,
 //   chỗ ô mảnh, lưới bảng tổng, nút Nhận / Bỏ qua; gán UiKit.eggHatch;
 // - Items/MoKhoaTuong (HeroUnlockView): canvas riêng: nền gradient màu bậc, trang sổ (dòng kẻ, lề đỏ, ruy băng TƯỚNG MỚI!), chỗ
@@ -12,7 +17,8 @@
 //   tướng / Tiếp), sao trắng, bút chì (2026-11-24: bút chì vẽ tướng lên trang sổ rồi tướng bật ra); gán UiKit.heroUnlock.
 // - Items/QuaNgay (DailyGiftView, 2026-11-27): canvas riêng: nền đen, hai lớp tia + quầng + lõi quầng + vòng + vệt loé (ảnh sáng mềm pk_g_*
 //   cộng sáng, material Resources/UIAdditive), hình quà, dấu ×2, số, tên món, hàng quà kèm, sao vẽ tay, chớp trắng, chữ "Quà hôm nay",
-//   nút "Nhận ×2" to (TV, quầng sau nút) và nút "Nhận thường" nhỏ (nhóm mờ dần); gán UiKit.dailyGift.
+//   nút "Nhận ×2" to (TV, viền sáng bám mép nút: material Resources/UIEdgeGlow, 2026-11-27) và nút "Nhận thường" nhỏ (nhóm mờ dần);
+//   gán UiKit.dailyGift.
 using System.Linq;
 using PokiClash.UI;
 using TMPro;
@@ -31,6 +37,7 @@ namespace PokiClash.EditorTools
         const string GridPath = "Assets/04 Prefabs/Items/LuoiCuaHang.prefab";
         const string TilePath = "Assets/04 Prefabs/Items/OCuaHang.prefab";
         const string CardPath = "Assets/04 Prefabs/Items/TheCuaHang.prefab";
+        const string ItemCellPath = "Assets/04 Prefabs/Items/OMonCuaHang.prefab";
         const string PagePath = "Assets/04 Prefabs/Dialogs/CuaHangLon.prefab";
         const string HatchPath = "Assets/04 Prefabs/Items/NoTrung.prefab";
         const string UnlockPath = "Assets/04 Prefabs/Items/MoKhoaTuong.prefab";
@@ -46,11 +53,24 @@ namespace PokiClash.EditorTools
             var section = BuildSection();
             var grid = BuildGrid();
             var tile = BuildTile();
-            var card = BuildCard();
+            var card = BuildCard(BuildItemCell());
             BuildPage(section, grid, tile, card);
             BuildHatch();
             BuildUnlock();
             BuildGift();
+        }
+
+        // chỉ màn cửa hàng (bản 3): mục, lưới, ô món, ô, thẻ, màn; không dựng lại màn nở trứng / mở khoá / quà ngày, không đụng App.prefab
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: chỉ màn cửa hàng (CuaHangLon)", priority = 71)]
+        public static void BuildShopOnly()
+        {
+            var section = BuildSection();
+            var grid = BuildGrid();
+            var tile = BuildTile();
+            var card = BuildCard(BuildItemCell());
+            BuildPage(section, grid, tile, card);
+            AssetDatabase.SaveAssets();
+            Debug.Log("[Cửa hàng] Đã dựng màn cửa hàng bản 3: MucCuaHang, LuoiCuaHang, OMonCuaHang, OCuaHang, TheCuaHang, CuaHangLon.");
         }
 
         static GameObject NewRoot(string name, params System.Type[] comps) => Rt(name, null, comps).gameObject;
@@ -82,25 +102,113 @@ namespace PokiClash.EditorTools
             t.outlineColor = Theme.Ink;
         }
 
+        // ---------- bản 3: sprite, màu, nút (GD_Claude/26 mục 17) ----------
+
+        const string V3 = "Assets/03 Art/Shop/v3/";
+        internal static readonly Color Navy = Theme.Hex("#16142a"), Gold = Theme.Hex("#ffd84a"), TopBg = Theme.Hex("#1f1f2b"), SideBg = Theme.Hex("#1b163e"),
+            DoneGreen = Theme.Hex("#a6ff6e");
+        internal static readonly Vector4 CardBorder = new Vector4(40, 110, 40, 40), TileBorder = new Vector4(34, 104, 34, 34), Round30 = new Vector4(30, 30, 30, 30),
+            BtnBorder = new Vector4(36, 36, 36, 36);
+        internal static readonly Vector4 PillBorder = new Vector4(24, 24, 24, 24); // vien.png: viên thuốc trơn của bộ v3 (Sketch.Pill rỗng khi dựng ngoài "dựng hết")
+
+        // sprite bản 3 (ArtGen/Shop/v3/ve_ui.py --assets), đặt viền 9 mảnh (trái, dưới, phải, trên)
+        internal static Sprite V3Sprite(string name, Vector4 border)
+        {
+            string path = V3 + name + ".png";
+            var ti = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (!ti)
+            {
+                Debug.LogError($"[Cửa hàng] Thiếu {path}: chạy ArtGen/Shop/v3/ve_ui.py --assets");
+                return null;
+            }
+            if (ti.spriteBorder != border)
+            {
+                ti.spriteBorder = border;
+                ti.SaveAndReimport();
+            }
+            return AssetDatabase.LoadAssetAtPath<Sprite>(path);
+        }
+
+        // chữ trắng / vàng viền mực xanh thẫm (trên nền màu tươi)
+        internal static void Ink(TextMeshProUGUI t, float width)
+        {
+            t.outlineWidth = width;
+            t.outlineColor = Navy;
+        }
+
+        internal static Image Sliced(string name, Transform parent, Sprite s, Color c)
+        {
+            var img = Img(name, parent, s, c);
+            img.type = Image.Type.Sliced;
+            img.rectTransform.Stretch();
+            return img;
+        }
+
+        // chữ nút: chép chữ của nút kit (đúng phông + material viền chữ mà SketchButton đổi theo vai trò)
+        internal static TextMeshProUGUI KitLabel(Transform parent, float size)
+        {
+            var src = Kit.buttonNormal.Label;
+            var t = Object.Instantiate(src.gameObject, parent, false).GetComponent<TextMeshProUGUI>();
+            t.name = "chu";
+            foreach (var c in t.GetComponents<ContentSizeFitter>()) Object.DestroyImmediate(c);
+            foreach (var c in t.GetComponents<LayoutElement>()) Object.DestroyImmediate(c);
+            for (int i = t.transform.childCount - 1; i >= 0; i--) Object.DestroyImmediate(t.transform.GetChild(i).gameObject);
+            t.enableAutoSizing = true;
+            t.fontSizeMax = size;
+            t.fontSizeMin = 16;
+            t.fontSize = size;
+            t.alignment = TextAlignmentOptions.Center;
+            t.textWrappingMode = TextWrappingModes.NoWrap;
+            t.raycastTarget = false;
+            return t;
+        }
+
+        internal static (Material outlined, Material plain) KitLabelMats()
+        {
+            var so = new SerializedObject(Kit.buttonNormal);
+            return ((Material)so.FindProperty("labelOutlined").objectReferenceValue, (Material)so.FindProperty("labelPlain").objectReferenceValue);
+        }
+
+        // nút giá: tấm xám hai tông viền mực (nut_gia) tô xanh lá; đè đổi tấm tối (nut_gia_an)
+        internal static SketchButton PriceButton(Transform parent, string name, float w, float h, float font)
+        {
+            var (outlined, plain) = KitLabelMats();
+            var img = Img(name, parent, V3Sprite("nut_gia", BtnBorder), ShopHue.Lime);
+            img.type = Image.Type.Sliced;
+            img.raycastTarget = true;
+            img.rectTransform.sizeDelta = new Vector2(w, h);
+            var label = KitLabel(img.transform, font);
+            label.rectTransform.Stretch(22, 8, 22, 18); // chừa môi tối dưới
+            var b = img.gameObject.AddComponent<SketchButton>();
+            b.Setup(img, label, false, img.sprite, V3Sprite("nut_gia_an", BtnBorder), outlined, plain);
+            b.SetRole(BtnColor.Green);
+            b.SetColor(ShopHue.Lime);
+            b.SetText("Mua");
+            return b;
+        }
+
         // ---------- mục ----------
 
         static ShopSection BuildSection()
         {
             var (titleTpl, hintTpl) = Templates();
             var root = NewRoot("MucCuaHang", typeof(LayoutElement));
-            Le(root.GetComponent<RectTransform>(), 120);
-            ((RectTransform)root.transform).sizeDelta = new Vector2(1000, 120);
-            var ribbon = Img("ruy_bang", root.transform, Art("Assets/03 Art/Pachinko/pk_ruy_bang.png"), Color.white);
-            ribbon.preserveAspect = true;
-            ribbon.rectTransform.Place(new Vector2(0.5f, 0.5f), new Vector2(0, 0), new Vector2(600, 128));
-            var title = Text(titleTpl, ribbon.transform, "ten", 40, TextAlignmentOptions.Center, Color.white);
-            title.rectTransform.Stretch(90, 22, 90, 40);
-            Outline(title, 0.22f);
-            var pill = Img("dong_ho", root.transform, Sketch.Pill, Theme.Paper);
+            Le(root.GetComponent<RectTransform>(), 100);
+            ((RectTransform)root.transform).sizeDelta = new Vector2(ShopPage.ContentW, 100);
+            var band = Sliced("bang", root.transform, V3Sprite("muc_bang", Round30), Color.white);
+            var title = Text(titleTpl, band.transform, "ten", 54, TextAlignmentOptions.Center, Gold);
+            title.rectTransform.Stretch(150, 4, 150, 12);
+            title.enableAutoSizing = true;
+            title.fontSizeMin = 30;
+            title.fontSizeMax = 54;
+            title.textWrappingMode = TextWrappingModes.NoWrap;
+            Ink(title, 0.3f);
+            var pill = Img("dong_ho", band.transform, V3Sprite("vien", PillBorder), Navy);
             pill.type = Image.Type.Sliced;
-            pill.rectTransform.Place(new Vector2(1, 0.5f), new Vector2(-6, 0), new Vector2(200, 48), new Vector2(1, 0.5f));
-            var timer = Text(hintTpl, pill.transform, "chu", 26, TextAlignmentOptions.Center, Theme.RedD);
-            timer.rectTransform.Stretch();
+            pill.rectTransform.Place(new Vector2(1, 0.5f), new Vector2(-16, 0), new Vector2(190, 54), new Vector2(1, 0.5f));
+            var timer = Text(hintTpl, pill.transform, "chu", 26, TextAlignmentOptions.Center, Color.white);
+            timer.rectTransform.Stretch(6, 2, 6, 2);
+            timer.fontStyle = FontStyles.Bold;
             root.AddComponent<ShopSection>().Setup(title, timer, pill.gameObject);
             return Save<ShopSection>(root, SectionPath);
         }
@@ -111,8 +219,8 @@ namespace PokiClash.EditorTools
         {
             var root = NewRoot("LuoiCuaHang", typeof(GridLayoutGroup), typeof(ContentSizeFitter));
             var g = root.GetComponent<GridLayoutGroup>();
-            g.spacing = new Vector2(20, 22);
-            g.cellSize = new Vector2(320, 430);
+            g.spacing = new Vector2(16, 20);
+            g.cellSize = new Vector2(275, 430);
             g.childAlignment = TextAnchor.UpperCenter;
             g.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             g.constraintCount = 3;
@@ -121,24 +229,48 @@ namespace PokiClash.EditorTools
             return Save<ShopGrid>(root, GridPath);
         }
 
+        // ---------- ô món trong thẻ ----------
+
+        static ShopItemCell BuildItemCell()
+        {
+            var root = NewRoot("OMonCuaHang", typeof(CanvasRenderer), typeof(Image));
+            ((RectTransform)root.transform).sizeDelta = new Vector2(ShopItemCell.Size, ShopItemCell.Size);
+            var frame = root.GetComponent<Image>();
+            Theme.SetSprite(frame, V3Sprite("o_mon", Vector4.zero));
+            frame.raycastTarget = false;
+            var icon = Img("hinh", root.transform, null, Color.white);
+            Anchors(icon.rectTransform, new Vector2(0.1f, 0.35f), new Vector2(0.9f, 0.94f));
+            icon.preserveAspect = true;
+            var heroBox = Anchors(Rt("khung_tuong", root.transform, typeof(RectMask2D)), new Vector2(0.06f, 0.33f), new Vector2(0.94f, 0.96f));
+            // số trắng to trong vạch tối (bản đầu chữ tự co còn ~13 px, không đọc được)
+            var (titleTpl, _) = Templates();
+            var count = Text(titleTpl, root.transform, "so", 38, TextAlignmentOptions.Center, Color.white);
+            Anchors(count.rectTransform, new Vector2(0.02f, 0.0f), new Vector2(0.98f, 0.33f));
+            count.textWrappingMode = TextWrappingModes.NoWrap;
+            count.overflowMode = TextOverflowModes.Overflow;
+            count.transform.SetAsLastSibling();
+            root.AddComponent<ShopItemCell>().Setup(frame, icon, count, heroBox);
+            return Save<ShopItemCell>(root, ItemCellPath);
+        }
+
         // ---------- ô ----------
 
         static ShopTile BuildTile()
         {
-            var kit = Kit;
             var (titleTpl, hintTpl) = Templates();
             var root = NewRoot("OCuaHang", typeof(CanvasRenderer), typeof(Image));
-            ((RectTransform)root.transform).sizeDelta = new Vector2(320, 430);
+            ((RectTransform)root.transform).sizeDelta = new Vector2(276, 420);
             var bg = root.GetComponent<Image>();
-            Theme.SetSprite(bg, Sketch.Panel);
+            Theme.SetSprite(bg, V3Sprite("o_nen", TileBorder));
             bg.type = Image.Type.Sliced;
-            bg.color = Theme.Paper;
+            bg.color = ShopHue.Sky.fill;
             bg.raycastTarget = false;
+            var rays = Sliced("tia", root.transform, V3Sprite("o_tia", TileBorder), Color.white);
 
             var art = Img("hinh", root.transform, null, Color.white);
-            Anchors(art.rectTransform, new Vector2(0.08f, 0.37f), new Vector2(0.92f, 0.93f));
+            Anchors(art.rectTransform, new Vector2(0.08f, 0.34f), new Vector2(0.92f, 0.83f));
             art.preserveAspect = true;
-            var stackRt = Anchors(Rt("chong", root.transform), new Vector2(0.06f, 0.37f), new Vector2(0.94f, 0.93f));
+            var stackRt = Anchors(Rt("chong", root.transform), new Vector2(0.06f, 0.34f), new Vector2(0.94f, 0.83f));
             var stack = new Image[3];
             Vector2[,] box = { { new Vector2(0, 0.02f), new Vector2(0.6f, 0.8f) }, { new Vector2(0.4f, 0.02f), new Vector2(1, 0.8f) }, { new Vector2(0.18f, 0.16f), new Vector2(0.82f, 1) } };
             for (int i = 0; i < 3; i++)
@@ -147,36 +279,37 @@ namespace PokiClash.EditorTools
                 Anchors(stack[i].rectTransform, box[i, 0], box[i, 1]);
                 stack[i].preserveAspect = true;
             }
-            var count = Text(titleTpl, root.transform, "so", 44, TextAlignmentOptions.BottomRight, Color.white);
-            Anchors(count.rectTransform, new Vector2(0.45f, 0.36f), new Vector2(0.95f, 0.52f));
-            Outline(count, 0.3f);
-            var title = Text(titleTpl, root.transform, "ten", 32, TextAlignmentOptions.Center, Theme.Ink);
-            Anchors(title.rectTransform, new Vector2(0.04f, 0.255f), new Vector2(0.96f, 0.36f));
+            var count = Text(titleTpl, root.transform, "so", 46, TextAlignmentOptions.BottomRight, Color.white);
+            Anchors(count.rectTransform, new Vector2(0.45f, 0.33f), new Vector2(0.95f, 0.48f));
+            Ink(count, 0.3f);
+            var title = Text(titleTpl, root.transform, "ten", 34, TextAlignmentOptions.Center, Color.white);
+            Anchors(title.rectTransform, new Vector2(0.05f, 0.83f), new Vector2(0.95f, 0.95f));
             title.enableAutoSizing = true;
             title.fontSizeMin = 20;
-            title.fontSizeMax = 32;
+            title.fontSizeMax = 34;
             title.textWrappingMode = TextWrappingModes.NoWrap;
-            var sub = Text(hintTpl, root.transform, "phu", 22, TextAlignmentOptions.Center, Theme.Ink2);
-            Anchors(sub.rectTransform, new Vector2(0.04f, 0.19f), new Vector2(0.96f, 0.265f));
+            Ink(title, 0.28f);
+            var sub = Text(hintTpl, root.transform, "phu", 22, TextAlignmentOptions.Center, Color.white);
+            Anchors(sub.rectTransform, new Vector2(0.04f, 0.245f), new Vector2(0.96f, 0.33f));
             sub.enableAutoSizing = true;
-            sub.fontSizeMin = 16;
+            sub.fontSizeMin = 15;
             sub.fontSizeMax = 22;
+            Ink(sub, 0.24f);
 
-            var buy = Ui.Spawn(kit.buttonSmall, root.transform);
-            buy.name = "nut_mua";
+            // nút giá trong dải tối đáy
+            var buy = PriceButton(root.transform, "nut_mua", 0, 80, 34);
             var br = buy.Rect;
-            br.anchorMin = new Vector2(0.06f, 0);
-            br.anchorMax = new Vector2(0.94f, 0);
+            br.anchorMin = new Vector2(0.07f, 0);
+            br.anchorMax = new Vector2(0.93f, 0);
             br.pivot = new Vector2(0.5f, 0);
-            br.anchoredPosition = new Vector2(0, 16);
-            br.sizeDelta = new Vector2(0, br.sizeDelta.y);
-            buy.SetRole(BtnColor.Orange);
-            buy.SetText("Mua");
+            br.anchoredPosition = new Vector2(0, 11);
+            br.sizeDelta = new Vector2(0, 80);
 
-            var ribbon = Img("nhan", root.transform, Sketch.Pill, Theme.Red);
+            // nhãn góc trái (Lần đầu ×2, Bán chạy): chìa ra mép trên
+            var ribbon = Img("nhan", root.transform, V3Sprite("vien", PillBorder), Theme.Red);
             ribbon.type = Image.Type.Sliced;
-            ribbon.rectTransform.Place(new Vector2(0, 1), new Vector2(4, -6), new Vector2(190, 46), new Vector2(0, 1));
-            ribbon.rectTransform.localEulerAngles = new Vector3(0, 0, 5);
+            ribbon.rectTransform.Place(new Vector2(0, 1), new Vector2(-8, 18), new Vector2(176, 46), new Vector2(0, 1));
+            ribbon.rectTransform.localEulerAngles = new Vector3(0, 0, 6);
             var ribbonText = Text(hintTpl, ribbon.transform, "chu", 22, TextAlignmentOptions.Center, Color.white);
             ribbonText.rectTransform.Stretch(8, 2, 8, 2);
             ribbonText.enableAutoSizing = true;
@@ -184,52 +317,62 @@ namespace PokiClash.EditorTools
             ribbonText.fontSizeMax = 22;
             ribbonText.fontStyle = FontStyles.Bold;
 
-            var value = Ui.Spawn(kit.stamp, root.transform);
-            value.name = "gia_tri";
-            var vr = (RectTransform)value.transform;
-            vr.anchorMin = vr.anchorMax = vr.pivot = new Vector2(1, 1);
-            vr.anchoredPosition = new Vector2(-2, -4);
-            vr.localEulerAngles = new Vector3(0, 0, -8);
-            vr.localScale = Vector3.one * 0.3f;
+            // nhãn giá trị "×N" góc phải
+            var value = Img("gia_tri", root.transform, V3Sprite("nhan_gia_tri", new Vector4(34, 10, 14, 10)), Color.white);
+            value.type = Image.Type.Sliced;
+            value.rectTransform.Place(new Vector2(1, 1), new Vector2(10, 18), new Vector2(124, 52), new Vector2(1, 1));
+            var valueText = Text(titleTpl, value.transform, "chu", 32, TextAlignmentOptions.Center, Color.white);
+            valueText.rectTransform.Stretch(26, 2, 8, 4);
+            valueText.enableAutoSizing = true;
+            valueText.fontSizeMin = 18;
+            valueText.fontSizeMax = 32;
+            Ink(valueText, 0.25f);
 
-            var done = Text(titleTpl, root.transform, "da_mua", 30, TextAlignmentOptions.Center, Theme.GreenD);
-            Anchors(done.rectTransform, new Vector2(0.04f, 0.02f), new Vector2(0.96f, 0.18f));
-            done.rectTransform.localEulerAngles = new Vector3(0, 0, 4);
+            var done = Text(titleTpl, root.transform, "da_mua", 30, TextAlignmentOptions.Center, DoneGreen);
+            Anchors(done.rectTransform, new Vector2(0.04f, 0.01f), new Vector2(0.96f, 0.22f));
+            done.enableAutoSizing = true;
+            done.fontSizeMin = 18;
+            done.fontSizeMax = 30;
+            Ink(done, 0.25f);
 
-            var dot = Img("cham_do", root.transform, Sketch.Dot, Theme.Red);
-            dot.rectTransform.Place(new Vector2(1, 1), new Vector2(-8, -8), new Vector2(32, 32), new Vector2(0.5f, 0.5f));
+            var dot = Img("cham_do", root.transform, V3Sprite("cham_do", Vector4.zero), Color.white);
+            dot.rectTransform.Place(new Vector2(1, 1), new Vector2(-10, -10), new Vector2(40, 40), new Vector2(0.5f, 0.5f));
 
             foreach (var gr in root.GetComponentsInChildren<Graphic>(true))
                 if (!gr.transform.IsChildOf(buy.transform)) gr.raycastTarget = false;
+            buy.GetComponent<Image>().raycastTarget = true;
             root.AddComponent<ShopTile>().Setup(new ShopTile.Parts
             {
-                bg = bg, art = art, ribbon = ribbon, dot = dot, stack = stack, title = title, sub = sub, count = count, ribbonText = ribbonText, done = done,
-                value = value, buy = buy,
+                bg = bg, rays = rays, art = art, ribbon = ribbon, dot = dot, valueBg = value, stack = stack, title = title, sub = sub, count = count,
+                ribbonText = ribbonText, done = done, valueText = valueText, buy = buy,
             });
             return Save<ShopTile>(root, TilePath);
         }
 
         // ---------- thẻ ngang ----------
 
-        static ShopCard BuildCard()
+        static ShopCard BuildCard(ShopItemCell cell)
         {
-            var kit = Kit;
             var (titleTpl, hintTpl) = Templates();
+            const float W = ShopPage.ContentW, H = ShopCard.Tall;
             var root = NewRoot("TheCuaHang", typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
-            ((RectTransform)root.transform).sizeDelta = new Vector2(1000, 380);
-            Le(root.GetComponent<RectTransform>(), 380);
+            ((RectTransform)root.transform).sizeDelta = new Vector2(W, H);
+            Le(root.GetComponent<RectTransform>(), H);
             var bg = root.GetComponent<Image>();
-            Theme.SetSprite(bg, Sketch.Panel);
+            Theme.SetSprite(bg, V3Sprite("the_nen", CardBorder));
             bg.type = Image.Type.Sliced;
-            bg.color = Theme.Paper;
+            bg.color = ShopHue.Gold.fill;
             bg.raycastTarget = false;
+            var panel = Sliced("mang_phai", root.transform, V3Sprite("the_phai", CardBorder), ShopHue.Gold.panel);
+            var rays = Sliced("sao_no", root.transform, V3Sprite("the_tia", CardBorder), ShopHue.Gold.rays);
 
+            // hình gói / mặt tướng bên trái, đè một phần dải tên như thẻ mẫu
             var art = Img("hinh", root.transform, null, Color.white);
             art.rectTransform.anchorMin = new Vector2(0, 0);
             art.rectTransform.anchorMax = new Vector2(0, 1);
             art.rectTransform.pivot = new Vector2(0, 0.5f);
-            art.rectTransform.offsetMin = new Vector2(24, 30);
-            art.rectTransform.offsetMax = new Vector2(24 + 270, -40);
+            art.rectTransform.offsetMin = new Vector2(20, 66);
+            art.rectTransform.offsetMax = new Vector2(20 + 340, -14);
             art.preserveAspect = true;
             var hero = Img("mat_tuong", root.transform, null, Color.white);
             hero.rectTransform.anchorMin = art.rectTransform.anchorMin;
@@ -239,91 +382,109 @@ namespace PokiClash.EditorTools
             hero.rectTransform.offsetMax = art.rectTransform.offsetMax;
             hero.preserveAspect = true;
 
-            const float X = 316;
-            var title = Text(titleTpl, root.transform, "ten", 38, TextAlignmentOptions.MidlineLeft, Theme.Ink);
-            title.rectTransform.anchorMin = new Vector2(0, 1);
-            title.rectTransform.anchorMax = new Vector2(1, 1);
-            title.rectTransform.pivot = new Vector2(0, 1);
-            title.rectTransform.offsetMin = new Vector2(X, -70);
-            title.rectTransform.offsetMax = new Vector2(-150, -18);
+            // tên trong dải tối đáy
+            var title = Text(titleTpl, root.transform, "ten", 44, TextAlignmentOptions.MidlineLeft, Color.white);
+            title.rectTransform.anchorMin = new Vector2(0, 0);
+            title.rectTransform.anchorMax = new Vector2(1, 0);
+            title.rectTransform.pivot = new Vector2(0, 0);
+            title.rectTransform.offsetMin = new Vector2(30, 12);
+            title.rectTransform.offsetMax = new Vector2(-340, 86);
             title.enableAutoSizing = true;
-            title.fontSizeMin = 24;
-            title.fontSizeMax = 38;
+            title.fontSizeMin = 26;
+            title.fontSizeMax = 44;
             title.textWrappingMode = TextWrappingModes.NoWrap;
-            var desc = Text(hintTpl, root.transform, "mo_ta", 23, TextAlignmentOptions.TopLeft, Theme.Ink2);
+            Ink(title, 0.28f);
+
+            // mô tả ngắn bên phải trên hàng món
+            var desc = Text(hintTpl, root.transform, "mo_ta", 27, TextAlignmentOptions.TopRight, Color.white);
             desc.rectTransform.anchorMin = new Vector2(0, 1);
             desc.rectTransform.anchorMax = new Vector2(1, 1);
-            desc.rectTransform.pivot = new Vector2(0, 1);
-            desc.rectTransform.offsetMin = new Vector2(X, -130);
-            desc.rectTransform.offsetMax = new Vector2(-24, -72);
+            desc.rectTransform.pivot = new Vector2(1, 1);
+            desc.rectTransform.offsetMin = new Vector2(380, -128);
+            desc.rectTransform.offsetMax = new Vector2(-26, -70);
             desc.enableAutoSizing = true;
-            desc.fontSizeMin = 16;
-            desc.fontSizeMax = 23;
+            desc.fontSizeMin = 18;
+            desc.fontSizeMax = 27;
+            Ink(desc, 0.24f);
 
-            const float S = 0.72f;
+            // hàng ô món canh phải
             var items = Rt("mon", root.transform, typeof(GridLayoutGroup));
-            items.anchorMin = items.anchorMax = items.pivot = new Vector2(0, 1);
-            items.anchoredPosition = new Vector2(X, -134);
-            items.sizeDelta = new Vector2(5 * RewardTile.W + 4 * 10, RewardTile.H);
-            items.localScale = Vector3.one * S;
+            items.anchorMin = items.anchorMax = items.pivot = new Vector2(1, 1);
+            items.anchoredPosition = new Vector2(-26, -132);
+            items.sizeDelta = new Vector2(5 * ShopItemCell.Size + 4 * 8, ShopItemCell.Size);
+            items.localScale = Vector3.one * ShopCard.ItemScale;
             var g = items.GetComponent<GridLayoutGroup>();
-            g.cellSize = new Vector2(RewardTile.W, RewardTile.H);
-            g.spacing = new Vector2(10, 10);
+            g.cellSize = new Vector2(ShopItemCell.Size, ShopItemCell.Size);
+            g.spacing = new Vector2(8, 8);
             g.constraint = GridLayoutGroup.Constraint.FixedRowCount;
             g.constraintCount = 1;
-            g.childAlignment = TextAnchor.UpperLeft;
+            g.childAlignment = TextAnchor.UpperRight; // canh phải, giữ thứ tự món (bi trước)
 
-            var pill = Img("dong_ho", root.transform, Sketch.Pill, Theme.Paper);
+            // đồng hồ góc trên trái
+            var pill = Img("dong_ho", root.transform, V3Sprite("vien", PillBorder), new Color(Navy.r, Navy.g, Navy.b, 0.88f));
             pill.type = Image.Type.Sliced;
-            pill.rectTransform.Place(new Vector2(0, 1), new Vector2(14, 14), new Vector2(200, 46), new Vector2(0, 1));
-            var timer = Text(hintTpl, pill.transform, "chu", 24, TextAlignmentOptions.Center, Theme.RedD);
-            timer.rectTransform.Stretch(6, 2, 6, 2);
+            pill.rectTransform.Place(new Vector2(0, 1), new Vector2(16, -16), new Vector2(214, 50), new Vector2(0, 1));
+            var timer = Text(hintTpl, pill.transform, "chu", 26, TextAlignmentOptions.Center, Color.white);
+            timer.rectTransform.Stretch(8, 2, 8, 2);
             timer.fontStyle = FontStyles.Bold;
 
-            var value = Ui.Spawn(kit.stamp, root.transform);
-            value.name = "gia_tri";
-            var vr = (RectTransform)value.transform;
-            vr.anchorMin = vr.anchorMax = vr.pivot = new Vector2(1, 1);
-            vr.anchoredPosition = new Vector2(-6, -4);
-            vr.localEulerAngles = new Vector3(0, 0, -7);
-            vr.localScale = Vector3.one * 0.36f;
+            // nhãn đỏ "Giá trị ×N": chìa ra mép trên, sát mép phải
+            var value = Img("gia_tri", root.transform, V3Sprite("nhan_gia_tri", new Vector4(34, 10, 14, 10)), Color.white);
+            value.type = Image.Type.Sliced;
+            value.rectTransform.Place(new Vector2(1, 1), new Vector2(8, 14), new Vector2(320, 74), new Vector2(1, 1));
+            var valueText = Text(titleTpl, value.transform, "chu", 36, TextAlignmentOptions.Center, Color.white);
+            valueText.rectTransform.Stretch(38, 4, 14, 6);
+            valueText.enableAutoSizing = true;
+            valueText.fontSizeMin = 20;
+            valueText.fontSizeMax = 36;
+            valueText.textWrappingMode = TextWrappingModes.NoWrap;
+            Ink(valueText, 0.25f);
 
-            var buy = Ui.Spawn(kit.buttonNormal, root.transform);
-            buy.name = "nut_mua";
+            var buy = PriceButton(root.transform, "nut_mua", 300, 104, 46);
             var br = buy.Rect;
             br.anchorMin = br.anchorMax = br.pivot = new Vector2(1, 0);
-            br.anchoredPosition = new Vector2(-22, 20);
-            br.sizeDelta = new Vector2(270, br.sizeDelta.y);
-            buy.SetRole(BtnColor.Orange);
-            var extra = Ui.Spawn(kit.buttonSmall, root.transform);
-            extra.name = "nut_phu";
+            br.anchoredPosition = new Vector2(-20, 16);
+            var extra = PriceButton(root.transform, "nut_phu", 230, 88, 32);
             var er = extra.Rect;
             er.anchorMin = er.anchorMax = er.pivot = new Vector2(1, 0);
-            er.anchoredPosition = new Vector2(-22 - 270 - 16, 24);
-            er.sizeDelta = new Vector2(230, er.sizeDelta.y);
+            er.anchoredPosition = new Vector2(-20 - 300 - 14, 24);
 
-            var note = Text(hintTpl, root.transform, "ghi_chu", 22, TextAlignmentOptions.MidlineLeft, Theme.Ink2);
-            note.rectTransform.Place(new Vector2(0, 0), new Vector2(X, 22), new Vector2(380, 40), new Vector2(0, 0));
-            var done = Text(titleTpl, root.transform, "da_mua", 36, TextAlignmentOptions.Center, Theme.GreenD);
-            done.rectTransform.Place(new Vector2(1, 0), new Vector2(-30, 26), new Vector2(300, 64), new Vector2(1, 0));
-            done.rectTransform.localEulerAngles = new Vector3(0, 0, 6);
+            var note = Text(hintTpl, root.transform, "ghi_chu", 24, TextAlignmentOptions.MidlineRight, Color.white);
+            note.rectTransform.Place(new Vector2(1, 0), new Vector2(-26, 14), new Vector2(470, 84), new Vector2(1, 0));
+            note.enableAutoSizing = true;
+            note.fontSizeMin = 16;
+            note.fontSizeMax = 24;
+            Ink(note, 0.24f);
+            var done = Text(titleTpl, root.transform, "da_mua", 40, TextAlignmentOptions.Center, DoneGreen);
+            done.rectTransform.Place(new Vector2(1, 0), new Vector2(-30, 18), new Vector2(330, 80), new Vector2(1, 0));
+            done.rectTransform.localEulerAngles = new Vector3(0, 0, 4);
+            done.enableAutoSizing = true;
+            done.fontSizeMin = 22;
+            done.fontSizeMax = 40;
+            Ink(done, 0.25f);
 
             foreach (var gr in root.GetComponentsInChildren<Graphic>(true))
                 if (!gr.transform.IsChildOf(buy.transform) && !gr.transform.IsChildOf(extra.transform)) gr.raycastTarget = false;
+            buy.GetComponent<Image>().raycastTarget = extra.GetComponent<Image>().raycastTarget = true;
             root.AddComponent<ShopCard>().Setup(new ShopCard.Parts
             {
-                bg = bg, art = art, heroArt = hero, title = title, desc = desc, timer = timer, done = done, note = note, items = items, value = value,
-                buy = buy, extra = extra,
-            }, TilePrefab, pill.gameObject);
+                bg = bg, panel = panel, rays = rays, art = art, heroArt = hero, valueBg = value, title = title, desc = desc, timer = timer, done = done,
+                note = note, valueText = valueText, items = items, buy = buy, extra = extra,
+            }, cell, pill.gameObject);
             return Save<ShopCard>(root, CardPath);
         }
 
         // ---------- màn cửa hàng ----------
 
+        // hình nút cột mục (theo ShopPage.Sections): khinh khí cầu, hộp quà, trứng Sử Thi, thùng bi, sổ phiêu lưu
+        static readonly string[] NavArt = { "v2/goi2_khoi_hanh_3", "v2/goi2_nhap_mon", "v2/trung2_3", "v2/goi2_bi_4", "v2/goi2_the_phieu_luu" };
+        public const float NavItemH = 214;
+
         static void BuildPage(ShopSection section, ShopGrid grid, ShopTile tile, ShopCard card)
         {
             var kit = Kit;
-            var (titleTpl, hintTpl) = Templates();
+            var (titleTpl, _) = Templates();
+            var (outlined, plain) = KitLabelMats();
             var root = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(SheetBase));
             try
             {
@@ -331,9 +492,9 @@ namespace PokiClash.EditorTools
                 var view = root.GetComponent<ModalSheet>();
                 view.Configure(1080, false, true);
                 var sheet = view.Sheet;
-                // tờ giấy trải KÍN màn (bỏ tự giãn theo nội dung; người dùng 2026-11-24: "shop nên full màn"): tràn quá mép màn Bleed điểm
-                // để giấu viền giấy, bỏ băng keo; lớp hộp thoại phủ cả tai thỏ nên nội dung (noi_dung) thu lại đúng bằng màn, chữ và nút nằm
-                // trong khung an_toan (SafeArea) cho khỏi tai thỏ và thanh điều hướng
+                // tờ giấy trải KÍN màn (người dùng 2026-11-24: "shop nên full màn"): tràn quá mép màn Bleed điểm, bỏ băng keo; lớp hộp thoại phủ
+                // cả tai thỏ nên nội dung (noi_dung) thu lại đúng bằng màn, chữ và nút nằm trong khung an_toan (SafeArea). Bản 3: nền tối phủ
+                // kín tờ giấy (2026-11-27: "nền màu tối chút, các gói IAP màu tươi nổi")
                 const float Bleed = 30;
                 foreach (var f in sheet.GetComponents<ContentSizeFitter>()) Object.DestroyImmediate(f);
                 foreach (var l in sheet.GetComponents<LayoutGroup>()) Object.DestroyImmediate(l);
@@ -349,58 +510,104 @@ namespace PokiClash.EditorTools
                 var page = Rt("noi_dung", sheet);
                 page.Stretch(Bleed, Bleed, Bleed, Bleed);
                 page.SetAsLastSibling();
+                // nền: tối cả màn, caro chàm ở vùng trang, cột mục chàm thẫm bên trái (kéo hết chiều cao, dưới thanh trên)
+                Sliced("nen_toi", page, null, TopBg).type = Image.Type.Simple;
+                var pattern = Img("nen_caro", page, V3Sprite("nen_trang", Vector4.zero), Color.white);
+                pattern.type = Image.Type.Tiled;
+                pattern.rectTransform.Stretch(ShopPage.SideW, 0, 0, 0);
+                // cột trái: ảnh vẽ tay lát dọc (cot_trai 190 x 768: sao, lấp lánh, quái nhỏ; vien_cot: nét mực dọc rộng 8; assets-31 vẽ,
+                // người dùng 2026-11-27: "cột bên trái màu trơn nhìn đơn điệu") nếu có, không thì màu trơn
+                var sideArt = System.IO.File.Exists(V3 + "cot_trai.png") ? V3Sprite("cot_trai", Vector4.zero) : null;
+                var side = Img("nen_cot", page, sideArt, sideArt ? Color.white : SideBg);
+                if (sideArt) side.type = Image.Type.Tiled;
+                side.rectTransform.anchorMin = new Vector2(0, 0);
+                side.rectTransform.anchorMax = new Vector2(0, 1);
+                side.rectTransform.pivot = new Vector2(0, 0.5f);
+                side.rectTransform.offsetMin = Vector2.zero;
+                side.rectTransform.offsetMax = new Vector2(ShopPage.SideW, 0);
+                var edgeArt = System.IO.File.Exists(V3 + "vien_cot.png") ? V3Sprite("vien_cot", Vector4.zero) : null;
+                var edge = Img("vien_cot", side.transform, edgeArt, edgeArt ? Color.white : Navy);
+                if (edgeArt) edge.type = Image.Type.Tiled;
+                edge.rectTransform.anchorMin = new Vector2(1, 0);
+                edge.rectTransform.anchorMax = new Vector2(1, 1);
+                edge.rectTransform.pivot = new Vector2(1, 0.5f);
+                edge.rectTransform.offsetMin = new Vector2(edgeArt ? -8 : -5, 0);
+                edge.rectTransform.offsetMax = Vector2.zero;
+
                 var body = Rt("an_toan", page, typeof(SafeArea));
                 body.Stretch();
-                // nút đóng (con của tờ giấy, ModalService gắn): góc phải hàng tiêu đề; ShopPage dời xuống theo tai thỏ lúc mở
+                // thanh trên tối, kéo lên che vùng tai thỏ
+                var top = Img("thanh_tren", body, null, TopBg);
+                top.rectTransform.anchorMin = new Vector2(0, 1);
+                top.rectTransform.anchorMax = new Vector2(1, 1);
+                top.rectTransform.pivot = new Vector2(0.5f, 1);
+                top.rectTransform.offsetMin = new Vector2(0, -HeaderH);
+                top.rectTransform.offsetMax = new Vector2(0, 400);
+                // nút đóng (con của tờ giấy, ModalService gắn): góc phải thanh trên; ShopPage dời xuống theo tai thỏ lúc mở
                 var cr = (RectTransform)view.Close.transform;
                 cr.anchorMin = cr.anchorMax = new Vector2(1, 1);
                 cr.pivot = new Vector2(0.5f, 0.5f);
                 cr.anchoredPosition = new Vector2(-Bleed - 64, -Bleed - HeaderH / 2);
-                // tiêu đề, số bi (chừa nút đóng góc phải của tờ giấy)
-                var title = Text(titleTpl, body, "tieu_de", 62, TextAlignmentOptions.MidlineLeft, Theme.Ink);
-                title.rectTransform.Place(new Vector2(0, 1), new Vector2(44, -14), new Vector2(520, HeaderH - 20), new Vector2(0, 1));
-                var chip = Img("so_bi", body, Sketch.Pill, Theme.Paper2);
+                // số bi góc trái, tiêu đề vàng giữa
+                var chip = Img("so_bi", body, V3Sprite("vien", PillBorder), SideBg);
                 chip.type = Image.Type.Sliced;
-                chip.rectTransform.Place(new Vector2(1, 1), new Vector2(-150, -30), new Vector2(240, 64), new Vector2(1, 1));
+                chip.rectTransform.Place(new Vector2(0, 1), new Vector2(20, -22), new Vector2(250, 74), new Vector2(0, 1));
                 var ball = Img("icon", chip.transform, Icon("ball"), Color.white);
                 ball.preserveAspect = true;
-                ball.rectTransform.Place(new Vector2(0, 0.5f), new Vector2(8, 0), new Vector2(60, 60), new Vector2(0, 0.5f));
-                var balls = Text(titleTpl, chip.transform, "so", 36, TextAlignmentOptions.MidlineRight, Theme.Ink);
-                balls.rectTransform.Stretch(70, 4, 18, 4);
+                ball.rectTransform.Place(new Vector2(0, 0.5f), new Vector2(4, 0), new Vector2(70, 70), new Vector2(0, 0.5f));
+                var balls = Text(titleTpl, chip.transform, "so", 40, TextAlignmentOptions.MidlineRight, Color.white);
+                balls.rectTransform.Stretch(80, 4, 22, 4);
+                Ink(balls, 0.22f);
+                var title = Text(titleTpl, body, "tieu_de", 56, TextAlignmentOptions.Center, Gold);
+                title.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(40, -14), new Vector2(460, HeaderH - 24), new Vector2(0.5f, 1));
+                title.enableAutoSizing = true;
+                title.fontSizeMin = 32;
+                title.fontSizeMax = 56;
+                title.textWrappingMode = TextWrappingModes.NoWrap;
+                Ink(title, 0.3f);
 
-                // hàng nút mục
-                var navRow = Rt("hang_muc", body, typeof(HorizontalLayoutGroup));
-                navRow.anchorMin = new Vector2(0, 1);
-                navRow.anchorMax = new Vector2(1, 1);
-                navRow.pivot = new Vector2(0.5f, 1);
-                navRow.offsetMin = new Vector2(24, -HeaderH - NavH);
-                navRow.offsetMax = new Vector2(-24, -HeaderH);
-                var hl = navRow.GetComponent<HorizontalLayoutGroup>();
-                hl.spacing = 10;
-                hl.childAlignment = TextAnchor.MiddleCenter;
-                hl.childControlWidth = hl.childControlHeight = false;
-                hl.childForceExpandWidth = hl.childForceExpandHeight = false;
+                // cột mục: hình gói + tên; nền nút là ô chọn tím → lam, chỉ hiện ở mục đang xem (ShopPage.LateUpdate)
+                var col = Rt("cot_muc", body, typeof(VerticalLayoutGroup));
+                col.anchorMin = new Vector2(0, 0);
+                col.anchorMax = new Vector2(0, 1);
+                col.pivot = new Vector2(0, 1);
+                col.offsetMin = new Vector2(0, 0);
+                col.offsetMax = new Vector2(ShopPage.SideW - 5, -HeaderH - 12);
+                var vlg = col.GetComponent<VerticalLayoutGroup>();
+                vlg.spacing = 8;
+                vlg.childAlignment = TextAnchor.UpperCenter;
+                vlg.childControlWidth = vlg.childControlHeight = false;
+                vlg.childForceExpandWidth = vlg.childForceExpandHeight = false;
+                var pick = V3Sprite("muc_chon", Round30);
                 var nav = new SketchButton[ShopPage.Sections.Length];
                 var dots = new GameObject[nav.Length];
-                string[] names = { "Ưu đãi", "Miễn phí", "Trứng", "Bi", "Đặc quyền" };
                 for (int i = 0; i < nav.Length; i++)
                 {
-                    var b = Ui.Spawn(kit.buttonSmall, navRow);
-                    b.name = "muc_" + ShopPage.Sections[i];
-                    b.Rect.sizeDelta = new Vector2(i == 4 ? 220 : 186, b.Rect.sizeDelta.y);
-                    b.SetText(names[i]);
-                    b.SetRole(i == 0 ? BtnColor.Orange : BtnColor.Paper);
-                    var dot = Img("cham_do", b.transform, Sketch.Dot, Theme.Red);
-                    dot.rectTransform.Place(new Vector2(1, 1), new Vector2(-6, -6), new Vector2(26, 26), new Vector2(0.5f, 0.5f));
+                    var bgi = Img("muc_" + ShopPage.Sections[i], col, pick, i == 0 ? Color.white : new Color(1, 1, 1, 0));
+                    bgi.type = Image.Type.Sliced;
+                    bgi.raycastTarget = true;
+                    bgi.rectTransform.sizeDelta = new Vector2(ShopPage.SideW - 16, NavItemH);
+                    var icon = Img("hinh", bgi.transform, Art("Assets/03 Art/Shop/" + NavArt[i] + ".png"), Color.white);
+                    icon.preserveAspect = true;
+                    icon.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0, -10), new Vector2(150, 134), new Vector2(0.5f, 1));
+                    var label = KitLabel(bgi.transform, 32);
+                    label.rectTransform.Place(new Vector2(0.5f, 0), new Vector2(0, 12), new Vector2(ShopPage.SideW - 20, 60), new Vector2(0.5f, 0));
+                    var b = bgi.gameObject.AddComponent<SketchButton>();
+                    b.Setup(bgi, label, false, pick, pick, outlined, plain);
+                    b.SetRole(BtnColor.Green); // chữ trắng viền mực
+                    b.SetColor(i == 0 ? Color.white : new Color(1, 1, 1, 0));
+                    label.text = ShopPage.NavNames[i];
+                    var dot = Img("cham_do", bgi.transform, V3Sprite("cham_do", Vector4.zero), Color.white);
+                    dot.rectTransform.Place(new Vector2(1, 1), new Vector2(-16, -16), new Vector2(40, 40), new Vector2(0.5f, 0.5f));
                     dot.gameObject.SetActive(false);
                     nav[i] = b;
                     dots[i] = dot.gameObject;
                 }
 
-                // trang cuộn
+                // trang cuộn bên phải cột mục
                 var scrollGo = Rt("cuon", body, typeof(CanvasRenderer), typeof(Image), typeof(ScrollRect)).gameObject;
                 var srt = (RectTransform)scrollGo.transform;
-                srt.Stretch(0, HeaderH + NavH + 6, 0, 18);
+                srt.Stretch(ShopPage.SideW, HeaderH, 0, 0);
                 scrollGo.GetComponent<Image>().color = new Color(1, 1, 1, 0);
                 var scroll = scrollGo.GetComponent<ScrollRect>();
                 scroll.horizontal = false;
@@ -416,8 +623,9 @@ namespace PokiClash.EditorTools
                 content.anchoredPosition = Vector2.zero;
                 content.sizeDelta = Vector2.zero;
                 var vl = content.GetComponent<VerticalLayoutGroup>();
-                vl.spacing = 18;
-                vl.padding = new RectOffset(40, 40, 8, 60);
+                vl.spacing = 24;
+                // trái 14 + 858 + phải 18 = 1080 - cột 190; trên 22 cho nhãn giá trị chìa ra mép thẻ đầu
+                vl.padding = new RectOffset(14, 18, 22, 60);
                 vl.childAlignment = TextAnchor.UpperCenter;
                 vl.childControlWidth = vl.childControlHeight = true;
                 vl.childForceExpandWidth = true;
@@ -646,12 +854,14 @@ namespace PokiClash.EditorTools
             title.rectTransform.Place(new Vector2(0.5f, 0.5f), center + new Vector2(0, 480), new Vector2(980, 120));
             Outline(title, 0.28f);
 
-            // nút ×2 to (bọc trong khung thở, quầng sau nút) neo đáy; nút thường nhỏ bên dưới, nhóm mờ dần
+            // nút ×2 to (bọc trong khung thở, viền sáng bám mép nút) neo đáy; nút thường nhỏ bên dưới, nhóm mờ dần.
+            // Viền sáng: Image không ảnh, cỡ và số shader do DailyGiftView.FitGlow đặt theo cỡ nút lúc chạy (người dùng 2026-11-27 bỏ quầng to)
             var wrap = Rt("nut_x2_khung", root.transform);
             wrap.Place(new Vector2(0.5f, 0), new Vector2(0, 440), new Vector2(640, 160));
-            var btnGlow = Img("quang_nut", wrap, Art("Assets/03 Art/Pachinko/pk_g_quang.png"), gold);
-            btnGlow.rectTransform.Place(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(980, 420));
-            if (add) btnGlow.material = add;
+            var btnGlow = Img("vien_sang_nut", wrap, null, gold);
+            btnGlow.rectTransform.Place(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(660, 200));
+            var edgeGlow = AssetDatabase.LoadAssetAtPath<Material>("Assets/Resources/UIEdgeGlow.mat");
+            if (edgeGlow) btnGlow.material = edgeGlow;
             var x2 = Ui.Spawn(kit.buttonBig, wrap);
             x2.name = "nut_x2";
             x2.Rect.Place(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(600, Mathf.Max(x2.Rect.sizeDelta.y, 140)));

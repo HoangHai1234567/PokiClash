@@ -307,30 +307,6 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 6400529524056050992, guid: 85907a7e0295c2b4f902d88b5e87246d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6400529524056050992, guid: 85907a7e0295c2b4f902d88b5e87246d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6400529524056050992, guid: 85907a7e0295c2b4f902d88b5e87246d, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6400529524056050992, guid: 85907a7e0295c2b4f902d88b5e87246d, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6400529524056050992, guid: 85907a7e0295c2b4f902d88b5e87246d, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6400529524056050992, guid: 85907a7e0295c2b4f902d88b5e87246d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8504383196549625998, guid: 85907a7e0295c2b4f902d88b5e87246d, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1

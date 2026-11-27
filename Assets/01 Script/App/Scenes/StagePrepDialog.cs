@@ -188,7 +188,8 @@ namespace PokiClash
             Guide.Mark("prep.foes", p.foes);
             Guide.Mark("prep.warn", p.warn ? p.warn.transform : null);
             Guide.Mark("prep.afk", afkBtn);
-            if (p.slots != null && p.slots.Length > 0) Guide.Mark("prep.slot0", p.slots[0].click);
+            if (p.slots != null)
+                for (int i = 0; i < p.slots.Length; i++) Guide.Mark("prep.slot" + i, p.slots[i].click);
             if (badge != null || cave != null || locked) return;
             var h = Tutorial.Starter(s, d);
             if (h == null) return;
@@ -215,6 +216,13 @@ namespace PokiClash
                         Loc.F("Địch hệ {0}. {1} hệ {2} khắc {0}: chạm ô đội để đổi.", Elements.Name(lead.elem), better.name, Elements.Name(better.elem))))
                     return;
             }
+            // D12 (2026-11-27): lần đầu đội có tướng bị tướng chính của địch khắc (tướng đồng hành không tính, nó không chịu thiệt): khoanh ô
+            // đó, nói rõ thiệt bao nhiêu và hệ nên đổi sang
+            int weak = team.FindIndex(t => t != s.starter && d.Hero(t) is HeroDef hw && Elements.Mult(lead.elem, hw.elem) > 1);
+            if (weak >= 0 && p.slots != null && weak < p.slots.Length && Guide.Hint(Tutorial.CounteredTeam, "prep.slot" + weak,
+                    Loc.F("{0} bị hệ {1} khắc: đánh ×0,75, chịu đòn ×1,5. Chạm ô để đổi sang tướng hệ {2}.", d.Hero(team[weak]).name,
+                        Elements.Name(lead.elem), Elements.Name(Progress.CounterOf(lead.elem))), 8))
+                return;
             if (p.warn && p.warn.activeSelf && Guide.Hint(Tutorial.Underlevel, "prep.warn", Loc.T("Lên cấp ở Máy Bi, hoặc đánh ải dễ ở đảo khác.")))
                 return;
             if (evo && Guide.Note(Tutorial.EvoFoe, "prep.foes", Loc.T("Địch này tiến hóa khi gục: đánh tiếp tới dạng cuối."), 4.5f))

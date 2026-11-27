@@ -17,14 +17,16 @@ namespace PokiClash.Core
         public int stage;
         public bool boss; // thắng boss đảo
         public bool freeFix; // thua mà còn cách mạnh lên miễn phí làm ngay được
+        public bool enter; // LowBalls: lúc vào máy bi (chỉ lúc này mới tung Ưu Đãi Bất Ngờ, mục 7.5); false: vừa thả xong một đợt
     }
 
     // một popup cần hiện. kind: claims (quà hôm nay), piggy (Lọ Bi đầy), offer (ưu đãi id = uid), chain (đợt Chuỗi Quà mới), intro (giới
-    // thiệu gói id), refill (Hết bi), comeback (Quà Trở Lại, id = uid gói đi kèm)
+    // thiệu gói id), refill (Hết bi; warn: Sắp hết bi), comeback (Quà Trở Lại, id = uid gói đi kèm)
     public sealed class Popup
     {
         public string kind, id, key;
         public bool free, first, warn;
+        public int ballsMax = int.MaxValue; // popup bi: số bi lúc bật; tới lúc hiện mà bi đã nhiều hơn (thắng trận, mua) thì bỏ
         public override string ToString() => $"{kind}:{id}{(free ? " (free)" : "")}{(warn ? " (sắp hết)" : "")}";
     }
 
@@ -338,10 +340,14 @@ namespace PokiClash.Core
                     Hot(s, d, now, rng, outL);
                     break;
                 case OfferEvent.OutOfBalls:
-                    if (now - b.lastRefill >= c.caps.refillGapMin * M) outL.Add(new Popup { kind = "refill", free = true, first = !b.refillSeen, key = "refill" });
+                    if (now - b.lastRefill >= c.caps.refillGapMin * M)
+                        outL.Add(new Popup { kind = "refill", free = true, first = !b.refillSeen, key = "refill", ballsMax = Math.Max(0, s.balls) });
                     break;
                 case OfferEvent.LowBalls:
-                    if (Tutorial.CoreDone(s) && FlashOk(s, d, now) && Room(s, d, now) > 0 && Cooled(s, d, "flash", now) && rng.Chance(c.caps.lowChance))
+                    // sắp hết bi (người dùng 2026-11-27): popup Gói Bổ Sung Bi trước; không bật được thì lúc vào máy mới tung Ưu Đãi Bất Ngờ
+                    if (LowRefillOk(s, d, now))
+                        outL.Add(new Popup { kind = "refill", warn = true, key = "refill_low", ballsMax = s.balls });
+                    else if (x.enter && Tutorial.CoreDone(s) && FlashOk(s, d, now) && Room(s, d, now) > 0 && Cooled(s, d, "flash", now) && rng.Chance(c.caps.lowChance))
                     {
                         var o = Build(s, d, "flash", null, now, rng);
                         if (o != null)
@@ -354,6 +360,16 @@ namespace PokiClash.Core
                     break;
             }
             return outL;
+        }
+
+        // popup "Sắp hết bi!" (bán refill_1..3): là popup bán nên theo trần chung (perDay, gapMin, sau khi mua), đóng thì 24 giờ mới bật lại;
+        // chung nhịp 20 phút với popup Hết bi cho khỏi hai popup bi liền nhau; chỉ sau khi đã gặp Hết bi một lần (lần đầu chưa bán gói)
+        static bool LowRefillOk(SaveData s, GameData d, double now)
+        {
+            var c = C(d);
+            var b = Shop.Of(s).offers;
+            return s.balls > 0 && Tutorial.CoreDone(s) && b.refillSeen && c.Pack("refill_1") != null &&
+                   now - b.lastRefill >= c.caps.refillGapMin * M && Room(s, d, now) > 0 && Cooled(s, d, "refill_low", now);
         }
 
         static void Hot(SaveData s, GameData d, double now, Rng rng, List<Popup> outL)

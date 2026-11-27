@@ -8,8 +8,7 @@
 //   Screens/Badges thêm thanh kit (thanh_moc_sao) đáy khung giới thiệu, gán BadgesScene.intro (gioi_thieu/chu) và starBar.
 //   Bệ Items/BenHuyHieu: tên, phần cộng, tiến độ, "Đã đạt bậc cao nhất" tự co chữ, không đè nút; hộp danh sách trận: đầu hộp cao hơn, tên một
 //   dòng tự co, nút bậc nhỏ không đè tên; hàng trận: chữ dừng trước hàng sao.
-// - "Hang Tiềm Năng: hàng tầng gọn": Items/TangHang: tên tầng một dòng tự co, dòng cấp và dòng thưởng (2 dòng) tự co, không chồng nhau, vẫn
-//   chừa chỗ 2 chân dung địch và nút.
+// - (Bỏ 2026-11-27) "Hang Tiềm Năng: hàng tầng gọn": màn Hang thành sân khấu (Editor/CaveStageMenu.cs), không còn Items/TangHang.
 // Ô chép bằng Object.Instantiate (không giữ liên kết prefab con KhungMong / Nut_Ti của ô gốc); số ô (chữ số đầu dòng) đặt lại theo thứ tự;
 // phần kit mới gắn bằng InstantiatePrefab.
 // Sau khi dựng, chỉnh vị trí và cỡ trong Editor như mọi prefab khác.
@@ -32,7 +31,6 @@ namespace PokiClash.EditorTools
         const string ListPath = "Assets/04 Prefabs/Dialogs/DanhSachTranHuyHieu.prefab";
         const string TemplePath = "Assets/04 Prefabs/Screens/Badges.prefab";
         const string PedestalPath = "Assets/04 Prefabs/Items/BenHuyHieu.prefab";
-        const string CaveRowPath = "Assets/04 Prefabs/Items/TangHang.prefab";
         static readonly Color CrystalTint = new Color32(0x4f, 0xd8, 0xe8, 0xff); // như PotentialPanel.CrystalTint
 
         // ---------- tiện ích ----------
@@ -445,39 +443,5 @@ namespace PokiClash.EditorTools
             }
         }
 
-        // ---------- Hang Tiềm Năng ----------
-
-        // hàng tầng (1000 × 250): chữ ở cột trái rộng 460 (chân dung boss từ x 496, chân dung phụ, nút "Vào" bên phải)
-        [MenuItem("PokiClash/Prefab/Nhà và side meta/Hang Tiềm Năng: hàng tầng gọn", priority = 63)]
-        static void BuildCaveRow()
-        {
-            var contents = PrefabUtility.LoadPrefabContents(CaveRowPath);
-            try
-            {
-                var row = contents.GetComponentInChildren<CaveTierRow>(true);
-                var so = new SerializedObject(row);
-                var title = (TextMeshProUGUI)so.FindProperty("title").objectReferenceValue;
-                var level = (TextMeshProUGUI)so.FindProperty("level").objectReferenceValue;
-                var reward = (TextMeshProUGUI)so.FindProperty("reward").objectReferenceValue;
-                TopLeft(title, 30, 14, 460, 60);
-                Fit(title, 44, 26, false);
-                TopLeft(level, 30, 80, 460, 38);
-                Fit(level, 28, 18, false);
-                TopLeft(reward, 30, 124, 460, 84); // 2 dòng: "Thắng: …" và "Lần đầu: …"
-                Fit(reward, 26, 16, false);
-                foreach (var t in new[] { title, level, reward })
-                    if (t) t.verticalAlignment = VerticalAlignmentOptions.Top;
-                if (reward) reward.lineSpacing = 0;
-                var le = row.GetComponent<LayoutElement>();
-                if (le && le.preferredHeight < 250) le.preferredHeight = 250;
-                so.ApplyModifiedPropertiesWithoutUndo();
-                PrefabUtility.SaveAsPrefabAsset(contents, CaveRowPath);
-                Debug.Log($"[Hang] {CaveRowPath}: tên tầng một dòng, dòng cấp và thưởng tự co, không chồng nhau.");
-            }
-            finally
-            {
-                PrefabUtility.UnloadPrefabContents(contents);
-            }
-        }
     }
 }

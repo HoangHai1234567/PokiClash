@@ -184,6 +184,7 @@ namespace PokiClash
             Render();
             CasinoGuide.InnClaimed(BoardKey, false);
             int i = Casino.InnToday(S, D, Now).FindIndex(q => q.id == id);
+            RewardFly.Rewards(r, i >= 0 && i < rows.Length ? rows[i].root.transform.position : transform.position);
             if (i >= 0 && i < rows.Length) StartCoroutine(ChestBox.Pop((RectTransform)rows[i].root.transform, 1.05f));
         }
 
@@ -195,6 +196,7 @@ namespace PokiClash
             App.Audio.Play("chest");
             Haptics.Play(Haptic.Win);
             App.Toasts.Show(Loc.T("Quà xong cả ngày: ") + CasinoUi.Rewards(r), Icon("star"));
+            RewardFly.Rewards(r, allCard.transform.position);
             Render();
             CasinoGuide.InnClaimed(BoardKey, true);
             StartCoroutine(ChestBox.Pop((RectTransform)allCard.transform, 1.06f));

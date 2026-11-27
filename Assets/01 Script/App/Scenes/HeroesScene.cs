@@ -136,6 +136,10 @@ namespace PokiClash
                     Guide.Mark("heroes.starter", tile);
                     if (Tutorial.UpCardDue(s, d))
                         Guide.Force(Tutorial.HeroTile, "heroes.starter", Loc.F("Chạm {0}.", d.Hero(id).name), null, true);
+                    // D11 (2026-11-27): sau chuỗi bắt buộc, lần đầu vào màn Tướng thì khoanh nút Tương khắc trên thẻ tướng đồng hành
+                    Guide.Mark("heroes.wheel", tile.Wheel);
+                    if (tile.Wheel && Tutorial.CoreDone(s))
+                        Guide.Hint(Tutorial.WheelTile, "heroes.wheel", Loc.T("Chạm vòng 5 chấm: xem tướng này khắc hệ nào, sợ hệ nào."), 7);
                 }
                 if (popIn && i < 24) PokiClash.UI.UiMotion.Of(tile).Spawn(popFirst + i * popStep);
             }

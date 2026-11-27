@@ -1,0 +1,92 @@
+{
+ "sheet": "home_b1",
+ "W": 1536,
+ "H": 1024,
+ "items": [
+  {
+   "name": "home_b_mine",
+   "src": "Home/home_b_mine.png",
+   "crop": [
+    0,
+    0,
+    901,
+    809
+   ],
+   "dst": [
+    26,
+    26,
+    674,
+    605
+   ],
+   "scale": 0.7480577136514983
+  },
+  {
+   "name": "home_b_main",
+   "src": "Home/home_b_main.png",
+   "crop": [
+    0,
+    0,
+    689,
+    715
+   ],
+   "dst": [
+    734,
+    26,
+    515,
+    535
+   ],
+   "scale": 0.7474600870827286
+  },
+  {
+   "name": "home_b_waterwheel",
+   "src": "Home/home_b_waterwheel.png",
+   "crop": [
+    0,
+    0,
+    424,
+    446
+   ],
+   "dst": [
+    26,
+    665,
+    317,
+    333
+   ],
+   "scale": 0.7476415094339622
+  },
+  {
+   "name": "home_b_kitchen",
+   "src": "Home/home_b_kitchen.png",
+   "crop": [
+    0,
+    0,
+    411,
+    445
+   ],
+   "dst": [
+    377,
+    665,
+    307,
+    333
+   ],
+   "scale": 0.7469586374695864
+  },
+  {
+   "name": "home_b_forge",
+   "src": "Home/home_b_forge.png",
+   "crop": [
+    0,
+    0,
+    405,
+    439
+   ],
+   "dst": [
+    718,
+    665,
+    303,
+    328
+   ],
+   "scale": 0.7481481481481481
+  }
+ ]
+}

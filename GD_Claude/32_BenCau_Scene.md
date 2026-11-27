@@ -162,3 +162,18 @@ Logic giữ nguyên: `Core/Casino/Fishing.cs` (mồi, chỗ câu, chọn cá, c�
     - đêm (`_PokiNight`);
     - soát trên máy thật. Dựng lại bằng `dung_rig.py` (init --force) phải tắt
     Studio trước.
+
+## Cảm giác chạm thanh kéo (2026-11-27)
+
+Người dùng: "feeling khi chơi minigame này chưa đã, khi click chuẩn có 1 ít fx bloom, stunt nhẹ lại tạo feeling và có 1 vài fx text kiểu
+good job, excellent".
+
+- Chấm mỗi nhịp trúng theo độ lệch kim so với nửa vùng vàng (cộng NeedleTol): ≤ 0,28 "Hoàn hảo!" (vàng), ≤ 0,62 "Xuất sắc!" (lam),
+  còn lại "Tốt lắm!" (lá); Hoàn hảo liền mạch ghi "Hoàn hảo! ×N" (trượt thì về 0). Tiếng Anh: Perfect / Excellent / Good job.
+- Khựng hình (hit-stop) 0,06 / 0,09 / 0,14 giây: kim, đồng hồ, phao, cá, người câu (AtomikGraphic.Paused) đứng lại; hiệu ứng vẫn chạy.
+- Hiệu ứng (`FishingPanel.HitFx`, lớp `keo_fx` phủ đúng chỗ tấm kéo nhưng nằm ngoài tấm nên nhịp cuối vẫn thấy): quầng sáng `quang.png`
+  bung ở kim, vòng sóng `vong_song.png`, 8 lấp lánh `lap_lanh.png` văng ra, quầng ở phao (`quang_phao`, con của phao); bậc càng cao
+  càng to. Chữ đánh giá 92 viền mực bật 0 → 1,35 → 1 rồi rung, bay lên tan; Hoàn hảo có vầng tia `tia_xoay.png` xoay sau chữ. Tấm
+  kéo nhún nhẹ. Tiếng guồng cao dần theo bậc, Hoàn hảo thêm tiếng dập + rung mạnh (Haptic.Win). Sprite ở `Assets/03 Art/Shop/v3`
+  (`ArtGen/Shop/v3/ve_fx_pop.py`).
+- Mọi phần tử dựng sẵn trong prefab (CasinoFishingMenu, `SetupFx`), FishingPanel chỉ bật / đặt chỗ (luật PrefabOnlyTests).

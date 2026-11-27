@@ -16,6 +16,9 @@ namespace PokiClash
     public sealed class NotebookScene : SceneRoot
     {
         public override string Title => Loc.T("Sổ tay");
+        // mở từ nút bánh răng của thanh sảnh chung (args = tên màn đang đứng): ở Nhà / đảo Casino thì quay lại đó; còn lại về sảnh
+        public override string BackTo => from == SceneIds.Home || from == SceneIds.Casino ? from : SceneIds.Hub;
+        string from;
 
         [Serializable]
         public struct Parts
@@ -50,6 +53,7 @@ namespace PokiClash
 
         public override void Enter(object args)
         {
+            from = args as string;
             p.reset.SetOnClick(() =>
                 App.Modals.Confirm(Loc.T("Xoá dữ liệu?"), Loc.T("Mọi tiến trình mất hết: về cấp 1, 10 bi, chọn lại tướng khởi đầu."), Loc.T("Xoá"), () =>
                 {

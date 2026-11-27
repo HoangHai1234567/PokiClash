@@ -2,6 +2,8 @@
 // mọi popup (ưu đãi hẹn giờ, Hết bi, Lọ Bi, Chuỗi Quà, quà hôm nay, Quà Trở Lại, giới thiệu thẻ / quỹ) và các trang con (quỹ, chuỗi,
 // chọn tướng bằng vé): tiêu đề, dòng phụ, danh sách ô gói cuộn dọc (Items/OGoi), ô "Hôm nay không hiện nữa" (popup bán).
 // Cửa hàng chính là màn toàn màn hình ShopPage (2026-11-23); hàng tab của tờ này không dùng nữa. GD_Claude/26 mục 5–7, 13.
+// Bản 3 (2026-11-27, người dùng: "làm popup và trang con cùng tông màu này luôn"; mục 17): tờ tối viền mực, băng tím tiêu đề vàng, ô gói
+// màu tươi theo loại (ShopHue). Popup bán (offer, comeback, refill) là OfferPopup (phiên khác làm).
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,8 +66,14 @@ namespace PokiClash
         public static void OpenShop(string tabId = "offers") => ShopPage.Open(tabId);
 
         // popup ưu đãi; closed(đã mua, tích "Hôm nay không hiện nữa")
+        // popup bán (offer, comeback) dùng popup kiểu mới OfferPopup (học Clash of Critters, 2026-11-27) khi đã dựng prefab: trả null
         public static ShopSheet OpenPopup(Popup pop, Action<bool, bool> closed)
         {
+            if (OfferPopup.Handles(pop))
+            {
+                OfferPopup.Open(pop, closed);
+                return null;
+            }
             ShopSheet s = null;
             s = App.Modals.Open<ShopSheet>(() => closed?.Invoke(s != null && s.bought, s != null && s.muted));
             s.Popup(pop);
@@ -131,6 +139,12 @@ namespace PokiClash
         }
 
         PackCell Cell(string title, string desc = null) => Ui.Spawn(cellPrefab, p.list).Set(title, desc);
+        PackCell Cell(string title, string desc, ShopHue hue) => Ui.Spawn(cellPrefab, p.list).Set(title, desc, hue);
+
+        // màu ô gói theo loại: bi trời, trứng nho, quỹ vàng, thẻ trời, bỏ quảng cáo nho, còn lại cam hồng
+        static ShopHue PackHue(ShopPack pk) =>
+            pk.tab == "balls" ? ShopHue.Sky : pk.tab == "eggs" ? ShopHue.Grape : pk.kind == "fund" ? ShopHue.Gold : pk.kind == "card" ? ShopHue.Sky :
+            pk.kind == "noads" ? ShopHue.Grape : ShopHue.Sunset;
 
         void FitList()
         {
@@ -146,7 +160,7 @@ namespace PokiClash
         void GiftCell()
         {
             var items = Shop.Resolve(S, D, C.dailyGift, true, null);
-            var c = Cell(Loc.T("Quà hôm nay"), Loc.T("Mỗi ngày một phần quà miễn phí.")).Items(items);
+            var c = Cell(Loc.T("Quà hôm nay"), Loc.T("Mỗi ngày một phần quà miễn phí."), ShopHue.Mint).Items(items);
             if (!Shop.GiftReady(S, Now))
             {
                 c.Done(Loc.T("Đã nhận, mai quay lại"));
@@ -162,7 +176,7 @@ namespace PokiClash
             {
                 if (!Shop.CardClaimable(S, id, Now)) continue;
                 var def = C.Card(id);
-                Cell(Loc.F("{0}: quà ngày", def.Name), Loc.F("Còn {0}.", ShopUi.Clock(Shop.CardUntil(S, id) - Now)))
+                Cell(Loc.F("{0}: quà ngày", def.Name), Loc.F("Còn {0}.", ShopUi.Clock(Shop.CardUntil(S, id) - Now)), ShopHue.Sky)
                     .Items(Shop.Resolve(S, D, def.daily, true, null))
                     .Button(Loc.T("Nhận"), BtnColor.Green, () => ShopService.Free(Shop.ClaimCard(S, D, id, Now, R), def.Name, _ => Redraw()));
             }
@@ -172,7 +186,7 @@ namespace PokiClash
                 var pk = C.Pack(kv.Key);
                 if (pk == null || !Shop.DayClaimable(S, D, kv.Key, Now)) continue;
                 int day = kv.Value.claimed + 1;
-                Cell(Loc.F("{0}: ngày {1}", pk.Name, day), null)
+                Cell(Loc.F("{0}: ngày {1}", pk.Name, day), null, ShopHue.Berry)
                     .Items(Shop.Resolve(S, D, pk.days[kv.Value.claimed].items, pk.scale, null))
                     .Button(Loc.T("Nhận"), BtnColor.Green, () => ShopService.Free(Shop.ClaimDay(S, D, kv.Key, Now, R), pk.Name, _ => Redraw()));
             }
@@ -195,7 +209,7 @@ namespace PokiClash
             var pk = o.pack != null ? C.Pack(o.pack) : null;
             string desc = pk?.Desc;
             if (pk != null && pk.kind == "days") desc = Loc.T("Mua một lần, nhận 3 ngày liền (vào game mỗi ngày để nhận).");
-            var c = Cell(ShopService.OfferName(o), desc).Items(Shop.OfferItems(S, D, o)).Value(Shop.OfferMult(S, D, o)).Timer(o.until);
+            var c = Cell(ShopService.OfferName(o), desc, ShopHue.Offer(o)).Items(Shop.OfferItems(S, D, o)).Value(Shop.OfferMult(S, D, o)).Timer(o.until);
             if (o.bought)
             {
                 c.Done(Loc.T("Đã mua"));
@@ -211,7 +225,7 @@ namespace PokiClash
             string desc = pk.Desc;
             if (pk.weekly && pk.items.Any(i => i.k == Shop.TicketWeek))
                 desc = Loc.F("{0} Tướng tuần: {1}.", desc, string.Join(", ", Shop.FeaturedNow(D, Now).Select(h => D.Hero(h)?.name)));
-            var c = Cell(pk.Name, first ? desc : pk.firstDouble ? "" : desc).Items(items).Value(Shop.PackMult(S, D, pk));
+            var c = Cell(pk.Name, first ? desc : pk.firstDouble ? "" : desc, PackHue(pk)).Items(items).Value(Shop.PackMult(S, D, pk));
             if (first) c.Note(Loc.T("Lần đầu tặng gấp đôi bi!"), Theme.RedD);
             int left = Shop.Left(S, pk, Now);
             if (pk.kind == "noads" && AdGate.NoAds(S) || left <= 0)
@@ -225,7 +239,7 @@ namespace PokiClash
 
         void FreeBallsCell()
         {
-            Cell(Loc.T("Bi miễn phí"), Loc.T("Xem quảng cáo nhận bi."))
+            Cell(Loc.T("Bi miễn phí"), Loc.T("Xem quảng cáo nhận bi."), ShopHue.Sky)
                 .Items(new[] { new ShopItem { k = "balls", n = ShopService.FreeBallsN } })
                 .AdButton(Loc.T("Xem"), Ads.FreeBalls, () => ShopService.FreeBalls(Redraw));
         }
@@ -235,8 +249,8 @@ namespace PokiClash
             var card = Shop.CardOf(C, pk);
             string id = card?.id ?? "week";
             bool on = Shop.CardActive(S, id, Now);
-            var c = Cell(pk.Name, pk.Desc).Items(Shop.Resolve(S, D, pk.items, pk.scale, null)).Value(Shop.PackMult(S, D, pk));
-            if (on) c.Note(Loc.F("Đang có · còn {0}", ShopUi.Clock(Shop.CardUntil(S, id) - Now)), Theme.GreenD).Tint(Theme.Hex("#e6f7d9"));
+            var c = Cell(pk.Name, pk.Desc, ShopHue.Sky).Items(Shop.Resolve(S, D, pk.items, pk.scale, null)).Value(Shop.PackMult(S, D, pk));
+            if (on) c.Note(Loc.F("Đang có · còn {0}", ShopUi.Clock(Shop.CardUntil(S, id) - Now)), Theme.GreenD).Hue(ShopHue.Mint);
             c.Button(on ? Loc.F("Gia hạn {0}", ShopService.Price(pk.price)) : ShopService.Price(pk.price), BtnColor.Orange,
                 () => ShopService.BuyPack(pk.id, ok => AfterBuy(ok, false)));
             if (Shop.CardClaimable(S, id, Now))
@@ -247,7 +261,7 @@ namespace PokiClash
         {
             var st = Shop.Of(S);
             int ready = Shop.FundReady(S, C);
-            var c = Cell(pk.Name, pk.Desc).Value(Shop.PackMult(S, D, pk));
+            var c = Cell(pk.Name, pk.Desc, ShopHue.Gold).Value(Shop.PackMult(S, D, pk));
             if (ready > 0) c.Note(Loc.F("{0} mốc chờ nhận", ready), Theme.RedD);
             if (!st.fund) c.Button(ShopService.Price(pk.price), BtnColor.Orange, () => ShopService.BuyPack(pk.id, ok => AfterBuy(ok, false)));
             c.Extra(Loc.T("Xem quỹ"), BtnColor.Paper, OpenFund);
@@ -259,7 +273,7 @@ namespace PokiClash
             int n = (int)Math.Floor(st.piggy);
             double cap = Shop.PiggyCap(S, C);
             var pk = C.Pack("piggy");
-            var c = Cell(Loc.T("Lọ Bi"), Loc.F("Lọ đang có {0}/{1} bi. Mỗi bi bạn thả bỏ 1 bi vào lọ.", n, cap))
+            var c = Cell(Loc.T("Lọ Bi"), Loc.F("Lọ đang có {0}/{1} bi. Mỗi bi bạn thả bỏ 1 bi vào lọ.", n, cap), ShopHue.Gold)
                 .Items(new[] { new ShopItem { k = "balls", n = Math.Max(n, 0) } })
                 .Value(pk.price > 0 ? n / (pk.price * C.valuePerUsd) : 0);
             if (Shop.PiggyCanBreak(S, C, Now))
@@ -278,7 +292,7 @@ namespace PokiClash
             {
                 var cs = def.steps[i];
                 int k = i;
-                var c = s.Cell(Loc.F("Ô {0}", i + 1), null).Items(Shop.Resolve(S, D, cs.items, true, null));
+                var c = s.Cell(Loc.F("Ô {0}", i + 1), null, cs.price > 0 ? ShopHue.Grape : ShopHue.Mint).Items(Shop.Resolve(S, D, cs.items, true, null));
                 if (cs.price > 0) c.Value(Shop.Mult(C, D, Shop.Resolve(S, D, cs.items, true, null), cs.price));
                 if (i < st.chainStep) c.Done(cs.price > 0 ? Loc.T("Đã mua") : Loc.T("Đã nhận"));
                 else if (i == st.chainStep && Shop.ChainLive(S, Now))
@@ -300,7 +314,7 @@ namespace PokiClash
                 int k = i;
                 var paid = Shop.Resolve(S, D, f.paid, true, null);
                 var free = Shop.Resolve(S, D, f.free, true, null);
-                var c = s.Cell(Loc.F("Cấp {0}", f.lv), null).Items(free.Concat(paid));
+                var c = s.Cell(Loc.F("Cấp {0}", f.lv), null, S.level >= f.lv ? ShopHue.Gold : ShopHue.Slate).Items(free.Concat(paid));
                 bool canFree = Shop.FundClaimable(S, C, i, false), canPaid = Shop.FundClaimable(S, C, i, true);
                 bool gotFree = st.fundFree.Contains(i), gotPaid = st.fundPaid.Contains(i);
                 if (S.level < f.lv)
@@ -335,7 +349,8 @@ namespace PokiClash
                 if (h == null) continue;
                 int n = Shop.TicketShards(S, D, hid);
                 var g = Progress.ShardGoal(S, D, hid);
-                var c = s.Cell(h.name, (S.Hero(hid).owned ? Loc.T("Đã có · ") : Loc.T("Chưa có · ")) + Elements.RarityName(h.rarity) + " · " + Elements.Name(h.elem));
+                var c = s.Cell(h.name, (S.Hero(hid).owned ? Loc.T("Đã có · ") : Loc.T("Chưa có · ")) + Elements.RarityName(h.rarity) + " · " + Elements.Name(h.elem),
+                    ShopHue.Tier((int)h.rarity));
                 c.HeroTile(h, "×" + n).Tag(g.need > 0 ? $"{g.have}/{g.need}" : "", Theme.Paper2);
                 c.Button(Loc.T("Chọn"), BtnColor.Green, () => App.Modals.Confirm(Loc.T("Chọn tướng"), Loc.F("Dùng vé lấy {0} mảnh {1}?", n, h.name), Loc.T("Chọn"), () =>
                 {
@@ -394,7 +409,7 @@ namespace PokiClash
                     Header(Loc.T("Mừng bạn trở lại!"), Loc.T("Quà trở lại đã vào túi."));
                     redraw = () =>
                     {
-                        Cell(Loc.T("Quà trở lại"), null).Rewards(gift).Done(Loc.T("Đã nhận"));
+                        Cell(Loc.T("Quà trở lại"), null, ShopHue.Mint).Rewards(gift).Done(Loc.T("Đã nhận"));
                         if (o != null) OfferCell(o, true);
                     };
                     break;
@@ -413,7 +428,8 @@ namespace PokiClash
                     break;
                 }
                 case "refill":
-                    Header(Loc.T("Hết bi!"), Loc.T("Bi để thả máy bi, lên cấp cho mọi tướng."));
+                    if (pop.warn) Header(Loc.T("Sắp hết bi!"), Loc.F("Còn {0} bi. Bổ sung để thả tiếp, lên cấp cho mọi tướng.", S.balls));
+                    else Header(Loc.T("Hết bi!"), Loc.T("Bi để thả máy bi, lên cấp cho mọi tướng."));
                     redraw = () => DrawRefill(pop.first);
                     break;
                 case "piggy":
@@ -427,7 +443,7 @@ namespace PokiClash
                     Header(Loc.T("Quà hôm nay"), null);
                     redraw = () =>
                     {
-                        Cell(Loc.T("Nhận hết quà hôm nay"), null).Button(Loc.T("Nhận hết"), BtnColor.Green, () => ShopService.ClaimAll(Close));
+                        Cell(Loc.T("Nhận hết quà hôm nay"), null, ShopHue.Mint).Button(Loc.T("Nhận hết"), BtnColor.Green, () => ShopService.ClaimAll(Close));
                         GiftCell();
                         ClaimCells();
                     };
@@ -446,21 +462,21 @@ namespace PokiClash
             int stock = Trees.Stock(S, D.Cfg, now);
             if (Trees.Open(S, D.Cfg) > 0)
             {
-                var c = Cell(Loc.T("Cây bi"), stock > 0 ? Loc.F("Cây đang có {0} bi chờ hái ở Nhà.", stock) : Loc.T("Cây bi ra bi theo giờ ở Nhà."));
+                var c = Cell(Loc.T("Cây bi"), stock > 0 ? Loc.F("Cây đang có {0} bi chờ hái ở Nhà.", stock) : Loc.T("Cây bi ra bi theo giờ ở Nhà."), ShopHue.Mint);
                 if (stock > 0) c.Button(Loc.T("Tới Nhà"), BtnColor.Green, () =>
                 {
                     Close();
                     App.Router.Go(SceneIds.Home);
                 });
             }
-            else Cell(Loc.T("Thắng ải để có thêm bi"), Loc.T("Mỗi trận thắng cho bi; ải lần đầu cho nhiều hơn."));
+            else Cell(Loc.T("Thắng ải để có thêm bi"), Loc.T("Mỗi trận thắng cho bi; ải lần đầu cho nhiều hơn."), ShopHue.Slate);
             if (Shop.PiggyCanBreak(S, C, Now)) PiggyCell(true);
             if (first) return;
             for (int i = 1; i <= 3; i++)
                 if (C.Pack("refill_" + i) is ShopPack pk)
                 {
                     var items = Shop.Resolve(S, D, pk.items, pk.scale, null);
-                    Cell(pk.Name, null).Items(items).Value(Shop.PackMult(S, D, pk))
+                    Cell(pk.Name, null, ShopHue.Sky).Items(items).Value(Shop.PackMult(S, D, pk))
                         .Button(ShopService.Price(pk.price), BtnColor.Orange, () => ShopService.BuyPack(pk.id, ok => AfterBuy(ok, true)));
                 }
         }

@@ -37,33 +37,42 @@ namespace PokiClash
 
         // ô thưởng của một danh sách thưởng (dùng chung với màn mở nhiều rương MachineChestOpen): XP, bi, đá tiềm năng, đá tiến hóa
         // trước, rồi thẻ (gộp bản sao "×n"), rồi mảnh tướng
-        public static List<RewardTile> BuildTiles(List<Reward> rewards, RewardTile prefab, Transform parent)
+        // dest / amounts (tuỳ chọn): ô chứa và số lượng của từng ô thưởng, cho icon bay về ô chứa khi nhận (RewardFly)
+        public static List<RewardTile> BuildTiles(List<Reward> rewards, RewardTile prefab, Transform parent, List<RewardFly.To> dest = null,
+            List<int> amounts = null)
         {
             var d = App.Data;
             var tiles = new List<RewardTile>();
-            RewardTile Tile() { var t = Ui.Spawn(prefab, parent); tiles.Add(t); return t; }
+            RewardTile Tile(RewardFly.To to = RewardFly.To.None, int n = 1)
+            {
+                var t = Ui.Spawn(prefab, parent);
+                tiles.Add(t);
+                dest?.Add(to);
+                amounts?.Add(n);
+                return t;
+            }
             int exp = rewards.Where(q => q.k == RewardKind.Exp).Sum(q => q.n);
             int balls = rewards.Where(q => q.k == RewardKind.Balls).Sum(q => q.n);
             int stones = rewards.Where(q => q.k == RewardKind.Stones).Sum(q => q.n);
             int evo = rewards.Where(q => q.k == RewardKind.EvoStones).Sum(q => q.n);
-            if (exp > 0) Tile().Item(App.Art.Icon("exp"), $"×{exp}", "XP");
-            if (balls > 0) Tile().Item(App.Art.Icon("ball"), $"×{balls}", Loc.T("Bi"));
-            if (stones > 0) Tile().Item(App.Art.Icon("rock"), $"×{stones}", Loc.T("Đá tiềm năng"), Rarity.Epic);
-            if (evo > 0) Tile().EvoStones(evo);
+            if (exp > 0) Tile(RewardFly.To.Level, exp).Item(App.Art.Icon("exp"), $"×{exp}", "XP");
+            if (balls > 0) Tile(RewardFly.To.Balls, balls).Item(App.Art.Icon("ball"), $"×{balls}", Loc.T("Bi"));
+            if (stones > 0) Tile(RewardFly.To.Cave, stones).Item(App.Art.Icon("rock"), $"×{stones}", Loc.T("Đá tiềm năng"), Rarity.Epic);
+            if (evo > 0) Tile(RewardFly.To.Heroes, evo).EvoStones(evo);
             // cửa hàng (Shop, 2026-11-23): đá tinh, trứng vào túi, vé chọn tướng, quyền lợi
             int crystal = rewards.Where(q => q.k == RewardKind.Crystal).Sum(q => q.n);
-            if (crystal > 0) ShopUi.Tile(Tile(), new ShopItem { k = "crystal", n = crystal });
+            if (crystal > 0) ShopUi.Tile(Tile(RewardFly.To.Heroes, crystal), new ShopItem { k = "crystal", n = crystal });
             // trứng vào túi: ô màu bậc, nhãn "nở mảnh"
             foreach (var g in rewards.Where(q => q.k == RewardKind.Egg).GroupBy(q => q.id))
-                ShopUi.Tile(Tile(), new ShopItem { k = Shop.Egg, r = Eggs.TierOf(g.Key), n = g.Sum(q => q.n) });
+                ShopUi.Tile(Tile(RewardFly.To.Shop, g.Sum(q => q.n)), new ShopItem { k = Shop.Egg, r = Eggs.TierOf(g.Key), n = g.Sum(q => q.n) });
             foreach (var g in rewards.Where(q => q.k == RewardKind.HeroChest || q.k == RewardKind.GoldChest || q.k == RewardKind.Ticket || q.k == RewardKind.Perk)
                          .GroupBy(q => (q.k, q.id)))
             {
                 var r = g.First();
                 string k = r.k == RewardKind.HeroChest ? Shop.HeroChest : r.k == RewardKind.GoldChest ? Shop.GoldChest
                     : r.k == RewardKind.Ticket ? r.id ?? Shop.Ticket : r.id == "week" ? "week_card" : r.id == "month" ? "month_card" : r.id ?? "no_ads";
-                if (r.k == RewardKind.Perk && r.id == "fund") Tile().Item(App.Art.Icon("crown"), "", Loc.T("Quỹ Phiêu Lưu"), Rarity.Epic);
-                else ShopUi.Tile(Tile(), new ShopItem { k = k, n = g.Sum(q => q.n) });
+                if (r.k == RewardKind.Perk && r.id == "fund") Tile(RewardFly.To.Shop).Item(App.Art.Icon("crown"), "", Loc.T("Quỹ Phiêu Lưu"), Rarity.Epic);
+                else ShopUi.Tile(Tile(RewardFly.To.Shop, g.Sum(q => q.n)), new ShopItem { k = k, n = g.Sum(q => q.n) });
             }
             var cards = rewards.Where(q => q.k == RewardKind.Card)
                 .GroupBy(q => (q.drop.hero, q.drop.slot))
@@ -72,12 +81,12 @@ namespace PokiClash
             foreach (var (drop, n) in cards)
             {
                 var cd = d.Card(drop.card);
-                Tile().Card(cd, App.Art.Icon(cd.icon), d.Hero(drop.hero), n, drop.rarity);
+                Tile(RewardFly.To.Cards, n).Card(cd, App.Art.Icon(cd.icon), d.Hero(drop.hero), n, drop.rarity);
             }
             foreach (var r in rewards.Where(q => q.k == RewardKind.Shards))
             {
                 var res = r.res;
-                var t = Tile().Hero(d.Hero(res.hero), $"×{res.n}");
+                var t = Tile(RewardFly.To.Heroes, res.n).Hero(d.Hero(res.hero), $"×{res.n}");
                 if (res.unlocked) t.Tag(Loc.T("MỞ KHÓA!"), Theme.Red);
                 else if (res.converted > 0) t.Tag(Loc.F("→ {0} thẻ", res.converted), Theme.Paper2);
                 else
@@ -143,14 +152,25 @@ namespace PokiClash
             Rewards(rewards);
             buttonRow.gameObject.SetActive(true);
             while (!closed()) yield return null;
+            // nhận (bấm nút / chạm ra ngoài): icon từng ô bay về ô chứa (hộp đang mờ dần, ô còn đúng chỗ)
+            RewardFly.FromTiles(shown, shownDest, shownAmounts);
+            shown.Clear();
         }
+
+        readonly List<RewardTile> shown = new List<RewardTile>();
+        readonly List<RewardFly.To> shownDest = new List<RewardFly.To>();
+        readonly List<int> shownAmounts = new List<int>();
 
         // thưởng của một rương: mọi thứ là ô hình (Items/OThuong) trong một lưới: XP, bi, đá trước, rồi thẻ (gộp bản sao "×n"),
         // rồi mảnh tướng (MỞ KHÓA! khi đủ mảnh, tiến độ "có/cần" mảnh mở khoá hoặc lên sao, "→ n thẻ" khi tướng đã tối đa sao và mảnh
         // đổi thành bản sao thẻ). Ô bật lần lượt.
         void Rewards(List<Reward> rewards)
         {
-            var tiles = BuildTiles(rewards, tilePrefab, cardGrid.transform);
+            shownDest.Clear();
+            shownAmounts.Clear();
+            var tiles = BuildTiles(rewards, tilePrefab, cardGrid.transform, shownDest, shownAmounts);
+            shown.Clear();
+            shown.AddRange(tiles);
             if (tiles.Count == 0) return;
 
             // hộp rộng 940, lề trong ~840: tới 5 ô một hàng

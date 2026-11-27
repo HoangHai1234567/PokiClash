@@ -317,6 +317,8 @@ namespace PokiClash
             App.Toasts.Show(shards > 0 ? Loc.F("Nhặt {0} mảnh tướng", shards) : Loc.T("Lần này chưa nhặt được mảnh tướng"), App.Art.Icon("shard"));
             foreach (var x in r.shards)
                 if (x.unlocked) App.Toasts.Show(Loc.F("Mở khóa {0}!", D.Hero(x.hero).name), App.Art.Icon("star"));
+            // mảnh tướng toả ra từ nút Nhận rồi chui vào ô Tướng (RewardFly)
+            if (shards > 0) RewardFly.Send(RewardFly.To.Heroes, App.Art.Icon("shard"), p.claim.transform.position, shards);
             Close();
         }
 

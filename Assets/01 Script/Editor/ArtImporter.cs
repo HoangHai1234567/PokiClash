@@ -1,4 +1,4 @@
-// Ảnh: (1) mọi PNG/JPG trong Assets/03 Art (trừ ảnh nướng sẵn Baked/) tự đặt kiểu Sprite, không mipmap, nén ASTC trên Android;
+// Ảnh: (1) mọi PNG/JPG trong Assets/03 Art (trừ ảnh nướng sẵn Baked/) tự đặt kiểu Sprite, không mipmap (trừ icon món, hình cửa hàng, rương / kẹo máy bi), nén ASTC trên Android;
 // (2) menu "PokiClash/Nhập ảnh ArtGen": đọc ArtGen/<gói>/inbox/. Ảnh sheet (bảng Sheets bên dưới, theo PROMPTS.md của gói)
 //     được cắt theo lưới thành từng ảnh, gọt mép trong suốt; ảnh đơn chép nguyên tên. Ảnh không có nền trong suốt thì
 //     cắt nền trắng nối với mép. Đặt viền 9-slice cho ảnh khung (btn_, panel_, card_, bar_, chip_...), dựng lại ArtLibrary.
@@ -41,10 +41,24 @@ namespace PokiClash.EditorTools
             var ti = (TextureImporter)assetImporter;
             ti.textureType = TextureImporterType.Sprite;
             ti.spriteImportMode = SpriteImportMode.Single;
-            ti.mipmapEnabled = false;
+            // icon món / quà (Fallback/Icons 256 px) và hình cửa hàng (trứng ~380 x 480, gói ~480 x 500) hiện thu nhỏ 4–7 lần trong ô thưởng
+            // (ô 150 x 0,66 ở cửa hàng): không mipmap thì lọc song tuyến bỏ điểm ảnh, icon vỡ răng cưa (người dùng chê mờ, vỡ 2026-11-27).
+            // Bật mipmap (lọc Kaiser cho mip nét), lọc ba tuyến, lệch mip -0,5; ảnh nhỏ nên chỉ nặng thêm 1/3. Ảnh nền, ảnh hiện gần 1:1
+            // giữ không mipmap.
+            // Rương, kẹo máy bi (Pachinko/pk_ruong_*, pk_keo_* 160–320 px) hiện ~60 px trong nấm, cốc, ô đáy: cùng lý do (icon quà vỡ, 2026-11-27).
+            // Icons/: icon vẽ tay icon_<tên> thay icon SVG cùng tên (XP, bi, búa...; 2026-11-27), cùng chỗ hiện như Fallback/Icons.
+            bool mip = assetPath.Contains("/Fallback/Icons/") || assetPath.StartsWith(ArtImporter.ArtDir + "/Icons/")
+                || assetPath.StartsWith(ArtImporter.ArtDir + "/Shop/")
+                || assetPath.Contains("/Pachinko/pk_ruong_") || assetPath.Contains("/Pachinko/pk_keo_");
+            ti.mipmapEnabled = mip;
+            if (mip)
+            {
+                ti.mipmapFilter = TextureImporterMipFilter.KaiserFilter;
+                ti.mipMapBias = -0.5f;
+            }
             ti.alphaIsTransparency = true;
             ti.wrapMode = TextureWrapMode.Clamp;
-            ti.filterMode = FilterMode.Bilinear;
+            ti.filterMode = mip ? FilterMode.Trilinear : FilterMode.Bilinear;
             ti.npotScale = TextureImporterNPOTScale.None;
             // thân máy bi (ArtGen/Pachinko/build.py --duyet) cao 1394 px: nhập ở 2048 để giữ nét
             bool big = assetPath.Contains("/Fallback/") && !assetPath.Contains("/Icons/") || assetPath.Contains("/Islands/") || assetPath.Contains("/BattleBG/")
@@ -53,11 +67,13 @@ namespace PokiClash.EditorTools
                 || assetPath.Contains("/Boot/boot_ban_do") // tấm bản đồ màn mở game 1080 x 1500, gần như phủ ngang màn
                 || assetPath.Contains("/Home/home_base") // nền đảo Nhà (GD_Claude/21)
                 || assetPath.Contains("/Casino/casino_dao") // nền đảo Casino trống (GD_Claude/29, C8): 2048 x 1360, hiện 1:1
+                || assetPath.Contains("/Seasons/Resources/Seasons/noel/map/") // bản tuyết phủ Nhà / Casino (SeasonSkin): phải đúng cỡ ảnh gốc
                 || assetPath.Contains("/Casino/Leu/bj_nen") || assetPath.Contains("/Casino/Leu/bj_ban") // lều Đêm Bài có dealer (GD_Claude/31 D3): 1144 x 2048, phủ cả màn
                 || assetPath.Contains("/Casino/Leu/rl_nen") || assetPath.Contains("/Casino/Leu/rl_ban") // lều Vòng Xoay có dealer (GD_Claude/31 D4): 1144 x 2048
                 || assetPath.Contains("/Casino/Leu/sl_nen") // lều Hội Máy Quả (GD_Claude/31 D5, ArtGen/Casino/may_qua/leu): 1144 x 2048, phủ cả màn
                 || assetPath.Contains("/Casino/HamDau/hd_") // nền Hầm đấu + lớp quầy (GD_Claude/29 mục 6.5, 2026-11-26): 1144 x 2048, phủ cả màn
                 || assetPath.Contains("/Casino/Cho/cho_nen") // nền Chợ đen (GD_Claude/29 C8, ArtGen/Casino/cho_den, 2026-11-27): 1152 x 2048, phủ cả màn
+                || assetPath.Contains("/Cave/hang_nen") // nền Hang Tiềm Năng (ArtGen/Cave, 2026-11-27): 1144 x 2048, phủ cả màn
                 || assetPath.Contains("/Kit/may_chuyen_"); // mây chuyển scene (ArtGen/UI/may_chuyen_scene, 2026-11-24): mỗi nửa phủ gần cả màn
             ti.maxTextureSize = big ? 2048 : 1024;
             if (assetPath.EndsWith("/Islands/world.png")) ti.maxTextureSize = 4096; // đảo lớn sảnh có lề cho kéo: 1480 x 2320
@@ -70,6 +86,7 @@ namespace PokiClash.EditorTools
             if (assetPath.Contains("/Islands/land_")) ti.maxTextureSize = 4096;
             // nền đảo Nhà 72 x 72 ô (ArtGen/Home/base/compose_base72.py): 2210 x 1225, trải ra hơn 6 màn ngang
             if (assetPath.Contains("/Home/home_base")) ti.maxTextureSize = 4096;
+            if (assetPath.Contains("/Seasons/") && assetPath.EndsWith("/map/home_base.png")) ti.maxTextureSize = 4096; // bản tuyết nền Nhà 2210 x 1330
             // mặt tướng màn VS (ArtGen/BattleIntro, 384 x 384, mỗi dạng tướng một ảnh, hơn trăm ảnh): ASTC 8x8 cho nhẹ APK
             bool face = assetPath.Contains("/BattleIntro/Resources/HeroFaces/");
             if (face) ti.maxTextureSize = 512;

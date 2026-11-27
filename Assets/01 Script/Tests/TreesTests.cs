@@ -1,5 +1,6 @@
 // Cây bi so với bản web (golden trees.json): mở theo tiến độ, ra đều, đầy thì ngừng, hái giữ phần lẻ, hái ×2, lùi giờ máy,
-// tua, Thẻ Phiêu Lưu (×1,5 tốc độ và sức chứa); thêm các tình huống ví dụ và lưu rồi đọc lại.
+// tua, Thẻ Phiêu Lưu (×1,5 tốc độ và sức chứa); thêm các tình huống ví dụ và lưu rồi đọc lại. Túi bi (BallBag, 2026-11-27): đầy thì không hái,
+// gần đầy hái tới trần, quà cộng vượt trần.
 using NUnit.Framework;
 using PokiClash.Core;
 
@@ -95,6 +96,46 @@ namespace PokiClash.Tests
             CollectionAssert.AreEqual(s.trees.stock, back.trees.stock);
             Assert.AreEqual(3 * (int)cap, Trees.Harvest(back, d.Cfg, (full + 10) * H));
             Assert.AreEqual(0, Trees.Stock(back, d.Cfg, (full + 10) * H));
+        }
+
+        [Test]
+        public void TuiBi_DayThiKhongHai_GanDayHaiToiTran_QuaVuotTran()
+        {
+            var d = TestData.Load();
+            var s = SaveData.New(d, 0);
+            s.zones[(int)Elem.Thuy] = 1;
+            OpenHome(s, d);
+            s.level = 1;
+            Assert.AreEqual(1, Trees.Open(s, d.Cfg));
+            Assert.AreEqual(d.Cfg.trees.ballCap, BallBag.Cap(s, d.Cfg, 0), "một cây: túi gốc");
+            s.level = d.Cfg.trees.unlockLevels[1];
+            Assert.AreEqual(d.Cfg.trees.ballCap + 2 * d.Cfg.trees.ballCapPerTree, BallBag.Cap(s, d.Cfg, 0), "ba cây: túi gốc + 2 nấc");
+            int cap = BallBag.Cap(s, d.Cfg, 0);
+            double full = d.Cfg.trees.cap / d.Cfg.trees.perHour;
+            Trees.Tick(s, d.Cfg, 0);
+            int stock = Trees.Stock(s, d.Cfg, full * H);
+            Assert.Greater(stock, 20);
+
+            // túi đầy: không hái được, bi nằm nguyên trên cây
+            s.balls = cap;
+            Assert.IsTrue(BallBag.Full(s, d.Cfg, full * H));
+            Assert.AreEqual(0, Trees.Harvest(s, d.Cfg, full * H));
+            Assert.AreEqual(stock, Trees.Stock(s, d.Cfg, full * H));
+
+            // còn 10 chỗ: hái đúng 10, phần còn lại nằm trên cây; Hái ×2 chỉ lấy 5 (×2 = 10)
+            s.balls = cap - 10;
+            Assert.AreEqual(10, Trees.Harvest(s, d.Cfg, full * H));
+            Assert.AreEqual(cap, s.balls);
+            Assert.AreEqual(stock - 10, Trees.Stock(s, d.Cfg, full * H));
+            s.balls = cap - 10;
+            Assert.AreEqual(10, Trees.Harvest(s, d.Cfg, full * H, 2));
+            Assert.AreEqual(stock - 15, Trees.Stock(s, d.Cfg, full * H));
+
+            // quà / rương / gói nạp không qua túi: cộng vượt trần, rồi cây vẫn không hái được
+            var got = Shop.Grant(s, d, new System.Collections.Generic.List<ShopItem> { new ShopItem { k = "balls", n = 500 } }, full * H, new Rng(1));
+            Assert.AreEqual(cap + 500, s.balls, "quà cộng vượt trần");
+            Assert.AreEqual(0, BallBag.Room(s, d.Cfg, full * H));
+            Assert.AreEqual(0, Trees.Harvest(s, d.Cfg, full * H));
         }
 
         [Test]

@@ -1,5 +1,6 @@
-// Thẻ ngang to của cửa hàng (prefab Items/TheCuaHang): gói nổi bật / ưu đãi hẹn giờ: hình hoặc mặt tướng bên trái, tên, mô tả, hàng
-// ô thưởng thu nhỏ, đồng hồ, sticker giá trị, nút giá và nút phụ. ShopPage.
+// Thẻ ngang to của cửa hàng (prefab Items/TheCuaHang): gói nổi bật / ưu đãi hẹn giờ. Bản 3 (2026-11-27, học thẻ gói Clash of Critters,
+// GD_Claude/26 mục 15): nền màu tươi ba lớp (nền chính có sao nổ sau hình, mảng phải cắt chéo caro), dải tên tối dưới đáy, hình hoặc mặt
+// tướng bên trái, ô món kem bên phải, nhãn đỏ "Giá trị ×N" góc trên phải, đồng hồ góc trên trái, nút giá xanh lá. ShopPage.
 using System;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -16,23 +17,23 @@ namespace PokiClash
         [Serializable]
         public struct Parts
         {
-            public Image bg, art, heroArt;
-            public TextMeshProUGUI title, desc, timer, done, note;
-            public RectTransform items; // hàng ô thưởng (thu nhỏ)
-            public UiStamp value;
+            public Image bg, panel, rays, art, heroArt, valueBg;
+            public TextMeshProUGUI title, desc, timer, done, note, valueText;
+            public RectTransform items; // hàng ô món (canh phải)
             public SketchButton buy, extra;
         }
 
         [SerializeField] Parts p;
-        [SerializeField] RewardTile tilePrefab;
+        [SerializeField] ShopItemCell cellPrefab;
         [SerializeField] GameObject timerBox; // nền viên thuốc của đồng hồ (chữ là con)
+        ShopHue hue;
         double until;
         float next;
 
-        public void Setup(Parts parts, RewardTile tile, GameObject timerBg)
+        public void Setup(Parts parts, ShopItemCell cell, GameObject timerBg)
         {
             p = parts;
-            tilePrefab = tile;
+            cellPrefab = cell;
             timerBox = timerBg;
         }
 
@@ -45,27 +46,36 @@ namespace PokiClash
         public RectTransform Rect => (RectTransform)transform;
         public SketchButton Buy => p.buy;
 
-        public ShopCard Set(string title, string desc, Color bg)
+        void Paint(ShopHue h)
         {
+            p.bg.color = h.fill;
+            p.panel.color = h.panel;
+            p.rays.color = h.rays;
+        }
+
+        public ShopCard Set(string title, string desc, ShopHue h)
+        {
+            hue = h;
+            Paint(h);
             p.title.text = title;
             p.desc.text = desc ?? "";
             p.desc.gameObject.SetActive(!string.IsNullOrEmpty(desc));
-            p.bg.color = bg;
             p.art.gameObject.SetActive(false);
             p.heroArt.gameObject.SetActive(false);
             ShowTimer(false);
             p.done.gameObject.SetActive(false);
             p.note.gameObject.SetActive(false);
-            p.value.gameObject.SetActive(false);
+            p.valueBg.gameObject.SetActive(false);
             p.buy.gameObject.SetActive(false);
             p.extra.gameObject.SetActive(false);
             for (int i = p.items.childCount - 1; i >= 0; i--) Destroy(p.items.GetChild(i).gameObject);
+            p.items.gameObject.SetActive(false);
             until = 0;
             Height(Tall);
             return this;
         }
 
-        public const float Tall = 380, Short = 230;
+        public const float Tall = 400, Short = 250;
 
         void Height(float h)
         {
@@ -87,33 +97,35 @@ namespace PokiClash
             return this;
         }
 
-        // mặt tướng (gói tướng tuần, gói đồng hành): ảnh thẻ tướng thay hình to
-        public ShopCard Hero(HeroDef h)
+        // mặt tướng (gói tướng tuần, gói đồng hành): ảnh thẻ tướng thay hình to; chưa có mặt tướng (gói tải sau) thì hình gói fallback
+        public ShopCard Hero(HeroDef h, Sprite fallback = null)
         {
             var s = h != null ? HeroArt.Face(h) : null;
             p.heroArt.gameObject.SetActive(s);
             if (s) Theme.SetSprite(p.heroArt, s);
+            else if (fallback) Art(fallback);
             p.heroArt.preserveAspect = true;
             return this;
         }
 
+        // ô món canh phải; 5 món trở lên thì thu nhỏ cho khỏi đè hình gói
         public ShopCard Items(IEnumerable<ShopItem> items)
         {
-            foreach (var it in items) ShopUi.Tile(Ui.Spawn(tilePrefab, p.items), it);
+            foreach (var it in items) Ui.Spawn(cellPrefab, p.items).Set(it);
+            int n = p.items.childCount;
+            p.items.gameObject.SetActive(n > 0);
+            p.items.localScale = Vector3.one * (n >= 5 ? ItemScale5 : ItemScale);
             return this;
         }
 
-        public ShopCard Rewards(List<Reward> rewards)
-        {
-            ChestDialog.BuildTiles(rewards, tilePrefab, p.items);
-            return this;
-        }
+        public const float ItemScale = 0.84f, ItemScale5 = 0.74f;
 
+        // nhãn giá trị: chỉ hiện khi hời rõ (×1,5 trở lên)
         public ShopCard Value(double mult)
         {
             bool on = mult >= 1.5;
-            p.value.gameObject.SetActive(on);
-            if (on) p.value.Set(Loc.F("giá trị ×{0}", Math.Round(mult)), Theme.Red);
+            p.valueBg.gameObject.SetActive(on);
+            if (on) p.valueText.text = ShopHue.ValueText(mult);
             return this;
         }
 
@@ -129,7 +141,7 @@ namespace PokiClash
         {
             p.note.gameObject.SetActive(!string.IsNullOrEmpty(text));
             p.note.text = text ?? "";
-            p.note.color = color ?? Theme.Ink2;
+            p.note.color = color ?? Color.white;
             return this;
         }
 
@@ -137,7 +149,7 @@ namespace PokiClash
         {
             p.buy.gameObject.SetActive(true);
             p.buy.name = "nut_" + label;
-            p.buy.SetRole(role);
+            ShopHue.Paint(p.buy, role);
             p.buy.SetText(label);
             p.buy.Interactable = on;
             p.buy.SetOnClick(click);
@@ -148,7 +160,7 @@ namespace PokiClash
         {
             p.extra.gameObject.SetActive(true);
             p.extra.name = "nut2_" + label;
-            p.extra.SetRole(role);
+            ShopHue.Paint(p.extra, role);
             p.extra.SetText(label);
             p.extra.Interactable = on;
             p.extra.SetOnClick(click);
@@ -165,13 +177,14 @@ namespace PokiClash
             return this;
         }
 
+        // đã mua / đã nhận: chữ trong dải tên, tắt nút, nền ngả xám
         public ShopCard Done(string text)
         {
             p.done.gameObject.SetActive(true);
             p.done.text = text;
             p.buy.gameObject.SetActive(false);
             p.extra.gameObject.SetActive(false);
-            p.bg.color = Color.Lerp(p.bg.color, Theme.Paper3, 0.55f);
+            Paint(hue.Dim());
             return this;
         }
 

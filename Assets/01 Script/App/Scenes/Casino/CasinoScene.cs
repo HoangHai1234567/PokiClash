@@ -20,6 +20,9 @@ namespace PokiClash
     {
         public override string Title => Loc.T("Bến Lữ Khách");
         public override string BackTo => SceneIds.Hub;
+        // thanh sảnh chung + hàng nút / cột của sảnh (LobbyDock, người dùng 2026-11-27): không tên, không nút quay lại; về sảnh bằng ô
+        // "Đảo chính" (nút giữa của kệ chung), con tàu ở bến hoặc phím Back
+        public override TopBar Bar => TopBar.Hud;
 
         // thứ tự điểm trong prefab (CasinoSpot.Id)
         public static readonly string[] Ids =
@@ -164,6 +167,7 @@ namespace PokiClash
             HookPier();
             HookBob();
             Chrome(true, false);
+            RaiseBar();
             // hộp các trò mở trên đảo (trò có scene riêng đi qua CasinoGames.SceneOf)
             CasinoGames.Register(Casino.Inn, close =>
             {
@@ -172,6 +176,15 @@ namespace PokiClash
             });
             Render();
             StartCoroutine(AfterArrive());
+        }
+
+        // dòng tin + hàng nút của đảo nằm trên kệ nút sảnh chung (LobbyDock sát đáy, nút Máy Bi giữa nhô cao): đẩy lên trên đỉnh nút giữa
+        void RaiseBar()
+        {
+            if (!LobbyDock.I || !lucky) return;
+            var row = lucky.transform.parent as RectTransform;
+            var bar = row ? row.parent as RectTransform : null;
+            if (bar) bar.anchoredPosition = new Vector2(bar.anchoredPosition.x, LobbyDock.CenterTop + 8);
         }
 
         // truyện mở đảo, thông báo trò mới: chờ chuyển cảnh xong (tàu cập bến, giao diện hiện lại) rồi mới hiện
@@ -356,6 +369,8 @@ namespace PokiClash
             }
             if (home)
             {
+                // có kệ chung thì nút Về sảnh thừa (nút giữa "Đảo chính")
+                home.gameObject.SetActive(!LobbyDock.I);
                 home.SetText(Loc.T("Về sảnh"));
                 home.SetOnClick(() => App.Router.Go(SceneIds.Hub));
             }

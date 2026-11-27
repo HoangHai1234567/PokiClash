@@ -65,17 +65,20 @@ namespace PokiClash
             int stock = Trees.Stock(s, cfg, now);
             double cap = Trees.Cap(s, cfg, now);
             bool pass = AdGate.PassActive(s, now);
-            info.text = Loc.F("Mỗi cây {0} bi mỗi giờ, chứa tối đa {1:0} bi; đầy thì ngừng.", Dec(Trees.Rate(s, cfg, now)), cap) + (pass ? Loc.T(" Đang có Thẻ Phiêu Lưu (×1,5).") : "");
+            int bag = BallBag.Cap(s, cfg, now);
+            bool full = BallBag.Full(s, cfg, now);
+            info.text = Loc.F("Mỗi cây {0} bi mỗi giờ, chứa tối đa {1:0} bi; đầy thì ngừng.", Dec(Trees.Rate(s, cfg, now)), cap) + (pass ? Loc.T(" Đang có Thẻ Phiêu Lưu (×1,5).") : "")
+                + "\n" + (full ? Loc.F("Túi bi đầy ({0}/{1}): thả bi ở máy bi rồi quay lại hái.", s.balls, bag) : Loc.F("Túi bi: {0}/{1}.", s.balls, bag));
             var st = Trees.Of(s, now).stock;
             for (int i = 0; i < trees.Length; i++)
             {
                 if (i < st.Count) trees[i].SetOpen(st[i], cap);
                 else trees[i].SetLocked(i == 0 ? Loc.T("Qua ải 1") : Loc.F("Đạt\ncấp {0}", cfg.trees.unlockLevels[i - 1]));
             }
-            harvestBtn.SetText(stock > 0 ? Loc.F("Hái +{0}", stock) : Loc.T("Hái"));
-            harvestBtn.Interactable = stock > 0;
+            harvestBtn.SetText(full && stock > 0 ? Loc.T("Túi bi đầy") : stock > 0 ? Loc.F("Hái +{0}", Mathf.Min(stock, BallBag.Room(s, cfg, now))) : Loc.T("Hái"));
+            harvestBtn.Interactable = stock > 0 && !full;
             doubleBtn.gameObject.SetActive(Ads.Ready);
-            Ads.Bind(doubleBtn, Loc.T("Hái ×2"), Ads.TreeDouble, stock > 0);
+            Ads.Bind(doubleBtn, Loc.T("Hái ×2"), Ads.TreeDouble, stock > 0 && !full);
         }
 
         void Update()

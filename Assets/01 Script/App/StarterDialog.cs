@@ -6,6 +6,8 @@
 // tên, hệ, vai, danh hiệu và chỉ số Máu, Công, Thủ: số kèm thanh 5 nấc tượng trưng (xếp theo 5 tướng khởi đầu, thấp nhất 2 nấc, cao
 // nhất 5 nấc; nấc bình hành nền trắng, Máu xanh lá, Công đỏ, Thủ xanh dương: StatPips), Lực chiến. 5 con chạy dáng đứng lệch nhịp, thỉnh thoảng làm trò (đánh, tung chiêu, nhún); con vừa ra trước nhún bật và
 // tung chiêu; bấm Chọn rồi đồng ý: con đó tung chiêu, 4 con kia nhún chào, rồi mới đóng.
+// Nút tròn icon vòng 5 chấm cạnh tên (menu "PokiClash/Prefab/Hộp thoại và màn/Tương khắc: hộp và icon ô tướng", 2026-11-27): mở hộp Tương
+// khắc của con đứng trước (không bắt buộc xem, người mới tò mò thì chạm).
 using System;
 using System.Collections;
 using System.Linq;
@@ -34,6 +36,10 @@ namespace PokiClash
         }
 
         [SerializeField] Parts p;
+        [SerializeField] SketchButton wheel; // nút Tương khắc (menu Tương khắc: hộp và icon ô tướng); trống thì như cũ
+
+        // Dùng khi dựng nút Tương khắc (Editor).
+        public void SetupWheel(SketchButton button) => wheel = button;
 
         // bán kính vòng, độ nâng con xa nhất, cỡ con xa nhất, px kéo cho một con, cạnh ô xem tướng
         public const float Radius = 330, Lift = 170, FarScale = 0.55f, SlotPx = 300, ViewSize = 500;
@@ -258,6 +264,7 @@ namespace PokiClash
             for (int k = 0; k < p.stats.Length && k < 3; k++) p.stats[k].Set(TeamPower.Text(v[k]), pips[f, k], k * 0.1f);
             p.power.text = Loc.F("Lực chiến {0}", TeamPower.Text(HeroStats.Power(d.Cfg, st, 1)));
             p.pick.SetText(Loc.F("Chọn {0}", h.name));
+            if (wheel) wheel.SetOnClick(() => ElementWheelDialog.Open(h));
         }
 
         static string ElemIcon(Elem e) => e == Elem.Hoa ? "e_hoa" : e == Elem.Thuy ? "e_thuy" : e == Elem.Moc ? "e_moc" : e == Elem.Kim ? "e_kim" : "e_tho";

@@ -17,6 +17,7 @@ namespace PokiClash.EditorTools
     {
         const string ThePath = "Assets/04 Prefabs/Kit/The.prefab";
         const string MiniPath = "Assets/04 Prefabs/Kit/TheMini.prefab";
+        const string TilePath = "Assets/04 Prefabs/Items/TranO.prefab";
         // thẻ thường 320 x 464: ô tranh 272 x 170 từ 92 px dưới đỉnh (chỗ ô tròn cũ), mô tả 266..410 px dưới đỉnh
         static readonly Vector2 ArtSize = new Vector2(272, 170);
         const float DescTop = 266, DescBottom = 410;
@@ -149,6 +150,25 @@ namespace PokiClash.EditorTools
                 Put(mini, Pool("bao_cat"), 1, 400, 1330);
                 Put(mini, Pool("thien_ho"), 1, 640, 1330);
                 Put(mini, innate, 1, 880, 1330);
+                // hàng 4: ô hàng thẻ trong trận (TranO 112 x 140, như BattleView.RenderQueue): thẻ chung dùng tranh, thẻ riêng giữ icon,
+                // ô đòn kết 128 (tuyệt kỹ)
+                var tranO = AssetDatabase.LoadAssetAtPath<QueueTile>(TilePath);
+                void Tile(CardDef c, float x, bool fin = false)
+                {
+                    var q = Object.Instantiate(tranO, canvas.transform, false);
+                    q.gameObject.hideFlags = HideFlags.HideAndDontSave;
+                    q.Rect.anchorMin = q.Rect.anchorMax = new Vector2(0, 1);
+                    q.Rect.anchoredPosition = new Vector2(x, -1575);
+                    var tr = lib.CardArt(c.id);
+                    var sp = tr ? tr : lib.Icon(c.icon);
+                    if (fin) q.Bind(lib.Icon(c.icon), c.name, Theme.Paper3, Theme.Hex("#ffd3e6"), false, 128);
+                    else q.Bind(sp, c.name, Theme.Of(c.rarity), Theme.CardFill, false);
+                }
+                Tile(Pool("nem_da"), 110);
+                Tile(Pool("mai_vuot"), 235);
+                Tile(Pool("can_xe"), 360);
+                Tile(innate, 485);
+                Tile(db.innate.First(c => c.kind == CardKind.Ult), 620, true);
                 Canvas.ForceUpdateCanvases();
                 cam.Render();
                 var prev = RenderTexture.active;

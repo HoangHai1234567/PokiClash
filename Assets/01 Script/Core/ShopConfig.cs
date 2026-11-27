@@ -47,6 +47,9 @@ namespace PokiClash.Core
         // nhóm chọn một (nạp đầu 3 bậc): các gói cùng group chỉ mua được MỘT gói, mua rồi thì ưu đãi của các gói còn lại đóng.
         // group ghi id của gói đứng đầu nhóm (gói có popup và bong bóng); rỗng: gói thường
         public string group;
+        // nhãn giá trị hiển thị "×N" thay cho số tính theo món (người dùng 2026-11-27: ba bậc Khởi Hành ghi ×5 / ×10 / ×20 cho thấy bậc giá
+        // gấp 2, gấp 4 thì hời hơn; chỉ là nhãn, quà không đổi); 0: tính theo món (Shop.PackMult / OfferMult)
+        public double tag;
         public int sort;
         public List<ShopItem> items = new List<ShopItem>();
         public List<ShopDay> days = new List<ShopDay>(); // kind days: ngày 1, 2, 3...
@@ -266,7 +269,7 @@ namespace PokiClash.Core
                     id = J.Str(p, "id"), name = J.Str(p, "name", ""), desc = J.Str(p, "desc", ""), tab = J.Str(p, "tab", ""),
                     kind = J.Str(p, "kind", "pack"), price = J.Num(p, "price"), limit = J.Int(p, "limit"), daily = J.Bool(p, "daily"),
                     weekly = J.Bool(p, "weekly"), hours = J.Num(p, "hours"), firstDouble = J.Bool(p, "firstDouble"), scale = J.Bool(p, "scale"), group = J.Str(p, "group"),
-                    sort = J.Int(p, "sort"), items = Items(J.Get(p, "items")),
+                    tag = J.Num(p, "tag"), sort = J.Int(p, "sort"), items = Items(J.Get(p, "items")),
                 };
                 foreach (var d in J.Arr(p, "days")) pk.days.Add(new ShopDay { items = Items(d) });
                 c.packs.Add(pk);

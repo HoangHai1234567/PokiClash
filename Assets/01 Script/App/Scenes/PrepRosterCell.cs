@@ -4,6 +4,8 @@
 //   lực chiến, số thứ tự ra trận trong tròn xanh ở góc trên trái; mũi tên nằm trong góc trên phải.
 //   Sao theo bậc (UiStars.SetTiered), lực chiến số gọn (57.6k). Độ hiếm (2026-11-17, menu "PokiClash/Prefab/Màn Tướng: độ hiếm, lọc và
 //   xếp"): khung ngoài tô màu độ hiếm, giấy lót "giay" lùi vào mang màu trạng thái (vàng khi trong đội); Huyền thoại có vương miện.
+//   Nút tròn icon vòng 5 chấm (menu "PokiClash/Prefab/Hộp thoại và màn/Tương khắc: hộp và icon ô tướng", 2026-11-27): chạm mở hộp Tương khắc
+//   của hệ tướng này, không chọn / bỏ tướng.
 using System;
 using PokiClash.Core;
 using PokiClash.UI;
@@ -32,6 +34,14 @@ namespace PokiClash
         // độ hiếm (ô chọn đội): giấy lót trong khung, vương miện Huyền thoại; trống thì khung tô màu trạng thái như cũ
         [SerializeField] Image paper;
         [SerializeField] GameObject crown;
+
+        // nút Tương khắc (ô chọn đội); trống thì như cũ
+        [SerializeField] SketchButton wheel;
+
+        public SketchButton Wheel => wheel;
+
+        // Ô chọn đội (Editor): nút Tương khắc.
+        public void SetupWheel(SketchButton button) => wheel = button;
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(Image bgImg, HeroPortrait por, TextMeshProUGUI nameText, Image arrowImg, ClickCatcher catcher)
@@ -92,6 +102,7 @@ namespace PokiClash
             arrow.gameObject.SetActive(showArrow);
             if (showArrow) arrow.sprite = arrowIcon;
             click.OnClick = onClick;
+            if (wheel) wheel.SetOnClick(() => ElementWheelDialog.Open(h));
         }
 
         // sao tổng (1..20) tô theo bậc của tướng (bậc theo dạng 2026-11-19; không có tướng thì thang 4 bậc chung) và lực chiến (ô chọn đội)

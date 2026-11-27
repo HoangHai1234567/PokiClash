@@ -376,7 +376,12 @@ namespace PokiClash
             for (int i = 0; i < f.spots.Count && i < slots.Length; i++)
                 if (f.spots[i].stock >= 1) from.Add((SlotPos(i) + new Vector2(0, 200), (int)Math.Floor(f.spots[i].stock)));
             int n = Farm.Harvest(S, D, Now);
-            if (n <= 0) return;
+            if (n <= 0)
+            {
+                if (Farm.Stock(S, D, Now) > 0 && BallBag.Full(S, D.Cfg, Now))
+                    App.Toasts.Show(Loc.F("Túi bi đầy ({0}/{1}). Thả bi ở máy bi rồi quay lại thu.", S.balls, BallBag.Cap(S, D.Cfg, Now)), Icon("ball"));
+                return;
+            }
             App.Save.Save();
             App.Audio.Play("coin");
             Haptics.Play(Haptic.Reward);

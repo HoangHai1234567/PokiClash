@@ -46,6 +46,9 @@ namespace PokiClash.Core
         // Nhà chính, ruộng vườn, xưởng gỗ và kho, rồi đặt Cây bi (G3), gợi ý về sảnh; sảnh báo Cửa hàng mở, rồi lời chào cuối (C17)
         public const string CardsGo = "c18", CardsBack = "c19", HomeNews = "c20", HomeGo = "c21", HomeMain = "c22", HomeFarm = "c23",
             HomeWood = "c24", HomeBack = "c25", ShopNews = "c26";
+        // khắc hệ là chìa khoá chiến thuật (người dùng 2026-11-27): C12a bài học vòng Tương khắc ở sảnh trước C12 (thuộc chuỗi bắt buộc);
+        // D11 gợi ý nút vòng 5 chấm ở ô tướng (màn Tướng), D13 cùng nút ở hộp chọn đội; D12 lần đầu đem tướng bị địch khắc vào trận
+        public const string CounterWheel = "c27", WheelTile = "d11", CounteredTeam = "d12", WheelPick = "d13";
         // D–F: theo lúc
         public const string MultiFoe = "d1", Stun = "d3", EvoFoe = "d4", EvoNow = "d5", Auto = "d6", RareCard = "d7", ZoneChest = "d8",
             CardsBook = "d9", Underlevel = "e1", FirstLoss = "e2", Tree = "e3", TreeSeed = "e0", AfkBtn = "f1", AfkStage = "f3",
@@ -255,7 +258,7 @@ namespace PokiClash.Core
             var cfg = d.Cfg;
             Unlock U(string id, string title, string text, string icon) => Done(s, id) ? null : new Unlock { id = id, title = title, text = text, icon = icon };
             Unlock u = null;
-            if (Home.Open(s, cfg)) u = U("g1", Loc.T("Nhà đã mở!"), Loc.T("Tướng làm việc ra bi và gỗ cả khi bạn vắng. Cây bi cũng ở đó, chờ bạn đặt. Chạm con tàu ở bến để về Nhà."), "seed");
+            if (Home.Open(s, cfg)) u = U("g1", Loc.T("Nhà đã mở!"), Loc.T("Tướng làm việc ra bi và gỗ cả khi bạn vắng. Cây bi cũng ở đó, chờ bạn đặt. Chạm nút Nhà ở hàng dưới để về Nhà."), "seed");
             if (u == null && SoPhep.Open(s, cfg))
                 u = U("h_sophep", Loc.T("Sổ phép có thêm trang!"),
                     Loc.T("Vẽ nét vào sổ để đổi luật trận: đổi bộ thẻ, đổi tướng giữa lượt, cứu nguy lúc máu thấp. Cuốn sổ ở rìa làng."), "pencil");
@@ -291,7 +294,7 @@ namespace PokiClash.Core
             P(Balls, Loc.T("Vòng chơi"), Loc.T("Thắng ải để có bi. Thả bi vào Máy Bi để có kinh nghiệm và rương. Lên cấp, nâng tướng, rồi đánh ải khó hơn.")),
             P(RunQueue, Loc.T("Lượt đánh"), Loc.T("Mỗi lượt chọn 5 lần, mỗi lần 1 trong 3 thẻ. Thẻ xếp hàng, chạy lần lượt cuối lượt, rồi tướng đánh thường. Bạn luôn đi trước.")),
             P(Ult, Loc.T("Chiêu và Tuyệt kỹ"), Loc.T("Mana +20 mỗi lượt. Chiêu tốn mana, ra đòn ngay, mỗi lượt một lần. Nộ tăng khi đánh và khi bị đánh; đầy 100 nộ (và đủ mana) thì Tuyệt kỹ thay cú đánh thường.")),
-            P(Counter, Loc.T("Khắc hệ"), Loc.T("Thủy khắc Hỏa, Hỏa khắc Kim, Kim khắc Mộc, Mộc khắc Thổ, Thổ khắc Thủy. Đánh hệ mình khắc ×1,5, đánh hệ khắc mình ×0,75. Tướng đồng hành không bao giờ chịu thiệt vì hệ.")),
+            P(Counter, Loc.T("Khắc hệ"), Loc.T("Thủy khắc Hỏa, Hỏa khắc Kim, Kim khắc Mộc, Mộc khắc Thổ, Thổ khắc Thủy. Khắc địch: đánh ×1,5, chịu đòn ×0,75. Bị khắc: đánh ×0,75, chịu đòn ×1,5. Trước mỗi trận xem hệ địch, mang tướng khắc nó. Chạm vòng 5 chấm ở ô tướng để xem. Tướng đồng hành không bao giờ chịu thiệt vì hệ.")),
             P("d2", Loc.T("Hiệu ứng"), Loc.T("Bỏng, độc: mất máu đầu lượt. Hồi phục: hồi máu đầu lượt. Choáng: mất trọn lượt. Né: tránh cú đánh thường kế tiếp. Khiên: đỡ trước khi trừ máu.")),
             P(Hold, Loc.T("Máy Bi"), Loc.T("Chạm để thả, giữ để thả liền. Ô ra kinh nghiệm, cốc ra rương. Bi chạm nấm đủ 25 lần ra quà. Bảng tỉ lệ ở nút Tỉ lệ.")),
             P(Bet, Loc.T("Cược"), Loc.T("×N tốn N bi mỗi lần thả, mọi thưởng ×N. Mở theo số bi đang có. Chỉ nhanh hơn, không lời hơn.")),

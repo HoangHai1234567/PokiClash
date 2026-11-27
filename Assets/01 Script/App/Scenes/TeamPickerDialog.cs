@@ -95,6 +95,11 @@ namespace PokiClash
             WireFilters();
             Build();
             Draw();
+            // D13 (2026-11-27): lần đầu mở hộp chọn đội sau chuỗi bắt buộc, khoanh nút Tương khắc của ô đầu
+            var wheel = cells.Count > 0 ? cells[0].cell.Wheel : null;
+            Guide.Mark("picker.wheel", wheel);
+            if (wheel && Tutorial.CoreDone(App.Save.Data))
+                Guide.Hint(Tutorial.WheelPick, "picker.wheel", Loc.T("Chạm vòng 5 chấm để xem tướng khắc hệ nào, sợ hệ nào."), 6);
         }
 
         // Dùng khi dựng hàng lọc (Editor).

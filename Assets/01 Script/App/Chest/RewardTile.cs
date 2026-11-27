@@ -28,6 +28,45 @@ namespace PokiClash
 
         public RectTransform Rect => (RectTransform)transform;
 
+        // icon bay về ô chứa khi nhận (RewardFly): hình chính nếu là icon / thẻ, không thì icon góc (mảnh tướng); chỗ bay ra là giữa khung
+        public Sprite FlyIcon =>
+            p.icon && p.icon.gameObject.activeInHierarchy && p.icon.sprite ? p.icon.sprite :
+            p.corner && p.corner.gameObject.activeInHierarchy && p.corner.sprite ? p.corner.sprite : null;
+
+        public Vector3 FlyFrom => p.frame ? p.frame.rectTransform.TransformPoint(p.frame.rectTransform.rect.center) : transform.position;
+
+        // ô chứa đoán theo nội dung ô: chân dung tướng → Tướng; thẻ (có tướng chủ) → Sổ thẻ; icon bi, XP, đá, mảnh theo hình
+        public RewardFly.To Dest
+        {
+            get
+            {
+                if (p.hero && p.hero.gameObject.activeInHierarchy) return RewardFly.To.Heroes;
+                if (p.owner && p.owner.gameObject.activeInHierarchy) return RewardFly.To.Cards;
+                var s = p.icon && p.icon.gameObject.activeInHierarchy ? p.icon.sprite : null;
+                if (!s) return RewardFly.To.None;
+                if (s == Icon("ball")) return RewardFly.To.Balls;
+                if (s == Icon("exp")) return RewardFly.To.Level;
+                if (s == Icon("rock")) return p.icon.color == EvoTint ? RewardFly.To.Heroes : RewardFly.To.Cave;
+                if (s == Icon("shard")) return RewardFly.To.Heroes;
+                return RewardFly.To.Shop;
+            }
+        }
+
+        // số lượng trên ô ("×12" → 12; không có số thì 1): định số icon bay
+        public int Amount
+        {
+            get
+            {
+                var t = p.count ? p.count.text : null;
+                if (string.IsNullOrEmpty(t)) return 1;
+                int n = 0;
+                foreach (char c in t)
+                    if (c >= '0' && c <= '9') n = n * 10 + (c - '0');
+                    else if (n > 0 && c != '.' && c != ',') break;
+                return Mathf.Max(1, n);
+            }
+        }
+
         // Dùng khi dựng prefab (Editor).
         public void Setup(Parts parts) => p = parts;
 

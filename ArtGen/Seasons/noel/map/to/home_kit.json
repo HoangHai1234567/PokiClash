@@ -1,0 +1,177 @@
+{
+ "sheet": "home_kit",
+ "W": 1536,
+ "H": 1024,
+ "items": [
+  {
+   "name": "home_k_vach_1",
+   "src": "Home/home_k_vach_1.png",
+   "crop": [
+    0,
+    0,
+    424,
+    416
+   ],
+   "dst": [
+    26,
+    26,
+    395,
+    387
+   ],
+   "scale": 0.9316037735849056
+  },
+  {
+   "name": "home_k_vach_2",
+   "src": "Home/home_k_vach_2.png",
+   "crop": [
+    0,
+    0,
+    424,
+    416
+   ],
+   "dst": [
+    455,
+    26,
+    395,
+    387
+   ],
+   "scale": 0.9316037735849056
+  },
+  {
+   "name": "home_k_vach_4",
+   "src": "Home/home_k_vach_4.png",
+   "crop": [
+    0,
+    0,
+    445,
+    366
+   ],
+   "dst": [
+    884,
+    26,
+    415,
+    341
+   ],
+   "scale": 0.9325842696629213
+  },
+  {
+   "name": "home_k_vach_3",
+   "src": "Home/home_k_vach_3.png",
+   "crop": [
+    0,
+    0,
+    391,
+    345
+   ],
+   "dst": [
+    26,
+    447,
+    364,
+    321
+   ],
+   "scale": 0.9309462915601023
+  },
+  {
+   "name": "home_k_bien_4",
+   "src": "Home/home_k_bien_4.png",
+   "crop": [
+    0,
+    0,
+    325,
+    264
+   ],
+   "dst": [
+    424,
+    447,
+    303,
+    246
+   ],
+   "scale": 0.9323076923076923
+  },
+  {
+   "name": "home_k_bien_6",
+   "src": "Home/home_k_bien_6.png",
+   "crop": [
+    0,
+    0,
+    270,
+    232
+   ],
+   "dst": [
+    761,
+    447,
+    252,
+    216
+   ],
+   "scale": 0.9333333333333333
+  },
+  {
+   "name": "home_k_bien_1",
+   "src": "Home/home_k_bien_1.png",
+   "crop": [
+    0,
+    0,
+    277,
+    211
+   ],
+   "dst": [
+    1047,
+    447,
+    258,
+    197
+   ],
+   "scale": 0.9314079422382672
+  },
+  {
+   "name": "home_k_bien_5",
+   "src": "Home/home_k_bien_5.png",
+   "crop": [
+    0,
+    0,
+    318,
+    210
+   ],
+   "dst": [
+    26,
+    802,
+    296,
+    196
+   ],
+   "scale": 0.9308176100628931
+  },
+  {
+   "name": "home_k_bien_3",
+   "src": "Home/home_k_bien_3.png",
+   "crop": [
+    0,
+    0,
+    285,
+    200
+   ],
+   "dst": [
+    356,
+    802,
+    265,
+    186
+   ],
+   "scale": 0.9298245614035088
+  },
+  {
+   "name": "home_k_bien_2",
+   "src": "Home/home_k_bien_2.png",
+   "crop": [
+    0,
+    0,
+    201,
+    101
+   ],
+   "dst": [
+    655,
+    802,
+    187,
+    94
+   ],
+   "scale": 0.9303482587064676
+  }
+ ]
+}

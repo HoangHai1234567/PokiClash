@@ -1,0 +1,228 @@
+{
+ "sheet": "casino_ct",
+ "W": 1536,
+ "H": 1024,
+ "items": [
+  {
+   "name": "casino_ct_thap",
+   "src": "Casino/casino_ct_thap.png",
+   "crop": [
+    0,
+    0,
+    379,
+    693
+   ],
+   "dst": [
+    26,
+    26,
+    274,
+    500
+   ],
+   "scale": 0.7229551451187335
+  },
+  {
+   "name": "casino_ct_cho",
+   "src": "Casino/casino_ct_cho.png",
+   "crop": [
+    0,
+    0,
+    383,
+    505
+   ],
+   "dst": [
+    334,
+    26,
+    276,
+    365
+   ],
+   "scale": 0.720626631853786
+  },
+  {
+   "name": "casino_ct_dua",
+   "src": "Casino/casino_ct_dua.png",
+   "crop": [
+    0,
+    0,
+    532,
+    378
+   ],
+   "dst": [
+    644,
+    26,
+    384,
+    273
+   ],
+   "scale": 0.7218045112781954
+  },
+  {
+   "name": "casino_ct_quan_tro",
+   "src": "Casino/casino_ct_quan_tro.png",
+   "crop": [
+    0,
+    0,
+    475,
+    364
+   ],
+   "dst": [
+    1062,
+    26,
+    343,
+    263
+   ],
+   "scale": 0.7221052631578947
+  },
+  {
+   "name": "casino_ct_ben_tau",
+   "src": "Casino/casino_ct_ben_tau.png",
+   "crop": [
+    0,
+    0,
+    880,
+    304
+   ],
+   "dst": [
+    26,
+    560,
+    635,
+    219
+   ],
+   "scale": 0.7215909090909091
+  },
+  {
+   "name": "casino_ct_leu_roulette",
+   "src": "Casino/casino_ct_leu_roulette.png",
+   "crop": [
+    0,
+    0,
+    248,
+    294
+   ],
+   "dst": [
+    695,
+    560,
+    179,
+    212
+   ],
+   "scale": 0.7217741935483871
+  },
+  {
+   "name": "casino_ct_leu_slot",
+   "src": "Casino/casino_ct_leu_slot.png",
+   "crop": [
+    0,
+    0,
+    241,
+    294
+   ],
+   "dst": [
+    908,
+    560,
+    174,
+    212
+   ],
+   "scale": 0.7219917012448133
+  },
+  {
+   "name": "casino_ct_leu_blackjack",
+   "src": "Casino/casino_ct_leu_blackjack.png",
+   "crop": [
+    0,
+    0,
+    248,
+    287
+   ],
+   "dst": [
+    1116,
+    560,
+    179,
+    207
+   ],
+   "scale": 0.7217741935483871
+  },
+  {
+   "name": "casino_ct_ben_cau",
+   "src": "Casino/casino_ct_ben_cau.png",
+   "crop": [
+    0,
+    0,
+    287,
+    257
+   ],
+   "dst": [
+    26,
+    813,
+    207,
+    185
+   ],
+   "scale": 0.7212543554006968
+  },
+  {
+   "name": "casino_ct_hang",
+   "src": "Casino/casino_ct_hang.png",
+   "crop": [
+    0,
+    0,
+    212,
+    250
+   ],
+   "dst": [
+    267,
+    813,
+    153,
+    180
+   ],
+   "scale": 0.7216981132075472
+  },
+  {
+   "name": "casino_ct_bai_trai",
+   "src": "Casino/casino_ct_bai_trai.png",
+   "crop": [
+    0,
+    0,
+    193,
+    161
+   ],
+   "dst": [
+    454,
+    813,
+    139,
+    116
+   ],
+   "scale": 0.7202072538860104
+  },
+  {
+   "name": "casino_ct_bai_phai",
+   "src": "Casino/casino_ct_bai_phai.png",
+   "crop": [
+    0,
+    0,
+    199,
+    144
+   ],
+   "dst": [
+    627,
+    813,
+    144,
+    104
+   ],
+   "scale": 0.7236180904522613
+  },
+  {
+   "name": "casino_ct_bai_tren",
+   "src": "Casino/casino_ct_bai_tren.png",
+   "crop": [
+    0,
+    0,
+    199,
+    140
+   ],
+   "dst": [
+    805,
+    813,
+    144,
+    101
+   ],
+   "scale": 0.7236180904522613
+  }
+ ]
+}

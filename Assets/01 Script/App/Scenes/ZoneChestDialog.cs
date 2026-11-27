@@ -40,17 +40,32 @@ namespace PokiClash
             chest.color = r.big ? Color.white : Theme.Hex("#d6dee8");
             balls.gameObject.SetActive(false);
             for (int i = cards.childCount - 1; i >= 0; i--) Destroy(cards.GetChild(i).gameObject);
-            Ui.Spawn(tilePrefab, cards).Item(Icon("ball"), $"×{r.balls}", Loc.T("Bi"));
-            if (r.evoStones > 0) Ui.Spawn(tilePrefab, cards).EvoStones(r.evoStones); // đá tiến hóa (2026-11-17)
+            fly.Clear();
+            RewardTile Tile(RewardFly.To to, int n)
+            {
+                var t = Ui.Spawn(tilePrefab, cards);
+                fly.Add((t, to, n));
+                return t;
+            }
+            Tile(RewardFly.To.Balls, r.balls).Item(Icon("ball"), $"×{r.balls}", Loc.T("Bi"));
+            if (r.evoStones > 0) Tile(RewardFly.To.Heroes, r.evoStones).EvoStones(r.evoStones); // đá tiến hóa (2026-11-17)
             foreach (var c in r.cards)
             {
                 var cd = d.Card(c.card);
-                Ui.Spawn(tilePrefab, cards).Card(cd, Icon(cd.icon), d.Hero(c.hero), 1, c.rarity);
+                Tile(RewardFly.To.Cards, 1).Card(cd, Icon(cd.icon), d.Hero(c.hero), 1, c.rarity);
             }
             var le = cards.GetComponent<LayoutElement>();
             if (le) le.preferredHeight = RewardTile.H;
             empty.SetActive(r.cards.Count == 0);
-            ok.SetOnClick(Close);
+            // Nhận: icon từng ô bay về ô chứa (RewardFly) rồi đóng
+            ok.SetOnClick(() =>
+            {
+                RewardFly.FromTiles(fly.ConvertAll(x => x.tile), fly.ConvertAll(x => x.to), fly.ConvertAll(x => x.n));
+                Close();
+            });
         }
+
+        readonly System.Collections.Generic.List<(RewardTile tile, RewardFly.To to, int n)> fly =
+            new System.Collections.Generic.List<(RewardTile, RewardFly.To, int)>();
     }
 }

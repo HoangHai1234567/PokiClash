@@ -2,6 +2,8 @@
 // nhãn hệ, huy hiệu hệ, độ hiếm, sao hoặc thanh mảnh, nhãn "TRONG ĐỘI" (thẻ tô vàng), chấm đỏ khi có thẻ nâng được hoặc tiến hóa được.
 // Tướng đã có: lực chiến (icon kiếm + số gọn 57.6k) cạnh hàng sao bậc (Đồng, Bạc, Vàng, Kim Cương) ở đáy thẻ (menu "PokiClash/Prefab/Popup
 // gọn (ô thưởng, đội hình, lực chiến)" thêm).
+// Nút tròn icon vòng 5 chấm góc trên phải (menu "PokiClash/Prefab/Hộp thoại và màn/Tương khắc: hộp và icon ô tướng", 2026-11-27): chạm mở
+// hộp Tương khắc của hệ tướng này (ElementWheelDialog), không mở chi tiết tướng.
 // Độ hiếm (người dùng dặn 2026-11-17, menu "PokiClash/Prefab/Hộp thoại và màn/Màn Tướng: độ hiếm, lọc và xếp" thêm): thẻ là khung ngoài tô màu độ hiếm,
 // giấy lót "giay" lùi vào Theme.RarityInset px mang màu trạng thái (kem, vàng khi trong đội, xám khi chưa có); nhãn độ hiếm là viên màu
 // chữ trắng; Sử thi, Huyền thoại khung gạch sáp; Huyền thoại khung dày nhất, vương miện thay băng keo. Prefab chưa chạy menu thì như cũ.
@@ -35,9 +37,15 @@ namespace PokiClash
         }
 
         [SerializeField] Parts p;
+        [Tooltip("Nút Tương khắc (menu Tương khắc: hộp và icon ô tướng); trống thì thẻ như cũ")]
+        [SerializeField] SketchButton wheel;
+
+        public SketchButton Wheel => wheel;
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(Parts parts) => p = parts;
+
+        public void SetupWheel(SketchButton button) => wheel = button;
 
         // index: vị trí trong lưới (độ nghiêng của thẻ)
         public void Bind(HeroDef hero, SaveData s, GameData d, int index, Action onClick)
@@ -62,6 +70,7 @@ namespace PokiClash
             p.portrait.Bind(hero, 224, !owned);
             p.name.text = hero.name;
             p.elemTag.Set(hero.elem);
+            if (wheel) wheel.SetOnClick(() => ElementWheelDialog.Open(hero));
 
             int badge = Badges.Tier(s, hero.elem);
             p.badge.gameObject.SetActive(badge > 0);

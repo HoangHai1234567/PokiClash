@@ -127,6 +127,7 @@ namespace PokiClash
         int pick = -1, bet; // con đang chọn (−1: chưa), mức cược đang chọn
         float cheerCool;
         int lastPlace = -1; // hạng lượt vừa đua có cược (−1: chưa có), để Lão Mực phản ứng khi quay lại quầy
+        int raceBalls; // bi nhận về của lượt vừa đua: bay về chip bi khi rời bảng kết quả (RewardFly)
         const float TapReach = 260; // chạm cách tâm con gần nhất xa hơn chừng này thì không chọn
         RaceGame game;
         float acc;
@@ -250,6 +251,8 @@ namespace PokiClash
 
         void BackToLobby()
         {
+            if (raceBalls > 0 && resInfo) RewardFly.Balls(raceBalls, resInfo.transform.position);
+            raceBalls = 0;
             ClosePodium();
             game = null;
             phase = Phase.Idle;
@@ -632,6 +635,7 @@ namespace PokiClash
             App.Save.Save();
             App.Audio.Play("chest");
             App.Toasts.Show(Loc.T("Quà tuần: ") + CasinoUi.Rewards(r), Icon("star"));
+            RewardFly.Rewards(r, claim.transform.position);
             Render();
         }
 
@@ -1198,6 +1202,7 @@ namespace PokiClash
                 : res.balls == game.bet ? Loc.F("Hoà tiền: nhận lại {0} bi", res.balls)
                 : res.balls > 0 ? Loc.F("Đặt {0} bi, nhận về {1} bi", game.bet, res.balls) : Loc.F("Thua cược: mất {0} bi", game.bet);
             lastPlace = game.bet > 0 ? res.place : -1;
+            raceBalls = game.bet > 0 ? res.balls : 0;
             resInfo.text = money + (res.points > 0 ? "\n" + Loc.F("+{0} điểm cúp tuần", res.points) + (res.weekReady ? " · " + Loc.T("Đủ điểm: nhận quà tuần!") : "") : "");
             bool medal = res.place < 3 && resIcons != null && res.place < resIcons.Length && resIcons[res.place];
             resIcon.gameObject.SetActive(medal);

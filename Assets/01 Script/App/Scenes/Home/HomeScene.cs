@@ -41,6 +41,9 @@ namespace PokiClash
     public sealed partial class HomeScene : SceneRoot, IFarmPetHost
     {
         public override string Title => Loc.T("Nhà");
+        // thanh sảnh chung + hàng nút / cột của sảnh (LobbyDock, người dùng 2026-11-27): không tên, không nút quay lại; về sảnh bằng ô
+        // "Đảo chính" của kệ chung, con tàu ở bến hoặc phím Back
+        public override TopBar Bar => TopBar.Hud;
 
         const float CW = 96, CH = 48; // một ô lưới: ngang, dọc (px)
         const float TreeScale = 192f / 150f * 0.85f; // cây rời: chân cỏ 150 px ở ảnh gen = 2 ô lưới; thu 0,85 cho cân với nhà
@@ -424,7 +427,20 @@ namespace PokiClash
                 if (k > 0) from.Add((o, o.BubbleWorld(), k));
             }
             int n = Trees.Harvest(s, cfg, now);
-            if (n <= 0) return;
+            int bag = BallBag.Cap(s, cfg, now);
+            if (n <= 0)
+            {
+                // túi bi đầy (BallBag): không hái được, cây nhún báo
+                if (Trees.Stock(s, cfg, now) > 0 && BallBag.Full(s, cfg, now))
+                {
+                    if (objs.TryGetValue(tapped.id, out var full)) full.Bounce(0.5f);
+                    App.Audio.Play("error", 0.6f);
+                    App.Toasts.Show(Loc.F("Túi bi đầy ({0}/{1}). Thả bi ở máy bi rồi quay lại hái.", s.balls, bag), Icon("ball"));
+                }
+                return;
+            }
+            int left = Trees.Stock(s, cfg, now);
+            App.Toasts.Show(left > 0 ? Loc.F("+{0} bi · túi bi đầy, còn {1} bi trên cây", n, left) : Loc.F("+{0} bi · túi {1}/{2}", n, s.balls, bag), Icon("ball"));
             if (App.Bars) App.Bars.HoldBalls(n); // chip giữ số cũ tới khi bi bay tới (lưu xong thanh trên tự làm mới)
             App.Save.Save();
             selBuilding = selLot = -1;
@@ -655,7 +671,8 @@ namespace PokiClash
             btnHarvest.SetOnClick(HarvestAll);
             btnSail.SetOnClick(() => App.Router.Go(SceneIds.Hub));
             Guide.Mark("home.build", hudBuild ? (Component)hudBuild : btnBuild);
-            Guide.Mark("home.sail", hudSail ? (Component)hudSail : btnSail);
+            var island = LobbyDock.I ? LobbyDock.I.IslandButton : null;
+            Guide.Mark("home.sail", island ? (Component)island : hudSail ? (Component)hudSail : btnSail);
             if (ring) ring.Insets(TopInset, BottomInset);
             if (tabs != null)
                 for (int i = 0; i < tabs.Length; i++)
@@ -716,6 +733,7 @@ namespace PokiClash
 
         public override void Exit()
         {
+            LobbyDock.Hold(this, false);
             if (landView) landView.End();
             Pick(null, false);
             Shader.SetGlobalFloat(HomeSelId, 0);
@@ -1416,7 +1434,8 @@ namespace PokiClash
                     hudPaint.gameObject.SetActive(m != Mode.Build);
                 }
                 if (hudHarvest) hudHarvest.gameObject.SetActive(m == Mode.Normal);
-                if (hudSail) hudSail.gameObject.SetActive(m == Mode.Normal);
+                // có kệ chung thì thẻ Ra đảo thừa (ô "Đảo chính" của kệ chung về sảnh)
+                if (hudSail) hudSail.gameObject.SetActive(m == Mode.Normal && !LobbyDock.I);
             }
             else
             {
@@ -1428,7 +1447,56 @@ namespace PokiClash
                 : m == Mode.Paint ? Loc.T("Chọn loại ô rồi chạm đất · Cỏ để xoá")
                 : "";
             if (ring && hint.transform.parent) hint.transform.parent.gameObject.SetActive(m != Mode.Normal);
+            DockLayout(m);
             BuildTray();
+        }
+
+        // hàng nút Nhà với giao diện sảnh chung (LobbyDock, người dùng 2026-11-27): chế độ thường thì kệ chung nằm sát đáy, hàng nút Nhà bỏ
+        // kệ gỗ riêng, các thẻ thu nhỏ xếp dọc ở mép phải ngay trên kệ chung (giữa kệ có nút Máy Bi nhô cao nên không xếp ngang); chế độ
+        // Xây / Lát ô thì kệ chung ẩn, hàng nút Nhà về đáy với kệ gỗ và thẻ "Xong" ở giữa như HomeDockMenu dựng
+        const float DockScale = 0.8f, DockGap = 14, DockEdge = 18;
+        RectTransform dockBar, dockRow;
+        Vector2 dockRowPos;
+        bool dockKept;
+
+        void DockLayout(Mode m)
+        {
+            LobbyDock.Hold(this, m != Mode.Normal);
+            if (!hudBuild) return;
+            if (!dockKept)
+            {
+                dockKept = true;
+                dockRow = hudBuild.transform.parent as RectTransform;
+                dockBar = dockRow ? dockRow.parent as RectTransform : null;
+                if (dockRow) dockRowPos = dockRow.anchoredPosition;
+            }
+            if (!dockBar || !dockRow) return;
+            bool raised = LobbyDock.I && m == Mode.Normal;
+            var wood = dockBar.Find("ke_go");
+            if (wood) wood.gameObject.SetActive(!raised);
+            var hl = dockRow.GetComponent<HorizontalLayoutGroup>();
+            if (hl) hl.enabled = !raised;
+            float s = raised ? DockScale : 1;
+            var cards = new List<RectTransform>();
+            foreach (Transform c in dockRow)
+            {
+                c.localScale = new Vector3(s, s, 1);
+                if (c.gameObject.activeSelf) cards.Add((RectTransform)c);
+            }
+            if (!raised)
+            {
+                LayoutRebuilder.MarkLayoutForRebuild(dockRow);
+                return;
+            }
+            // toạ độ trong hàng (tâm hàng cách đáy kệ dockRowPos.y): thẻ cuối nằm dưới cùng, đáy cách mép kệ chung một chút
+            float x = dockBar.rect.width / 2 - DockEdge, y = LobbyDock.ShelfTop + 10 - dockRowPos.y;
+            for (int i = cards.Count - 1; i >= 0; i--)
+            {
+                var r = cards[i];
+                float w = r.rect.width * s, h = r.rect.height * s;
+                r.localPosition = new Vector3(x - w / 2, y + h / 2, 0);
+                y += h + DockGap;
+            }
         }
 
         // tấm xây (khay + tab) bật / tắt; prefab cũ chỉ có khay
@@ -2079,7 +2147,8 @@ namespace PokiClash
         {
             if (!y.Any)
             {
-                App.Toasts.Show(Loc.T("Chưa có gì để thu"), Icon("info"));
+                App.Toasts.Show(y.bagFull ? Loc.F("Túi bi đầy ({0}/{1}). Thả bi ở máy bi rồi quay lại thu.", S.balls, BallBag.Cap(S, D.Cfg, Now)) : Loc.T("Chưa có gì để thu"),
+                    Icon(y.bagFull ? "ball" : "info"));
                 return;
             }
             var parts = new List<string>();
@@ -2091,6 +2160,7 @@ namespace PokiClash
             if (y.bread > 0) parts.Add(Loc.F("+{0} bánh", y.bread));
             if (y.other.Count > 0) parts.Add(Loc.F("+{0} thưởng câu", y.other.Count));
             if (y.deco.Count > 0) parts.Add(Loc.T("+cúp câu cá"));
+            if (y.bagFull) parts.Add(Loc.T("túi bi đầy"));
             App.Audio.Play("coin");
             App.Toasts.Show(string.Join(", ", parts), Icon("ball"));
             App.Save.Save();

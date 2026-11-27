@@ -95,6 +95,7 @@ Ghi chú nét:
    - Dời `mo_ta` xuống 266–410 px tính từ đỉnh (mini nhân 0,625).
    - Nối `UiCard.p.tranh`.
 4. **`UiCard.Bind`:** thẻ có tranh thì tắt `o_hinh` (ô tròn và icon) và bật `o_tranh`; không có thì giữ như cũ. Thẻ khoá làm mờ cả tranh.
+   - **Hàng thẻ trong trận** (ô `TranO`, `BattleView.RenderQueue`, sửa 2026-11-27 sau khi người dùng báo thẻ chọn mới mà lên hàng lại thành icon cũ): thẻ có tranh thì ô dùng tranh, `QueueTile.FitIcon` nới ô hình thành 100 × 76 (tranh giữ tỉ lệ, khoảng 100 × 62); thẻ không tranh giữ icon 76 × 76. Ô bay lên đầu tướng chép cả cỡ. Menu chụp thử có thêm một hàng ô.
 5. **Còn lại:**
    - Thẻ riêng, bị động boss, thẻ quái dùng chân dung: cần nướng chân dung tĩnh mỗi dạng tướng trước (mục 5).
    - Soát bằng tour `UiFullAudit`: Sổ thẻ, chọn thẻ trong trận, rương, chi tiết thẻ.

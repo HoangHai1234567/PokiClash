@@ -263,5 +263,26 @@ namespace PokiClash.Tests
             Assert.IsTrue(Tutorial.IsCore(Tutorial.TreeBuild) && Tutorial.IsCore(Tutorial.TreeTap), "đặt Cây bi không tắt theo công tắc Gợi ý");
             Assert.IsFalse(Tutorial.IsCore(Tutorial.AfkBtn));
         }
+
+        // khắc hệ (2026-11-27): bài học vòng Tương khắc thuộc chuỗi bắt buộc, các gợi ý nút / tướng bị khắc theo công tắc Gợi ý; mã bước
+        // không trùng nhau (cờ lưu dạng chuỗi mã cách dấu phẩy)
+        [Test]
+        public void KhacHe_BaiHocBatBuoc_GoiYTheoCongTac_MaKhongTrung()
+        {
+            Assert.IsTrue(Tutorial.IsCore(Tutorial.CounterWheel), "bài học vòng Tương khắc không tắt theo công tắc Gợi ý");
+            foreach (var id in new[] { Tutorial.WheelTile, Tutorial.WheelPick, Tutorial.CounteredTeam })
+                Assert.IsFalse(Tutorial.IsCore(id), id);
+            var ids = typeof(Tutorial).GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+                .Where(f => f.IsLiteral && f.FieldType == typeof(string) && f.Name != nameof(Tutorial.Legacy))
+                .Select(f => (string)f.GetRawConstantValue()).ToList();
+            Assert.AreEqual(ids.Count, ids.Distinct().Count(), "trùng mã bước: " + string.Join(", ", ids.GroupBy(x => x).Where(g => g.Count() > 1).Select(g => g.Key)));
+            var s = Fresh();
+            Tutorial.Begin(s);
+            Assert.IsFalse(Tutorial.Done(s, Tutorial.CounterWheel));
+            Tutorial.Mark(s, Tutorial.CounterWheel);
+            Assert.IsTrue(Tutorial.Done(s, Tutorial.CounterWheel));
+            Assert.IsFalse(Tutorial.Done(s, Tutorial.CounterIsle), "đánh dấu bài học không đánh dấu luôn bước khoanh đảo");
+            Assert.IsTrue(Tutorial.Pages(D.Cfg).Any(p => p.step == Tutorial.Counter && p.text.Contains("×0,75") && p.text.Contains("×1,5")));
+        }
     }
 }

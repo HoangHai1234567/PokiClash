@@ -20,7 +20,7 @@ namespace PokiClash.EditorTools
         const string AppPath = "Assets/04 Prefabs/App/App.prefab";
         const string WoodPath = "Assets/03 Art/Boot/boot_ban_go.png";
         public const string TapePath = "Assets/03 Art/Kit/ui_bang_keo_ten.png";
-        static readonly string[] PageScreens = { "Heroes", "Cards", "Notebook", "Badges", "Cave" }; // Trang trại là cảnh thật (FarmSceneMenu), không có trang giấy
+        static readonly string[] PageScreens = { "Heroes", "Cards", "Notebook", "Badges" }; // Trang trại, Hang Tiềm Năng (CaveStageMenu, 2026-11-27) là cảnh thật, không có trang giấy
         static readonly string[] DeskScreens = { "Machine" };
 
         // trang giấy: cách mép khung 12, đỉnh ngay dưới thanh trên, đáy tràn xuống quá mép màn

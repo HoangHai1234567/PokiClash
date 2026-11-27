@@ -1,5 +1,6 @@
 // Đảo hệ (chép zoneScreen của Web/src/view/screens/zone.ts): bản đồ đảo (ArtGen/Islands/compose_islands.py) cuộn dọc.
-// Khung thông tin trên (hệ, cấp đề nghị, độ khó, tiến độ, rương mốc, gợi ý hệ khắc), khung ải tiếp theo dưới.
+// Khung thông tin trên (hệ, cấp đề nghị, độ khó, tiến độ, rương mốc, gợi ý hệ khắc), khung ải tiếp theo dưới. Từ 2026-11-27 khung trên
+// là thanh hải trình ZoneHeader (menu "PokiClash/Prefab/Sảnh và đảo/Đảo: thanh hải trình"); prefab chưa có thì dùng khung mỏng cũ.
 // Trong một đảo ải mở lần lượt. args = Elem, hoặc ZoneArgs (mở luôn hộp chuẩn bị của một ải).
 // Prefab màn hình Assets/04 Prefabs/Screens/Zone dùng cho cả 5 đảo: màu biển, ảnh đảo, chữ gán lúc chạy; bệ ải (Items/BeAi),
 // chấm ải (Items/ChamAi), vệt đường (Items/VetDuong), địch ải tiếp (Items/DichAi) sinh theo dữ liệu.
@@ -14,6 +15,8 @@
 //     cát của ảnh; bệ cỡ thật đặt ở bãi của ảnh (ZoneDef.stops), bảng tên ngược phía địa danh (ZoneDef.plates).
 //   - Chưa có: bản đồ rộng 3 màn; đường mòn cong qua các điểm ải của ảnh 8 ải (Catmull-Rom như nét vẽ tay của web), bệ thu nhỏ 0,75.
 // Không hiện tướng của người chơi trên bản đồ (người dùng bỏ sticker đội trưởng cạnh ải đang đánh, 2026-11-02).
+// Boss cuối đảo giấu tới khi mở ải cuối (người dùng 2026-11-27, ZoneHeader.BossHidden): bóng sẫm, tên "???", chạm chỉ báo cấp boss,
+// không mở hộp chuẩn bị; đảo vùng đất cũng vậy (tướng chạy rig thành bóng đen vẫn cử động).
 // Đảo có vùng đất (ZoneDef.land, GD_Claude/18): vùng đất kéo hai chiều, mỗi ải tướng một habitat có tướng chạy rig, chấm ải to
 // trên một đường; phần này ở ZoneSceneLand.cs.
 using System;
@@ -95,6 +98,11 @@ namespace PokiClash
         [SerializeField] IslandAnim mapAnim;
         [Tooltip("Nhãn AFK dưới ải đội đang AFK (Items/NhanAfk, menu PokiClash/Prefab/AFK theo ải)")]
         [SerializeField] RectTransform afkTagPrefab;
+        [Tooltip("Thanh hải trình đầu màn (ZoneHeader, menu Đảo: thanh hải trình); có thì khung thông tin mỏng cũ ẩn")]
+        [SerializeField] ZoneHeader header;
+
+        // Dùng khi dựng prefab (Editor).
+        public void SetupHeader(ZoneHeader h) => header = h;
 
         Elem zone = Elem.Thuy;
         float mapW, mapH;
@@ -265,7 +273,10 @@ namespace PokiClash
             var en = Teams.StageLead(st, d);
             var node = Ui.Spawn(nodePrefab, p.nodeLayer);
             var pedestal = App.Art ? App.Art.Get($"be_{Keys.Of(zone)}{(st.kind == StageKind.Boss ? "_boss" : "")}") : null;
-            node.Bind(st, d.Hero(en.hero), Teams.EnemyFormStar(en), en.level, open, cleared, current, pt, side, pedestal, onClick);
+            // boss cuối còn giấu: bóng sẫm, tên "???", chạm chỉ báo cấp boss
+            bool hidden = ZoneHeader.BossHidden(s, d, st);
+            node.Bind(st, d.Hero(en.hero), Teams.EnemyFormStar(en), en.level, open, cleared, current, pt, side, pedestal,
+                hidden ? () => ZoneHeader.BossTip(d, st) : onClick, true, hidden);
             return node;
         }
 
@@ -479,6 +490,11 @@ namespace PokiClash
 
         void ShowInfo(ZoneDef z, SaveData s, int prog)
         {
+            if (header)
+            {
+                header.Bind(z, s, App.Data, prog, Claim);
+                return;
+            }
             int size = Islands.Size(z.id);
             var at = Islands.Chests(z.id);
             p.elem.Set(z.id);

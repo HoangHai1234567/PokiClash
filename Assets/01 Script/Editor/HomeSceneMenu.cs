@@ -121,6 +121,7 @@ namespace PokiClash.EditorTools
 
             if (!BuildScreen(assets, baseSprite, worldSize, gridTop, J.Int(baseMeta, "grid", 72), obj, tile, glowItem, cloud, arts.ToArray(), glowSprite, treeItem, trees, tileArt, water)) return;
             AssetDatabase.SaveAssets();
+            HomeSeaOutMenu.Patch(); // biển ngoài ảnh nền như sảnh (lớp bien_ngoai, nen_hai_ben), 2026-11-27
             MakeScene();
             Debug.Log($"[Nhà] Đã dựng {ScreenPath} (bản đồ {worldSize.x:0} x {worldSize.y:0} px, {arts.Count} ảnh), {ObjPath}, {TilePath}, {CloudPath}, scene {ScenePath}.");
         }
@@ -301,6 +302,9 @@ namespace PokiClash.EditorTools
             mat.SetTexture("_CausticTex", caustic);
             var river = DataTex(RiverPath, false, 2048);
             if (river) mat.SetTexture("_RiverTex", river);
+            // biển như sảnh (người dùng 2026-11-27): ảnh biển lát của sảnh, lặp theo cỡ ảnh nền (UIHomeSea _TileST)
+            var tileSea = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/03 Art/Islands/sanh_bien.png");
+            if (tileSea) mat.SetTexture("_TileTex", tileSea);
             else Debug.LogWarning("[Nhà] Thiếu " + RiverPath + ": thác, suối chưa chảy.");
             EditorUtility.SetDirty(mat);
             return mat;

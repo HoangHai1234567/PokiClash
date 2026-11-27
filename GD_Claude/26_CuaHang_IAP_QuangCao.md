@@ -430,6 +430,14 @@ Khi bấm thả mà không đủ bi cho mức cược:
 2. Hết hẳn: popup "Hết bi!" gồm: xem quảng cáo +N bi (nếu còn lượt); Cây bi đầy lúc nào (nút đi hái nếu có bi chờ); Lọ Bi (nếu ≥ 40%); 3 ô Gói
    Bổ Sung Bi. Tối đa 1 lần mỗi 20 phút; lần sau trong 20 phút chỉ toast.
 3. Hết bi lần đầu trong đời: chỉ có quảng cáo và Cây bi, chưa có gói (người chơi mới học máy bi).
+4. Thả xong một đợt (2026-11-27, người dùng: "hết hoặc gần hết bi thì bắn popup gạ mua gói bi"), hiện khi máy rảnh, sau bảng lên cấp:
+   - hết hẳn bi: tự bật popup "Hết bi!" như mục 2, không chờ người chơi bấm thả;
+   - còn bi mà không đủ một đợt đầy ở cược đang chọn (dưới 20 × cược): popup "Sắp hết bi!" (còn N bi) với ô quảng cáo, Cây bi, Lọ Bi và 3 ô
+     Gói Bổ Sung Bi. Đây là popup bán nên theo trần chung (perDay, gapMin, 10 phút sau khi mua, "Hôm nay không hiện nữa"), đóng thì 24 giờ
+     (3 lần: 72 giờ) mới bật lại, chung nhịp 20 phút với popup Hết bi, chỉ có sau khi đã gặp Hết bi một lần.
+   - Vào máy bi lúc bi dưới một đợt ở cược ×1: cũng thử popup "Sắp hết bi!" trước; không bật được mới quay 30% Ưu Đãi Bất Ngờ (mục 7.5).
+     Sau một đợt thả thì không quay Ưu Đãi Bất Ngờ.
+   - Popup bi chờ trong hàng mà tới lúc hiện bi đã nhiều hơn lúc bật (thắng trận, mua) thì bỏ; trong hàng chỉ giữ một popup bi.
 
 ### 7.5. Ưu Đãi Bất Ngờ: khi nào bật
 
@@ -820,3 +828,219 @@ cách Clash of Critters vẽ.
 - Quà Thẻ Tuần / Thẻ Phiêu Lưu / gói nhận theo ngày đang chờ được nhận cùng lúc (hàng nhỏ "Kèm quà thẻ"); ×2 chỉ nhân quà hôm nay.
 - Xem thử: menu `PokiClash/Thử/Cửa hàng/màn quà hôm nay: chụp (đang Play)` (17 ảnh `Temp/PokiShots/qua_ngay/`: có quảng cáo, bấm ×2,
   không quảng cáo; sao lưu và trả bản lưu). Người dùng duyệt 2026-11-27, đã thay vào game.
+
+## 15. Popup ưu đãi kiểu mới (2026-11-27)
+
+Người dùng: "các gợi ý này nhìn các icon quá nhỏ, tuy rõ những phần nhận được nhưng không đẹp, nên thiết kế lại pack này theo style của clash
+of critters, các icon vẫn có thể giữ nhưng panel pop up nên đổi kiểu đi". Học popup gói 3 ngày / chọn một của Critters (`1.5`, `1.10`, cây prefab
+`pbui_shop_package_first_3day`): banner hình gói to, nhãn giá trị sao nổ, ô ngày, cột bậc, nút giá to.
+
+- Code `App/Shop/OfferPopup.cs` (+ `OfferPopItem.cs` ô món, `OfferPopColumn.cs` cột); bộ dựng `Editor/OfferPopupMenu.cs`, menu
+  `PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: popup ưu đãi (PopUuDai)` dựng `Items/PopMon`, `Items/PopCot`, `Dialogs/PopUuDai` (vào UiKit).
+  `ShopSheet.OpenPopup` rẽ các popup `offer`, `comeback`, `refill` sang đây; Lọ Bi, Chuỗi Quà, giới thiệu thẻ / quỹ vẫn là tờ giấy cũ.
+- Khung: biến thể tờ giấy gốc `HopThoai`, ẩn tờ giấy và băng keo, khung giấy kit riêng, nằm thẳng (không nghiêng), nền tối 0,75.
+- Đầu: banner chì sáp hai mảng màu xé chéo + tia nắng + hoa văn mờ (`Assets/03 Art/Shop/pop/pop_nen_hong|xanh|tim|cam.png`, gen Magnific GPT 2.6,
+  4 × 95 credit, bo góc + viền mực nướng bằng `ArtGen/Shop/pop/lam_nen.py` vì sprite giấy mã hoá của kit không làm mặt nạ được). Màu theo loại:
+  hồng (Quà Nhập Môn, Trở Lại, gói khác), xanh (Khởi Hành), tím (gói tướng: Vượt Mốc, Đồng Hành, Sắp Lên Sao, Đảo Mới), cam (Nóng, Bất Ngờ,
+  Tiếp Sức, Hết bi). Hình gói bản 2 to 440 tràn mép trên, dập dềnh; gói tướng dùng mặt tướng; sao nổ vàng "GIÁ TRỊ ×N" đập xuống rồi lắc; ruy
+  băng đỏ `pk_ruy_bang` ghi tên vắt qua mép dưới banner.
+- Thân:
+  - gói nhận theo ngày (Quà Nhập Môn): 3 cột NGÀY 1–3 (dải hồng / xanh / cam), ô món to, ngày 1 nhãn "Nhận ngay";
+  - nhóm chọn một (Khởi Hành 3 bậc): 3 cột bậc (tên bậc, hình gói, ×N, lưới món 2 cột, nút giá riêng);
+  - gói thường: lưới ô món to (ít món thì ô to hơn).
+  - Ô món dùng hình bản 2 (trứng, đống bi theo số, vé, đá, thẻ tuần / tháng), thiếu thì icon cũ; số ×N trắng viền mực; trứng nhãn "nở mảnh".
+- Dưới: nhãn "Chỉ mua 1 lần", đồng hồ, nút giá cam to thở 1,0 ↔ 1,06; ngoài khung nút "Hôm nay không hiện nữa"; nút đóng góc phải banner.
+- Hết bi / Sắp hết bi (hợp đồng với phiên làm sự kiện máy bi): lần đầu chỉ cột miễn phí (quảng cáo nhận bi, Cây bi → Tới Nhà, Lọ Bi); sau đó
+  3 cột `refill_1..3` + hàng nút miễn phí (quảng cáo, Tới Nhà).
+- Nhịp vào: hình gói bật (1,18), cột / ô bật lần lượt mỗi 0,06 s, sao nổ đập xuống (tiếng stamp), nút giá bật rồi thở.
+- Chụp thử: `PokiClash/Thử/Cửa hàng/popup ưu đãi kiểu mới: chụp (đang Play)` → `Temp/PokiShots/pop_uu_dai/` (sảnh, Quà Nhập Môn, Khởi Hành,
+  Vượt Mốc, Nóng, Tiếp Sức, 3 kiểu Hết bi, máy bi túi đầy); sao lưu và trả bản lưu.
+- Chưa: người dùng chưa duyệt; màn cửa hàng chính đang được làm lại kiểu Critters ở phiên khác, có thể đổi popup cho cùng tông (nút giá, nhãn
+  giá trị).
+- **Đổi sang tông cửa hàng bản 3 (2026-11-27, sau khi người dùng duyệt tông bản 3 và dặn "làm popup và trang con cùng tông màu này luôn";
+  chia việc: popup ưu đãi + Hết bi do phiên này, tờ ShopSheet (Lọ Bi, Chuỗi, intro, Quỹ, vé) do phiên làm cửa hàng):** khung `the_nen` tô chàm
+  + caro `nen_trang` lát; thẻ đầu ba lớp `the_nen` / `the_phai` / `the_tia` tô `ShopHue` theo loại (Berry quà nhập môn / trở lại, Gold khởi
+  hành, Grape gói tướng, Sunset hẹn giờ, Lava nóng, Sky Hết bi), tên vàng viền mực trong dải tối đáy thẻ, ruy băng `nhan_gia_tri` "Giá trị
+  ×N" (nhóm: "Tới ×N"); ô ngày / bậc là ô `o_nen` + `o_tia` tô màu như ô trứng cửa hàng; ô món dùng chung `Items/OMonCuaHang`
+  (`ShopItemCell`); nút giá `nut_gia` xanh lá (`ShopHue.Lime`); viên nhãn chàm chữ trắng. Bỏ banner chì sáp `pop_nen_*` (ảnh còn ở
+  `ArtGen/Shop/pop/` và `03 Art/Shop/pop/`), bỏ `OfferPopItem` + `Items/PopMon`.
+
+## 16. Túi bi: trần số bi cầm (2026-11-27)
+
+Người dùng: "cần phải giới hạn max số bóng 1 lúc người chơi có thể cầm. Đục kĩ trong clash of critters. Khi đang max bóng người chơi sẽ không thể
+nhận thêm từ cây từ home nữa nhưng nếu nhận từ các phần quà / mở rương hoặc iap thì vẫn nhận được"; kèm "Phần số bi chỉ cần hiện khi ở máy pinball
+hoặc đảo casino".
+
+- Critters: bản mổ (`D:\Ripper\ClashOfCritters`) chỉ có prefab / sprite, chữ và bảng số mã hoá. Trang cộng đồng (wiki.gg Pinball, Camp;
+  mturbogamer; clashofcritters.info): túi khoảng 420 bi; mốc trại "Pinball Depot" +80 ở 13, 30, 55 sao; 8 cây, mỗi cây 50 bi, 5 bi / giờ, đầy
+  thì ngừng; còn dưới 420 thì hái được cây và có thể vượt trần (mẹo xả về 419 rồi hái tràn); gói nạp, sự kiện, thư, mã quà cộng vượt trần.
+- Mình (`Core/BallBag.cs`): trần = (`trees.ballCap` 400 + `trees.ballCapPerTree` 100 × (số cây mở − 1)) × hệ số sức chứa cây (Thẻ Tuần, Thẻ
+  Phiêu Lưu): 400 lúc mở Nhà, 500 / 600 / 700 / 800 ở cấp 10 / 25 / 45 / 70.
+- Chặn: cây bi (`Trees.Harvest`, cả Hái ×2), công trình ra bi ở Nhà (`Home.Collect`, ruộng rau, vườn cây ăn quả), trang trại (`Farm.Harvest`).
+  Hái tới đầy túi, phần thừa nằm lại chỗ cũ (khác Critters để khỏi mẹo hái tràn). Cây vẫn ra tới sức chứa của cây rồi ngừng như cũ.
+- Không chặn: quà hôm nay, rương (máy bi, AFK, Đền Huy Hiệu), thắng ải, dọn rừng, mốc điểm đẹp, quảng cáo, gói nạp, đảo Casino.
+- Hiện:
+  - chip bi trên thanh trên chỉ có ở máy bi và các màn đảo Casino (`TopBars.BallsHere`); túi đầy thì số đỏ;
+  - Nhà không còn chip: hái cây báo "+N bi · túi x/y"; đầy thì cây nhún, báo "Túi bi đầy (x/y). Thả bi ở máy bi rồi quay lại hái."; gần đầy
+    báo phần còn trên cây; thu công trình đầy thì kèm "túi bi đầy"; hộp Cây bi ghi "Túi bi: x/y", khoá nút Hái khi đầy.
+- Màn máy bi (người dùng 2026-11-27: "chưa thấy có max số bi người chơi có thể có 1 lúc, thanh fill giống trong clash of critters"; "bro cái
+  thả liền 20 này đi"; "ô level để nhất quán 1 kiểu ô tròn level ở màn đảo chính thôi"), menu `PokiClash/Prefab/Máy bi: thanh túi bi, ô cấp tròn`
+  (`Editor/MachineBagBarMenu.cs`, chạy lại được; chụp: `PokiClash/Thử/Máy bi/thanh túi bi, ô cấp tròn (chụp)` → `Temp/PokiShots/tui_bi/`):
+  - thanh đếm dưới nút thả thành thanh túi bi như thanh "10/30" dưới nút thả của Critters: phần tô hồng "lap" trong lòng khung_dem, chữ
+    "bi/trần"; vượt trần thì đầy, đổi cam (`MachineScene.p.bagFill`). Bỏ số "đợt này x/y" lúc đang thả;
+  - bỏ nút "Liền ×20" (ẩn lúc vào màn; thả bằng chạm / giữ nút thả);
+  - bỏ nút "Ra đảo" (người dùng: "bỏ nút ra đảo đi"; ra đảo Casino từ bản đồ sảnh); thanh kinh nghiệm to hơn ("làm thanh kinh nghiệm
+    kia to lên"): rãnh `khung_thanh` 585 × 55 → 600 × 82, ảnh rãnh `pk_ranh_exp` chia 9 mảnh (27), thanh trong trải theo rãnh, chữ tự co tới 38;
+  - thanh trên màn con: chip "Cấp N" thay bằng ô cấp tròn chép từ sảnh (`Hud/vong_cap` → `Quay lai/o_cap`, `TopBars.backBadge`); máy bi ẩn ô
+    này vì đã có vòng cấp to trên thanh kinh nghiệm.
+- Test: `TreesTests.TuiBi_DayThiKhongHai_GanDayHaiToiTran_QuaVuotTran`. Chưa chạy lại giả lập kinh tế (`33`): người chơi trong giả lập thả bi
+  hằng ngày nên ít khi chạm trần; người vắng lâu chỉ mất phần cây ra quá trần.
+
+## 17. Màn cửa hàng bản 3: nền tối, gói màu tươi (2026-11-27)
+
+Người dùng gửi ảnh cửa hàng Clash of Critters: "thiết kế shop như thế này, việc lựa chọn màu sắc cũng nên giống với ảnh. Nền màu tối chút,
+các gói IAP thì màu phải tươi nổi để hấp dẫn người chơi". Học bố cục và cách phối màu, không dùng hình của họ: mọi khối nền tự vẽ bằng PIL.
+
+### Bố cục (`Dialogs/CuaHangLon`, `ShopPage`)
+
+- Nền tối phủ kín tờ giấy: thanh trên `#1f1f2b` (số bi trái, tiêu đề vàng `#ffd84a` giữa, nút đóng phải), vùng trang caro chàm (`nen_trang.png`,
+  Tiled), **cột mục dọc bên trái** rộng 190 (`#1b163e`): 5 mục, mỗi mục hình gói bản 2 + tên; mục đang xem có ô tím → lam (`muc_chon.png`),
+  bấm thì nhảy tới mục; cuộn chạm đáy thì chọn mục cuối. Trang cuộn bên phải rộng 858 (`ShopPage.ContentW`).
+- Mục: băng tím caro thoi viền mực (`muc_bang.png`), tên vàng viền mực.
+- Thẻ ngang (`ShopCard`, 858 × 400, gọn 250): nền ba lớp 9 mảnh cùng viền (`the_nen` tô màu chính, `the_phai` mảng phải cắt chéo caro tô màu
+  phụ, `the_tia` sao nổ sau hình), dải tên tối dưới đáy, hình gói / mặt tướng trái (chưa có mặt tướng thì hình gói), ô món canh phải, mô tả
+  trắng, đồng hồ góc trên trái, nhãn hồng đỏ "Giá trị ×N" chìa ra góc trên phải (`nhan_gia_tri.png`), nút giá xanh lá.
+- Ô món (`Items/OMonCuaHang`, `ShopItemCell`, mới): ô kem viền mực, hình món, vạch tối dưới ghi số trắng (bi ghi số trơn); món có độ hiếm thì
+  nền màu bậc pha trắng. `ShopUi.Look(ShopItem)` trả hình / số / độ hiếm, dùng chung với `ShopUi.Tile` (ô thưởng cũ).
+  Mảnh tướng chưa có ảnh mặt vẽ tay thì cắt phần đầu chân dung vào ô (`HeroArt.FitHead`, như ô thưởng).
+- Ô lưới (`ShopTile`): nền màu caro + sao nổ (`o_nen`, `o_tia`), tên trên đầu, dải tối đáy chứa nút giá, nhãn "×N" đỏ góc phải.
+- Nút giá: tấm xám hai tông viền mực (`nut_gia`, `nut_gia_an` khi đè) tô `#8de02e`; `ShopHue.Paint` đổi vai Orange / Green thành xanh lá.
+
+### Màu (`App/Shop/ShopHue.cs`)
+
+| Bộ | Nền chính | Mảng phải | Sao nổ | Dùng cho |
+|---|---|---|---|---|
+| Gold | `#ffc21a` | `#8a3cf0` | `#fff4c8` | Gói Khởi Hành, Lọ Bi, Quỹ, mốc quảng cáo |
+| Sunset | `#ff8a2a` | `#ff3d6e` | `#ffe9a8` | ưu đãi hẹn giờ khác |
+| Berry | `#ff5c93` | `#9b3cf0` | `#ffd9ea` | Quà Nhập Môn, gói nhận theo ngày |
+| Sky | `#2fa8ff` | `#6a4cf5` | `#d8f6ff` | gói bi, Thẻ Tuần / Phiêu Lưu, vé |
+| Mint | `#3fcf6a` | `#1fa3c9` | `#eaffc8` | Quà hôm nay, gói đỡ khi thua |
+| Grape | `#b04ef0` | `#ff4fa8` | `#f3dcff` | gói tab Trứng, Chuỗi Quà, Bỏ quảng cáo |
+| Lava | `#f2483f` | `#ffb21a` | `#ffe0b0` | ưu đãi nóng |
+| Slate | `#6c74a8` | `#4a4f80` | `#dfe4ff` | thẻ thông tin (tỉ lệ, khôi phục, chưa có ưu đãi) |
+| Tier(n) | màu bậc | màu bậc tối 30% | trắng | ô trứng |
+
+Đã mua / đã nhận: ba màu ngả xám (`ShopHue.Dim`).
+
+### Ảnh và dựng
+
+- Sprite: `ArtGen/Shop/v3/ve_ui.py` (PIL, vẽ to ×3 rồi thu, vân sáp mờ; mặc định ghi `out/` để xem, `--assets` ghi `Assets/03 Art/Shop/v3/`).
+  Tấm xám để tô màu lúc chạy: trắng nhân màu thành màu đó, đen giữ đen (viền, dải tên).
+- Dựng: menu `PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: chỉ màn cửa hàng (CuaHangLon)` (mục, lưới, ô món, ô, thẻ, màn; không đụng màn nở
+  trứng / mở khoá / quà ngày, App.prefab) hoặc cờ `Temp/shop_v3_build.flag`; "Cửa hàng: dựng hết" cũng dựng bản 3.
+- Chụp: menu `PokiClash/Thử/Cửa hàng/bản 3: chụp màn cửa hàng` hoặc cờ `Temp/shop_v3_tour.flag` (tự Play, đầu trang, cuộn 8 nấc, bấm mục
+  Trứng / Đặc quyền; sao lưu và trả bản lưu; ảnh `Temp/PokiShots/cua_hang_v3/`).
+- Kèm (cùng ngày): icon quà mờ, vỡ vì ảnh thu nhỏ 4–7 lần mà không có mipmap; `ArtImporter` bật mipmap (lọc Kaiser, ba tuyến, lệch -0,5)
+  cho `03 Art/Fallback/Icons` và `03 Art/Shop/**`.
+- Popup ưu đãi / Hết bi (OfferPopup, mục 15) do phiên khác đổi sang cùng tông.
+
+### Tờ popup, trang con, cụm ưu đãi ở sảnh (2026-11-27 chiều)
+
+Người dùng: "làm popup và trang con cùng tông màu này luôn; các icon này khó nhìn quá và xấu, cần thì làm thêm các icon khác nổi bật hơn,
+đẹp hơn và phải có hiệu ứng breath".
+
+- Tờ `Dialogs/CuaHang` (ShopSheet: Lọ Bi, Chuỗi Quà, giới thiệu Quỹ / thẻ, quà hôm nay, trang Quỹ, Chuỗi, vé): nền tối viền mực (`to_toi.png`,
+  Sliced 44) phủ trên lớp giấy của tờ gốc (sau `luoi` / `chi_khau`, trước nội dung: đổi thứ tự thì kẻ ô đè hoặc nền che thẻ), băng tím tên
+  vàng, dòng phụ trắng, nút "Hôm nay không hiện nữa" tấm xám hai tông.
+- Ô gói `Items/OGoi` (PackCell): như thẻ cửa hàng nhưng không có hình: nền ba lớp (sao nổ mờ 35% cho chữ trắng đọc được), dải tên tối, mô tả /
+  ô món kem / ghi chú bên trái, nhãn "Giá trị ×N", đồng hồ viên tối, nút xanh lá + nút phụ. Màu theo loại (`ShopSheet.PackHue`, `ShopHue.Offer`):
+  quà lá, thẻ trời, quỹ / Lọ Bi vàng, ô chuỗi trả tiền nho / miễn phí lá, mốc quỹ chưa tới xám, vé theo màu bậc tướng. Ghi chú màu mực của
+  bản giấy được làm sáng. Quà dạng Reward và ô tướng trang vé vẫn dùng ô thưởng chung (tên trắng / ẩn).
+- Cụm sảnh `cua_hang_san` (HubShop): bỏ đĩa vàng + icon vector; mỗi ưu đãi là hình gói bản 2 (`ShopUi.PackArt`, không có thì hình theo món như
+  thẻ; chuỗi quà theo món ô đang mở) 142 × 130 trên vầng tia cam vàng `#ffa62b` xoay chậm (`tia_xoay.png`, `UI/Kit/Spin.cs`), thở lệch pha
+  (`UI/Kit/Breathe.cs`: giãn dọc 8%, ngang 4,8%, nhô 4 điểm, 1,8 s/hơi); đồng hồ viên tối chữ trắng ghi "1 ngày 21 giờ" / "01:59:41" (bản cũ "1n"),
+  dưới 1 giờ viên đỏ. Lọ Bi: hình lọ, thanh viên tối đầy vàng. Bước 168 (4 icon cao ~ cột cũ, không đè thẻ đảo).
+- Viên thuốc của bộ v3 (`vien.png`, Sliced 24) thay `Sketch.Pill` trong mọi bản dựng v3 (sprite giấy chỉ nạp khi chạy "dựng hết": dựng riêng
+  thì viên thành hình chữ nhật).
+- Dựng: menu `PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: tờ popup + cụm sảnh` hoặc cờ `Temp/shop_v3_sheet_build.flag`. Tour bản 3 chụp thêm
+  `to_*`, `trang_*`, `sanh_1/2`; tour Play từ Boot (`NuocFxMenu.PlayTuBoot`) nên chạy được khi trình soạn đang mở cảnh khác.
+- Ảnh vẽ tay (vân bút mực + chì sáp cho mọi sprite v3, cột trái `cot_trai.png` có sao / quái nhỏ, `vien_cot.png`): phiên khác vẽ lại bằng
+  `ArtGen/Shop/v3/ve_ui.py` (bản phẳng cũ: `ve_ui_phang_cu.py`); cột trái lát dọc nếu có ảnh, không thì màu trơn.
+
+### Icon riêng từng loại ưu đãi (2026-11-27 chiều)
+
+Người dùng: "gen thêm icon riêng cho từng loại ưu đãi" (trước đó ưu đãi động như Bất Ngờ hiện hình đống bi theo món).
+
+- Gen Magnific GPT 2.6, nền trong, 1k high (95 credit / tờ), ảnh mẫu là hai tờ hình gói bản 2 đã duyệt (`goi_lon_v2`, `dac_quyen_v2`) để
+  cùng nét bút mực, chì sáp, viền sticker trắng: `ArtGen/Shop/v2/uu_dai_v2.png` (2 × 3) và `uu_dai_v2b.png` (2 × 2), cắt bằng
+  `cat_v2.py uu_dai_v2.png uu_dai_v2b.png` vào `Assets/03 Art/Shop/v2/uu2_<mã mẫu>.png`.
+- Mỗi mẫu một hình, màu chính khác nhau để đứng cạnh nhau trong cột sảnh vẫn tách: `flash` Bất Ngờ hộp quà tím bật nắp + tia sét;
+  `hot` Nóng trứng tím trong vòng lửa + đồng hồ báo thức; `relief` Tiếp Sức phao cam trắng đầy bi + bình hồi sức xanh;
+  `companion` Đồng Hành giỏ picnic + bóng tim đỏ + dấu chân; `nearstar` Sắp Lên Sao huy chương sao vàng + mũi tên xanh lên + đá tiến hóa;
+  `jump` Vượt Mốc tên lửa + thẻ + đá (to nhất); `newisle` Đảo Mới đảo dừa + vé vàng; `comeback` Trở Lại phong thư dấu sáp tim;
+  `chain` Chuỗi Quà ba hộp quà lớn dần nối xích vàng; `offer` thẻ giá đỏ in sao (mẫu chưa có icon riêng).
+- Code: `ShopUi.TplArt(tpl)` (thiếu ảnh mẫu đó thì `uu2_offer`, chưa nhập ảnh thì null), `ShopUi.OfferArt(o)` (gói cố định: hình gói;
+  ưu đãi động: icon mẫu). Cụm sảnh luôn dùng icon (Chuỗi Quà cũng vậy); thẻ cửa hàng và popup bán vẫn ưu tiên hình gói rồi mặt tướng
+  (gói tướng: Vượt Mốc, Tiếp Sức, Đồng Hành...), không có mặt tướng thì icon mẫu; thẻ Chuỗi Quà trong cửa hàng và popup quà trở lại
+  dùng icon riêng.
+- Dựng danh mục: cờ `Temp/shop_uu2_lib.flag` (ArtImporter.BuildLibrary); tour `Temp/shop_uu2_tour.flag` / menu
+  `PokiClash/Thử/Cửa hàng/icon ưu đãi: chụp` (Editor/ShopOfferIconTour.cs) dựng đủ chín loại, chụp cột sảnh theo nhóm ba, mục Ưu đãi
+  của cửa hàng, popup Nóng / Đảo Mới / Bất Ngờ vào `Temp/PokiShots/uu_dai_icon/`; sao lưu và trả bản lưu.
+
+### Popup chọn một gói bản 4 (2026-11-27 chiều)
+
+Người dùng gửi popup nạp đầu của Clash of Critters: "thiết kế lại theo cái này, độ cao tăng dần, giá trị phải để thẳng trên đầu luôn làm
+nổi bật, list từng thứ to và rõ ràng. Không cần khung đen, làm thành pop up full screen nền tối"; thêm: "thông tin còn bao nhiêu tiếng để
+hẳn trên đầu làm rõ ràng ra".
+
+- Nhánh riêng `OfferPopup.ShowGroup` (nhóm Gói Khởi Hành 3 bậc); popup theo ngày, gói lẻ, Hết bi giữ khung bản 3.
+- Không khung chàm, không thẻ đầu: tấm `nen_toi` chàm rất tối (độ đục 0,9) + caro mờ phủ cả màn, chặn chạm (chỉ nút X đóng).
+- Đầu: hình gói 330 bên trái (dập dềnh), băng tím `muc_bang` tên vàng bên phải, ngay dưới là viên đỏ `#d8224e` đồng hồ to có icon đồng hồ
+  báo thức, chữ 46 "Còn 1 ngày 22 giờ" (dưới 1 giờ đỏ tươi + phập phồng).
+- Ô cột (`Items/PopCot`) cao dần theo giá, mỗi bậc cao hơn 80, đáy thẳng hàng (hàng `LowerCenter`); ô cao nhất theo cao màn
+  (`cao màn − 820`, kẹp 800–1320). Màu trời / nho / cam như ba cột của Critters. Không tên bậc, không hình gói trong ô.
+- Huy hiệu giá trị: sao nổ hồng đỏ cánh tròn (`huy_hieu.png`, `ArtGen/Shop/v3/ve_huy_hieu.py` dùng nét tay của `ve_ui.py`) 252 × 216
+  đè giữa mép trên ô, chữ "×N" 78 + "GIÁ TRỊ", nghiêng ±5°, thở nhẹ; lúc mở đập vào lần lượt (bậc sau mạnh hơn, tiếng dập).
+- Món xếp một cột, ô kem to cùng cỡ ở mọi ô (lớn nhất vừa ô chật nhất, tối đa 190); nút giá xanh lá trong dải tối đáy ô.
+- Dưới: "Bạn chỉ được mua 1 gói!"; nút "Hôm nay không hiện nữa" khi popup tự bật.
+- Ô vé chọn tướng / vé tướng tuần trong mọi ô món dùng hình vé vàng `goi2_ve` thay icon hai người.
+- Dựng + chụp: `Editor/OfferGroupTour.cs` (cờ `Temp/pop_group_build.flag`, `Temp/pop_group_tour.flag`; menu
+  `PokiClash/Thử/Cửa hàng/popup chọn gói: dựng + chụp`) → `Temp/PokiShots/pop_chon_goi/` (nhóm, nhóm còn 40 phút, theo ngày, gói lẻ,
+  Hết bi để soát khung bản 3).
+
+Lượt sửa cùng ngày (người dùng xem ảnh popup chọn gói):
+
+- "Hình splash đằng sau xấu quá, như bị stretch ra; làm màu trơn rồi trang trí hoa văn nhẹ nhàng (giống cột trái trong shop)": ô cột bỏ sao nổ
+  `o_tia`, nền `o_nen` tô màu trơn + lớp `hoa_van.png` lát (256 × 320, mảnh hình vẽ tay của cột trái: dấu chân, quái nhỏ, vương miện, trứng,
+  bi, tia sét, sao; nét trắng độ đục 0,2; `ArtGen/Shop/v3/ve_hoa_van.py`), `OfferPopColumn.Plain()`.
+- "Cột ×13 thêm trứng xanh, không thì nhìn qua lại thấy ít hơn cột ×12": `launch_3` thêm 5 Trứng Hiếm (r 2).
+- "Từ 125k lên 500k gấp 4 lần tiền mà chỉ ×11 lên ×13 thì không hợp lý; để thành ×5, ×10, ×20 (ở tag thôi, quà vẫn thế)": trường mới
+  `ShopPack.tag` (balance.json `"tag"`, 0 = tính theo món); `ShopUi.ShownMult` dùng cho huy hiệu popup và nhãn thẻ cửa hàng; Khởi Hành
+  5 / 10 / 20. Giá trị thật (`Shop.OfferMult`) không đổi, các phép tính khác vẫn dùng nó.
+- "Làm popup Hết bi theo kiểu cột cao dần luôn": `OfferPopup.ShowRefillGroup` (Hết bi có 3 gói refill): nền tối phủ màn, đống bi + băng
+  "Hết bi!" / "Sắp hết bi!" + dòng phụ bên phải; ô cột cao 560 / 640 / 720, hình gói (túi, giỏ, thùng bi) lớn dần theo bậc, ô số bi dưới
+  hình, huy hiệu giá trị; hàng nút miễn phí (quảng cáo nhận bi, Cây bi) dưới. Hết bi lần đầu (chỉ cách miễn phí) giữ khung bản 3.
+- Nhập dữ liệu bằng cờ `Temp/pop_group_data.flag` (OfferGroupTour, như menu Nhập dữ liệu).
+- "Pop up này cũng sửa theo style vừa làm" (Quà Nhập Môn, gói theo ngày): `OfferPopup.ShowDaysGroup`: nền tối phủ màn, không khung;
+  đầu: hình hộp quà + băng tên + viên đỏ đồng hồ to + huy hiệu sao nổ "×N GIÁ TRỊ" cạnh đồng hồ (`huy_hieu_dau`, một giá cho cả gói);
+  ô NGÀY 1–3 cao bằng nhau (quà mỗi ngày ngang nhau), nền trơn `o_tron.png` không dải đáy + hoa văn, "Nhận ngay" ở ngày 1, món một cột ô
+  tới 210; dưới: dòng "Mua một lần, nhận quà 3 ngày liền!", nút giá to thở. Nền ô có nút giá dùng `o_tron_nut.png` (bỏ caro thoi của
+  `o_nen`); cả hai do `ArtGen/Shop/v3/ve_o_tron.py` vẽ.
+- "Đổi luôn popup gói lẻ theo style này" + "căn chỉnh phần này vào giữa": gói lẻ (`ShowSingle`: Ưu Đãi Nóng, Bất Ngờ, Tiếp Sức, Vượt
+  Mốc...) và Lọ Bi (`ShowPiggy`, chuyển từ tờ ShopSheet sang OfferPopup) cùng nền tối; các món nằm trong một ô trơn hoa văn đặt giữa
+  ("BẠN NHẬN ĐƯỢC" / "LỌ ĐANG CÓ 60/4k"), ít món thì ô to tới 220; dòng phụ + nút giá to dưới (Lọ Bi chưa đập được thì chỉ có dòng ghi).
+- Quà Nhập Môn "phải nhấn mạnh giá trị, làm thêm hiệu ứng", "làm thành hướng mũi tên ngày 1 -> ngày 2 -> ngày 3 theo hình tam giác":
+  ba ô xếp tam giác (ngày 1 dưới trái, ngày 2 trên giữa, ngày 3 dưới phải, ô to nhất, cỡ món 190), mũi tên cong vẽ tay `mui_ten.png`
+  (viền trắng sticker) nối 1 → 2 → 3; huy hiệu giá trị to 236 × 204.
+- "Thêm fx glow ánh sáng các kiểu": `OfferPopup.HeadFx` cho mọi popup bản 4: quầng sáng ấm `quang.png` phập phồng + vầng tia
+  `tia_xoay.png` xoay sau hình gói; quầng hồng + tia xoay ngược sau huy hiệu giá trị; lấp lánh `UI/Kit/Twinkle.cs` (`lap_lanh.png`);
+  ngày 3 có quầng + tia + lấp lánh riêng. Sprite ở `ArtGen/Shop/v3/ve_fx_pop.py`. Glow là ngoại lệ người dùng xin cho popup bán (luật
+  hiệu ứng trận vẫn không quầng sáng).
+  Mọi cụm hiệu ứng dựng sẵn trong prefab PopUuDai (`fx_goi`, `fx_gia_tri`, `fx_ngay3`, `mui_ten_1/2`; Twinkle dùng sao dựng sẵn làm con),
+  OfferPopup chỉ đặt chỗ và bật (luật PrefabOnlyTests: mã chạy không tạo GameObject / AddComponent).
+- "Đổi luôn popup Hết bi lần đầu theo style này": nền tối, đống bi + băng "Hết bi!" + dòng phụ, mỗi cách miễn phí (quảng cáo nhận bi, Cây bi,
+  Lọ Bi; không có thì "Thắng ải") một ô trơn hoa văn cao bằng nhau, nút trong dải đáy.
+- "Đổi luôn popup quà trở lại theo style này" (`ShowComeback`): phong thư + băng "Mừng bạn trở lại!" + đồng hồ / huy hiệu của Gói Trở Lại;
+  hai ô cạnh nhau: "QUÀ ĐÃ NHẬN" (lá, nhãn "Miễn phí", quà vừa vào túi) và Gói Trở Lại (hồng); dưới: "Quà trở lại đã vào túi!" + nút giá.
+  Mọi popup bán của OfferPopup giờ đều nền tối toàn màn; khung bản 3 chỉ còn là đường lui. Tour `OfferGroupTour` chụp thêm Lọ Bi,
+  Hết bi lần đầu, quà trở lại.

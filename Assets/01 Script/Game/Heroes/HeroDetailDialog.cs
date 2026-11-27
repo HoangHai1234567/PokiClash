@@ -8,6 +8,8 @@
 //   (người dùng dặn 2026-11-19: tách rõ lên sao với tiến hóa; tướng có bao nhiêu hình thì bấy nhiêu bậc, StarTier.Stops);
 // - nút hack tiến hóa ở góc trái sân khấu, trên hàng nút clip, để thử đổi dạng; hiện cả ở bản build (thử trên máy, người dùng
 //   dặn 2026-11-06), nhớ tắt trước khi phát hành.
+// - nút tròn icon vòng 5 chấm cạnh nhãn hệ (menu "PokiClash/Prefab/Hộp thoại và màn/Tương khắc: hộp và icon ô tướng", 2026-11-27): mở hộp
+//   Tương khắc của hệ tướng này.
 // Mọi phần có sẵn trong prefab, Render bật tắt và gán dữ liệu.
 using System;
 using PokiClash.Core;
@@ -90,6 +92,10 @@ namespace PokiClash
         [SerializeField] Parts p;
         [SerializeField] float viewSize = 520; // cạnh ô xem tướng trên sân khấu
         [SerializeField] CardDetailDialog cardDetail; // prefab Dialogs/ChiTietThe
+        [SerializeField] SketchButton wheel; // nút Tương khắc (menu Tương khắc: hộp và icon ô tướng); trống thì như cũ
+
+        // Dùng khi dựng nút Tương khắc (Editor).
+        public void SetupWheel(SketchButton button) => wheel = button;
 
         string id;
         Action onChange;
@@ -203,6 +209,7 @@ namespace PokiClash
             p.name.text = hero.name;
             p.title.text = hero.title;
             p.elemTag.Set(hero.elem);
+            if (wheel) wheel.SetOnClick(() => ElementWheelDialog.Open(hero));
             p.badge.gameObject.SetActive(badge > 0);
             if (badge > 0) p.badge.Bind(hero.elem, badge, 56); // huy hiệu cạnh nhãn hệ
             p.rarity.text = Elements.RarityName(hero.rarity);

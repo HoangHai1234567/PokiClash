@@ -1,4 +1,5 @@
-// Lưới ô của màn cửa hàng (prefab Items/LuoiCuaHang): GridLayoutGroup 2 hoặc 3 cột, cỡ ô đặt lúc chạy theo bề rộng trang. ShopPage.
+// Lưới ô của màn cửa hàng (prefab Items/LuoiCuaHang): GridLayoutGroup 2 hoặc 3 cột, cỡ ô đặt lúc chạy theo bề rộng trang (cột phải của
+// màn, bản 3 có cột mục bên trái). ShopPage.
 using System;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -13,7 +14,7 @@ namespace PokiClash
     public sealed class ShopGrid : MonoBehaviour
     {
         [SerializeField] GridLayoutGroup grid;
-        public const float Width = 1000;
+        public const float Width = ShopPage.ContentW;
 
         public void Setup(GridLayoutGroup g) => grid = g;
 

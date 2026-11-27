@@ -180,7 +180,8 @@ Bảo đảm (chỉ ở trận này, khi cờ hướng dẫn chưa xong):
 | C9 | Màn Tướng | vào | thẻ tướng đồng hành | — | chạm | Ép |
 | C10 | Chi tiết tướng | mở | thẻ Chiêu, nút "Lên cấp 2" | "Chiêu cấp 2: mạnh thêm 15%." | Lên cấp | Ép |
 | C11 | Sảnh | quay lại sảnh | mây tan 4 đảo (hoạt cảnh có sẵn) | "Bốn đảo nữa! Mỗi đảo có một bạn đang chờ." | — | — |
-| C12 | Sảnh | sau C11 | khoanh đảo {he2} | "Đảo {he2}: {he} khắc {he2}, đòn của bạn ×1,5." | chạm đảo | Ép |
+| C12a | Sảnh | sau C11 (2026-11-27) | hộp Tương khắc dạng bài học: vòng 5 hệ vẽ dần từ hệ {he}, hai dòng KHẮC / BỊ KHẮC | "Trước mỗi trận, xem hệ địch và mang tướng khắc nó!" | Hiểu rồi! | Ép |
+| C12 | Sảnh | sau C12a | khoanh đảo {he2} | "Đảo {he2}: {he} khắc {he2}, đòn của bạn ×1,5." | chạm đảo | Ép |
 | C13 | Hộp Chuẩn bị, ải 1 đảo {he2} | mở | mũi tên khắc hệ cạnh đối thủ | "Mũi tên xanh: bạn khắc địch." | Xuất trận | Ép |
 | C14 | Trận 2 | đòn đầu trúng | số sát thương kèm dấu "KHẮC!" | "Khắc hệ: ×1,5!" | — | Chú thích |
 | C15 | Trận 2 | lần đầu đủ nộ và mana | nút Tuyệt kỹ, thanh nộ | "Nộ đầy! Tuyệt kỹ thay cú đánh thường cuối lượt." | chạm | Ép |
@@ -188,7 +189,7 @@ Bảo đảm (chỉ ở trận này, khi cờ hướng dẫn chưa xong):
 | C18 | Sảnh | về sảnh sau trận 2 | nút Sổ thẻ (hiện ra lúc này) | "Sổ thẻ: mọi thẻ của mọi tướng. Chạm để xem." | chạm (cờ đánh ở `CardsScene.Enter`) | Ép |
 | C19 | Sổ thẻ | vào được 2,5 giây, không mở hộp thẻ | nút quay lại | "Xem xong thì về sảnh." | — | Gợi ý 8 giây |
 | C20 | Sảnh | sau C18 | giữa màn, chân dung tướng đồng hành | "**Nhà đã mở!** Tướng làm việc ở Nhà ra bi và gỗ, cả khi bạn vắng." | chạm | Lời |
-| C21 | Sảnh | sau C20 (máy lướt tới tàu) | con tàu ở bến | "Chạm con tàu để về Nhà." Về sảnh giữa chừng: "Về Nhà đặt Cây bi nhé." | chạm (cờ đánh ở `HomeScene.Enter`) | Ép |
+| C21 | Sảnh | sau C20 | nút Nhà ở hàng đáy (người dùng 2026-11-27: không khoanh con tàu) | "Chạm nút Nhà để về Nhà." Về sảnh giữa chừng: "Về Nhà đặt Cây bi nhé." | chạm (cờ đánh ở `HomeScene.Enter`) | Ép |
 | C22 | Nhà | tàu cập bến, chế độ thường | Nhà chính, khoanh sáng | "Đây là Nhà của bạn. Tướng làm việc ở đây, cả khi bạn vắng." | chạm đâu cũng qua | Lời có khoanh |
 | C23 | Nhà | sau C22 | Ruộng rau (không có thì Vườn cây) | "Ruộng và vườn: tướng làm ở đây ra bi." | chạm | Lời có khoanh |
 | C24 | Nhà | sau C23 | Xưởng gỗ (không có thì Kho) | "Xưởng gỗ ra gỗ, Kho giữ gỗ. Gỗ dùng để xây và nâng cấp." | chạm | Lời có khoanh |
@@ -231,6 +232,9 @@ Mỗi dòng chạy đúng một lần, khi điều kiện xảy ra lần đầu.
 | D8 | tới ải 10 một đảo | rương trên thanh tiến độ đảo | "Mỗi 10 ải có một rương mốc." | Gợi ý |
 | D9 | ~~lên cấp có thẻ mới~~ | — | bỏ 2026-11-23: không bắt xem sổ thẻ; nút Sổ thẻ tự hiện từ cấp 3, không khoanh | — |
 | D10 | địch có bị động riêng (mốc 30–70) | dòng ghi chú đối thủ | tên bị động; chạm để xem | Chú thích |
+| D11 | vào màn Tướng sau chuỗi bắt buộc (2026-11-27) | nút vòng 5 chấm trên thẻ tướng đồng hành | "Chạm vòng 5 chấm: xem tướng này khắc hệ nào, sợ hệ nào." | Gợi ý 7 giây |
+| D12 | mở hộp Chuẩn bị, đội có tướng bị tướng chính của địch khắc (trừ tướng đồng hành) | ô đội của tướng đó | "{tuong} bị hệ {x} khắc: đánh ×0,75, chịu đòn ×1,5. Chạm ô để đổi sang tướng hệ {y}." | Gợi ý 8 giây |
+| D13 | mở hộp chọn đội sau chuỗi bắt buộc | nút vòng 5 chấm ở ô đầu | "Chạm vòng 5 chấm để xem tướng khắc hệ nào, sợ hệ nào." | Gợi ý 6 giây |
 
 ### Chặng E: Bức tường cấp và lần thua đầu
 
@@ -331,14 +335,14 @@ Mỗi dòng là một khoảnh khắc mở: hộp nhỏ, hình công trình hay 
 | Sổ thẻ (nút đáy) | ẩn | về sảnh sau trận 2, C18 (2026-11-24) |
 | Nút AFK (thanh trên) | ẩn | F1 |
 | Cây bi | bỏ khỏi sảnh 2026-11-23 | đến cùng Nhà, đặt ở Nhà (G3a–G3d) |
-| Nhà (nút đáy từ 2026-11-23, lời mời chạm tàu) | ẩn | C20 (Nhà mở sau ải thứ 2, 2026-11-24) |
+| Nhà (nút đáy từ 2026-11-23; hướng dẫn khoanh nút này, không khoanh tàu) | ẩn | C20 (Nhà mở sau ải thứ 2, 2026-11-24) |
 | Hang | ẩn | cấp 20: bản phác "Cấp 30"; cấp 30: mở |
 | Đền | ẩn | qua ải 10 một đảo: bản phác "Thắng ải 20"; thắng ải 20: mở |
 | Mây che đảo | đã đúng | — |
 
 - Ẩn hẳn thay vì để mờ, để ở phút đầu người chơi chỉ thấy một thứ cần chạm.
 - Bản lưu cũ (đã có `starter` và đã đánh) coi các mốc là đã qua theo trạng thái (mục 7).
-- Tàu ở bến: chạm tàu là về Nhà. Trước khi Nhà mở (chưa qua 2 ải), chạm tàu chỉ ra toast "Qua 2 ải để mở Nhà".
+- Tàu ở bến: chạm tàu cũng về Nhà (lối phụ, hướng dẫn và mẹo lúc tải chỉ nói nút Nhà). Trước khi Nhà mở (chưa qua 2 ải), chạm tàu chỉ ra toast "Qua 2 ải để mở Nhà".
 
 ## 6. Trang "Cách chơi" trong Sổ tay
 
@@ -352,7 +356,7 @@ Thêm mục "Cách chơi" vào Sổ tay.
 | Vòng chơi | B8 | Thắng ải → bi. Thả bi vào Máy Bi → kinh nghiệm, rương. Lên cấp, nâng tướng → đánh ải khó hơn. |
 | Lượt đánh | B3 | Mỗi lượt chọn 5 lần, mỗi lần 1 trong 3 thẻ. Thẻ xếp hàng, chạy lần lượt cuối lượt, rồi tướng đánh thường. Bạn luôn đi trước. |
 | Chiêu và Tuyệt kỹ | C15 | Mana +20 mỗi lượt. Chiêu tốn mana, ra đòn ngay, mỗi lượt một lần. Nộ tăng khi đánh và khi bị đánh; đầy 100 nộ (và đủ mana) thì Tuyệt kỹ thay cú đánh thường. |
-| Khắc hệ | C14 | Thủy khắc Hỏa, Hỏa khắc Kim, Kim khắc Mộc, Mộc khắc Thổ, Thổ khắc Thủy. Đánh hệ mình khắc ×1,5, đánh hệ khắc mình ×0,75. Tướng đồng hành không bao giờ chịu thiệt vì hệ. |
+| Khắc hệ | C14 | Thủy khắc Hỏa, Hỏa khắc Kim, Kim khắc Mộc, Mộc khắc Thổ, Thổ khắc Thủy. Khắc địch: đánh ×1,5, chịu đòn ×0,75. Bị khắc: đánh ×0,75, chịu đòn ×1,5. Trước mỗi trận xem hệ địch, mang tướng khắc nó. Chạm vòng 5 chấm ở ô tướng để xem. Tướng đồng hành không bao giờ chịu thiệt vì hệ. (sửa 2026-11-27) |
 | Hiệu ứng | D2 | Bỏng, độc: mất máu đầu lượt. Hồi phục: hồi máu đầu lượt. Choáng: mất trọn lượt. Né: tránh cú đánh thường kế tiếp. Khiên: đỡ trước khi trừ máu. |
 | Máy Bi | C3 | Chạm để thả, giữ để thả liền. Ô ra kinh nghiệm, cốc ra rương. Bi chạm nấm đủ 25 lần ra quà. Bảng tỉ lệ ở nút Tỉ lệ. |
 | Cược | F6 | ×N tốn N bi mỗi lần thả, mọi thưởng ×N. Mở theo số bi đang có. Chỉ nhanh hơn, không lời hơn. |
@@ -593,3 +597,30 @@ Cậu cũng nói lời dẫn trong hướng dẫn (`Guide.SayMe`): câu chào đ
 - Sửa thêm: màn Tướng bỏ lọc hệ khi bước C9 còn chờ. Lọc Kim còn nhớ trong PlayerPrefs đã giấu mất ô tướng đồng hành và làm tour kẹt.
 - Chữ "Chạm để tiếp tục" của lời dẫn mờ khi nằm đè lên bảng tên đảo (c11): thêm viền mực (material nướng sẵn `vien 25` theo phông).
 - Hộp Cách chơi: khung cuộn hạ thấp bằng chiều cao hàng nút, chữ không còn chạy xuống dưới nút "Xem lại cốt truyện" (phiên soát UI báo).
+
+## 12. Khắc hệ là chiến thuật (2026-11-27)
+
+Người dùng dặn: FTUE phải cho người chơi biết khắc hệ rất quan trọng với chiến thuật; ô tướng có một icon, chạm thì hiện popup xung khắc hệ.
+
+Trước đó người chơi chỉ gặp khắc hệ qua câu chữ: khoanh đảo (C12), nút Xuất trận (C13), ghi chú trong trận (C14), F8. Chỉ nghe "×1,5" mà không thấy cả vòng, không biết mặt bất lợi (tướng đồng hành không bao giờ chịu thiệt nên người mới không gặp ×0,75), và không có chỗ xem lại ngay trên ô tướng.
+
+- **Hộp Tương khắc** (`App/ElementWheelDialog`, prefab `Dialogs/TuongKhac`):
+  - băng tiêu đề nâu sẫm, chữ kem viền mực; dòng "tên · hệ";
+  - vòng 5 hệ theo chiều khắc (Thủy → Hỏa → Kim → Mộc → Thổ → Thủy), mũi tên cung từ hệ khắc tới hệ bị khắc;
+  - mũi tên ra khỏi hệ đang xem màu xanh lá, mũi tên vào nó màu đỏ, còn lại màu giấy sẫm. Ba hệ liên quan có vòng sáng (vàng, xanh, đỏ);
+  - mũi tên vẽ dần lần lượt, bắt đầu từ mũi tên xanh, vòng một lượt về mũi tên đỏ;
+  - hai dòng: KHẮC (hệ mình → hệ bị khắc, "Đánh ×1,5 / Chịu đòn ×0,75") và BỊ KHẮC (hệ khắc mình → hệ mình, "Đánh ×0,75 / Chịu đòn ×1,5"). Số tính bằng `Elements.Mult` có cờ đồng hành, nên tướng đồng hành ghi ×1 ở dòng BỊ KHẮC kèm câu riêng;
+  - câu chiến thuật: "Trước mỗi trận, xem hệ địch và mang tướng khắc nó!".
+- **Nút vòng 5 chấm** (`Fallback/Icons/tuong_khac.png`, nút tròn giấy `nut_tuong_khac`): thẻ màn Tướng (góc trên phải), ô hộp chọn đội (đáy phải dải hệ), hộp chi tiết tướng (sau nhãn hệ), hộp chọn tướng khởi đầu (cuối hàng tên). Chạm nút chỉ mở hộp, không mở chi tiết hay chọn tướng.
+- **FTUE:**
+  - C12a: sau C11, hộp Tương khắc dạng bài học (bắt buộc, vẽ chậm, nút "Hiểu rồi!"), rồi mới khoanh đảo mình khắc (C12);
+  - D11, D13: gợi ý nút vòng 5 chấm ở màn Tướng và hộp chọn đội;
+  - D12: lần đầu đem tướng bị địch khắc vào trận, khoanh ô đó, nói rõ thiệt bao nhiêu và nên đổi sang hệ nào. Đây là chỗ người chơi học mặt bất lợi;
+  - trang "Khắc hệ" của Cách chơi viết lại đủ hai chiều.
+- Code: `Tutorial` (mã `c27`, `d11`, `d12`, `d13`), `HubScene.TutorStep`, `HeroesScene.RenderGrid`, `TeamPickerDialog.Show`, `StagePrepDialog.TutorTips`.
+- Dựng: menu `PokiClash/Prefab/Hộp thoại và màn/Tương khắc: hộp và icon ô tướng`, hoặc cờ `Temp/tuong_khac_build.flag`.
+- Test: `TutorialTests.KhacHe_BaiHocBatBuoc_GoiYTheoCongTac_MaKhongTrung`.
+- Sửa sau khi người dùng soi (2026-11-27):
+  - câu chiến thuật hai dòng lòi ra dưới tờ giấy khi không có nút "Hiểu rồi!": tính lại cao tờ (1326 / 1472) và thu vòng (bán kính 245);
+  - tên hệ đặt phía ngoài vòng theo hướng từ tâm ra, không còn bị mũi tên đè (Hỏa, Thổ);
+  - người chơi tự chạm nút vòng 5 chấm là coi như đã học: D11, D13 và bài học C12a đánh dấu xong, không dẫn mở lại.

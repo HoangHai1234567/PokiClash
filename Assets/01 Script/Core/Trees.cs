@@ -27,6 +27,8 @@ namespace PokiClash.Core
         public static TreeState Of(SaveData s, double now) => s.trees ?? (s.trees = new TreeState { lastTick = now });
 
         static double Mult(SaveData s, BalanceConfig cfg, double now) => AdGate.PassActive(s, now) ? cfg.ads.pass.treeMult : 1;
+        // hệ số sức chứa đang có (Thẻ Phiêu Lưu × Thẻ Tuần): túi bi (BallBag) nở theo cùng hệ số
+        public static double CapMult(SaveData s, BalanceConfig cfg, double now) => Mult(s, cfg, now) * Shop.TreeCapMult(s, cfg.shop, now);
         // Thẻ Tuần (cửa hàng, 2026-11-23): sức chứa ×treeCap, tốc độ giữ nguyên; tính theo lúc tính (không chia đoạn như Thẻ Phiêu Lưu)
         public static double Cap(SaveData s, BalanceConfig cfg, double now) => cfg.trees.cap * Mult(s, cfg, now) * Shop.TreeCapMult(s, cfg.shop, now);
         public static double Rate(SaveData s, BalanceConfig cfg, double now) => cfg.trees.perHour * Mult(s, cfg, now);
@@ -65,17 +67,20 @@ namespace PokiClash.Core
             return Of(s, now).stock.Sum(x => (int)Math.Floor(x));
         }
 
-        // hái mọi cây (× mult khi xem quảng cáo "Hái ×2"): lấy phần nguyên, giữ phần lẻ
+        // hái mọi cây (× mult khi xem quảng cáo "Hái ×2"): lấy phần nguyên, giữ phần lẻ; chỉ hái tới đầy túi bi (BallBag), phần thừa nằm lại
+        // trên cây (túi đầy thì không hái được, trả 0)
         public static int Harvest(SaveData s, BalanceConfig cfg, double now, int mult = 1)
         {
             Tick(s, cfg, now);
             var t = Of(s, now);
+            int room = BallBag.Room(s, cfg, now) / Math.Max(1, mult);
             int n = 0;
-            for (int i = 0; i < t.stock.Count; i++)
+            for (int i = 0; i < t.stock.Count && room > 0; i++)
             {
-                int k = (int)Math.Floor(t.stock[i]);
+                int k = Math.Min(room, (int)Math.Floor(t.stock[i]));
                 t.stock[i] -= k;
                 n += k;
+                room -= k;
             }
             s.balls += n * mult;
             return n * mult;

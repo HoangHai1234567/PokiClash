@@ -160,11 +160,8 @@ namespace PokiClash.EditorTools
                         EditorUtility.SetDirty(view);
                     }
                     var badge = bar.Find("vong_cap") as RectTransform;
-                    if (badge)
-                    {
-                        badge.Place(new Vector2(0, 0.5f), new Vector2(m.badge[0] - x0, -(m.badge[1] - gcy)), new Vector2(124, 124), new Vector2(0.5f, 0.5f));
-                        badge.localScale = Vector3.one * (m.badge[2] / 124f);
-                    }
+                    // vòng cấp là huy hiệu chép từ thanh trên (MachineExpBarMenu): chỉ đặt tâm vào hốc, cỡ theo MachineExpBarMenu.BadgeD
+                    if (badge) MachineExpBarMenu.PlaceBadge(badge, new Vector2(m.badge[0] - x0, -(m.badge[1] - gcy)));
                 }
 
                 // nút tỉ lệ: tròn, trong suốt, chữ "i" trong hốc bên phải

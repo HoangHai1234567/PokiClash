@@ -1,6 +1,7 @@
 // Màn VS đầu trận kiểu trang truyện tranh (người dùng chốt 2026-11-03). Menu "PokiClash/Prefab/Trận/Trận: màn VS truyện tranh" dựng
 // (chạy lại thì dựng lại):
-// - Items/TranVsMat (VsFace): ô mặt 300 × 300: khung giấy viền mực, mặt hoặc chân dung trong ô có mặt nạ, nhãn BOSS, ô tên đè mép dưới;
+// - Items/TranVsMat (VsFace): ô mặt 300 × 300: khung giấy viền mực, mặt hoặc chân dung trong ô có mặt nạ (stencil Mask: rig tướng trong ô
+//   dùng shader viền sticker, không theo RectMask2D), nhãn BOSS, ô tên đè mép dưới;
 // - Screens/Battle: dựng lại con của nút VS (BattleIntro, trong lớp phủ, tắt sẵn): nền giấy (khe giữa hai khung, nhận chạm bỏ qua),
 //   phe địch và phe mình (viền mực, lòng khung có mặt nạ chứa nền ảnh và tia, hàng mặt, viên lực chiến), khung lời dẫn (phe địch),
 //   khối VS (hình nổ, chữ, ảnh vẽ tay). Hình khung và chỗ đặt BattleIntro tính lúc chạy theo cỡ màn;
@@ -124,8 +125,11 @@ namespace PokiClash.EditorTools
 
                 var frame = Img(rt, "vien", Sketch.PanelThin, Theme.CardFill, true);
                 frame.rectTransform.Stretch();
-                var mask = Node(rt, "khung", typeof(RectMask2D));
+                // mặt nạ stencil (ảnh trơn, không vẽ): cắt được cả chân dung lẫn ảnh rig (shader viền sticker có stencil, không có clip rect)
+                var maskImg = Img(rt, "khung", null, Color.white);
+                var mask = maskImg.rectTransform;
                 mask.Stretch(12, 12, 12, 12);
+                maskImg.gameObject.AddComponent<Mask>().showMaskGraphic = false;
                 var hinh = Node(mask, "hinh");
                 hinh.Stretch();
                 var face = Img(hinh, "mat", null, Color.white);
@@ -183,7 +187,7 @@ namespace PokiClash.EditorTools
             var cg = intro.GetComponent<CanvasGroup>();
             if (!cg) cg = intro.gameObject.AddComponent<CanvasGroup>();
 
-            var page = Img(rt, "giay", null, Theme.Paper);
+            var page = Img(rt, "giay", null, new Color(0.075f, 0.063f, 0.141f, 0f)); // nền mực (BattleIntro tô và hiện dần lúc chạy)
             page.rectTransform.Stretch();
             page.raycastTarget = true; // chạm để bỏ qua (BattleIntro.OnPointerClick)
 

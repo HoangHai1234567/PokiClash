@@ -1,6 +1,7 @@
 // Kết trận Hang Tiềm Năng (BattleController gọi khi trận có CaveRef; 2026-11-17 tách khỏi BattleController để side meta tự sửa):
 // thắng thì đá của lượt (còn lượt), thưởng lần đầu (đá, đá tinh, đá tiến hóa) và mở tầng sau; lượt đầu trong ngày ở tầng cao có đá tinh;
-// thua không mất lượt. Nút: "Tầng sau »" (vừa mở), "Đánh tiếp" / "Đánh lại", "Về Hang".
+// thua không mất lượt. Nút: "Tầng sau »" (vừa mở), "Đánh tiếp" / "Đánh lại", "Về Hang" (CaveBack: màn Hang xem lại tầng vừa đánh,
+// vừa vượt tầng thì sang tầng mới, rãnh tiến độ chạy tới).
 using System.Collections;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -56,7 +57,7 @@ namespace PokiClash
             if (Potential.CaveCanEnter(s, cfg, cave.day, cave.tier))
                 m.Button(win ? Loc.T("Đánh tiếp") : Loc.T("Đánh lại"), win ? BtnColor.Paper : BtnColor.Green, 220,
                     () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stage.id, team = team, cave = cave }));
-            m.Button(Loc.T("Về Hang"), BtnColor.Paper, 220, () => App.Router.Go(SceneIds.Cave));
+            m.Button(Loc.T("Về Hang"), BtnColor.Paper, 220, () => App.Router.Go(SceneIds.Cave, new CaveBack { tier = cave.tier, won = win }));
             yield return new WaitForSecondsRealtime(0.12f);
             App.Audio.Play("stamp");
             Haptics.Play(Haptic.Stamp);

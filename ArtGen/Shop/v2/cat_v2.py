@@ -1,10 +1,11 @@
 # Cắt 4 tờ hình gói cửa hàng bản 2 (2026-11-27, gen Magnific GPT 2.6 nền trong, lưới 2 x 3) vào Assets/03 Art/Shop/v2/<tên>.png.
-# Tờ nguồn nằm cạnh script: goi_bi_v2b.png, trung_v2.png, goi_lon_v2.png, dac_quyen_v2.png.
+# Tờ nguồn nằm cạnh script: goi_bi_v2b.png, trung_v2.png, goi_lon_v2.png, dac_quyen_v2.png; icon riêng từng loại ưu đãi (cùng ngày,
+# uu_dai_v2.png lưới 2 x 3, uu_dai_v2b.png lưới 2 x 2) → uu2_<mã mẫu ưu đãi>.png (ShopUi.TplArt).
 # - Nền GPT 2.6 rải điểm mờ (độ đục 1–63): kéo giãn độ đục (a - 70) * 255 / 185 rồi chỉ giữ quanh các vùng liền của hình;
 # - mỗi vùng liền (hình, lấp lánh rời) gán vào ô theo tâm, ô cắt sát + lề 8; điểm trong suốt tô trắng (mép sticker trắng, khỏi viền đen khi lọc);
 # - trứng: đo đường nối vòm / thân (vệt nâu ngang dài nhất trong 35–75% chiều cao, như cat_trung.py) ghi vào trung2.json
 #   (EggHatchView.Seam lấy số ở đây).
-# Chạy: py -3 -I ArtGen/Shop/v2/cat_v2.py
+# Chạy: py -3 -I ArtGen/Shop/v2/cat_v2.py [tên tờ ...] (không ghi tên tờ: cắt hết)
 import json
 import os
 import sys
@@ -23,6 +24,8 @@ SHEETS = [
     ("trung_v2.png", ["trung2_0", "trung2_1", "trung2_2", "trung2_3", "trung2_4", "goi2_ve"]),
     ("goi_lon_v2.png", ["goi2_nhap_mon", "goi2_khoi_hanh_1", "goi2_khoi_hanh_2", "goi2_khoi_hanh_3", "goi2_lo_bi", "goi2_tuong_tuan"]),
     ("dac_quyen_v2.png", ["goi2_the_tuan", "goi2_the_phieu_luu", "goi2_quy", "goi2_bo_qc", "goi2_da_nho", "goi2_da_lon"]),
+    ("uu_dai_v2.png", ["uu2_flash", "uu2_hot", "uu2_relief", "uu2_companion", "uu2_nearstar", "uu2_jump"]),
+    ("uu_dai_v2b.png", ["uu2_newisle", "uu2_comeback", "uu2_chain", "uu2_offer"], 2, 2),
 ]
 
 
@@ -167,11 +170,15 @@ def cut(src, names, rows=2, cols=3):
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     os.makedirs(OUT, exist_ok=True)
+    only = set(sys.argv[1:])
     seams = {}
-    for src, names in SHEETS:
-        seams.update(cut(src, names))
-    with open(os.path.join(HERE, "trung2.json"), "w", encoding="utf-8") as f:
-        json.dump(seams, f, ensure_ascii=False, indent=1)
+    for src, names, *grid in SHEETS:
+        if only and src not in only:
+            continue
+        seams.update(cut(src, names, *grid))
+    if seams:  # chỉ ghi khi đã cắt tờ trứng
+        with open(os.path.join(HERE, "trung2.json"), "w", encoding="utf-8") as f:
+            json.dump(seams, f, ensure_ascii=False, indent=1)
 
 
 if __name__ == "__main__":

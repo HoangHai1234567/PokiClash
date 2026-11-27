@@ -1,4 +1,10 @@
-# 28. Sổ Phép (cây kỹ năng cấp tài khoản)
+# 28. Đường Chinh Phục (trước là Sổ Phép; cây kỹ năng cấp tài khoản)
+
+> **Đổi vỏ truyện 2026-11-27** (người dùng: "trong này không làm cái kiểu nét nét nữa, đổi sang một câu chuyện khác gần với việc chinh phục
+> các con quái vật hơn" + "bỏ tên đi, không cần thiết phải để tên ở từng node"): sổ vẽ nét thành **Đường Chinh Phục**, 4 bậc thợ săn, học
+> kỹ năng bằng **nanh** quái (lên cấp được nanh). Luật, số, id ô, bản lưu, tên lớp trong code (`SoPhep*`) giữ nguyên; chỉ đổi chữ, icon,
+> huy hiệu sảnh và bỏ tên dưới từng ô (ô chỉ còn viên giá icon nanh + số; tên kỹ năng ở bảng đáy khi chọn). Bảng tên mới ở mục
+> "Vỏ truyện săn quái" cuối file; các mục dưới giữ chữ cũ làm lịch sử (nét = nanh, chương = bậc, vẽ = học, tẩy sổ = học lại).
 
 Người dùng 2026-11-24: "nghiên cứu kĩ về skill tree ... tôi muốn thêm skill tree vào game", rồi duyệt cả 14 câu theo đề xuất ("Làm theo bạn
 đề xuất"). Báo cáo nghiên cứu: `GD_Claude/reports/Cây kỹ năng cho PokiClash.md`, ghi chú gốc `GD_Claude/research_notes/Cây kỹ năng cho PokiClash/`.
@@ -88,7 +94,14 @@ Người dùng 2026-11-24: "nghiên cứu kĩ về skill tree ... tôi muốn th
   thu nhỏ khi hơn 3 lá; sảnh thẻ công trình thứ 4; khoảnh khắc mở `h_sophep` (Tutorial.NextUnlock) → khoanh thẻ Sổ Phép (`h_sophep2`)
   → trong sổ chọn sẵn Lật Trang, khoanh nút Vẽ (`h_sophep3`).
 - Prefab: menu "PokiClash/Prefab/Hộp thoại và màn/Sổ Phép" (`Editor/SoPhepMenu.cs`) dựng `Items/OSoPhep`, `Dialogs/SoPhep`, vá
-  `Screens/Battle` (nút Lật trang), `Screens/Hub` (icon thẻ công trình).
+  `Screens/Battle` (nút Lật trang), `Screens/Hub` (icon thẻ công trình). Menu "Sổ Phép: chỉ màn sổ" (hoặc cờ `Temp/sophep_build.flag`)
+  chỉ dựng hai prefab màn sổ.
+- Màn sổ nền tối, cây toả ra (người dùng 2026-11-27: "nền tối thôi để nổi bật các skill tree, làm dạng cây hoặc graph toả ra nối bằng
+  line"; tiêu đề không dùng chữ đen đậm): mỗi chương một băng tên toả đường xuống 4 ô tròn xếp vòng cung, 4 ô hội về ô chốt (to, viền
+  đôi), ô chốt nối thân cây sang băng chương sau. Màu chương vàng / lục / lam / tím (`SoPhepColors`): đường sáng khi ô đầu dưới đã vẽ, thân
+  cây sáng khi chương sau mở; ô vẽ được viền trắng thở nhẹ, giá vàng; ô đang chọn có vòng đứt nét xoay; chương khoá tối hẳn, ghi điều kiện
+  mở. Chữ Baloo2 Bold màu kem, chữ phụ Pangolin. Sprite trắng tô màu ở `03 Art/SoPhep/ui` (`ArtGen/UI/so_phep/sinh_ui_toi.py`). Mở màn
+  cuộn tới ô đang chọn.
 - Đo: menu "PokiClash/Cân bằng nhanh/Sổ Phép: …" (`Editor/SoPhepBalanceMenu.cs`): ngân sách cấp tương đương, so hai mặt của ô chọn, nhịp
   60 ngày có / không sổ.
 - Test: `Tests/SoPhepTests.cs`; câu 14: `PotentialTests.ChiSoManTuong_KhopTrongTran_KhiCoHuyHieuTiemNang`.
@@ -105,4 +118,51 @@ Người dùng 2026-11-24: "nghiên cứu kĩ về skill tree ... tôi muốn th
 `Fallback/Icons` để cùng kiểu viền nâu tô phẳng): `ArtGen/UI/so_phep/tai_ve/luoi_icon.png`, cắt bằng `ArtGen/UI/so_phep/cat_icon.py`
 (lọc chấm vụn, thu vừa 128 px) vào `Assets/03 Art/SoPhep/<id>.png` (338 KB ảnh gốc, ASTC khi build ~150 KB). Prefab `Dialogs/SoPhep` giữ
 mảng icon theo thứ tự ô (`SoPhepDialog.p.icons`), không đụng danh mục ảnh chung; thiếu ảnh thì mượn icon `icon` trong `balance.json`.
-Chụp thử: menu "PokiClash/Thử/Sổ Phép: màn sổ và nút Lật trang, chụp (đang Play)" → `Temp/PokiShots/so_phep/`.
+Chụp thử: menu "PokiClash/Thử/Sổ Phép: màn sổ và nút Lật trang, chụp (đang Play)" → `Temp/PokiShots/so_phep/`; chỉ màn sổ (người mới
+cấp 55, rồi cấp 150 đầu / giữa / cuối trang, ô có mặt chọn): "PokiClash/Thử/Sổ Phép: chỉ màn sổ, chụp (đang Play)" →
+`Temp/PokiShots/so_phep_man/`.
+
+## Vỏ truyện săn quái (2026-11-27)
+
+Cậu bé thuần thú sư đi trên Đường Chinh Phục: mỗi chặng lên cấp để lại một chiếc nanh quái; dùng nanh học kỹ năng săn, từ thợ săn tập sự
+tới kẻ diệt chúa tể (bậc 4 vẫn mở khi hạ một chúa tể). Chữ trong game: tiền "nanh", "Bậc n", nút Học / Gợi ý / Học lại, trong trận nút
+"Rút lại ×N" (trước "Lật trang ×N"). Màn mở tính năng: "Đường Chinh Phục đã mở!". Lời chào của cậu bé ở sảnh ("Sổ phép đưa mình tới
+đây...") là cốt truyện chính, không đổi.
+
+| Bậc | Tên cũ | Tên mới (en) |
+|---|---|---|
+| 1 | Nét Mở Đầu | Thợ Săn Tập Sự (Apprentice Hunter) |
+| 2 | Nét Đồng Hành | Thủ Lĩnh Bầy (Pack Leader) |
+| 3 | Nét Khắc Chế | Thợ Săn Lão Luyện (Veteran Hunter) |
+| 4 | Nét Chúa Tể | Kẻ Diệt Chúa Tể (Lord Slayer) |
+
+| id | Tên cũ | Tên mới (en) | Icon mới |
+|---|---|---|---|
+| lat_trang | Lật Trang | Rút Lại (Redraw) | giữ (xúc xắc xoay) |
+| rong_don | Rộng Tay \| Dồn Tay | Rộng Tầm \| Lần Dấu (Wide Sight \| Tracking) | giữ |
+| giu_net | Giữ Nét | Để Dành (Stash) | giữ |
+| mat_tinh | Mắt Tinh | Mắt Ưng (Hawk Eye) | giữ |
+| chot_1 | Thêm Lá \| Thêm Lượt | Bày Thế \| Dồn Dập (Set Up \| Barrage) | giữ |
+| muc_cho | Mực Chờ | Chờ Thời (Bide Time) | đồng hồ cát + giọt mana |
+| vao_rut | Vào Sân \| Rút Lui | Xung Trận \| Rút Lui (Charge In \| Fall Back) | giữ |
+| tiep_suc | Tiếp Sức | Tiếp Sức (Relay) | hai chân thú chuyền giọt mana |
+| tiep_noi | Tiếp Nối | Báo Thù (Avenge) | chân thú giơ vuốt + mũi tên lên |
+| chot_2 | Đổi Vai \| Hợp Lực | Đổi Vai \| Cả Bầy (Switch Roles \| Whole Pack) | giữ |
+| mui_la | Mũi Nhọn \| Lá Chắn | giữ (Spearhead \| Bulwark) | giữ |
+| chua_te | Sổ Tay Chúa Tể | Biết Địch (Know Thy Foe) | kính lúp soi đầu quái đội vương miện |
+| net_cuu | Nét Cứu | Hồi Sức (Second Wind) | giữ |
+| tinh_tao | Tỉnh Táo | giữ (Clear Head) | giữ |
+| chot_3 | Vẽ Lại \| Phản Nét | Bất Khuất \| Phản Đòn (Unbroken \| Riposte) | trái tim quấn gai |
+| but_chi | Năm Bút Chì | Khắc Tinh (Nemesis) | hồng tâm năm chấm màu hệ |
+| trang_cuoi | Trang Cuối | Chốt Hạ (Closer) | bốn thẻ xoè cắm cờ |
+| net_ket | Nét Kết | Kết Liễu (Finisher) | đầu lâu + dao găm |
+| bia_so | Bìa Sổ | Dấu Ấn (Signet) | cờ hiệu dấu chân |
+| chot_4 | Chữ Ký \| Nét Kép | Gầm Vang \| Song Kích (Roar \| Double Strike) | đầu quái gầm |
+
+- Icon: tấm 4 × 3 GPT 2.6 qua Magnific (1k high, 95 credit, ảnh mẫu là tấm icon cũ) `ArtGen/UI/so_phep/tai_ve/luoi_icon_san.png`, cắt
+  bằng `ArtGen/UI/so_phep/cat_icon_san.py` (gán mảng điểm theo tâm vào ô, bỏ chấm vụn) vào `Assets/03 Art/SoPhep/<id>.png` + icon tiền
+  `nanh.png`. Huy hiệu sảnh (GPT 2.6, 95 credit, ảnh mẫu huy hiệu cũ + Hang): vành vàng đinh tán, lòng đỏ sẫm, nanh buộc dây đỏ + kiếm,
+  `tai_ve/nut_chinh_phuc.png` -> `Assets/03 Art/Hud/nut_so_phep.png` (giữ tên file, prefab sảnh khỏi đổi).
+- Ô không tên: `SoPhepTile` chỉ còn đĩa, icon, viên cấp, viên giá (icon nanh + số; ô chốt thêm icon đá + số); học đủ thì ẩn viên giá.
+  Bậc thấp 800 (trước 880). Đầu màn: viên icon nanh + số, viên icon đá + số, "Đã học x/20".
+- Chụp: cờ `Temp/sophep_tour.flag` (vào Play, tour "chỉ màn sổ", log.txt, thoát Play) -> `Temp/PokiShots/so_phep_man/`.

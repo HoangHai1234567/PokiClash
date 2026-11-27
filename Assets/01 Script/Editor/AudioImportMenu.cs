@@ -48,10 +48,13 @@ namespace PokiClash.EditorTools
             ("reelCrank", "casino_cau_guong.mp3"),
             ("mucTalk1", "casino_muc_noi_1.mp3"), ("mucTalk2", "casino_muc_noi_2.mp3"), ("mucTalk3", "casino_muc_noi_3.mp3"),
             ("mucBoing", "casino_muc_boing.mp3"),
+            // mùa Noel (gen Magnific 2026-11-27, ArtGen/Sfx/noel): chuông xe tuần lộc lúc ông già Noel bay ngang sảnh (SantaFlyby)
+            ("noelBells", "noel_chuong_xe.mp3"),
         };
 
         // khoá nhạc (AudioService.MusicFor, SceneRoot.Music) → Assets/03 Art/Audio/Music/bgm_<khoá>.mp3
-        static readonly string[] Music = { "chude", "sanh", "dao_thuy", "dao_hoa", "dao_moc", "dao_kim", "dao_tho", "tran", "boss", "maybi" };
+        // "sanh_noel": nhạc sảnh mùa Noel (2026-11-27, Lyria qua Magnific, bản gốc ở ArtGen/Music/noel; Season.HubMusic)
+        static readonly string[] Music = { "chude", "sanh", "sanh_noel", "dao_thuy", "dao_hoa", "dao_moc", "dao_kim", "dao_tho", "tran", "boss", "maybi" };
 
         [MenuItem("PokiClash/Âm thanh/Nạp nhạc và tiếng")]
         public static void Run()

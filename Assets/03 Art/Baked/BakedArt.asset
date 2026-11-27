@@ -278,6 +278,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 52622d5301e7d824fa18fcf2a4071667, type: 3}
   - name: mucBoing
     clip: {fileID: 8300000, guid: 0b6553c305aa821478f2e042490ba925, type: 3}
+  - name: noelBells
+    clip: {fileID: 8300000, guid: 68aa25e5dd67db649b659797dd5c4004, type: 3}
   music:
   - name: chude
     clip: {fileID: 8300000, guid: 277ae208646531048a97dea61d0aa06f, type: 3}
@@ -299,3 +301,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 255097c5f6b338542b11883e6e969316, type: 3}
   - name: maybi
     clip: {fileID: 8300000, guid: e2bb46541a703674ab340a37e900a987, type: 3}
+  - name: sanh_noel
+    clip: {fileID: 8300000, guid: 07ca9b0d4a636a243b4a69aced90554c, type: 3}

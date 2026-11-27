@@ -4,6 +4,11 @@
 // Nhiễu dòng chảy (_FlowTex) lấy theo uv xoay _Angle, trôi theo thời gian, làm các dải lắc lư và chạy vào bờ.
 // Khác Critters: _Crisp cắt bọt và dải mép thành mép sắc (luật UI: không quầng sáng); _Steps chia dải màu thành bậc phẳng (0 = mềm);
 // _Grain giữ nét chì của biển vẽ tay (nhân độ sáng ảnh nền chia _PaperLum); đêm (_PokiNight, DayNight đặt) tối dần ra xa bờ.
+// Biển như sảnh (người dùng 2026-11-27: nước quanh Nhà phải giống sảnh, đảo Casino cho liền mạch khi đi tàu): _TileMix = 1 lấy màu nước
+// từ ảnh biển lát của sảnh (_TileTex = Islands/sanh_bien, lặp _TileST lần trên ảnh nền để vân sóng cùng cỡ như sảnh: ảnh nền
+// 6975 x 4198 đơn vị màn, ô lát 1024), bỏ màu tính, vân, nét chì ảnh nền; giữ dải mép sáng (_EdgeCol.a) và vạch bọt sát bờ
+// (_FoamAlpha) mảnh, nhạt. Sảnh, đảo Casino (lớp bien_bo dưới các đảo, Editor/ShoreWaveMenu.cs) dùng lại shader này: _TileST.zw lệch ô
+// cho khớp lớp biển lát sẵn có của màn.
 // Nước trong đảo (_RiverTex, cùng script sinh): vệt bọt trôi theo hướng chảy trên thác, suối vẽ sẵn (thay thác hoạt hình 4 khung của Critters).
 Shader "PokiClash/UIHomeSea"
 {
@@ -35,6 +40,10 @@ Shader "PokiClash/UIHomeSea"
         _Grain ("Giữ nét chì biển vẽ tay", Range(0,1)) = 0.55
         _PaperLum ("Độ sáng trung bình biển vẽ tay (tuyến tính)", Float) = 0.522
         _RiverTex ("Nước trong đảo: R vùng, GB hướng, A tốc", 2D) = "black" {}
+        _TileTex ("Ảnh biển lát như sảnh (Islands/sanh_bien)", 2D) = "white" {}
+        _TileST ("Số lần lặp ảnh biển lát trên ảnh (xy), lệch ô (zw)", Vector) = (6.81,4.1,0,0)
+        _TileMix ("Dùng ảnh biển lát (0 màu tính, 1 như sảnh)", Range(0,1)) = 1
+        _FoamAlpha ("Độ đậm vạch bọt", Range(0,1)) = 0.55
         _RiverSpeed ("Tốc vệt nước chảy (px ảnh nền / giây)", Float) = 70
         _RiverFoam ("Độ đậm vệt nước chảy", Range(0,1)) = 0.6
 
@@ -110,7 +119,9 @@ Shader "PokiClash/UIHomeSea"
             fixed4 _Color;
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
-            sampler2D _SeaTex, _FlowTex, _CausticTex, _RiverTex;
+            sampler2D _SeaTex, _FlowTex, _CausticTex, _RiverTex, _TileTex;
+            float4 _TileST;
+            float _TileMix, _FoamAlpha;
             float _RiverSpeed, _RiverFoam;
             float4 _SeaTex_TexelSize;
             half4 _BaseCol, _WaveCol, _EdgeCol, _FoamCol, _CausticCol;
@@ -172,7 +183,14 @@ Shader "PokiClash/UIHomeSea"
                     // nét chì của biển vẽ tay: nhân độ sáng ảnh nền so với độ sáng trung bình của biển vẽ
                     half lum = dot(color.rgb, half3(0.3333, 0.3333, 0.3334));
                     sea *= 1.0 + (lum / max(_PaperLum, 0.001) - 1.0) * _Grain;
-                    sea = lerp(sea, _FoamCol.rgb, bot);
+                    // biển như sảnh: màu từ ảnh biển lát (lặp theo frac, lấy mip theo uv liền để khỏi lộ đường nối), giữ dải mép
+                    if (_TileMix > 0.001)
+                    {
+                        float2 tuv = uv * _TileST.xy + _TileST.zw;
+                        half3 tile = tex2Dgrad(_TileTex, frac(tuv), ddx(tuv), ddy(tuv)).rgb;
+                        sea = lerp(sea, lerp(tile, _EdgeCol.rgb, edge * _EdgeCol.a), _TileMix);
+                    }
+                    sea = lerp(sea, _FoamCol.rgb, bot * _FoamAlpha);
                     // đêm: tối dần ra xa bờ, sát bờ giữ sáng (như UIInkWater)
                     half3 seaNight = half3(0.56, 0.62, 0.84);
                     #ifndef UNITY_COLORSPACE_GAMMA

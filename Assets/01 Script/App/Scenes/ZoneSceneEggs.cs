@@ -4,6 +4,7 @@
 // 1–2. Boss tung tuyệt kỹ (thay mắt boss, boss ló đầu; người dùng 2026-11-18: "làm tướng dùng ultimate skill, thi thoảng thôi để người
 //    chơi nhìn thấy, nhấn mạnh là vài lần thôi"): mây quanh bệ dạt ra, boss hiện màu thật tung tuyệt kỹ tại chỗ (có hiệu ứng), xong mây
 //    khép lại, boss về xám. Mỗi lần vào đảo nhiều nhất 3 lần: lần đầu sau 10–16 giây, sau đó cách 70–120 giây, boss đang trong khung.
+//    Boss cuối đảo còn giấu (ZoneHeader.BossHidden, 2026-11-27) tung chiêu vẫn là bóng đen.
 // 3. Cảnh vùng rò qua mây (land.secs[k].tease): đom đóm, đèn biển quét, bong bóng, hải âu, sét và mưa, cá voi phun nước, nấm phát
 //    sáng, tuyết rơi, xoáy nước; đảo Mộc thêm bướm, gió hang nanh, lá rơi, pha lê lấp lánh (màu nhuộm theo tease.c).
 // 4. Chọc mây: chạm mây thì đám quanh đó dạt ra rồi nảy về (lò xo từng đám, chạm liên tục cộng dồn mượt, mây giữ đục; người dùng
@@ -589,7 +590,7 @@ namespace PokiClash
                 float dur = h.sticker.Duration(StageView.Skill) + 0.25f;
                 for (float t = 0; t < dur && h.sticker != null && h.locked; t += Time.unscaledDeltaTime)
                 {
-                    h.sticker.Show(StageView.Skill, t, false, 1, false, 0);
+                    h.sticker.Show(StageView.Skill, t, false, 1, h.hidden, 0); // boss cuối còn giấu: tung chiêu vẫn là bóng đen
                     yield return null;
                 }
                 if (h.sticker != null)

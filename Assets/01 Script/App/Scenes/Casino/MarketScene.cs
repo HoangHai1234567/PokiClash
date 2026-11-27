@@ -268,6 +268,8 @@ namespace PokiClash
                 CasinoGuide.Bought(); // Lão Mực bình phẩm (thỉnh thoảng)
             }
             int k = UiOf(idx);
+            // món mua bay từ ô hàng về ô chứa (RewardFly); túi hàng lậu bay từ hộp nhận quà
+            if (!mystery && k >= 0) RewardFly.Rewards(r, slots[k].root.transform.position);
             if (k >= 0) StartCoroutine(ChestBox.Pop((RectTransform)slots[k].root.transform, 1.08f));
         }
 
@@ -336,6 +338,7 @@ namespace PokiClash
             App.Save.Save();
             App.Audio.Play("coin");
             App.Toasts.Show(Loc.F("Bán cá được {0} bi", v), Icon("ball"));
+            RewardFly.Balls(v, sellFish.transform.position);
             Render();
         }
 
@@ -353,6 +356,7 @@ namespace PokiClash
                     App.Save.Save();
                     App.Audio.Play("coin");
                     App.Toasts.Show(Loc.F("Đổi thẻ thừa được {0} đá tiềm năng", got), Icon("rock"));
+                    RewardFly.Send(RewardFly.To.Cave, App.Art.Icon("rock"), sellSpare.transform.position, got);
                     Render();
                 }, null, BtnColor.Green);
         }

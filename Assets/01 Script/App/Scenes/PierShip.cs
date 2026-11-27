@@ -7,6 +7,9 @@
 //   nhanh vòng ngoài đảo lên bến hai (transfer).
 // - Màn gán Frame (đặt ngay camera: điểm p hiện ở vị trí thế giới w, kẹp trong giới hạn kéo) và Glide (camera lướt tới điểm, chờ xong)
 //   để ShipVoyage dàn cảnh lúc đi, lúc tới.
+// - Chuyến ngang (Nhà ↔ đảo Casino, người dùng 2026-11-27: "tàu lúc đầu vẫn bị đi xuống 1 đoạn xong mới sang trái/phải"): ShipVoyage
+//   gọi UseSide(−1 / +1) trước khi rời / tới bến: đường ra khơi thành đường tạm chạy thẳng sang trái / phải từ chỗ đậu (SideReach),
+//   thay đường bắc / nam; UseSide(0) trả về như cũ.
 // Dựng bằng ShipBuild.Pier (Editor). Mỗi lúc chỉ một bến đang bật (Active): bến của màn đang mở.
 using System;
 using System.Collections;
@@ -40,6 +43,8 @@ namespace PokiClash
 
         bool busy;
         Coroutine moving; // chuyển bến
+        Vector2[] sidePath; // đường ra khơi ngang tạm (UseSide), null: theo đường bắc / nam
+        const float SideReach = 460; // độ dài đường ngang (đơn vị khung cha)
 
         public ShipLook Look => look;
         public RectTransform ShipRect => look.Ship;
@@ -87,11 +92,17 @@ namespace PokiClash
         }
 
         // chuyến hướng bắc đi / tới bến hai (nếu có)
-        bool Second(bool northward) => hasDock2 && northward;
+        bool Second(bool northward) => hasDock2 && northward && sidePath == null;
 
         Vector2 DockOf(bool northward) => Second(northward) ? dock2 : dock;
         Vector2 FaceOf(bool northward) => Second(northward) ? dock2Face : dockFace;
-        Vector2[] PathOf(bool northward) => Second(northward) ? north2 : northward ? north : south;
+        Vector2[] PathOf(bool northward) => sidePath ?? (Second(northward) ? north2 : northward ? north : south);
+
+        // chuyến ngang: đường ra khơi thẳng sang trái (side −1) / phải (+1) từ chỗ đậu chính; 0 thì về đường bắc / nam
+        public void UseSide(int side)
+        {
+            sidePath = side == 0 ? null : new[] { dock + new Vector2(side * SideReach * 0.5f, 0), dock + new Vector2(side * SideReach, 0) };
+        }
 
         public bool Has(bool northward) => PathOf(northward).Length > 0;
 

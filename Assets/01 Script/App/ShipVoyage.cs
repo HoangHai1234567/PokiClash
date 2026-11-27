@@ -9,6 +9,9 @@
 //   đặt tiếp sau dải mây, tàu đi đường cong vào đúng điểm vào bến, camera dừng đúng lúc ảnh màn mới vào chỗ; mây phủ mép màn mới
 //   dạt ra hai bên trên màn thật sau khi camera dừng. Lớp này tắt (màn thật y như ảnh), tàu của màn chạy nốt vào bến
 //   (PierShip.Arrive), giao diện cố định hiện lại.
+// - Hướng đi trên màn (người dùng 2026-11-27): sảnh → Nhà thẳng lên (về thẳng xuống), Nhà → đảo Casino sang trái (về sang phải),
+//   sảnh → Casino chéo lên trái, Casino → sảnh chéo xuống phải; màn tải đi lên. Dải thế giới nằm dọc theo hướng đi ax (đi chéo: bề
+//   dài / bề ngang dải là hình chiếu của màn lên hướng đi / hướng vuông góc).
 // - Mây vành rời của màn (CloudRing: sảnh) không nằm trong ảnh chụp: lớp này mang từng đám sang dải thế giới đúng chỗ, đúng độ toả,
 //   để chúng tiếp tục toả quanh tàu; lúc tới thì trả độ toả về mây của màn mới.
 // - Màn tải (App gọi BeginBoot khi mở thẳng vào sảnh): biển mở, tàu đi lên, logo, thanh tải, mẹo. Tải xong (đủ 2,4 giây) thì dải mây
@@ -48,7 +51,7 @@ namespace PokiClash
             "Chiêu và Tuyệt kỹ không tốn lần chọn, chỉ tốn mana và nộ.",
             "Ải đã qua tự đánh ra bi khi bạn vắng mặt.",
             "Cấp người chơi cũng là cấp của mọi tướng.",
-            "Bấm vào con tàu ở bến để về Nhà.",
+            "Nút Nhà ở hàng dưới sảnh đưa bạn về Nhà.",
         };
 
         [SerializeField] PokiCanvas view;
@@ -75,10 +78,10 @@ namespace PokiClash
 
         public bool Closed { get; private set; }
 
-        int dir = 1; // 1: đi lên (bắc), -1: đi xuống
-        int lateral; // dạt ngang lúc đi trong mây: −1 sang trái (sảnh → đảo Casino), +1 sang phải (về), 0 đi thẳng
-        const float Drift = 380; // độ dạt ngang (đơn vị màn) cho tuyến đi chếch
-        // toạ độ dải thế giới: x ngang (như màn), q dọc theo hướng đi; màn hình y = dir * (q - qc)
+        Vector2 ax = Vector2.up; // hướng đi trên màn hình (vector đơn vị)
+        static readonly Vector2 UpLeft = new Vector2(-1, 1).normalized;
+        // toạ độ dải thế giới: x ngang (theo Lat, vuông góc hướng đi), q dọc theo hướng đi; màn hình = Lat * x + ax * (q - qc)
+        Vector2 Lat => new Vector2(ax.y, -ax.x);
         float qc, closedAt; // camera
         Vector2 sp, sv; // tàu (x, q), vận tốc
         float speed, targetSpeed, followX;
@@ -152,42 +155,34 @@ namespace PokiClash
         }
 
         float H => Size.y;
+        // bề dài của màn theo hướng đi / bề ngang vuông góc (đi chéo: hình chiếu của màn)
+        float L => Mathf.Abs(ax.x) * Size.x + Mathf.Abs(ax.y) * Size.y;
+        float Wd => Mathf.Abs(ax.y) * Size.x + Mathf.Abs(ax.x) * Size.y;
+        // điểm trên màn (so với tâm) -> toạ độ dải, khi tâm màn ở q0; hướng trên màn -> hướng trong dải
+        Vector2 ToBand(Vector2 sc, float q0) => new Vector2(Vector2.Dot(sc, Lat), q0 + Vector2.Dot(sc, ax));
+        Vector2 Dirs(Vector2 v) => new Vector2(Vector2.Dot(v, Lat), Vector2.Dot(v, ax));
 
         // ---------- SceneRouter ----------
 
         // chuyến này có đi tàu không (và hướng đi)
         public bool Takes(string from, string to)
         {
-            lateral = 0;
             if (booting && to == SceneIds.Hub)
             {
-                dir = 1;
+                ax = Vector2.up;
                 return true;
             }
-            // đảo Casino (GD_Claude/29_DaoCasino.md): đi lên chếch sang trái; về sảnh thì xuôi xuống chếch sang phải
-            if (from == SceneIds.Hub && to == SceneIds.Casino)
-            {
-                dir = 1;
-                lateral = -1;
-                return true;
-            }
-            if (from == SceneIds.Casino && to == SceneIds.Hub)
-            {
-                dir = -1;
-                lateral = 1;
-                return true;
-            }
-            if (from == SceneIds.Hub && to == SceneIds.Home)
-            {
-                dir = 1;
-                return true;
-            }
-            if (from == SceneIds.Home && to == SceneIds.Hub)
-            {
-                dir = -1;
-                return true;
-            }
-            return false;
+            // sảnh → Nhà thẳng lên, về thẳng xuống
+            if (from == SceneIds.Hub && to == SceneIds.Home) ax = Vector2.up;
+            else if (from == SceneIds.Home && to == SceneIds.Hub) ax = Vector2.down;
+            // đảo Casino (GD_Claude/29_DaoCasino.md): từ sảnh chéo lên trái, về sảnh chéo xuống phải
+            else if (from == SceneIds.Hub && to == SceneIds.Casino) ax = UpLeft;
+            else if (from == SceneIds.Casino && to == SceneIds.Hub) ax = -UpLeft;
+            // Nhà → Casino sang trái, về sang phải
+            else if (from == SceneIds.Home && to == SceneIds.Casino) ax = Vector2.left;
+            else if (from == SceneIds.Casino && to == SceneIds.Home) ax = Vector2.right;
+            else return false;
+            return true;
         }
 
         public void Block(bool on)
@@ -257,10 +252,12 @@ namespace PokiClash
             Restart();
             Daylight();
             Layout(0);
-            bool north = dir > 0;
+            bool north = ax.y > 0.01f; // rời bến theo đường ra khơi bắc / nam (đi ngang: nam, hai bến Nhà, Casino đều ở mép nam)
             var root = App.Router ? App.Router.CurrentRoot : null;
             if (root) root.Chrome(false, true);
             var from = PierShip.Active;
+            bool flat = Mathf.Abs(ax.y) < 0.01f; // đi ngang (Nhà ↔ Casino): rời / tới bến theo đường ngang của bến
+            if (from) from.UseSide(flat ? (ax.x < 0 ? -1 : 1) : 0);
             if (from && from.isActiveAndEnabled && from.Has(north))
             {
                 if (from.Glide != null) yield return from.Glide(from.FocusFor(north));
@@ -268,10 +265,10 @@ namespace PokiClash
                 float rootRatio = from.Look.transform.lossyScale.x / Mathf.Max(1e-5f, look.transform.lossyScale.x);
                 look.Size = from.ShipRect.lossyScale.x / Mathf.Max(1e-5f, look.transform.lossyScale.x);
                 var s = Local(from.ShipRect.position);
-                sp = new Vector2(s.x, dir * s.y + qc);
+                sp = ToBand(s, qc);
                 var h = from.Look.Heading;
                 speed = from.CurrentSpeed * rootRatio;
-                sv = new Vector2(h.x, dir * h.y) * speed;
+                sv = Dirs(h) * speed;
                 look.Face(h, true);
                 from.Look.Show(false);
             }
@@ -279,11 +276,11 @@ namespace PokiClash
             {
                 // màn cũ không có bến: tàu từ mép sau màn chạy vào
                 yield return new WaitForSecondsRealtime(0.25f);
-                sp = new Vector2(0, qc - H / 2 - 180);
+                sp = new Vector2(0, qc - L / 2 - 180);
                 speed = 600;
                 sv = new Vector2(0, speed);
                 look.Size = 1;
-                look.Face(new Vector2(0, dir), true);
+                look.Face(ax, true);
             }
             if (root) root.Chrome(false, false);
             var ringOld = CloudRing.Active;
@@ -299,8 +296,10 @@ namespace PokiClash
             look.Pos = Screen_(sp);
             look.Show(true);
             followX = sp.x; // giữ hướng ngang: đi thẳng dọc biển ngoài rìa đảo, không đè lên đảo của màn cũ
-            if (lateral != 0) followX = Mathf.Clamp(sp.x + lateral * Drift, -Size.x / 2 + 170, Size.x / 2 - 170); // tuyến đi chếch
-            bandA = H / 2 - Overlap * H;
+            // đi ngang (Nhà ↔ Casino): giữ nguyên độ cao tàu; đi chéo: xuôi tiếp đà lúc rời bến cho đường đi cong dần sang hướng chéo
+            if (Mathf.Abs(ax.x) > 0.01f && !flat) followX = sp.x + sv.x * 0.35f;
+            followX = Mathf.Clamp(followX, -Wd / 2 + 170, Wd / 2 - 170);
+            bandA = L / 2 - Overlap * L;
             kA = 0;
             follow = true;
             targetSpeed = Cruise;
@@ -325,10 +324,12 @@ namespace PokiClash
             else
                 while (Time.unscaledTime - closedAt < MinCruise)
                     yield return null;
-            bool fromNorth = dir < 0;
+            bool fromNorth = ax.y < -0.01f; // cập bến theo đường vào bắc / nam (đi ngang: nam)
             var to = PierShip.Active;
             var root = App.Router ? App.Router.CurrentRoot : null;
             if (root) root.Chrome(false, false);
+            bool flatIn = Mathf.Abs(ax.y) < 0.01f;
+            if (to) to.UseSide(flatIn ? (ax.x < 0 ? 1 : -1) : 0); // đi sang trái thì vào bến từ bên phải
             bool pier = to && to.isActiveAndEnabled && to.Has(fromNorth);
             Vector2 E, T;
             float rootRatio = 1, sizeTo = 1.1f;
@@ -342,15 +343,15 @@ namespace PokiClash
                 yield return new WaitForSecondsRealtime(0.12f);
                 E = Local(to.ExitWorld(fromNorth));
                 T = to.EntryDir(fromNorth);
-                if (T.sqrMagnitude < 1e-4f) T = new Vector2(0, dir);
+                if (T.sqrMagnitude < 1e-4f) T = ax;
                 rootRatio = to.Look.transform.lossyScale.x / Mathf.Max(1e-5f, look.transform.lossyScale.x);
                 sizeTo = to.ShipRect.lossyScale.x / Mathf.Max(1e-5f, look.transform.lossyScale.x);
             }
             else
             {
                 yield return null;
-                E = new Vector2(0, dir * (H / 2 + 320)); // màn mới không có bến: tàu đi khuất phía trước
-                T = new Vector2(0, dir);
+                E = ax * (L / 2 + 320); // màn mới không có bến: tàu đi khuất phía trước
+                T = ax;
             }
             ringNew = CloudRing.Active;
             if (ringNew && root && ringNew.gameObject.scene != root.gameObject.scene) ringNew = null;
@@ -363,15 +364,15 @@ namespace PokiClash
             rtNew = Snap();
             if (newShot) newShot.texture = rtNew;
             // còn trong mây: dạt ngang tới đúng hàng của điểm vào bến, rồi xuôi thẳng vào (không cắt ngang đảo của màn mới)
-            followX = E.x;
-            for (float t = 0; t < 1.1f && Mathf.Abs(sp.x - E.x) > 24; t += Dt) yield return null;
+            followX = Vector2.Dot(E, Lat);
+            for (float t = 0; t < 1.1f && Mathf.Abs(sp.x - followX) > 24; t += Dt) yield return null;
             // ảnh màn mới: mép gần phải ở xa ngoài màn, dải mây đủ dài, tàu đủ đường để hãm
-            qNew = Mathf.Max(qc + 1.45f * H, (float.IsInfinity(bandA) ? qc : bandA) + 1.6f * H, sp.y + 1.25f * H - dir * E.y);
+            qNew = Mathf.Max(qc + 1.45f * L, (float.IsInfinity(bandA) ? qc : bandA) + 1.6f * L, sp.y + 1.25f * L - Vector2.Dot(E, ax));
             for (int k = kArr; k < kCount; k++) kBase[k].y += qNew;
-            bandB = qNew - H / 2 + Overlap * H;
+            bandB = qNew - L / 2 + Overlap * L;
             kB = 1;
-            var ew = new Vector2(E.x, qNew + dir * E.y);
-            var tw = new Vector2(T.x, dir * T.y).normalized;
+            var ew = ToBand(E, qNew);
+            var tw = Dirs(T).normalized;
             BuildArc(sp, sv.sqrMagnitude > 1 ? sv.normalized : Vector2.up, ew, tw);
             vEnd = pier ? to.Speed * rootRatio * 0.9f : Cruise * 0.6f;
             arcQc0 = qc;
@@ -413,6 +414,7 @@ namespace PokiClash
             if (dock != null)
                 while (to && to.Busy)
                     yield return null;
+            if (to) to.UseSide(0);
             if (root) root.Chrome(true, true);
             booting = false;
         }
@@ -425,7 +427,7 @@ namespace PokiClash
             booting = true;
             loaded = false;
             Show(OrderBoot);
-            dir = 1;
+            ax = Vector2.up;
             Restart();
             seaOn = true;
             sp = new Vector2(0, -H * 0.16f);
@@ -551,7 +553,7 @@ namespace PokiClash
                 {
                     rays.color = new Color(1, Mathf.Lerp(1, 0.66f, dusk), Mathf.Lerp(1, 0.42f, dusk), k);
                     // dải nắng cố định trong thế giới: trôi theo camera
-                    rays.uvRect = new Rect(0, dir * qc / Mathf.Max(1, H), 1, 1);
+                    rays.uvRect = new Rect(ax.x * qc / Mathf.Max(1, Size.x), ax.y * qc / Mathf.Max(1, H), 1, 1);
                 }
             }
             var ct = DayCycle.CloudTint(hr) * tintC;
@@ -581,7 +583,7 @@ namespace PokiClash
                 // tàu đi thẳng theo hướng đi, dạt dần vào giữa; camera theo sau, không lùi
                 speed = Mathf.MoveTowards(speed, targetSpeed, Accel * dt);
                 sp = new Vector2(Mathf.Lerp(sp.x, followX, 1 - Mathf.Exp(-1.6f * dt)), sp.y + speed * dt);
-                float want = sp.y + CamLead * H;
+                float want = sp.y + CamLead * L;
                 qc = Mathf.Max(qc, Mathf.Lerp(qc, want, 1 - Mathf.Exp(-2.6f * dt)));
             }
             else if (arriving)
@@ -596,9 +598,9 @@ namespace PokiClash
             sv = (sp - prev) / dt;
             float camV = (qc - prevQc) / dt;
             look.Pos = Screen_(sp);
-            var vs = new Vector2(sv.x, dir * sv.y);
+            var vs = Lat * sv.x + ax * sv.y;
             if (vs.sqrMagnitude > 30 * 30) look.Face(vs);
-            look.Flow = new Vector2(0, -dir * camV); // bọt nằm trong thế giới
+            look.Flow = -ax * camV; // bọt nằm trong thế giới
             look.Tick(dt, sv.magnitude);
             Layout(dt);
             if (booting && bootUi && bootUi.alpha > 0)
@@ -623,6 +625,7 @@ namespace PokiClash
             int rows = Mathf.Max(1, Mathf.CeilToInt(n / (float)cols));
             float margin = 260;
             float dx = (size.x + margin * 2) / cols, dy = (size.y + margin * 2) / rows;
+            float cdx = (Mathf.Min(size.x, Size.x) + margin * 2) / cols; // cỡ mây theo bề ngang màn thật (đi ngang, chéo: dải rộng hơn màn)
             period = rows * dy;
             cBase = new Vector2[n];
             cOff = new Vector2[n];
@@ -635,7 +638,7 @@ namespace PokiClash
                 float x = -size.x / 2 - margin + (c + 0.5f + (r % 2 == 0 ? -0.25f : 0.25f)) * dx + (float)(rng.NextDouble() - 0.5) * dx * 0.35f;
                 float q = (r + 0.5f) * dy + (float)(rng.NextDouble() - 0.5) * dy * 0.4f;
                 cBase[i] = new Vector2(x, q);
-                cW[i] = dx * (1.9f + (float)rng.NextDouble() * 0.5f);
+                cW[i] = cdx * (1.9f + (float)rng.NextDouble() * 0.5f);
                 cJit[i] = ((float)rng.NextDouble() - 0.5f) * 0.32f * size.y; // mép dải so le, không thẳng như bức tường
                 var crt = clouds[i].rectTransform;
                 float aspect = clouds[i].sprite ? clouds[i].sprite.rect.height / clouds[i].sprite.rect.width : 0.5f;
@@ -652,9 +655,10 @@ namespace PokiClash
                 wPhase[i] = (float)rng.NextDouble() * 10;
                 waves[i].rectTransform.localScale = new Vector3(rng.NextDouble() < 0.5 ? -1 : 1, 1, 1);
             }
-            if (sea) sea.sizeDelta = new Vector2(size.x + 1024, size.y + 1024);
+            var real = Size; // size là cỡ dải (ngang, dọc theo hướng đi); biển và ảnh chụp theo màn thật
+            if (sea) sea.sizeDelta = new Vector2(real.x + 1024, real.y + 1024);
             foreach (var shot in new[] { oldShot, newShot })
-                if (shot) shot.rectTransform.sizeDelta = size;
+                if (shot) shot.rectTransform.sizeDelta = real;
         }
 
         // vị trí lặp gần camera của một vật cố định trong thế giới (chu kỳ p)
@@ -664,12 +668,13 @@ namespace PokiClash
         void Layout(float dt)
         {
             var size = Size;
-            if (cBase == null || size != lastSize) Build(size);
-            float h = size.y;
+            var band = new Vector2(Wd, L);
+            if (cBase == null || band != lastSize) Build(band);
             if (sea)
             {
                 if (sea.gameObject.activeSelf != seaOn) sea.gameObject.SetActive(seaOn);
-                sea.anchoredPosition = new Vector2(0, dir * (256 - Mathf.Repeat(qc, 512)));
+                var so = -ax * qc; // biển cố định trong thế giới: trôi ngược camera, lặp theo ô 512
+                sea.anchoredPosition = new Vector2(Mathf.Repeat(so.x + 256, 512) - 256, Mathf.Repeat(so.y + 256, 512) - 256);
             }
             float tNow = Time.unscaledTime;
             for (int i = 0; i < waves.Length; i++)
@@ -677,13 +682,13 @@ namespace PokiClash
                 var w = waves[i];
                 if (w.gameObject.activeSelf != seaOn) w.gameObject.SetActive(seaOn);
                 float q = Near(wBase[i].y, wSpan);
-                w.rectTransform.anchoredPosition = new Vector2(wBase[i].x + Mathf.Sin(tNow * 0.7f + wPhase[i]) * 10, dir * (q - qc));
+                w.rectTransform.anchoredPosition = Lat * (wBase[i].x + Mathf.Sin(tNow * 0.7f + wPhase[i]) * 10) + ax * (q - qc);
                 w.color = new Color(waveTint.r, waveTint.g, waveTint.b, 0.35f + 0.65f * Mathf.Clamp01(Mathf.Sin(tNow * 0.55f + wPhase[i]) * 0.5f + 0.6f));
             }
             Place(oldShot, rtOld, 0);
             Place(newShot, rtNew, qNew);
-            float Wh = size.x / 2 + 220;
-            float edge = Overlap * h + 260; // vùng mây khép / dạt ở mép dải
+            float Wh = band.x / 2 + 220;
+            float edge = Overlap * band.y + 260; // vùng mây khép / dạt ở mép dải
             // vùng toả: quanh thân tàu; mây dạt ngang hai bên, mở trước mũi, khép lại đúng chỗ sau đuôi (người dùng: thấy rõ thuyền,
             // mây không lùi lại)
             float lsz = look ? look.Size : 1;
@@ -706,10 +711,10 @@ namespace PokiClash
                     cOff[i] = Vector2.zero;
                     continue;
                 }
-                float x = cBase[i].x, ax = Mathf.Abs(x);
+                float x = cBase[i].x, absX = Mathf.Abs(x);
                 float g = (1 - kk) * Wh;
-                float xd = Mathf.Sign(x == 0 ? 1 : x) * (g + ax * (1 - g / Wh) + Mathf.Pow(1 - kk, 2) * cW[i] * 0.62f);
-                var p = new Vector2(xd, dir * (q - qc));
+                float xd = Mathf.Sign(x == 0 ? 1 : x) * (g + absX * (1 - g / Wh) + Mathf.Pow(1 - kk, 2) * cW[i] * 0.62f);
+                var p = Lat * xd + ax * (q - qc);
                 cOff[i] = Part(p, center, head, R, R2, cOff[i], dt, i);
                 img.rectTransform.anchoredPosition = p + cOff[i];
             }
@@ -717,8 +722,8 @@ namespace PokiClash
             for (int k = 0; k < kCount; k++)
             {
                 var img = carry[k];
-                var p = new Vector2(kBase[k].x, dir * (kBase[k].y - qc));
-                bool on = Mathf.Abs(p.y) < h * 0.5f + 400;
+                var p = Screen_(kBase[k]);
+                bool on = Mathf.Abs(p.x) < size.x * 0.5f + 400 && Mathf.Abs(p.y) < size.y * 0.5f + 400;
                 if (img.gameObject.activeSelf != on) img.gameObject.SetActive(on);
                 kOff[k] = Part(p, center, head, R, R2, kOff[k], dt, k);
                 if (on) img.rectTransform.anchoredPosition = p + kOff[k];
@@ -751,7 +756,7 @@ namespace PokiClash
             return n * (s * R * k * k * g);
         }
 
-        // mang mây vành của màn (đang đúng chỗ trên màn hình) sang dải thế giới: q = q0 + dir * y màn hình
+        // mang mây vành của màn (đang đúng chỗ trên màn hình) sang dải thế giới (ToBand, tâm màn ở q0)
         void Carry(CloudRing ring, float q0, bool arrival)
         {
             if (kBase == null || kBase.Length != carry.Length)
@@ -784,7 +789,7 @@ namespace PokiClash
                 float sc = srt.lossyScale.y / al;
                 img.rectTransform.sizeDelta = srt.rect.size * sc;
                 img.rectTransform.localScale = new Vector3(Mathf.Sign(srt.localScale.x), 1, 1);
-                kBase[kCount] = new Vector2(s0.x, q0 + dir * s0.y);
+                kBase[kCount] = ToBand(s0, q0);
                 kOff[kCount] = ring.Offset(i) * layer;
                 kRing[kCount] = arrival ? i : -1;
                 kCount++;
@@ -808,9 +813,9 @@ namespace PokiClash
         void Place(RawImage shot, RenderTexture rt, float q)
         {
             if (!shot) return;
-            bool on = rt && Mathf.Abs(q - qc) < H * 1.05f;
+            bool on = rt && Mathf.Abs(q - qc) < L * 1.05f;
             if (shot.gameObject.activeSelf != on) shot.gameObject.SetActive(on);
-            if (on) shot.rectTransform.anchoredPosition = new Vector2(0, dir * (q - qc));
+            if (on) shot.rectTransform.anchoredPosition = ax * (q - qc);
         }
 
         // ---------- đường cong vào bến ----------
@@ -880,7 +885,7 @@ namespace PokiClash
 
         // ---------- toạ độ ----------
 
-        Vector2 Screen_(Vector2 p) => new Vector2(p.x, dir * (p.y - qc));
+        Vector2 Screen_(Vector2 p) => Lat * p.x + ax * (p.y - qc);
 
         Vector2 Local(Vector3 world) => area.InverseTransformPoint(world);
 

@@ -27,6 +27,87 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(Tour());
         }
 
+        // chỉ màn sổ (không vào trận), ảnh ra Temp/PokiShots/so_phep_man/: người mới cấp 55 vẽ Lật Trang (chương sau khoá), rồi cấp 150 vẽ
+        // theo gợi ý (đầu, giữa, cuối trang, ô có mặt chọn). Sao lưu và trả bản lưu.
+        static string SheetDir => Path.Combine(PlayTour.ShotDir, "so_phep_man");
+
+        [MenuItem("PokiClash/Thử/Sổ Phép: chỉ màn sổ, chụp (đang Play)", priority = 146)]
+        static void RunSheet()
+        {
+            if (!EditorApplication.isPlaying || App.I == null)
+            {
+                Debug.Log("[Sổ Phép] Mở Boot.unity và bấm Play trước.");
+                return;
+            }
+            App.I.StartCoroutine(SheetTour());
+        }
+
+        static IEnumerator SheetShot(string name)
+        {
+            yield return new WaitForEndOfFrame();
+            var tex = ScreenCapture.CaptureScreenshotAsTexture();
+            File.WriteAllBytes(Path.Combine(SheetDir, name + ".jpg"), tex.EncodeToJPG(88));
+            Object.Destroy(tex);
+        }
+
+        static IEnumerator SheetTour()
+        {
+            if (Directory.Exists(SheetDir)) Directory.Delete(SheetDir, true);
+            Directory.CreateDirectory(SheetDir);
+            var path = App.Save.FilePath;
+            string backup = File.Exists(path) ? File.ReadAllText(path) : null;
+            bool off = Tutorial.Off;
+            Tutorial.Off = true;
+            try
+            {
+                var s = App.Save.Data;
+                var d = App.Data;
+                App.Modals.CloseAll();
+                while (App.Router.Busy) yield return null;
+                // 1. người mới: cấp 55, vẽ Lật Trang một nét
+                s.level = 55;
+                s.sophep = new SoPhepState();
+                SoPhep.Buy(s, d.Cfg, "lat_trang");
+                var dlg = SoPhepDialog.Open();
+                yield return Wait(0.9f);
+                yield return SheetShot("0_moi");
+                App.Modals.CloseAll();
+                yield return Wait(0.3f);
+                // 2. cấp 150 vẽ theo gợi ý
+                s.level = 150;
+                s.evoStones = Mathf.Max(s.evoStones, 60);
+                s.sophep = new SoPhepState();
+                SoPhep.AutoBuy(s, d.Cfg);
+                dlg = SoPhepDialog.Open();
+                yield return Wait(0.9f);
+                yield return SheetShot("1_mo_man");
+                var scroll = dlg.GetComponentInChildren<ScrollRect>();
+                foreach (var (pos, name) in new[] { (1f, "2_dau"), (0.5f, "3_giua"), (0f, "4_cuoi") })
+                {
+                    if (scroll) scroll.verticalNormalizedPosition = pos;
+                    yield return Wait(0.4f);
+                    yield return SheetShot(name);
+                }
+                var tiles = dlg.GetComponentsInChildren<SoPhepTile>(true);
+                if (tiles.Length > 6) tiles[6].GetComponent<ClickCatcher>().OnClick?.Invoke();
+                if (scroll) scroll.verticalNormalizedPosition = 0.72f;
+                yield return Wait(0.4f);
+                yield return SheetShot("5_o_chon");
+                App.Modals.CloseAll();
+                Debug.Log("[Sổ Phép] Đã chụp màn sổ: " + SheetDir);
+            }
+            finally
+            {
+                if (backup != null)
+                {
+                    File.WriteAllText(path, backup);
+                    App.Save.Load();
+                    App.Bars.Refresh();
+                }
+                Tutorial.Off = off;
+            }
+        }
+
         static IEnumerator Shot(string name)
         {
             yield return new WaitForEndOfFrame();

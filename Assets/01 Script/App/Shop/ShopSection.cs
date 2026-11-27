@@ -1,4 +1,5 @@
-// Mục của màn cửa hàng (prefab Items/MucCuaHang): dải ruy băng tên mục, đồng hồ bên phải (mục hẹn giờ). ShopPage, GD_Claude/26 mục 13.
+// Mục của màn cửa hàng (prefab Items/MucCuaHang): băng tím caro thoi viền mực, tên mục vàng viền mực ở giữa, đồng hồ bên phải (mục hẹn
+// giờ). Bản 3 (2026-11-27, học băng tiêu đề mục cửa hàng Clash of Critters). ShopPage, GD_Claude/26 mục 15.
 using System;
 using System.Collections.Generic;
 using PokiClash.Core;

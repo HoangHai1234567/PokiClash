@@ -52,6 +52,7 @@ WOOD = (214, 140, 82)
 LANE_DARK = (58, 40, 84)
 CHEVRON = (255, 241, 201)
 SLOT_COLOR = dict(pk.SLOT_COLOR)
+SLOT_DARK = (42, 17, 60)  # lòng thẻ ô số (casino): tím than, sẫm hơn hẳn nền mặt chơi (108, 20, 101) để số sáng nổi lên
 TUBE = 5.0  # bề dày ống vàng (đơn vị)
 INKW = 1.6
 
@@ -160,6 +161,28 @@ def tall_card(spr, w, h):
     out.paste(mid.resize((round(w), mh), Image.LANCZOS), (0, th))
     out.paste(bot.resize((round(w), bh), Image.LANCZOS), (0, th + mh))
     return out
+
+
+def dark_card(spr, rgb=SLOT_DARK):
+    """Thẻ ô số tối (người dùng 2026-11-27: "các số phần thưởng còn nhỏ không nổi bật, sửa lại cho nền các ô tối màu hơn"): lòng kem
+    của thẻ (mảng kem liền lớn nhất) tô lại màu sẫm, giữ viền vàng, góc kim cương, nét mực; mép khử răng cưa giữa kem và mực nội suy
+    theo độ sáng từ mực tới màu sẫm cho khỏi viền sáng."""
+    a = np.array(spr.convert("RGBA")).astype(np.float32)
+    r, b = a[..., 0], a[..., 2]
+    cream = (a[..., :3].min(2) > 170) & (r - b < 70)
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(cream.astype(np.uint8), connectivity=4)
+    if n < 2:
+        return spr
+    core = lab == 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))
+    zone = cv2.dilate(core.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))) > 0
+    zone &= (r - b) < 90  # không lan sang viền vàng (vàng: đỏ trừ lam rất lớn)
+    lum = a[..., :3].mean(2)
+    ref = float(np.median(lum[core]))
+    ink = np.array(INK[:3], np.float32)
+    t = np.clip((lum - 45) / (ref - 45), 0, 1)[..., None]
+    col = ink * (1 - t) + np.array(rgb, np.float32) * t + ((lum - ref) * 0.25 * t[..., 0])[..., None]
+    a[..., :3] = np.where(zone[..., None], col, a[..., :3])
+    return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), "RGBA")
 
 
 def square_pad(im, fill_frac):
@@ -275,10 +298,11 @@ def main():
     else:
         paste_masked(flat((190, 232, 250)), inside)
 
-    # 2. ô đáy: casino là thẻ bài kem viền vàng (ô rương: thẻ vàng tia kem) như casino_B; bản cũ phủ màu phẳng nửa trong
+    # 2. ô đáy: casino là thẻ bài viền vàng, lòng tím than (ô rương: thẻ vàng tia kem) như casino_B; bản cũ phủ màu phẳng nửa trong
+    card_num = dark_card(card) if CASINO else None
     for x0, y0, x1, y1, kind in (g["slots"] if CASINO else []):
         cw_ = x1 - x0 - 3
-        cimg = tall_card(card_gold if kind.startswith("chest") else card, cw_ * K, (BH - y0 + 6) * K)
+        cimg = tall_card(card_gold if kind.startswith("chest") else card_num, cw_ * K, (BH - y0 + 6) * K)
         layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
         layer.alpha_composite(cimg, (round((x0 + 1.5) * K), round((y0 + 1) * K)))
         paste_masked(layer, inside)

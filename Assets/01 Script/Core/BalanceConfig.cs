@@ -152,6 +152,8 @@ namespace PokiClash.Core
     public class TreesConfig
     {
         public double perHour = 5, cap = 50;
+        // túi bi (BallBag, 2026-11-27): trần bi nhận từ nguồn tự sinh ở Nhà = ballCap + ballCapPerTree × (số cây mở − 1)
+        public int ballCap = 400, ballCapPerTree = 100;
         public List<int> unlockLevels = new List<int>();
     }
 
@@ -480,7 +482,10 @@ namespace PokiClash.Core
             var tr = J.Obj(root, "trees");
             if (tr != null)
             {
-                c.trees = new TreesConfig { perHour = J.Num(tr, "perHour"), cap = J.Num(tr, "cap") };
+                c.trees = new TreesConfig
+                {
+                    perHour = J.Num(tr, "perHour"), cap = J.Num(tr, "cap"), ballCap = (int)J.Num(tr, "ballCap", 400), ballCapPerTree = (int)J.Num(tr, "ballCapPerTree", 100),
+                };
                 foreach (var lv in J.Arr(tr, "unlockLevels")) c.trees.unlockLevels.Add((int)(double)lv);
             }
             var sb = J.Obj(root, "stageBalls");

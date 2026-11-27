@@ -196,6 +196,11 @@ namespace PokiClash
                 Haptics.Play(big ? Haptic.Win : Haptic.UiTap);
             }
             if (extra != null && extra.Count > 0) App.Toasts.Show(CasinoUi.Rewards(extra), Icon("star"));
+            // bi thắng và quà kèm bay từ giữa bàn về chip bi / ô chứa (RewardFly)
+            var mid = Content ? Content : (RectTransform)transform;
+            var at = mid.TransformPoint(mid.rect.center);
+            if (net > 0) RewardFly.Balls(net, at);
+            RewardFly.Rewards(extra, at, 0.15f);
             App.Save.Save();
             RenderTable();
             if (jar != null && jar.full && jar.rewards.Count > 0)

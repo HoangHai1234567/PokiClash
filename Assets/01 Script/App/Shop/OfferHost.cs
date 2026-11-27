@@ -1,6 +1,6 @@
 // Máy hiện popup ưu đãi (GD_Claude/26_CuaHang_IAP_QuangCao.md mục 7): gắn trong App.prefab (menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết").
 // Lần vào sảnh đầu sau khi mở game, hoặc quay lại game sau reopenMin phút, gọi Offers.Open (hàng popup lúc vào game). Màn khác báo sự
-// kiện qua Raise (thua, thắng boss, hết bi, bi ít, jackpot, rương Huyền thoại). Popup chỉ hiện khi màn rảnh: không trận, không lúc đang
+// kiện qua Raise (thua, thắng boss, hết bi, bi ít lúc vào máy hay sau một đợt thả, jackpot, rương Huyền thoại). Popup chỉ hiện khi màn rảnh: không trận, không lúc đang
 // thả bi, không chuyển cảnh, không có hộp thoại hay bước hướng dẫn, không màn tải / cốt truyện. Hiện bằng tờ cửa hàng (ShopSheet).
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -77,7 +77,7 @@ namespace PokiClash
         static void LowBallsCheck()
         {
             // bi không đủ một đợt thả đầy ở cược ×1
-            if (S.balls > 0 && S.balls < D.Cfg.MaxPerDrop(S.level)) Raise(new OfferCtx { e = OfferEvent.LowBalls });
+            if (S.balls > 0 && S.balls < D.Cfg.MaxPerDrop(S.level)) Raise(new OfferCtx { e = OfferEvent.LowBalls, enter = true });
         }
 
         public static void Raise(OfferCtx x)
@@ -85,6 +85,8 @@ namespace PokiClash
             if (App.Save == null) return;
             var list = Offers.On(S, D, x, Now, new Rng(Rng.RandomSeed()));
             App.Save.Save();
+            // đã có popup bi chờ trong hàng thì thôi (popup bi chưa ghi gì vào bản lưu tới lúc hiện, bỏ được)
+            if (queue.Exists(q => q.kind == "refill")) list.RemoveAll(q => q.kind == "refill");
             if (list.Count == 0) return;
             Debug.Log($"[Ưu đãi] {x.e}: " + string.Join(", ", list));
             queue.AddRange(list);
@@ -116,6 +118,7 @@ namespace PokiClash
                 case "claims": return Offers.AnyClaim(S, D, Now);
                 case "piggy": return Shop.PiggyCanBreak(S, D.Cfg.shop, Now);
                 case "chain": return Shop.ChainLive(S, Now);
+                case "refill": return S.balls <= p.ballsMax;
                 default: return true;
             }
         }

@@ -115,14 +115,15 @@ namespace PokiClash.Core
             return true;
         }
 
-        // thu hoạch: lấy phần nguyên của mọi chỗ, giữ phần lẻ
+        // thu hoạch: lấy phần nguyên của mọi chỗ, giữ phần lẻ; chỉ lấy tới đầy túi bi (BallBag), phần thừa nằm lại chỗ
         public static int Harvest(SaveData s, GameData d, double now)
         {
             Tick(s, d, now);
-            int total = 0;
+            int total = 0, room = BallBag.Room(s, d.Cfg, now);
             foreach (var sp in Of(s, d.Cfg, now).spots)
             {
-                int n = (int)Math.Floor(sp.stock);
+                int n = Math.Min(room - total, (int)Math.Floor(sp.stock));
+                if (n <= 0) continue;
                 sp.stock -= n;
                 total += n;
             }

@@ -164,3 +164,25 @@ File dùng chung giữa nhiều agent (`Core/BalanceConfig.cs`, `Core/Types.cs`,
   - Bị động: mỗi đầu lượt khiên 5% máu, +6 mana.
   - Golden đã tính lại.
 - Chuỗi tiến hóa 3 giây: ổn. Màu Huyền thoại: tạm giữ cam.
+
+### Màn Hang Tiềm Năng bản sân khấu (2026-11-27)
+
+Người dùng chê bản danh sách 10 hàng chữ, dặn: ít chữ nhưng đủ thông tin, học Hầm đấu và võ đường huy hiệu của Clash of Critters,
+phần thưởng đặt trên thanh tiến độ bằng icon. Đã làm (luật Hang không đổi):
+
+- Nền hang gen riêng (vòm cầu thang xuống sâu, bảng đá trống, bệ đá), 3 icon thưởng mới: đá tiềm năng, đá tinh, đá tiến hóa
+  (`ArtGen/Cave`, `Assets/03 Art/Cave`).
+- Thanh tiến độ trên cùng: 10 nút tầng, mỗi nút là icon thưởng lần đầu quý nhất kèm số; rãnh vàng tới tầng đang chờ vượt; tầng đã
+  qua có dấu tích, tầng khoá tối, tầng đang xem to + mũi tên. Đầu thanh: hệ boss hôm nay, đá tiềm năng và đá tinh đang có.
+- Bảng đá: "Tầng n · tên" + "Lần đầu" và đủ icon thưởng; đã qua thì dấu "Đã qua".
+- Bệ: boss và tướng phụ là rig thật đứng idle, thẻ cấp dưới chân; tầng khoá là bóng tối + ổ khoá. Vuốt / mũi tên / chạm nút để đổi
+  tầng, đôi mới chạy ra từ lòng vòm. Chạm bệ / bảng đá: hộp chi tiết (tên địch, thưởng, luật lượt, lịch hệ boss).
+- Dải đáy: lượt thắng còn (hết thì nút "+1 lượt"), nút Vượt / Đánh / Khoá / Hết lượt, thưởng mỗi trận thắng; hàng 5 hệ (ngày thường
+  hệ hôm nay sáng, hệ khác ghi thứ; cuối tuần chạm để chọn).
+- Về từ trận vừa vượt tầng: màn sang tầng mới, rãnh vàng chạy tới (`CaveBack`).
+- Lượt góp ý 2 (cùng ngày, người dùng: icon hàng hệ "nhìn khó quá", thanh trên khó nhìn, thừa khoảng trống dưới tướng): nút tầng lõi
+  sáng (xanh nhạt đã qua / vàng nhạt đang chờ / tím nhạt khoá), icon to, thẻ trắng số món, huy hiệu tích; đá đang có trong thẻ sáng;
+  hàng hệ là ô màu hệ với icon trên đĩa kem viền mực; sân khấu phóng cho đáy ảnh chạm đáy màn (thanh tiến độ chuyển sang khung an
+  toàn, không phóng), tướng to hơn, đứng gần mép trước bệ.
+- Code: `App/Scenes/CaveScene.cs` (viết lại), `Editor/CaveStageMenu.cs` (menu dựng + tour, cờ `Temp/cave_stage_build.flag`,
+  `Temp/cave_stage_tour.flag`, ảnh `Temp/PokiShots/hang/`); bỏ `CaveTierRow`, `Items/TangHang`, menu "hàng tầng gọn".

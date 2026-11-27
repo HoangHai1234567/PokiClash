@@ -78,7 +78,10 @@ namespace PokiClash
 
         // aola: tên dạng cần hiện (HeroDef.Form theo sao). maxPx: cạnh RenderTexture tối đa (mặc định 1024; màn mở khoá tướng hiện tướng
         // to giữa màn thì 2048, đỡ nhoè)
-        public static AolaSticker TryCreate(RectTransform parent, HeroDef hero, string aola, float uiHeight, bool flip, int maxPx = 1024)
+        // span: khung chụp riêng (chiều cao dáng đứng; 0 là khung của tướng). Ô nhỏ chỉ hiện dáng đứng (ô mặt màn VS) đặt khung hẹp
+        // để cùng cỡ ảnh mà hình nét hơn; clip vươn xa hơn khung thì Fit vẫn tự nới.
+        public static AolaSticker TryCreate(RectTransform parent, HeroDef hero, string aola, float uiHeight, bool flip, int maxPx = 1024,
+            float span = 0)
         {
             if (!AolaActor.Find(aola, out var prefab, out int form)) return null;
             builtFrame = Time.frameCount;
@@ -92,7 +95,7 @@ namespace PokiClash
                 Object.Destroy(go);
                 return null;
             }
-            float span = Mathf.Max(DefSpan, actor.Span);
+            if (span <= 0) span = Mathf.Max(DefSpan, actor.Span);
             var s = new AolaSticker
             {
                 actor = actor, world = go, flip = flip, stageHeight = uiHeight / StageView.K, Span = span, curSpan = span, uiHeight = uiHeight

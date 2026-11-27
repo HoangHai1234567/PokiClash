@@ -969,6 +969,8 @@
  "trees": {
   "perHour": 4,
   "cap": 96,
+  "ballCap": 400,
+  "ballCapPerTree": 100,
   "unlockLevels": [
    10,
    25,
@@ -1410,6 +1412,7 @@
     "scale": true,
     "sort": 2,
     "group": "launch",
+    "tag": 5,
     "items": [{"k": "balls", "n": 2000}, {"k": "egg", "n": 2, "r": 2}, {"k": "egg", "n": 1, "r": 3}, {"k": "evo", "n": 5}]
    },
    {
@@ -1423,6 +1426,7 @@
     "scale": true,
     "sort": 2,
     "group": "launch",
+    "tag": 10,
     "items": [{"k": "balls", "n": 4500}, {"k": "egg", "n": 3, "r": 2}, {"k": "egg", "n": 2, "r": 3}, {"k": "evo", "n": 12}, {"k": "ticket", "n": 1, "r": 2}]
    },
    {
@@ -1436,7 +1440,8 @@
     "scale": true,
     "sort": 2,
     "group": "launch",
-    "items": [{"k": "balls", "n": 10000}, {"k": "egg", "n": 4, "r": 3}, {"k": "evo", "n": 30}, {"k": "ticket", "n": 1, "r": 3}]
+    "tag": 20,
+    "items": [{"k": "balls", "n": 10000}, {"k": "egg", "n": 5, "r": 2}, {"k": "egg", "n": 4, "r": 3}, {"k": "evo", "n": 30}, {"k": "ticket", "n": 1, "r": 3}]
    },
    {
     "id": "balls_1",

@@ -49,6 +49,21 @@ namespace PokiClash
         // chiều cao hình) lấp ô, đỉnh đầu sát mép trên, căn giữa theo hình; hình dẹt ngang (cua, cá) thì không phóng quá bề ngang ô
         // (thấy cả con, mắt nằm giữa thân) và căn giữa theo chiều cao. Hình to nhỏ trong khung ảnh khác nhau (lính nhỏ, boss to) nên đo
         // hộp phần có hình của từng ảnh (PortraitBoxes, đo sẵn trong Editor).
+        // Chân dung vừa trọn con trong ô cỡ box (như ô đối thủ của hộp Chuẩn bị, PrepFoe.FitPortrait): phần có hình (PortraitBoxes) lấp
+        // fill ô, tâm phần có hình vào giữa ô; hình nhỏ trong khung chỉ phóng tới maxZoom lần cạnh ô. Dùng cho ô nhỏ (mặt địch trong trận):
+        // chân dung lưu 256 px trên máy, cắt đầu phóng to (FitHead) thì nhoè, hình dẹt (thằn lằn, cua) bị cắt lệch (người dùng báo 2026-11-27)
+        public static void FitBody(HeroPortrait p, HeroDef h, int star, Vector2 box, float fill = 0.94f, float maxZoom = 2f)
+        {
+            var c = PortraitBoxes.Of(FormOf(h, star).aola);
+            const float aspect = W / (float)H;
+            float height = fill * Mathf.Min(box.y / Mathf.Max(0.05f, c.height), box.x / Mathf.Max(0.05f, c.width * aspect));
+            p.Bind(h, Mathf.Min(height, box.y * maxZoom), false, star);
+            var rt = p.Rect;
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = c.center;
+            rt.anchoredPosition = Vector2.zero;
+        }
+
         public static void FitHead(HeroPortrait p, HeroDef h, int star, Vector2 box)
         {
             var c = PortraitBoxes.Of(FormOf(h, star).aola);

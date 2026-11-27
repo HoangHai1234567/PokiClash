@@ -206,8 +206,9 @@ namespace PokiClash.EditorTools
                 n += Mark(path, DialogBreaths);
             // Máy bi: nút thả bi, thả liền, nút cược đang được pokiwar-9a vẽ lại (2026-11-06): không gắn
             n += Mark(Prefabs + "/Screens/Zone.prefab", "ZoneScene", "p.fight", false);
-            n += Mark(Prefabs + "/Screens/Hub.prefab", "HubScene", "bottom.Array.data[2].button", false);
-            for (int i = 0; i < 5; i++) n += Mark(Prefabs + "/Screens/Hub.prefab", "HubScene", $"bottom.Array.data[{i}].badge", true);
+            // hàng nút đáy ở App.prefab (giao diện sảnh chung LobbyDock, 2026-11-27)
+            n += Mark(Prefabs + "/App/App.prefab", "LobbyDock", "bottom.Array.data[2].button", false);
+            for (int i = 0; i < 5; i++) n += Mark(Prefabs + "/App/App.prefab", "LobbyDock", $"bottom.Array.data[{i}].badge", true);
             n += Mark(Prefabs + "/App/App.prefab", "TopBars", "afkDot", true);
             // chấm đỏ trên thẻ tướng (Items/TheTuong)
             var tt = Prefabs + "/Items/TheTuong.prefab";

@@ -28,6 +28,9 @@ namespace PokiClash
         public static readonly Color XpColor = Theme.Hex("#c18cf0");
         public static readonly Color BallPink = Theme.Hex("#ff8fb3");
         public static readonly Color ChestTagColor = Theme.Hex("#9a6a1e");
+        // số trên thẻ ô đáy (lòng thẻ tím than, ghep_ban_v2.py dark_card): chữ sáng viền mực mảnh, không đậm (người dùng 2026-11-27:
+        // số nhỏ không nổi bật)
+        static readonly Color SlotXpText = Theme.Hex("#e6c9ff"), SlotBallText = Theme.Hex("#ffb3cf");
 
         [Serializable]
         public struct Parts
@@ -307,10 +310,11 @@ namespace PokiClash
             plate.enabled = plate.sprite;
             plate.rectTransform.anchorMin = plate.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
             plate.rectTransform.anchoredPosition = Vector2.zero;
-            plate.rectTransform.sizeDelta = Vector2.one * d * 0.66f;
+            plate.rectTransform.sizeDelta = Vector2.one * d * 0.68f;
+            // hình quà chiếm gần hết đĩa (người dùng 2026-11-27: icon quà quá nhỏ, vỡ; ảnh rương 320 px có mipmap, ArtImporter)
             if (g.k.StartsWith("chest"))
             {
-                var ic = ChestIcon(host, Pachinko.FromKey(g.k), d * 0.44f);
+                var ic = ChestIcon(host, Pachinko.FromKey(g.k), d * 0.54f);
                 ic.name = "qua";
                 ic.anchorMin = ic.anchorMax = new Vector2(0.5f, 0.5f);
                 ic.anchoredPosition = new Vector2(0, d * 0.02f);
@@ -329,20 +333,24 @@ namespace PokiClash
             icon.sprite = App.Art ? App.Art.Icon(g.k == "balls" ? "ball" : "exp") : null;
             icon.preserveAspect = true;
             icon.rectTransform.anchorMin = icon.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-            icon.rectTransform.anchoredPosition = new Vector2(0, d * 0.07f);
-            icon.rectTransform.sizeDelta = Vector2.one * d * 0.3f;
+            icon.rectTransform.anchoredPosition = new Vector2(0, d * 0.1f);
+            icon.rectTransform.sizeDelta = Vector2.one * d * 0.38f;
             if (!p.floatText) return;
             var t = Ui.Spawn(p.floatText, holder);
             t.name = "so";
             t.text = "+" + g.v;
-            t.fontSize = 15 * K;
-            t.fontStyle = FontStyles.Bold;
+            // chữ đậm màu mực díu, khó đọc (người dùng 2026-11-27): prefab chữ nổi là Baloo2 ExtraBold viền dày, ở đây dùng phông chữ
+            // thường (Pangolin), không viền
+            t.font = Theme.Body;
+            t.fontSharedMaterial = Theme.Body ? Theme.Body.material : t.fontSharedMaterial;
+            t.fontSize = 19 * K;
+            t.fontStyle = FontStyles.Normal;
             t.color = Theme.Ink;
             t.raycastTarget = false;
             var tr = t.rectTransform;
             tr.anchorMin = tr.anchorMax = new Vector2(0.5f, 0.5f);
-            tr.anchoredPosition = new Vector2(0, -d * 0.15f);
-            tr.sizeDelta = new Vector2(d * 0.6f, 16 * K);
+            tr.anchoredPosition = new Vector2(0, -d * 0.18f);
+            tr.sizeDelta = new Vector2(d * 0.6f, 20 * K);
         }
 
         // phần đầy của vòng nấm i (0..1); pop: vừa đầy thì vòng chạy tới đầy rồi về số dư
@@ -430,13 +438,17 @@ namespace PokiClash
                 float cx = (float)(sl.x0 + sl.x1) / 2 * K, w = (float)(sl.x1 - sl.x0);
                 var num = nums[n];
                 num.name = "so_o";
-                num.color = exp > 0 ? XpColor : BallPink;
+                num.color = exp > 0 ? SlotXpText : SlotBallText;
+                num.fontStyle = FontStyles.Normal;
+                num.outlineWidth = 0.2f;
+                num.outlineColor = Theme.Hex("#2B2118");
                 slotNums.Add((num, exp, w));
                 num.rectTransform.anchoredPosition = new Vector2(cx, -(float)NumY(sl) * K);
                 num.rectTransform.sizeDelta = new Vector2(w * K, num.rectTransform.sizeDelta.y);
                 var sub = subs[n];
                 sub.name = "phu_o";
                 sub.text = exp > 0 ? "XP" : "bi";
+                sub.color = num.color;
                 // ô EXP: kẹo EXP (ô nhiều EXP: nắm kẹo) thay chữ "XP", như kẹo trên ô của máy tham khảo
                 var candy = exp > 0 ? MachineGlow.Sprite(exp >= 10 ? "pk_keo_exp_nam" : "pk_keo_exp") : null;
                 if (candy && p.particle)
@@ -492,7 +504,7 @@ namespace PokiClash
                 tag.rectTransform.sizeDelta = new Vector2(tw, tag.rectTransform.sizeDelta.y);
                 tag.fontSize = subFont * 1.35f;
                 tag.color = ChestTagColor;
-                tag.fontStyle = FontStyles.Bold;
+                tag.fontStyle = FontStyles.Normal;
                 tag.gameObject.SetActive(true);
                 chestTags.Add(tag);
             }
@@ -536,7 +548,7 @@ namespace PokiClash
                 string s = exp > 0 ? (exp * mult).ToString() : "+" + mult;
                 t.text = s;
                 // ô ở bàn này rộng (khoảng 80 đơn vị máy): số to; 3 chữ số trở lên co lại cho vừa ô
-                float size = 22 * K;
+                float size = 29 * K;
                 if (s.Length >= 3) size *= s.Length >= 4 ? 0.7f : 0.85f;
                 t.fontSize = size;
             }

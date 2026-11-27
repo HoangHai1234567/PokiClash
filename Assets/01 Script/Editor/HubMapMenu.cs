@@ -432,11 +432,13 @@ namespace PokiClash.EditorTools
                     if (clouds.GetArrayElementAtIndex(i).objectReferenceValue is RectTransform crt0)
                         crt0.gameObject.SetActive(false);
 
-                // công trình side meta: cột thẻ giấy cố định bên phải, dưới thanh trên (kiểu thẻ của hàng nút đáy)
+                // công trình side meta: cột thẻ giấy cố định bên phải, dưới thanh trên (kiểu thẻ của hàng nút đáy). Từ 2026-11-27 cột và hàng
+                // nút đã dời sang App.prefab (giao diện sảnh chung LobbyDock, kiểu ô vuông của HubTileMenu): Hub không còn hang_nut thì bỏ qua
                 var bs = so.FindProperty("buildings");
                 var bottom = Find("hang_nut");
                 var parent = (RectTransform)(bottom ? bottom.parent : scene.transform);
-                SideColumn(parent, bs);
+                if (bottom && bs != null) SideColumn(parent, bs);
+                else Debug.Log("[Sảnh] Cột công trình nằm ở App.prefab (LobbyDock): không dựng lại.");
 
                 so.FindProperty("fog").objectReferenceValue = fog;
                 so.FindProperty("pan").objectReferenceValue = pan;
@@ -444,7 +446,7 @@ namespace PokiClash.EditorTools
                 // đèn đêm các đảo (đuốc, chỗ phát sáng) trên lớp nhuộm: gắn lại vào ảnh đảo vừa dựng
                 HubNightMenu.Apply(contents);
                 PrefabUtility.SaveAsPrefabAsset(contents, HubPath);
-                Debug.Log($"[Sảnh] Đã dựng bản đồ thế giới {vw}x{vh}, {groups.Count} đảo, {total} đám mây che, {ringImgs.Count} mây vành rời, {bs.arraySize} công trình ra cột thẻ bên phải.");
+                Debug.Log($"[Sảnh] Đã dựng bản đồ thế giới {vw}x{vh}, {groups.Count} đảo, {total} đám mây che, {ringImgs.Count} mây vành rời, {(bs != null ? bs.arraySize : 0)} công trình ra cột thẻ bên phải.");
             }
             finally
             {

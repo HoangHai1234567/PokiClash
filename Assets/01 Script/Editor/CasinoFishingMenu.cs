@@ -251,6 +251,12 @@ namespace PokiClash.EditorTools
             var bob = N(world, "phao");
             bob.anchorMin = bob.anchorMax = new Vector2(0.5f, 0.5f);
             bob.sizeDelta = Vector2.zero;
+            // quầng sáng ở phao khi chạm trúng (FishingPanel.HitFx, tắt sẵn), sau hình phao
+            var bobGlow = Img(bob, "quang_phao", FxSprite("quang"), Color.white);
+            bobGlow.rectTransform.anchorMin = bobGlow.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            bobGlow.rectTransform.sizeDelta = new Vector2(240, 240);
+            bobGlow.rectTransform.anchoredPosition = new Vector2(0, 10);
+            bobGlow.gameObject.SetActive(false);
             var bobSprite = AssetDatabase.LoadAssetAtPath<Sprite>(BobberPath);
             var topMask = N(bob, "tren", typeof(RectMask2D));
             topMask.anchorMin = topMask.anchorMax = new Vector2(0.5f, 0.5f);
@@ -378,6 +384,37 @@ namespace PokiClash.EditorTools
             var reelHint = Txt(reelRt, "goi_y", 28, Color.white);
             At(reelHint.rectTransform, new Vector2(0.5f, 0), new Vector2(0, 22), new Vector2(880, 46), new Vector2(0.5f, 0));
             rp.gameObject.SetActive(false);
+
+            // hiệu ứng chạm trúng (người dùng 2026-11-27: "click chuẩn có ít fx bloom, stunt nhẹ, fx text good job, excellent"): lớp phủ đúng chỗ
+            // tấm kéo nhưng nằm ngoài tấm (nhịp cuối tấm tắt vẫn thấy): quầng sáng, vòng sóng, tia xoay sau chữ, 8 lấp lánh, chữ đánh giá to
+            // viền mực; FishingPanel bật và chạy lúc chạm (tắt sẵn). Sprite ở Assets/03 Art/Shop/v3 (ArtGen/Shop/v3/ve_fx_pop.py).
+            var fxRoot = N(panel, "keo_fx");
+            At(fxRoot, new Vector2(0.5f, 0), new Vector2(0, 300), new Vector2(940, 300), new Vector2(0.5f, 0));
+            Image FxImg(string n, string sprite, float size)
+            {
+                var im = Img(fxRoot, n, FxSprite(sprite), Color.white);
+                im.rectTransform.anchorMin = im.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                im.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+                im.rectTransform.sizeDelta = new Vector2(size, size);
+                im.gameObject.SetActive(false);
+                return im;
+            }
+            var fxRays = FxImg("tia", "tia_xoay", 420);
+            var fxGlow = FxImg("quang", "quang", 300);
+            var fxRing = FxImg("vong", "vong_song", 220);
+            var fxSparks = new Image[8];
+            for (int i = 0; i < fxSparks.Length; i++) fxSparks[i] = FxImg("lap_lanh_" + i, "lap_lanh", i % 2 == 0 ? 54 : 38);
+            var fxRating = Txt(fxRoot, "danh_gia", 92, Color.white);
+            fxRating.rectTransform.anchorMin = fxRating.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            fxRating.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            fxRating.rectTransform.sizeDelta = new Vector2(640, 130);
+            fxRating.alignment = TextAlignmentOptions.Center;
+            fxRating.textWrappingMode = TextWrappingModes.NoWrap;
+            fxRating.enableAutoSizing = false;
+            var ratingMat = Theme.Outlined(Theme.Bold, 0.38f);
+            if (ratingMat) fxRating.fontSharedMaterial = ratingMat;
+            fxRating.raycastTarget = false;
+            fxRating.gameObject.SetActive(false);
             var reelUi = new FishingPanel.ReelUi
             {
                 panel = reelRt, bar = bar.rectTransform, zone = zone.rectTransform, needle = needle.rectTransform, zoneImg = zone, timerRing = ring,
@@ -467,6 +504,10 @@ namespace PokiClash.EditorTools
                 rig = AssetDatabase.LoadAssetAtPath<TextAsset>(RigPath), water = AssetDatabase.LoadAssetAtPath<TextAsset>(WaterCpuPath),
             };
             fp.Setup(sceneUi, act, actTap, reelUi, bait, dexBtn, sellBtn, baitBtn, resUi, dex.gameObject, dHead, cells, close);
+            fp.SetupFx(new FishingPanel.HitFx
+            {
+                root = fxRoot, glow = fxGlow, ring = fxRing, rays = fxRays, bobGlow = bobGlow, sparks = fxSparks, rating = fxRating,
+            });
             fp.SetFishArt(AssetDatabase.FindAssets("t:Sprite", new[] { FishArtDir }).Select(g => AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GUIDToAssetPath(g)))
                 .Where(x => x).OrderBy(x => x.name).ToArray());
             panel.gameObject.SetActive(false);
@@ -588,6 +629,8 @@ namespace PokiClash.EditorTools
 
         static double nextPoll, tourStart;
         static bool tourRunning;
+        static Sprite FxSprite(string name) => AssetDatabase.LoadAssetAtPath<Sprite>("Assets/03 Art/Shop/v3/" + name + ".png");
+
         static string Flag(string n) => Path.GetFullPath(Path.Combine(Application.dataPath, "../Temp/" + n));
 
         [InitializeOnLoadMethod]

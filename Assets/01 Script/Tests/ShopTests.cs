@@ -543,6 +543,44 @@ namespace PokiClash.Tests
         }
 
         [Test]
+        public void SapHetBi_PopupGoiBi_SauLanHetBiDau_DongThi24Gio()
+        {
+            var d = TestData.Load();
+            var s = New(d);
+            s.balls = 12;
+            var low = new OfferCtx { e = OfferEvent.LowBalls };
+            Assert.IsFalse(Offers.On(s, d, low, T0, new Rng(1)).Any(p => p.kind == "refill"), "chưa gặp Hết bi lần nào: chưa bán gói bi");
+            var out1 = Offers.On(s, d, new OfferCtx { e = OfferEvent.OutOfBalls }, T0, new Rng(1));
+            Offers.Shown(s, d, out1[0], T0);
+            Offers.Closed(s, out1[0], false, false, T0);
+            Assert.IsEmpty(Offers.On(s, d, low, T0 + 5 * 60000, new Rng(1)), "chung nhịp 20 phút với Hết bi");
+
+            double t = T0 + 21 * 60000;
+            var p = Offers.On(s, d, low, t, new Rng(1));
+            Assert.AreEqual(1, p.Count);
+            Assert.AreEqual("refill", p[0].kind);
+            Assert.IsTrue(p[0].warn, "Sắp hết bi");
+            Assert.IsFalse(p[0].free, "popup bán: tính vào trần");
+            Assert.AreEqual(12, p[0].ballsMax, "bi nhiều lên trước lúc hiện thì bỏ");
+            Offers.Shown(s, d, p[0], t);
+            Offers.Closed(s, p[0], false, false, t);
+            Assert.IsEmpty(Offers.On(s, d, low, t + 30 * 60000, new Rng(1)).Where(q => q.kind == "refill"), "đóng thì 24 giờ mới bật lại");
+            Assert.AreEqual(1, Offers.On(s, d, new OfferCtx { e = OfferEvent.OutOfBalls }, t + 30 * 60000, new Rng(1)).Count, "hết hẳn bi vẫn có popup Hết bi");
+            Assert.AreEqual(1, Offers.On(s, d, low, t + 25 * H, new Rng(1)).Count(q => q.kind == "refill"), "qua 24 giờ bật lại");
+        }
+
+        [Test]
+        public void SapHetBi_SauDotTha_KhongTungUuDaiBatNgo()
+        {
+            var d = TestData.Load();
+            var s = New(d);
+            s.balls = 12;
+            // chưa gặp Hết bi nên không có popup gói bi; vừa thả xong (không phải lúc vào máy) thì không tung Ưu Đãi Bất Ngờ
+            for (uint i = 0; i < 20; i++)
+                Assert.IsEmpty(Offers.On(s, d, new OfferCtx { e = OfferEvent.LowBalls }, T0 + i * 7 * H, new Rng(i + 1)));
+        }
+
+        [Test]
         public void QuaNhapMon_PopupTuPhien2_DongHoTuLanPopup()
         {
             var d = TestData.Load();

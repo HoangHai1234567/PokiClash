@@ -37,6 +37,7 @@ namespace PokiClash
             card.color = fill;
             band.color = bandColor;
             icon.sprite = iconSprite;
+            FitIcon(iconSprite, w);
             label.text = title;
             label.color = skill ? Theme.BlueD : Theme.Ink;
             ResetState();
@@ -50,6 +51,7 @@ namespace PokiClash
             card.color = o.card.color;
             band.color = o.band.color;
             icon.sprite = o.icon.sprite;
+            icon.rectTransform.sizeDelta = o.icon.rectTransform.sizeDelta;
             label.text = o.label.text;
             label.color = o.label.color;
             ResetState();
@@ -60,6 +62,13 @@ namespace PokiClash
             layout.preferredWidth = w;
             Rect.sizeDelta = new Vector2(w, 140);
             label.rectTransform.sizeDelta = new Vector2(w - 10, 28);
+        }
+
+        // tranh thẻ 16:10 (GD_Claude/36) trải gần hết bề ngang ô; icon vuông giữ ô 76 × 76 của prefab (icon giữ tỉ lệ ảnh)
+        void FitIcon(Sprite s, float w)
+        {
+            bool wide = s && s.rect.width > s.rect.height * 1.2f;
+            icon.rectTransform.sizeDelta = wide ? new Vector2(w - 12, 76) : new Vector2(76, 76);
         }
 
         void ResetState()

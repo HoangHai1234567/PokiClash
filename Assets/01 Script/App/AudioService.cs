@@ -3,7 +3,8 @@
 // riêng cho tiếng lặp (bi lăn của máy bi). Nhạc và tiếng chọn nạp bằng menu "PokiClash/Âm thanh/Nạp nhạc và tiếng".
 // Tiếng chạm đinh của máy bi là tiếng lặp nhiều nhất nên bị hãm: cách nhau ít nhất 0,1 giây, ba biến thể cao độ không lặp
 // liền nhau, cao độ ±5% và độ to ±7% ngẫu nhiên quanh biến thể, nhỏ hơn các tiếng thưởng.
-// Nhạc: mỗi scene một bài (MusicFor, App gán SceneMusic khi vào scene); màn tải tàu lúc mở game phát chủ đề chính. Đổi bài thì nối
+// Nhạc: mỗi scene một bài (MusicFor, App gán SceneMusic khi vào scene; sảnh đổi bài theo mùa, Season.HubMusic); màn tải tàu lúc mở game
+// phát chủ đề chính. Đổi bài thì nối
 // mờ; bài gen không lặp liền nên gần hết bài thì nối mờ về đầu bài trên kênh kia. Tắt "Âm thanh" (Sổ tay) thì nhạc và tiếng lặp
 // nhỏ dần rồi dừng.
 using System.Collections.Generic;
@@ -131,6 +132,7 @@ namespace PokiClash
             switch (scene)
             {
                 case SceneIds.Hub:
+                    return Season.HubMusic; // theo mùa (Noel: "sanh_noel", người dùng 2026-11-27)
                 case SceneIds.Home:
                 case SceneIds.Farm:
                     return "sanh";
@@ -139,7 +141,7 @@ namespace PokiClash
                 case SceneIds.Battle:
                     return "tran";
             }
-            return playing == null || playing == "tran" || playing == "boss" || playing == "maybi" || playing == "chude" ? "sanh" : playing;
+            return playing == null || playing == "tran" || playing == "boss" || playing == "maybi" || playing == "chude" ? Season.HubMusic : playing;
         }
 
         void Update()
@@ -160,8 +162,10 @@ namespace PokiClash
         void UpdateMusic(float dt)
         {
             if (musicSources == null || musicSources.Length < 2) return;
-            string want = Enabled ? (ShipVoyage.Booting || StoryIntro.Current ? "chude" : SceneMusic) : null; // màn tải, cốt truyện: nhạc chủ đề
-            if (want != null && !music.ContainsKey(want)) want = curKey; // bài chưa nạp: giữ bài cũ
+            // màn tải: nhạc chủ đề, trong mùa là bài sảnh của mùa (Season.LoadMusic); cốt truyện: nhạc chủ đề
+            string want = Enabled ? (ShipVoyage.Booting ? Season.LoadMusic : StoryIntro.Current ? "chude" : SceneMusic) : null;
+            // bài chưa nạp: bài theo mùa lùi về bài gốc ("sanh_noel" → "sanh"), không thì giữ bài cũ
+            if (want != null && !music.ContainsKey(want)) want = music.ContainsKey(Season.BaseMusic(want)) ? Season.BaseMusic(want) : curKey;
             if (want != curKey)
             {
                 curKey = want;
