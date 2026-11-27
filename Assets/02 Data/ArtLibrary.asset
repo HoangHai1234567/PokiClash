@@ -16,11 +16,20 @@ MonoBehaviour:
   - name: san_ash
     sprite: {fileID: 21300000, guid: 85794560543d19f41bae417f81abec2a, type: 3}
     pack: 
+  - name: san_aurora
+    sprite: {fileID: 21300000, guid: d72e1f40d4b937a4787d20aa762ed7c6, type: 3}
+    pack: 
   - name: san_bamboo
     sprite: {fileID: 21300000, guid: 0875370e36fc50a45ae86788af2b3ca2, type: 3}
     pack: 
   - name: san_beam
     sprite: {fileID: 21300000, guid: 1865219359db8df469f2fe11a37a2739, type: 3}
+    pack: 
+  - name: san_bellwave
+    sprite: {fileID: 21300000, guid: 168c319bf6517a344990e69a6b8c2bca, type: 3}
+    pack: 
+  - name: san_bladeleaf
+    sprite: {fileID: 21300000, guid: 9ab7497195ebdbd4cb11b1ac94d64d0b, type: 3}
     pack: 
   - name: san_bolt
     sprite: {fileID: 21300000, guid: f881922a04b034c4d9c817dbe3166239, type: 3}
@@ -34,8 +43,17 @@ MonoBehaviour:
   - name: san_cloud
     sprite: {fileID: 21300000, guid: f15b8f96d0b3c504eb2664c4f07499c9, type: 3}
     pack: 
+  - name: san_dust
+    sprite: {fileID: 21300000, guid: 086d5f66197dbad4f8bea02bea0505af, type: 3}
+    pack: 
+  - name: san_earthrune
+    sprite: {fileID: 21300000, guid: ba1264d2071cb924cba0aea4efd7094f, type: 3}
+    pack: 
   - name: san_fall
     sprite: {fileID: 21300000, guid: ffde890fd13078541bfcf12933fded44, type: 3}
+    pack: 
+  - name: san_feather
+    sprite: {fileID: 21300000, guid: 827898a1533caee41b4a8c38c8886698, type: 3}
     pack: 
   - name: san_firefly
     sprite: {fileID: 21300000, guid: 9966350fb4041624e843931a7cebba30, type: 3}
@@ -48,6 +66,9 @@ MonoBehaviour:
     pack: 
   - name: san_glow
     sprite: {fileID: 21300000, guid: 8a25c89dbcbe1d247943d67ab66e6bfa, type: 3}
+    pack: 
+  - name: san_glyph
+    sprite: {fileID: 21300000, guid: 957fa268cc7978a4480e1fad732da642, type: 3}
     pack: 
   - name: san_lavablob
     sprite: {fileID: 21300000, guid: 4c5b902f5b48d1c4aabcd5fbb65d9991, type: 3}
@@ -64,6 +85,12 @@ MonoBehaviour:
   - name: san_moonlight
     sprite: {fileID: 21300000, guid: e3f43ebf8453fa0449abe3cf50ef5f1c, type: 3}
     pack: 
+  - name: san_oakleaf
+    sprite: {fileID: 21300000, guid: 55ca1af38c4973146a40780aba54413c, type: 3}
+    pack: 
+  - name: san_pebble
+    sprite: {fileID: 21300000, guid: 2d2ea2291ba7ca94482628abf0955f65, type: 3}
+    pack: 
   - name: san_petal
     sprite: {fileID: 21300000, guid: 005fe2df1ec6b75418271ed2d2e798de, type: 3}
     pack: 
@@ -76,14 +103,23 @@ MonoBehaviour:
   - name: san_rune
     sprite: {fileID: 21300000, guid: 9532e772d273b6c49a5e54e57a5d3640, type: 3}
     pack: 
+  - name: san_sandgust
+    sprite: {fileID: 21300000, guid: f4c6ef5c57dbf8248950326febe4ba42, type: 3}
+    pack: 
   - name: san_seed
     sprite: {fileID: 21300000, guid: 2a9645bdcbe4df14880682f916736864, type: 3}
+    pack: 
+  - name: san_snow
+    sprite: {fileID: 21300000, guid: 915cc73b88a886a4680f649b387fd502, type: 3}
     pack: 
   - name: san_sparks
     sprite: {fileID: 21300000, guid: 33b3c7f778b238445bad45dd7e030629, type: 3}
     pack: 
   - name: san_spout
     sprite: {fileID: 21300000, guid: 0f6f0f710aa1915498716412a8b44e55, type: 3}
+    pack: 
+  - name: san_steelrune
+    sprite: {fileID: 21300000, guid: f51260620224a514db1e2f0c42667cd9, type: 3}
     pack: 
   - name: san_sunbeam
     sprite: {fileID: 21300000, guid: 4db492b22902e7647bc58c0b186810c7, type: 3}
@@ -127,6 +163,30 @@ MonoBehaviour:
   - name: battle_hoa_s70
     sprite: {fileID: 0}
     pack: hoa
+  - name: battle_kim_c01
+    sprite: {fileID: 21300000, guid: e898efd3eb97a3947a7239febf3d22c2, type: 3}
+    pack: 
+  - name: battle_kim_c03
+    sprite: {fileID: 0}
+    pack: kim
+  - name: battle_kim_c05
+    sprite: {fileID: 0}
+    pack: kim
+  - name: battle_kim_c06
+    sprite: {fileID: 0}
+    pack: kim
+  - name: battle_kim_c07
+    sprite: {fileID: 0}
+    pack: kim
+  - name: battle_kim_c08
+    sprite: {fileID: 0}
+    pack: kim
+  - name: battle_kim_c09
+    sprite: {fileID: 0}
+    pack: kim
+  - name: battle_kim_s70
+    sprite: {fileID: 0}
+    pack: kim
   - name: battle_moc_c01
     sprite: {fileID: 21300000, guid: 4a4b534bf1419294aaffe34bc48697ae, type: 3}
     pack: 
@@ -151,6 +211,30 @@ MonoBehaviour:
   - name: battle_moc_s70
     sprite: {fileID: 0}
     pack: moc
+  - name: battle_tho_c01
+    sprite: {fileID: 21300000, guid: a39c7a6ecb7a99042bf401293a7a2820, type: 3}
+    pack: 
+  - name: battle_tho_c03
+    sprite: {fileID: 0}
+    pack: tho
+  - name: battle_tho_c05
+    sprite: {fileID: 0}
+    pack: tho
+  - name: battle_tho_c06
+    sprite: {fileID: 0}
+    pack: tho
+  - name: battle_tho_c07
+    sprite: {fileID: 0}
+    pack: tho
+  - name: battle_tho_c08
+    sprite: {fileID: 0}
+    pack: tho
+  - name: battle_tho_c09
+    sprite: {fileID: 0}
+    pack: tho
+  - name: battle_tho_s70
+    sprite: {fileID: 0}
+    pack: tho
   - name: battle_thuy_c01
     sprite: {fileID: 21300000, guid: 8d6aa6c045fde92428b57fa92547f95e, type: 3}
     pack: 

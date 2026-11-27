@@ -1,0 +1,25 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = C:\Atomik\PokiWar\ArtGen\BattleBG\kim\c12.png (1024 x 1536): an approved battle background of this game: copy its RENDERING (ink, pencil hatching, colours); ignore its content
+image 2 = C:\Atomik\PokiWar\ArtGen\guides\G_Sheet3x2.png (1536 x 1024): the numbered 3 x 2 grid: one object per cell, in number order
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+C:\Atomik\PokiWar\ArtGen\BattleBG\kim\tai_ve\fx.png
+Create the folder if it is missing. If that file already exists, save it as fx_2.png, fx_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: a sprite sheet of 6 separate effect objects for the battle backgrounds of the Metal island, an island of steel mountains, iron harbours and bronze bells of a vertical mobile game. The game cuts the sheet into 6 sprites and animates them (moves, spins, fades, scales, makes them see-through), so draw each object complete and on its own.
+
+Draw a 1536 x 1024 image with a fully TRANSPARENT background (PNG with alpha), in the rendering of image 1 (same wobbly ink, same pencil hatching, same colours). One object per cell of image 2's numbered 3 x 2 grid (512 x 512 px cells): each object about the size of the cell's inner grey frame and centred in its cell, nothing crossing a cell edge, no ground, no shadow, no background colour, no grid lines, no numbers. Glows and light are drawn as solid pale shapes (the game makes them see-through).
+
+In grid order:
+1 a snowflake: a small soft six-armed snowflake, white with a pale blue edge, thin ink outline;
+2 a falling leaf shaped like a sickle blade: a long curved steel-blue leaf with a pale green middle vein and a short stem, thin ink outline;
+3 a glowing steel rune circle seen at a low angle (a wide flat ellipse): a ring of gear teeth, small wing shapes and dots inside a double ring, pale glowing gold;
+4 a bell's sound wave: three curved arcs nested side by side like a bracket ), getting bigger outward, pale gold, thin ink outline;
+5 an aurora ribbon: a long soft wavy ribbon of pale green fading to teal at its ends, wider in the middle, no ink outline;
+6 a falling steel feather: a long silver-grey feather with a pale blue edge and a thin dark quill, thin ink outline;
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, insects; any UI, frame or border; white sticker outlines.
+
+Remember: save the image to C:\Atomik\PokiWar\ArtGen\BattleBG\kim\tai_ve\fx.png

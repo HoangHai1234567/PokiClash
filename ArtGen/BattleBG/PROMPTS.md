@@ -170,4 +170,26 @@ Người dùng báo: vài đảo phần nền trận chưa phủ lên trên, má
 
 - **Đảo Thủy `s30`, `s70_2`, `s70_3`** (lượt `m30`, `b70b`, `b70c` của `build_troi.py`): `m30` gen lại bằng GPT 2.6 qua Magnific (prompt `gui_gpt/troi/11_m30.txt`, khớp 0,97, thác và vách nối thẳng qua mép). `b70b`, `b70c`: GPT vẽ lại mây phần dưới khác bản cũ (khớp 0,1, nối gãy), nên dùng công cụ expand của Magnific (khung cũ 1080 × 928 đặt ở y 600 của khung 1080 × 1528, giữ nguyên điểm ảnh cũ): `b70c` Nano Banana 2 (75 credit), `b70b` Magnific Expand (30 credit; Nano Banana 2 hai lần đều vẽ thêm cột đá nổi trên đầu cột cũ, Seedream đổi màu cả ảnh). Cột đá ở cả ba dạng kết thúc bằng khối đầu cột ngay trong ảnh cũ, phía trên chỉ là mây (lúc boss đổi dạng không có cột hiện ra rồi mất). `build_troi.py --duyet` nhận ảnh nối sẵn đúng khổ 1080 × 1528 (dò dịch ±8 px rồi nối). Chỉ chép 3 ảnh vào `Assets/03 Art/BattleBG/` và sửa màu trời 3 khoá trong `arena_fx.json` (không chạy lại `build_thuy.py --xuat` để khỏi đè số đã chỉnh).
 - **Ảnh thay thế `Fallback/battle_<hệ>.png`** (5 hệ; đảo Thổ, Kim chưa có bộ sàn đấu nên mọi trận dùng, đảo khác dùng cho thử thách huy hiệu, hang): ảnh vẽ bằng code web nên nối bằng code, `build_fallback_troi.py` (trời chuyển màu kéo lên, vệt màu nước soi gương qua mép rồi nhạt dần, thêm vệt mới, chép 2 đám mây của chính ảnh). Bản gốc 928 cất ở `fallback_goc/`. Chạy lại `Web/scripts/export_fallback.mjs` thì phải chạy lại script này.
-- Còn lại: đảo Thổ, Kim vẫn là ảnh tạm; bộ sàn đấu vẽ tay cho hai đảo (như `build_moc.py`, `build_hoa.py`) chưa làm.
+- Đảo Thổ, Kim: đã có bộ sàn đấu vẽ tay cùng ngày (mục dưới); ảnh thay thế chỉ còn dùng cho thử thách huy hiệu, hang.
+
+## Đảo Kim, Thổ 70 ải: 8 nền mỗi đảo, gen qua Magnific (2026-11-27)
+
+Người dùng: "làm đi" (bộ sàn đấu vẽ tay cho hai đảo còn dùng ảnh tạm). `build_kim.py` sinh từ `build_hoa.py` (cùng khuôn, cùng số đo khung; chữ riêng của đảo gom vào hằng số `ISLAND`, `CONTRAST`, `C12_LOOK`, `GUIDE_INTRO`…), `build_tho.py` sinh từ `build_kim.py` (chỉ khác khối dữ liệu). Gói `gui_gpt/kim/`, `gui_gpt/tho/`; ảnh tải về `kim/tai_ve/`, `tho/tai_ve/`; bản duyệt `kim/<mã>.png`, `tho/<mã>.png`.
+
+| Mã | Đảo Kim (ải) | Giờ | Đảo Thổ (ải) | Giờ |
+|---|---|---|---|---|
+| `c12` | Cảng Sắt + Cầu Bánh Răng (1–9) | sáng trong | Bãi Đá Cuội + Hang Lửng (1–9) | sáng nắng |
+| `c34` | Rừng Lưỡi Liềm + Tháp Canh Thép (10–19) | chiều lộng gió | Đồi Ngọc Lục + Mỏ Pha Lê (10–19) | chiều vàng |
+| `c05` | Gác Chuông Đồng (20 Quỷ Xích) | bình minh sương | Đền Phù Văn (20 Sơn Viên) | sương sớm tím |
+| `c06` | Xưởng Đúc Chuông (30 Sói Giáp) | chiều vàng | Rừng Sồi Già (30 Cổ Vương) | chiều thu |
+| `c07` | Mỏ Sắt Ngân (40 Thần Cơ) | sáng u ám sương thấp | Ruộng Bậc Thang (40 Sa Trùng) | trưa hè mây trắng |
+| `c08` | Thành Ba Kiếm (50 Vong Kỵ) | hoàng hôn rực | Vách Kim Cương (50 Bùn Ngoạm) | hoàng hôn hẻm núi |
+| `c09` | Tổ Cánh Pha Lê (60 Pháo Giáp) | đêm tuyết, cực quang | Lò Gốm Đất Nung (60 Thiên Thạch Thú) | đêm trăng sao |
+| `b70` | Tháp Thiên Chung (70 Nhật Vương) | bình minh vàng trên biển mây | Kim Tự Viện (70 Thổ Tinh) | chạng vạng, bão cát kéo tới |
+| `fx` | bông tuyết, lá lưỡi liềm, phù văn thép, sóng chuông, cực quang, lông vũ thép | | luồng cát, phù văn đất, lá sồi, đá vụn, bụi, phù văn đá bay | |
+
+- **Tương phản:** tướng Kim xám sẫm, bạc → nền sáng (sỏi xám xanh nhạt, đá kem), không mảng xám sẫm giữa sân, mặt bệ kem. Tướng Thổ nâu, vàng đất, cam → cát vàng nhạt (đo: bão hoà 0,47, sáng 0,99; đất Hỏa 0,61, cỏ Mộc 0,67), điểm xanh lá, trời xanh, mặt bệ xám nhạt hoặc kem.
+- **Ảnh mẫu lượt 1:** Kim lấy nét `moc/c12.png`, Thổ lấy nét `hoa/c12.png`; màu và đồ vật lấy đoạn 1 bản đồ dài của chính đảo; địa danh cắt từ bản đồ dài theo `SPOTS_REAL` của `../Islands/build_zone70_<đảo>.py`.
+- **Gen qua Magnific** (GPT 2.6, 2:3, 1k high, 95 credit/ảnh; sheet `fx` 3:2 với `transparentBackground`): tải ảnh mẫu theo đúng thứ tự file prompt (một lần, dùng lại identifier), bản duyệt lượt 1 dùng thẳng identifier của ảnh Magnific, gửi phần chữ của file prompt (bỏ đường dẫn, mục SAVE). 2 lượt 1 + 16 lượt + 2 lượt sửa = 20 ảnh, 1.900 credit.
+- **Duyệt:** mọi nền đúng bố cục, chỗ bảng máu chỉ có trời, đất. Bệ: soi chấm chân tướng (`soi_<mã>.png`) phóng to. Kim `c06` bệ xa thấp ~28 px, lệch trái ~30 px (chân tướng rơi mép sau bệ), Kim `b70` bệ boss cao ~60 px (chân boss rơi mặt bên chạm cánh): sửa bằng `sua_<mã>.txt` (ảnh mẫu: ảnh cũ, ảnh soi khung, bố cục), GPT giữ nguyên phần còn lại; đã duyệt `<mã>_2.png`. Thổ `c09` bệ xa sát mép sau nhưng chân tướng vẫn trên mặt bệ: giữ.
+- **Đã xuất (2026-11-27):** `--xuat` từng đảo: 16 nền `battle_<đảo>_<khoá>.png` (1080 × 1528), sheet cắt thành 12 ảnh `Anim/san_*`, 34 khoá `kim_*`, `tho_*` trong `arena_fx.json` (chỉ thêm dòng, giữ khoá đảo khác). Phần động (`FX`) chỉ dùng kiểu có sẵn của `ArenaAnim`: sóng chuông, cực quang, tia nắng, lửa lò là `glow` với ảnh riêng; tuyết, lá, lông vũ, đá vụn là `leaf`; phù văn đá, hơi nước, khói, bụi là `wisp`; luồng cát là `cloud`; gió ruộng là `wave` với `anim_wind`. Unity: refresh qua cầu nối MCP, menu `PokiClash/Dựng lại danh mục ảnh` (2469 → 2497 ảnh gen; nền `c01` ở bản cài, 7 nền mỗi đảo vào nhóm `noi_dung_kim`, `noi_dung_tho`). Chưa Play thử (người dùng tự thử).

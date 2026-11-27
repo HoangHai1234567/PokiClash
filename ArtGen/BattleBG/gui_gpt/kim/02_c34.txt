@@ -1,0 +1,45 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = C:\Atomik\PokiWar\ArtGen\BattleBG\kim\c12.png (1024 x 1536): the approved battle background of this island (a normal stage): copy its rendering, colours, perspective, platform look and brightness; not its content
+image 2 = C:\Atomik\PokiWar\ArtGen\BattleBG\refs\kim\03_rung_luoi_liem.png (512 x 512): a crop of this island's new map, seen from above, showing the trees with silver trunks and sickle-shaped steel-blue leaves: draw the same landmark here, seen from the side, with its colours and shapes
+image 3 = C:\Atomik\PokiWar\ArtGen\BattleBG\refs\kim\04_thap_canh_thep.png (512 x 512): a crop of this island's new map, seen from above, showing the steel watchtower: draw the same landmark here, seen from the side, with its colours and shapes
+image 4 = C:\Atomik\PokiWar\ArtGen\BattleBG\gui_gpt\kim\bo_cuc_c34.png (1024 x 1536): the layout sketch of the image you draw now: follow it exactly
+
+SAVE: save the finished image as a 1024 x 1536 PNG to
+C:\Atomik\PokiWar\ArtGen\BattleBG\kim\tai_ve\c34.png
+Create the folder if it is missing. If that file already exists, save it as c34_2.png, c34_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: the battle background for the stages at the Sickle-Leaf Grove and the Steel Watchtower (stages 10–19) of the Metal island, an island of steel mountains, iron harbours and bronze bells, in a vertical mobile monster-battle game. Two fighters (cut-out stickers with a white paper border, added by the game) fight on it: the enemy on the smaller far platform at the upper left, the player's fighter on the bigger near platform at the lower right.
+
+RENDERING: exactly as image 1 (the approved battle background of this island): the same ink, hatching, paper, perspective, platform size and look. Not 3D, not glossy, no tiny noisy details. The fighters must stand out: most detail and contrast on the landmark and along the left and right edges; the middle stays simple. The fighters of this island are mostly dark steel grey and silver with a few red details: keep the whole battle area light (pale blue-grey gravel, cream stone, soft greens, warm bronze accents), never a dark grey middle, and the two platform tops pale cream, so dark grey fighters stand out.
+
+TALL FORMAT: draw a vertical 1024 x 1536 image. Ordinary phones show only its bottom 880 px (the battle area, from the white dashed line at y = 656 down); longer phones show more of the top, up to y = 87 on the longest. The top 87 px (dark strip in the sketch) are never shown. So everything the battle needs (both platforms, the landmark, the horizon) is in the bottom 880 px, and the top part only continues the scene upward.
+
+VIEW: a side three-quarter view like a stage in a picture book: eye level a little above the fighters' heads, looking slightly down; the ground rises towards the horizon and things get smaller with distance. Not a top-down map.
+
+LAYOUT: follow image 4 exactly. It is only a colour-coded plan: pale blue = sky; steel blue = leaf crowns, bushes or a far grove; pale blue-grey = gravel ground, pebbles or far hills; dark blue-grey = riveted steel structures; light grey with an ink edge = the landmark; cream ovals with a thick ink edge = the two platforms; pink dashed outlines = places to keep plain for the game's moving effects (see EFFECTS); white dashed boxes = the fighters' bodies; grey diagonal lines = covered by the game's panels; white dashed line across at y = 656 = the top edge of the battle area on ordinary phones; dark strip at the very top = never shown. Do not copy its flat colours, its grey diagonal lines, its dashed lines or its dark strip.
+
+FIGHTERS: the far fighter is up to about 344 px tall (white dashed box x 188-411, y 760-1104), the near one up to about 368 px (box x 614-872, y 1081-1449). Right behind their bodies keep only calm sky, water, rock or ground: no tall object, bright spot or busy pattern. Keep the diagonal between the two platforms open and calm (flat ground or water, a few small tufts): the fighters lunge across it.
+
+PANELS: the game covers the top-right of the battle area (x 553-1024, y 656-862) and the bottom-left (x 11-470, y 1309-1481) with name-and-health panels (grey diagonal lines in the sketch). Draw only plain sky, water or ground there: no landmark, no tree top, no bright spot.
+
+SCENE: a clearing in a grove of strange trees on the steel island, on a clear, windy afternoon. A wall of round trees with silver-grey trunks and crowns of long curved leaves shaped like sickle blades (leaves, not weapons), steel blue and pale green, closes the back along the horizon (tree tops from about y = 880 at the left to y = 898 at the right); the near ground from about y = 1002 is pale blue-grey gravel with short silvery grass and a few fallen curved leaves. At the right edge, below y = 884, one smaller tree of the same kind with a round crown.
+
+LANDMARK: at the far left a tall watchtower of riveted steel girders (x 24-176) rises from the ground up into the top part: a small lookout cabin with windows at about y 236-336 and a pointed spire like a lance tip up to about y = 130; at its foot (x 0-200, y 900-1072) a few iron crates and a ladder (the Steel Watchtower); and the sickle-leaf trees all around (the Sickle-Leaf Grove).
+Draw it like images 2, 3 (the same landmark on the island map, seen from above there; draw it from the side here, much bigger).
+
+DETAILS: fallen curved leaves on the gravel, grey rocks with silvery moss, a short wooden fence far behind in the middle, a small pennant on the spire (plain, no writing).
+
+TOP PART (y 87-656, only on longer phones): the top of the steel watchtower with its lookout cabin and spire at the left; the rest a clear, fresh sky, pale blue with long thin wind-swept cream clouds streaming to the right.
+
+PLATFORMS: exactly where the sketch has them, same centre and size: the far one centred at (300, 1108), about 344 x 100 px; the near one centred at (743, 1455), about 464 x 137 px, its bottom edge about 13 px above the image bottom. Their tops are flat, level, EMPTY and a little lighter than the ground around them, with a crayon-hatched rim and a soft contact shadow; nothing stands on them. Material: both are flat round slabs of pale cream stone set in a thin riveted iron rim, clearly lighter than the gravel; the tops stay empty.
+
+LIGHT: clear windy afternoon, crisp light from the left, cool and fresh.
+
+EFFECTS: the game animates these on top of your image, so leave their places as described and do NOT draw them:
+- curved leaves blowing through the air (pink dashed box): no leaves in the air;
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, insects; any UI, frame or border; white sticker outlines; leaves in the air, smoke, sparks, glowing dots, glows.
+
+Remember: save the image to C:\Atomik\PokiWar\ArtGen\BattleBG\kim\tai_ve\c34.png
