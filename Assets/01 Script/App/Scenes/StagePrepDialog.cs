@@ -206,14 +206,16 @@ namespace PokiClash
                 return;
             }
             if (!Tutorial.CoreDone(s)) return;
-            // F8: đội 1 ô mà tướng trong đội không khắc địch, trong kho có tướng khắc: đổi
+            // F8: đội 1 ô mà tướng trong đội không khắc địch, trong kho có tướng khắc: gợi ý nên đổi, khoanh ô đội nhưng không ép (người dùng
+            // 2026-11-27: "chỉ gợi ý người chơi là nên đổi thôi, không ép họ phải đổi ở FTUE"); người chơi Xuất trận luôn cũng được
             var lead = leadEnemy;
             if (team.Count > 0 && Progress.TeamSlots(s) == 1 && Elements.Beats(d.Hero(team[0]).elem) != lead.elem)
             {
                 var better = s.heroes.Where(kv => kv.Value.owned && d.Hero(kv.Key) is HeroDef hd && Elements.Beats(hd.elem) == lead.elem)
                     .Select(kv => d.Hero(kv.Key)).FirstOrDefault();
-                if (better != null && Guide.Force(Tutorial.Swap, "prep.slot0",
-                        Loc.F("Địch hệ {0}. {1} hệ {2} khắc {0}: chạm ô đội để đổi.", Elements.Name(lead.elem), better.name, Elements.Name(better.elem))))
+                if (better != null && Guide.Hint(Tutorial.Swap, "prep.slot0",
+                        Loc.F("Địch hệ {0}. {1} hệ {2} khắc {0}, nên cho vào đội: chạm ô đội nếu muốn đổi.", Elements.Name(lead.elem), better.name,
+                            Elements.Name(better.elem)), 8))
                     return;
             }
             // D12 (2026-11-27): lần đầu đội có tướng bị tướng chính của địch khắc (tướng đồng hành không tính, nó không chịu thiệt): khoanh ô

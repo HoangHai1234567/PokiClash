@@ -262,7 +262,7 @@ Mỗi dòng chạy đúng một lần, khi điều kiện xảy ra lần đầu.
 | F5 | vòng nấm lần đầu quá 12/25 | vòng nấm | "Bi chạm nấm 25 lần: nấm trái ra rương bạc, nấm phải ra 5 bi." | Chú thích |
 | F6 | vào máy bi khi có từ 40 bi | viên cược | "Cược ×2: tốn 2 bi mỗi lần, thưởng ×2. Nhanh hơn, không lời hơn." | Gợi ý |
 | F7 | lần đầu có 150 bi (mở ×3) | viên cược | toast có sẵn "Mở cược ×3", nút nhún | — |
-| F8 | có 2 tướng; ải kế có địch mà tướng thứ hai khắc, còn tướng trong đội không khắc | hộp Chuẩn bị, ô đội | "Địch hệ {x}. {tuong2} hệ {y} khắc {x}: đổi vào đội?" Khoanh ô đội, mở bể tướng | Ép (một lần) |
+| F8 | có 2 tướng; ải kế có địch mà tướng thứ hai khắc, còn tướng trong đội không khắc | hộp Chuẩn bị, ô đội | "Địch hệ {x}. {tuong2} hệ {y} khắc {x}, nên cho vào đội: chạm ô đội nếu muốn đổi." Khoanh ô đội, không ép (người dùng 2026-11-27: chỉ gợi ý, không bắt đổi) | Gợi ý (một lần, 8 giây) |
 | F9 | lần đầu thu phục tướng bằng mảnh | hộp "Thu phục!" | tướng mới chào; "Cho vào đội ở hộp Chuẩn bị hoặc màn Tướng." | — |
 | F10 | lần đầu đủ mảnh lên sao | chấm đỏ ở Tướng, rồi nút Lên sao | "Mảnh dư dùng để lên sao: mạnh thêm." | Gợi ý |
 | F11 | qua mốc Huyền thoại (thanh đổi sang mốc quà) | thanh mốc quà | "Từ giờ, cứ thả đủ bi là có quà." | Chú thích |

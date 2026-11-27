@@ -38,10 +38,17 @@ namespace PokiClash
     {
         public static SeaAnchor Active { get; private set; }
 
+        [Tooltip("Lớp kéo của cả bản đồ (sảnh, Casino: keo của HubPan; Nhà: the_gioi): chuyến tàu dời lớp này để chụp phần đảo ngoài khung")]
+        [SerializeField] RectTransform map;
+
         Vector2 shift; // dời gốc (toạ độ local của lớp), chuyến tàu đặt lúc tới cho biển màn mới nối liền biển chuyến tàu
         float mul = 1; // nhân cỡ ô (chuyến tàu đặt khi cỡ thật của màn cũ, màn mới lệch nhau)
 
         public RectTransform Rt => (RectTransform)transform;
+        public RectTransform Map => map ? map : Rt;
+
+        // Dùng khi dựng prefab (Editor).
+        public void SetMap(RectTransform layer) => map = layer;
         public Vector3 OriginWorld => transform.TransformPoint(shift);
         public float TileWorld => SeaWorld.Tile * mul * Mathf.Abs(transform.lossyScale.x);
 

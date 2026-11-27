@@ -6,6 +6,8 @@
 // - vật liệu UIHomeSea của biển trong ảnh nền Nhà (home_sea.mat) và sóng bờ (sanh_bo.mat, casino_bo.mat): _TileWorld = 1, _TileTex =
 //   sanh_bien (Casino trước dùng tau_bien), nên biển trong ảnh, sóng bờ, biển mở, chuyến tàu là một mặt nước ghim theo thế giới;
 // - Nhà: LandView.hardEdge = (150, 150, 150, 0): rừng rìa cắt thẳng ở mép trái, phải, trên; kéo quá tay không lộ đường cắt.
+// - SeaAnchor.map = lớp kéo cả bản đồ (HubPan.target; Nhà: the_gioi): chuyến tàu dời lớp này để chụp phần đảo ngoài khung; lớp biển mở
+//   và lớp nhuộm theo giờ (sang_toi/nhuom) tràn ra Reach mỗi phía để ô chụp xa vẫn là biển thật, cùng màu theo giờ.
 // Menu "PokiClash/Prefab/Sảnh và đảo/Biển chung: sảnh, Nhà, Casino" hoặc cờ Temp/sea_world.flag (nội dung: hub, home, casino, cách bởi
 // dấu phẩy; trống là cả ba; chạy khi Unity không Play, không biên dịch). HomeSeaOutMenu (Nhà) và ShoreWaveMenu (sảnh, Casino) gọi lại
 // sau khi vá xong. Chạy lại được.
@@ -96,6 +98,17 @@ namespace PokiClash.EditorTools
             return mat;
         }
 
+        const float Reach = 8000; // biển mở, lớp nhuộm tràn ra mỗi phía của khung cha (đơn vị UI)
+
+        // lớp neo phủ khung cha (0,0)-(1,1): tràn ra mỗi phía ít nhất Reach
+        static void StretchOut(RectTransform rt)
+        {
+            if (rt.anchorMin != Vector2.zero || rt.anchorMax != Vector2.one) return;
+            if (rt.offsetMax.x >= Reach && rt.offsetMax.y >= Reach && -rt.offsetMin.x >= Reach && -rt.offsetMin.y >= Reach) return;
+            rt.offsetMin = -Vector2.one * Reach;
+            rt.offsetMax = Vector2.one * Reach;
+        }
+
         static void Patch(Spec s, Material mat, Texture2D tile, Sprite sprite)
         {
             var root = PrefabUtility.LoadPrefabContents(s.prefab);
@@ -108,7 +121,17 @@ namespace PokiClash.EditorTools
                     Debug.LogError($"[Biển chung] {s.prefab} thiếu lớp kéo {s.anchor}");
                     return;
                 }
-                if (!anchor.GetComponent<SeaAnchor>()) anchor.gameObject.AddComponent<SeaAnchor>();
+                var sa = anchor.GetComponent<SeaAnchor>();
+                if (!sa) sa = anchor.gameObject.AddComponent<SeaAnchor>();
+                // lớp kéo cả bản đồ (chuyến tàu dời để chụp phần đảo ngoài khung): đích của HubPan (sảnh, Casino), không có thì chính lớp này (Nhà)
+                RectTransform map = anchor;
+                var pan = root.GetComponentInChildren<HubPan>(true);
+                if (pan)
+                {
+                    var t = new SerializedObject(pan).FindProperty("target");
+                    if (t != null && t.objectReferenceValue is RectTransform tr && anchor.IsChildOf(tr)) map = tr;
+                }
+                sa.SetMap(map);
                 var sea = anchor.GetComponentsInChildren<Image>(true).FirstOrDefault(i => i.name == s.sea);
                 if (sea)
                 {
@@ -116,8 +139,13 @@ namespace PokiClash.EditorTools
                     sea.type = Image.Type.Simple;
                     if (sprite) sea.sprite = sprite;
                     sea.raycastTarget = false;
+                    // biển mở tràn xa (một tấm, shader bỏ uv nên không tốn thêm): chuyến tàu chụp thêm các ô kề quanh khung tới vài màn
+                    StretchOut(sea.rectTransform);
                 }
-                note = $"SeaAnchor trên {s.anchor}, lớp biển {(sea ? s.sea + " " + sea.rectTransform.rect.size : "KHÔNG THẤY " + s.sea)}";
+                // lớp nhuộm theo giờ (sang_toi/nhuom, nhân màu) tràn theo biển: ô kề xa vẫn nhuộm như biển chuyến tàu
+                var tint = map.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.name == "nhuom" && t.parent && t.parent.name == "sang_toi");
+                if (tint) StretchOut(tint);
+                note = $"SeaAnchor trên {s.anchor} (lớp kéo {map.name}), lớp biển {(sea ? s.sea + " " + sea.rectTransform.rect.size : "KHÔNG THẤY " + s.sea)}";
                 if (s.hard != Vector4.zero)
                 {
                     var lv = root.GetComponentInChildren<LandView>(true);

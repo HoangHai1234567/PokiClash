@@ -62,7 +62,9 @@ namespace PokiClash
             m.Sheet = view.Sheet;
             m.Body = view.Sheet;
             stack.Add(m);
-            StartCoroutine(SlideIn(view.Sheet, view.Dim, view.Flat));
+            var dlg = view.GetComponent<Dialog>();
+            if (dlg && dlg.QuickOpen) StartCoroutine(PopIn(view.Sheet, view.Dim));
+            else StartCoroutine(SlideIn(view.Sheet, view.Dim, view.Flat));
             App.Audio?.Play("open", 0.7f);
             Haptics.Play(Haptic.UiOpen);
             return m;
@@ -113,6 +115,28 @@ namespace PokiClash
             var top = stack[stack.Count - 1];
             if (!top.Mandatory) Close(top);
             return true;
+        }
+
+        // hiện nhanh (Dialog.QuickOpen, 2026-11-27 người dùng: "khi tap vào icon shop, shop hiện lên vẫn hơi bị delay nhẹ, tôi cần nó hiện lên
+        // ngay"): khung đầu đã thấy đủ tờ ở 0,97, phóng tới 1 trong 0,14 giây, không trượt, không xoay
+        IEnumerator PopIn(RectTransform sheet, Image dim)
+        {
+            var dimColor = dim.color;
+            const float dur = 0.14f;
+            sheet.localEulerAngles = Vector3.zero;
+            for (float t = 0; t < dur; t += Time.unscaledDeltaTime)
+            {
+                if (!sheet) yield break;
+                float k = t / dur;
+                float e = 1 - (1 - k) * (1 - k);
+                float s = Mathf.Lerp(0.97f, 1, e);
+                sheet.localScale = new Vector3(s, s, 1);
+                dim.color = new Color(dimColor.r, dimColor.g, dimColor.b, dimColor.a * Mathf.Clamp01(k * 2f));
+                yield return null;
+            }
+            if (!sheet) yield break;
+            sheet.localScale = Vector3.one;
+            dim.color = dimColor;
         }
 
         IEnumerator SlideIn(RectTransform sheet, Image dim, bool flat = false)

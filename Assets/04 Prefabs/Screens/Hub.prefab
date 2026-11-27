@@ -34570,7 +34570,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 16000, y: 16000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &924792656202838177
 CanvasRenderer:
@@ -51910,6 +51910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e48cb589edba24aacf3b4dc6f2547e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  map: {fileID: 3734394218514475570}
 --- !u!1 &6254829876330421874
 GameObject:
   m_ObjectHideFlags: 0
@@ -66226,7 +66227,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4800, y: 4800}
+  m_SizeDelta: {x: 16000, y: 16000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7022149227658068282
 CanvasRenderer:

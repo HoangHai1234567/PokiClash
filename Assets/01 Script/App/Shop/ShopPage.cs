@@ -78,7 +78,9 @@ namespace PokiClash
         Canvas under;
         float hideAt = -1;
 
-        void OnEnable() => hideAt = Time.unscaledTime + 0.4f; // sau hiệu ứng trượt vào 0,32 giây
+        void OnEnable() => hideAt = Time.unscaledTime + 0.2f; // sau hiệu ứng hiện nhanh 0,14 giây (QuickOpen)
+
+        public override bool QuickOpen => true;
 
         void HideUnder()
         {
@@ -133,22 +135,63 @@ namespace PokiClash
             Offers.EnsureStarter(S, D, Now);
             s.jumpTo = section == "heroes" ? "eggs" : section ?? "offers"; // mở không chỉ mục: về đầu trang
             s.Nav();
-            s.Redraw();
+            s.RedrawOpen();
             ShopLog.Event("shop_open", section ?? "offers", 0);
             return s;
         }
 
+        Coroutine building; // các mục sau đang dựng dần (RedrawOpen)
+
         public void Redraw()
         {
             if (!this) return;
+            if (building != null)
+            {
+                StopCoroutine(building);
+                building = null;
+            }
             float keep = p.scroll.verticalNormalizedPosition;
-            for (int i = p.content.childCount - 1; i >= 0; i--) Destroy(p.content.GetChild(i).gameObject);
-            anchors.Clear();
+            ClearContent();
             DrawOffers();
             DrawFree();
             DrawEggs();
             DrawBalls();
             DrawPerks();
+            Finish(keep);
+        }
+
+        // Mở (người dùng 2026-11-27: "khi tap vào icon shop, shop hiện lên vẫn hơi bị delay nhẹ, tôi cần nó hiện lên ngay"): dựng cả 5 mục
+        // trong khung chạm làm khựng trước khi tờ hiện. Mục đầu (ưu đãi, phần nhìn thấy khi mở) dựng ngay, các mục sau mỗi khung một mục
+        // trong lúc tờ đang hiện; mở thẳng tới một mục thì nhảy tới khi dựng xong. Redraw giữa chừng (mua, nhận) thì dựng lại đủ ngay.
+        void RedrawOpen()
+        {
+            if (building != null) StopCoroutine(building);
+            if (jumpTo == "offers") jumpTo = null; // mục đầu: đang ở đầu trang sẵn, khỏi nhảy (lỡ người chơi đã kéo trong lúc dựng)
+            ClearContent();
+            DrawOffers();
+            building = StartCoroutine(DrawRest());
+        }
+
+        System.Collections.IEnumerator DrawRest()
+        {
+            foreach (var draw in new Action[] { DrawFree, DrawEggs, DrawBalls, DrawPerks })
+            {
+                yield return null;
+                draw();
+            }
+            building = null;
+            Finish(-1);
+        }
+
+        void ClearContent()
+        {
+            for (int i = p.content.childCount - 1; i >= 0; i--) Destroy(p.content.GetChild(i).gameObject);
+            anchors.Clear();
+        }
+
+        // keep < 0: giữ nguyên chỗ cuộn hiện tại
+        void Finish(float keep)
+        {
             Canvas.ForceUpdateCanvases();
             LayoutRebuilder.ForceRebuildLayoutImmediate(p.content);
             if (jumpTo != null)
@@ -156,7 +199,7 @@ namespace PokiClash
                 Jump(jumpTo);
                 jumpTo = null;
             }
-            else p.scroll.verticalNormalizedPosition = keep;
+            else if (keep >= 0) p.scroll.verticalNormalizedPosition = keep;
             Dots();
         }
 

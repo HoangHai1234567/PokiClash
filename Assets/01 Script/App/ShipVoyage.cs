@@ -12,7 +12,9 @@
 //   của bến cũ → đường cong qua dải mây → đường vào bến mới tới tận chỗ đậu; tốc độ tăng dần khi rời bến, hãm dần khi cập bến (hồ sơ tốc
 //   độ tính trước theo cả đường). Camera trượt theo tàu (SmoothDamp, đi trước tàu một đoạn theo tốc độ), bắt đầu và dừng đúng hai ảnh
 //   màn; mây ở mép màn cũ khép từ hai bên khi tàu rời bến, mây ở mép màn mới dạt ra khi camera tới nơi; giữa dải mây toả quanh tàu và
-//   khép sau đuôi. Tàu đậu xong thì lớp này tắt (màn thật y như ảnh), tàu của màn hiện đúng chỗ đậu (PierShip.DockedFrom), giao diện
+//   khép sau đuôi. Dải mây nằm giữa hai đảo (bắt đầu ngoài mép màn), không đè lên đảo.
+// - Ảnh màn gồm cả phần đảo ngoài khung (người dùng 2026-11-27 "khi tàu rời bến thì phần đảo nằm ngoài cam bị cắt đi"): ngoài ô chính,
+//   chụp thêm các ô kề cỡ màn mà camera sẽ quét qua (dời lớp kéo của bản đồ, SeaAnchor.Map), nửa độ phân giải; xem Capture. Tàu đậu xong thì lớp này tắt (màn thật y như ảnh), tàu của màn hiện đúng chỗ đậu (PierShip.DockedFrom), giao diện
 //   cố định hiện lại. Không chuyền tàu qua lại giữa màn và lớp này giữa đường như bản cũ.
 // - Hướng đi trên màn (người dùng 2026-11-27): sảnh → Nhà thẳng lên (về thẳng xuống), Nhà → đảo Casino sang trái (về sang phải),
 //   sảnh → Casino chéo lên trái, Casino → sảnh chéo xuống phải; màn tải đi lên. Dải thế giới nằm dọc theo hướng đi ax (đi chéo: bề
@@ -47,7 +49,10 @@ namespace PokiClash
         const float NearK = 1.5f; // trần tốc gần bến: tốc bến + NearK × khoảng tới bến (đơn vị/giây trên mỗi đơn vị)
         const float CamLead = 0.18f; // camera đi trước tàu 0,18 bề dài màn khi chạy hết tốc
         const float CamLag = 0.42f; // độ trễ camera (giây, SmoothDamp)
-        const float Overlap = 0.3f; // dải mây phủ lên mép ảnh màn cũ / mới 0,3 bề dài màn
+        // dải mây bắt đầu ngay ngoài mép trước màn cũ, hết trước mép sau màn mới 0,15 bề dài màn: mây nằm giữa các đảo, không đè lên đảo
+        // (ảnh màn đã có phần đảo ngoài khung, biển chung không còn đường nối phải giấu như bản phủ lấn 0,3 vào màn)
+        const float BandOut = 0.15f;
+        const float Edge = 0.3f; // vùng mây khép / dạt ở mép dải (bề dài màn, cộng 260)
         const float Gap = 2400; // khoảng biển mây tối thiểu giữa hai màn (đơn vị)
         const float Step = 10; // bước lấy mẫu đường đi
         const float BootMin = 2.4f;
@@ -101,6 +106,16 @@ namespace PokiClash
         float bandA = float.PositiveInfinity, bandB = float.PositiveInfinity, kA = 1, kB = 1; // dải mây [A, B]; độ khép mây ở hai mép
         float qNew = float.PositiveInfinity; // tâm ảnh màn mới
         RenderTexture rtOld, rtNew;
+        // ô chụp kề ảnh màn cũ / mới (Capture): phần đảo ngoài khung lúc camera trượt đi / tới
+        sealed class Tile
+        {
+            public RawImage img;
+            public RenderTexture rt;
+            public Vector2 off; // lệch so với tâm ảnh chính (toạ độ màn, bội số cỡ màn)
+            public bool arrival;
+        }
+        readonly List<Tile> tiles = new List<Tile>();
+        readonly List<RawImage> tilePool = new List<RawImage>(); // RawImage nhân từ oldShot lần đầu cần, giữ lại dùng tiếp
         float bootT0, tipT;
         int tipIdx;
         Vector2 lastSize, logoPos;
@@ -197,6 +212,8 @@ namespace PokiClash
         }
 
         float H => Size.y;
+        // khoảng giữa tâm hai ảnh màn trên dải (biết trước lúc chụp màn cũ: Close chụp phần đảo ngoài khung tới giữa đường)
+        float Span => L + Mathf.Max(1.1f * L, Gap);
         // bề dài của màn theo hướng đi / bề ngang vuông góc (đi chéo: hình chiếu của màn)
         float L => Mathf.Abs(ax.x) * Size.x + Mathf.Abs(ax.y) * Size.y;
         float Wd => Mathf.Abs(ax.y) * Size.x + Mathf.Abs(ax.x) * Size.y;
@@ -264,6 +281,20 @@ namespace PokiClash
             rtOld = rtNew = null;
             if (oldShot) oldShot.texture = null;
             if (newShot) newShot.texture = null;
+            foreach (var t in tiles)
+            {
+                if (t.rt)
+                {
+                    t.rt.Release();
+                    Destroy(t.rt);
+                }
+                if (t.img)
+                {
+                    t.img.texture = null;
+                    t.img.gameObject.SetActive(false);
+                }
+            }
+            tiles.Clear();
         }
 
         void Restart()
@@ -277,6 +308,7 @@ namespace PokiClash
             foreach (var c in carry)
                 if (c) c.gameObject.SetActive(false);
             qc = qc0 = 0;
+            shotsNewTop = false;
             follow = trip = tripDone = false;
             bandA = bandB = qNew = float.PositiveInfinity;
             kA = kB = 1;
@@ -343,11 +375,6 @@ namespace PokiClash
             }
             ringOld = CloudRing.Active;
             if (ringOld && root && ringOld.gameObject.scene != root.gameObject.scene) ringOld = null;
-            if (ringOld)
-            {
-                Carry(ringOld, 0, false);
-                ringOld.Show(false);
-            }
             // gốc biển của màn cũ (biển của dải ghim theo ảnh chụp này)
             var anchor = SeaAnchor.Active;
             if (anchor && root && anchor.gameObject.scene != root.gameObject.scene) anchor = null;
@@ -364,7 +391,8 @@ namespace PokiClash
                 seaU0 = Vector2.zero;
             }
             seaTb = seaTa;
-            rtOld = Snap();
+            // chụp màn cũ và phần đảo ngoài khung theo hướng camera sẽ trượt (như một bản đồ liền)
+            rtOld = Capture(anchor, ringOld, 0, false, ax);
             if (oldShot) oldShot.texture = rtOld;
             SeaWorld.Held = true;
             seaOn = true;
@@ -374,7 +402,7 @@ namespace PokiClash
             look.Face(face, true);
             look.ClearFoam();
             look.Show(true);
-            bandA = L / 2 - Overlap * L;
+            bandA = L / 2 + BandOut * L;
             kA = 0;
             Layout(0);
             Closed = true;
@@ -408,7 +436,7 @@ namespace PokiClash
             yield return new WaitForSecondsRealtime(0.12f);
             // màn mới đặt sau dải mây: mép gần cách mép trước màn cũ (hoặc chỗ camera màn tải) một khoảng biển mây
             qc0 = qc;
-            qNew = qc0 + L + Mathf.Max(1.1f * L, Gap);
+            qNew = qc0 + Span;
             float lossy = Mathf.Max(1e-5f, look.transform.lossyScale.x);
             arrive.Clear();
             endPier = pier;
@@ -433,11 +461,6 @@ namespace PokiClash
             ringNew = CloudRing.Active;
             if (ringNew && root && ringNew.gameObject.scene != root.gameObject.scene) ringNew = null;
             kArr = kCount;
-            if (ringNew)
-            {
-                Carry(ringNew, qNew, true);
-                ringNew.Show(false);
-            }
             // biển màn mới: cỡ ô thật của màn mới; gốc dời cho trùng biển của dải lúc camera tới qNew
             var anchor = SeaAnchor.Active;
             if (anchor && root && anchor.gameObject.scene != root.gameObject.scene) anchor = null;
@@ -450,10 +473,12 @@ namespace PokiClash
                 anchor.Match(World(o), t * al);
                 anchor.Apply();
             }
-            rtNew = Snap();
+            // chụp màn mới và phần đảo ngoài khung phía camera tới (ngược hướng đi)
+            rtNew = Capture(anchor, ringNew, qNew, true, -ax);
             ApplySea();
+            Restack(false); // đầu chuyến ảnh màn cũ nằm trên (ô kề màn mới vừa chèn vào dưới ảnh màn cũ)
             if (newShot) newShot.texture = rtNew;
-            bandB = qNew - L / 2 + Overlap * L;
+            bandB = qNew - L / 2 - BandOut * L;
             kB = 1;
             if (!follow) System.GC.Collect(); // dọn rác lúc màn còn đứng yên (tàu chờ ở bến), khỏi khựng giữa đường
             BuildTrip();
@@ -958,8 +983,22 @@ namespace PokiClash
             ApplySea();
             Place(oldShot, rtOld, 0);
             Place(newShot, rtNew, qNew);
+            // ảnh đảo gần camera nằm trên: nửa đường đầu ảnh màn cũ (và ô kề của nó) trên ảnh màn mới, qua giữa đường thì ngược lại; đổi lúc
+            // camera ở giữa dải mây
+            bool newTop = rtNew && qc > (qc0 + qNew) * 0.5f;
+            if (newTop != shotsNewTop) Restack(newTop);
+            // ô kề của ảnh màn: cùng chỗ trong thế giới với ảnh chính, lệch đúng bội số cỡ màn
+            foreach (var t in tiles)
+            {
+                var p = ax * ((t.arrival ? qNew : 0) - qc) + t.off;
+                bool on = t.rt && Mathf.Abs(p.x) < size.x && Mathf.Abs(p.y) < size.y;
+                if (t.img.gameObject.activeSelf != on) t.img.gameObject.SetActive(on);
+                if (!on) continue;
+                t.img.rectTransform.sizeDelta = size;
+                t.img.rectTransform.anchoredPosition = p;
+            }
             float Wh = band.x / 2 + 220;
-            float edge = Overlap * band.y + 260; // vùng mây khép / dạt ở mép dải
+            float edge = Edge * band.y + 260; // vùng mây khép / dạt ở mép dải
             // mọi đám mây còn thấy được trên ảnh màn cũ / mới đều khép / dạt theo kA / kB (không đám nào hiện sẵn trên màn lúc tàu còn đậu)
             float seenA = qc0 + band.y / 2 + 400, seenB = qNew - band.y / 2 - 400;
             // vùng toả: quanh thân tàu; mây dạt ngang hai bên, mở trước mũi, khép lại đúng chỗ sau đuôi (người dùng: thấy rõ thuyền,
@@ -1029,8 +1068,9 @@ namespace PokiClash
             return n * (s * R * k * k * g);
         }
 
-        // mang mây vành của màn (đang đúng chỗ trên màn hình) sang dải thế giới (ToBand, tâm màn ở q0)
-        void Carry(CloudRing ring, float q0, bool arrival)
+        // mang mây vành của màn (đang đúng chỗ trên màn hình) sang dải thế giới (ToBand, tâm màn ở q0): đám trong vùng chụp (màn và các ô
+        // kề offs, nới một dải), gần tâm màn trước; kho có hạn, đám không mang được thì vẽ luôn vào ảnh chụp. keep: chỉ số đã mang
+        void Carry(CloudRing ring, float q0, bool arrival, List<Vector2> offs, List<int> keep)
         {
             if (kBase == null || kBase.Length != carry.Length)
             {
@@ -1042,19 +1082,24 @@ namespace PokiClash
             float al = Mathf.Max(1e-5f, area.lossyScale.x);
             float layer = ring.Layer.lossyScale.x / al;
             var half = Size / 2;
-            // mây gần màn hình trước (kho có hạn): trong màn và một dải quanh màn
             var order = new List<(float d, int i, Vector2 s)>();
             for (int i = 0; i < ring.Count; i++)
             {
                 var s1 = Local(ring.Layer.TransformPoint(ring.Home(i)));
                 float ex = Mathf.Max(0, Mathf.Abs(s1.x) - half.x), ey = Mathf.Max(0, Mathf.Abs(s1.y) - half.y);
-                if (ex > 420 || ey > 700) continue;
-                order.Add((ex + ey, i, s1));
+                bool near = ex <= 420 && ey <= 700;
+                for (int k = 0; !near && k < offs.Count; k++)
+                    near = Mathf.Abs(s1.x - offs[k].x) <= half.x + 300 && Mathf.Abs(s1.y - offs[k].y) <= half.y + 300;
+                if (!near) continue;
+                order.Add((s1.magnitude, i, s1));
             }
             order.Sort((x, y) => x.d.CompareTo(y.d));
+            // màn cũ lấy tối đa 55% kho, phần còn lại để dành cho màn mới
+            int cap = arrival ? carry.Length : Mathf.RoundToInt(carry.Length * 0.55f);
             foreach (var (_, i, s0) in order)
             {
-                if (kCount >= carry.Length) break;
+                if (kCount >= cap) break;
+                keep.Add(i);
                 var src = ring.Cloud(i);
                 var img = carry[kCount];
                 img.sprite = src.sprite;
@@ -1083,6 +1128,28 @@ namespace PokiClash
             ringNew = null;
         }
 
+        bool shotsNewTop;
+
+        // xếp lại thứ tự vẽ khối ảnh chụp (ô kề + ảnh chính của màn cũ, của màn mới): nhóm nằm trên vẽ sau
+        void Restack(bool newTop)
+        {
+            shotsNewTop = newTop;
+            if (!oldShot || !newShot) return;
+            var list = new List<Transform>();
+            void Group(bool arrival)
+            {
+                foreach (var t in tiles)
+                    if (t.arrival == arrival && t.img)
+                        list.Add(t.img.transform);
+                list.Add((arrival ? newShot : oldShot).transform);
+            }
+            Group(!newTop); // nhóm dưới trước
+            Group(newTop);
+            int at = int.MaxValue;
+            foreach (var tr in list) at = Mathf.Min(at, tr.GetSiblingIndex());
+            for (int k = 0; k < list.Count; k++) list[k].SetSiblingIndex(at + k);
+        }
+
         void Place(RawImage shot, RenderTexture rt, float q)
         {
             if (!shot) return;
@@ -1093,12 +1160,165 @@ namespace PokiClash
 
         // ---------- chụp màn ----------
 
+        // chụp màn và các ô kề theo hướng camera sẽ trượt (dir: hướng camera đi trên màn, so với tâm ảnh màn này), như một bản đồ liền
+        // (người dùng 2026-11-27: "khi tàu rời bến thì phần đảo nằm ngoài cam bị cắt đi ... mô phỏng thật như 3 đảo trong cùng 1 map"):
+        // ô chính đủ nét; ô kề dời lớp kéo của bản đồ (SeaAnchor.Map) đúng một màn rồi chụp, thu nửa độ phân giải (chỉ thấy lúc camera
+        // đang trượt, phần lớn dưới mây). Mây vành của màn: đám trong vùng chụp mang sang dải (toả quanh tàu), đám còn lại vẽ vào ảnh.
+        // Gọi lúc màn đứng yên (tàu chờ ở bến), mọi lần chụp trong cùng một khung nên màn không kịp nhúc nhích.
+        RenderTexture Capture(SeaAnchor anchor, CloudRing ring, float q0, bool arrival, Vector2 dir)
+        {
+            var size = Size;
+            var map = anchor ? anchor.Map : null;
+            var offs = map ? TileOffsets(dir, size) : new List<Vector2>();
+            var keep = new List<int>();
+            if (ring)
+            {
+                Carry(ring, q0, arrival, offs, keep);
+                ring.Show(true);
+                foreach (int i in keep) ring.Cloud(i).enabled = false;
+            }
+            if (anchor) anchor.Apply();
+            var main = Snap();
+            Dump(main, arrival ? "toi_chinh" : "di_chinh");
+            if (offs.Count > 0)
+            {
+                // mặt nạ cắt khung bản đồ (RectMask2D) đã bỏ khỏi lượt vẽ (cull) mọi hình nằm hẳn ngoài khung, và chỉ dời lớp kéo trong cùng
+                // một khung thì nó chưa tính lại: ô kề mất hết đảo, chỉ còn biển (người dùng 2026-11-27 "vẫn bị cắt"). Bật vẽ lại tạm thời
+                // (vùng cắt của mặt nạ vẫn giữ), chụp xong trả đúng như cũ
+                // Hình bị bỏ từ lúc nạp màn (phần bản đồ chưa từng hiện trên màn) còn chưa dựng lưới (Graphic.Rebuild bỏ qua hình đang bị bỏ),
+                // nên phải đánh dấu dựng lại, không thì bật vẽ cũng trống ("vẫn bị cắt ở đây", góc chưa kéo tới)
+                var culled = new List<CanvasRenderer>();
+                foreach (var cr in map.GetComponentsInChildren<CanvasRenderer>())
+                    if (cr.cull)
+                    {
+                        cr.cull = false;
+                        culled.Add(cr);
+                        var g = cr.GetComponent<Graphic>();
+                        if (g)
+                        {
+                            g.SetVerticesDirty();
+                            g.SetMaterialDirty();
+                        }
+                    }
+                var tmp = NewShot(1, 24);
+                var home = map.anchoredPosition;
+                var parent = map.parent;
+                foreach (var o in offs)
+                {
+                    var w = area.TransformVector(-o);
+                    map.anchoredPosition = home + (parent ? (Vector2)parent.InverseTransformVector(w) : (Vector2)w);
+                    if (anchor) anchor.Apply();
+                    Render(tmp);
+                    var rt = NewShot(0.5f, 0);
+                    Graphics.Blit(tmp, rt);
+                    AddTile(rt, o, arrival);
+                    Dump(rt, (arrival ? "toi" : "di") + $"_{o.x / size.x:0}_{o.y / size.y:0}");
+                }
+                map.anchoredPosition = home;
+                if (anchor) anchor.Apply();
+                foreach (var cr in culled)
+                    if (cr)
+                        cr.cull = true;
+                tmp.Release();
+                Destroy(tmp);
+            }
+            if (ring)
+            {
+                foreach (int i in keep) ring.Cloud(i).enabled = true;
+                ring.Show(false);
+            }
+            return main;
+        }
+
+        // các ô kề (bội số cỡ màn, toạ độ màn) mà khung nhìn quét qua khi trượt từ tâm theo dir một đoạn 0,9 bề dài màn + 400: khung lệch
+        // dir·t giao ô (i, j) khi |dir.x·t − i·W| < W và |dir.y·t − j·H| < H; bỏ ô chỉ chạm sát mép, tối đa 6 ô, gần trước
+        List<Vector2> TileOffsets(Vector2 dir, Vector2 size)
+        {
+            // mỗi đảo chỉ chụp tới quá giữa đường một chút (phần giữa là dải mây): hai đảo chụp chồng lên nhau thì đảo này che mất đảo kia
+            // (người dùng 2026-11-27 "vẫn bị đúng chỗ đấy ... hoặc do bị cái gì đè lên": ô biển của đảo Casino đè lên đảo Hỏa)
+            float D = Mathf.Min(0.9f * L + 400, Span / 2 - L / 2 + 0.2f * L);
+            const float Pad = 80;
+            var found = new List<(float t, Vector2 o)>();
+            for (int i = -3; i <= 3; i++)
+            for (int j = -2; j <= 2; j++)
+            {
+                if (i == 0 && j == 0) continue;
+                float lo = 0, hi = D;
+                if (!Cross(dir.x, i * size.x, size.x - Pad, ref lo, ref hi) || !Cross(dir.y, j * size.y, size.y - Pad, ref lo, ref hi)) continue;
+                found.Add((lo, new Vector2(i * size.x, j * size.y)));
+            }
+            found.Sort((a, b) => a.t.CompareTo(b.t));
+            var list = new List<Vector2>();
+            for (int k = 0; k < found.Count && k < 6; k++) list.Add(found[k].o);
+            return list;
+        }
+
+        // khoảng t có |a·t − c| < r, giao vào [lo, hi]; còn chỗ thì đúng
+        static bool Cross(float a, float c, float r, ref float lo, ref float hi)
+        {
+            if (Mathf.Abs(a) < 1e-4f) return Mathf.Abs(c) < r && hi > lo;
+            float t1 = (c - r) / a, t2 = (c + r) / a;
+            if (t1 > t2) (t1, t2) = (t2, t1);
+            lo = Mathf.Max(lo, t1);
+            hi = Mathf.Min(hi, t2);
+            return hi > lo;
+        }
+
+        // soi lỗi (chỉ Editor, khi có cờ Temp/chuyen_tau_dump.on): lưu từng ảnh chụp ra Temp/PokiShots/chuyen_tau/<tên>.png
+        static void Dump(RenderTexture rt, string name)
+        {
+#if UNITY_EDITOR
+            if (!rt) return;
+            string root = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, ".."));
+            if (!System.IO.File.Exists(System.IO.Path.Combine(root, "Temp/chuyen_tau_dump.on"))) return;
+            string dir = System.IO.Path.Combine(root, "Temp/PokiShots/chuyen_tau");
+            System.IO.Directory.CreateDirectory(dir);
+            var prev = RenderTexture.active;
+            RenderTexture.active = rt;
+            var tex = new Texture2D(rt.width, rt.height, TextureFormat.RGBA32, false);
+            tex.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+            tex.Apply();
+            RenderTexture.active = prev;
+            System.IO.File.WriteAllBytes(System.IO.Path.Combine(dir, name + ".png"), tex.EncodeToPNG());
+            Destroy(tex);
+            Debug.Log($"[Chuyến tàu] chụp {name} {rt.width}x{rt.height}");
+#endif
+        }
+
+        void AddTile(RenderTexture rt, Vector2 off, bool arrival)
+        {
+            int k = tiles.Count;
+            while (tilePool.Count <= k)
+            {
+                var img = Instantiate(oldShot, oldShot.transform.parent);
+                img.name = "chup_ke_" + tilePool.Count;
+                img.texture = null;
+                img.raycastTarget = false;
+                img.transform.SetSiblingIndex(oldShot.transform.GetSiblingIndex()); // dưới ảnh chính, dưới mây
+                img.gameObject.SetActive(false);
+                tilePool.Add(img);
+            }
+            var t = new Tile { img = tilePool[k], rt = rt, off = off, arrival = arrival };
+            t.img.texture = rt;
+            tiles.Add(t);
+        }
+
+        RenderTexture NewShot(float scale, int depth) =>
+            new RenderTexture(Mathf.Max(16, Mathf.RoundToInt(Screen.width * scale)), Mathf.Max(16, Mathf.RoundToInt(Screen.height * scale)), depth,
+                RenderTextureFormat.ARGB32) { name = "chuyen_tau_chup" };
+
         // chụp màn hiện tại qua camera UI (không lớp này, không thanh trên) vào ảnh cỡ màn
         RenderTexture Snap()
         {
+            var rt = PokiCanvas.UiCamera ? NewShot(1, 24) : null;
+            if (rt) Render(rt);
+            return rt;
+        }
+
+        void Render(RenderTexture rt)
+        {
             var cam = PokiCanvas.UiCamera;
-            if (!cam) return null;
-            var rt = new RenderTexture(Mathf.Max(16, Screen.width), Mathf.Max(16, Screen.height), 24, RenderTextureFormat.ARGB32) { name = "chuyen_tau_chup" };
+            if (!cam || !rt) return;
             var own = view ? view.Canvas : null;
             bool ownOn = own && own.enabled;
             if (own) own.enabled = false;
@@ -1117,7 +1337,6 @@ namespace PokiClash
             }
             if (own) own.enabled = ownOn;
             if (bars) bars.enabled = barsOn;
-            return rt;
         }
 
         // ---------- toạ độ ----------

@@ -68,5 +68,8 @@ namespace PokiClash
     {
         public Modal Modal { get; internal set; }
         public void Close() => Modal?.Close();
+
+        // hiện nhanh: phóng nhẹ 0,14 giây thay cho trượt lên + xoay + nảy 0,32 giây (tờ phủ kín màn như Cửa hàng phải hiện ngay)
+        public virtual bool QuickOpen => false;
     }
 }
