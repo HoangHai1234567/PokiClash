@@ -39,12 +39,12 @@ Material:
         m_Texture: {fileID: 2800000, guid: f6bf98dd9ce1848458c7e42963c5df58, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _TileTex:
-        m_Texture: {fileID: 2800000, guid: 2533e0748e0cbcc4182023c6c817feca, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SeaTex:
         m_Texture: {fileID: 2800000, guid: 1e813a7d43493324095248ec090762b1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TileTex:
+        m_Texture: {fileID: 2800000, guid: 2533e0748e0cbcc4182023c6c817feca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -72,6 +72,7 @@ Material:
     - _StencilWriteMask: 255
     - _Steps: 0
     - _TileMix: 1
+    - _TileWorld: 1
     - _UseUIAlphaClip: 0
     m_Colors:
     - _BaseCol: {r: 0.30999997, g: 0.655, b: 0.89, a: 1}
@@ -81,7 +82,7 @@ Material:
     - _EdgeCol: {r: 0.624, g: 0.89, b: 0.94899994, a: 0.35}
     - _FlowFine: {r: 6, g: 3, b: 0, a: 0}
     - _FoamCol: {r: 0.94899994, g: 0.9919999, b: 1, a: 1}
-    - _WaveCol: {r: 0.43499997, g: 0.788, b: 0.933, a: 1}
     - _TileST: {r: 6.8115, g: 4.0993, b: 0, a: 0}
+    - _WaveCol: {r: 0.43499997, g: 0.788, b: 0.933, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

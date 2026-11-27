@@ -3,7 +3,7 @@
 // lưng, lắc ba nhịp mạnh dần (nở lên bậc trên thì nhịp hai chớp trắng, đổi sang trứng bậc mới, chữ "NÂNG BẬC!"), vòm bật lên theo đường
 // nối capsule, thân rơi xuống, chớp trắng + vòng toả + sao bắn, ô mảnh tướng nảy ra giữa, tên tướng và bậc; chạm để sang quả kế.
 // Nhiều quả (tới 10): mỗi quả chạy nhanh không chờ chạm, xong hiện bảng tổng (gộp theo tướng) và nút Nhận; "Bỏ qua" nhảy tới bảng tổng.
-// Hình trứng: ShopUi.Egg (bản 2 Assets/03 Art/Shop/v2/trung2_<bậc>.png từ 2026-11-27, bản đầu trung_<bậc>.png), đường nối đo từ ảnh (ShopUi.EggSeam).
+// Hình trứng: ShopUi.Egg (bản 2 Assets/03 Art/Shop/v2/trung2_<bậc>.png từ 2026-11-27; bản đầu đã bỏ), đường nối đo từ ảnh (ShopUi.EggSeam).
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,8 +33,8 @@ namespace PokiClash
         [SerializeField] Parts p;
         [SerializeField] RewardTile tilePrefab;
 
-        // bề ngang trứng: bản 2 có viền sticker dày + cánh / lấp lánh nên nới khung cho thân trứng to như bản đầu
-        static float EggW => ShopUi.EggV2 ? 390 : 320;
+        // bề ngang trứng: bản 2 có viền sticker dày + cánh / lấp lánh nên khung 390 (bản đầu đã bỏ dùng 320) cho thân trứng to như cũ
+        const float EggW = 390;
 
         public static bool Playing { get; private set; }
 

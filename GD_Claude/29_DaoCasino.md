@@ -541,8 +541,10 @@ Thứ tự: trò tay nghề trước (không dính tuổi store, dùng được 
 - **Điểm chạm** `Items/DiemCasino` (`CasinoSpot`): 10 điểm neo theo khung công trình trên ảnh (Tháp Máy Bi, Bến câu, Trường đua, Chợ đen,
   Hầm đấu, Quán trọ, 3 bãi lều, bảng lịch ở bến). Bảng tên có dòng trạng thái ("Mở ở cấp 35", "Cần 4 tướng để mở", "10 mồi",
   "Đổi hàng sau 05:40", "Đêm Bài · còn 05:40", "Vòng Xoay ghé sau 2 ngày"), khoá, chấm đỏ.
-- **Hàng nút đáy**: Bói sao (lật hệ may mắn trong ngày), Lịch lữ khách (sự kiện đang mở, khách mời, 2 sự kiện kế), Về sảnh. Lần đầu ra
-  đảo hiện truyện mở đảo; trò mới mở báo một lần.
+- **Không còn hàng nút đáy** (người dùng 2026-11-27, trước là dòng tin + Bói sao, Lịch lữ khách, Về sảnh): bản đồ thoáng, kéo và phóng
+  nhẹ toàn đảo (HubPan 0,85–1,3: chụm hai ngón / lăn chuột; phóng to thì kéo được cả dọc). Lịch lữ khách là bảng ở bến (sự kiện đang mở,
+  khách mời, 2 sự kiện kế). Bói sao gộp vào bảng: chưa lật thì bảng có chấm đỏ, dòng phụ "Bói sao", nhún nhiều; chạm bảng là lật, hộp lịch
+  mở đầu bằng hệ may mắn hôm nay. Về sảnh bằng kệ chung hoặc con tàu. Lần đầu ra đảo hiện truyện mở đảo; trò mới mở báo một lần.
 - **Máy bi ↔ đảo**: `SceneIds.Casino`; `MachineScene` có nút "Ra đảo" (hiện khi đảo đã mở, menu `Máy bi: nút Ra đảo`), vào máy từ
   đảo (`args = SceneIds.Casino`) thì nút quay lại về đảo. Chuyển cảnh tạm dùng mây chung; cảnh lùi camera từ mặt máy ra tháp để C8.
 - **Trò**: chạm trò đã mở gọi `CasinoGames.Open` (màn từng trò đăng ký vào đây ở C3–C7); chưa có màn thì báo "Trò này đang được dựng".

@@ -1,6 +1,7 @@
 // Màn đảo Casino "Bến Lữ Khách" (GD_Claude/29_DaoCasino.md, mốc C2): bản đồ đảo kéo được (nền tạm là concept đã gen), các điểm chạm
 // cố định (CasinoSpot) phủ lên công trình: Tháp Máy Bi ở giữa, Bến câu, Trường đua, Chợ đen, Hầm đấu, Quán trọ, 3 bãi lều sự kiện
-// (Đêm Bài, Vòng Xoay, Máy Quả), bảng lịch lữ khách ở bến. Hàng nút đáy: Bói sao, Lịch lữ khách, Về sảnh.
+// (Đêm Bài, Vòng Xoay, Máy Quả), bảng lịch lữ khách ở bến. Không còn hàng nút đáy (người dùng 2026-11-27: bỏ dòng tin + Bói sao + Lịch
+// lữ khách cho bản đồ thoáng, kéo + phóng nhẹ toàn đảo): lịch là bảng ở bến; Bói sao gộp vào bảng (chấm đỏ tới khi lật, chạm bảng là lật).
 // - Tháp Máy Bi: vào màn máy bi, quay lại thì về đảo (MachineScene nhận args SceneIds.Casino).
 // - Trò chưa mở: báo điều kiện (Casino.Need). Lần đầu ra đảo: truyện mở đảo; trò mới mở: thông báo một lần (CasinoState.seen).
 // - Lều may rủi chỉ hiện khi sự kiện đang mở (Casino.Booth); bãi trống báo đoàn kế tiếp ghé sau mấy ngày.
@@ -29,8 +30,6 @@ namespace PokiClash
             { "tower", "fishing", "race", "market", "underground", "inn", "booth_blackjack", "booth_roulette", "booth_slot", "board" };
 
         [SerializeField] CasinoSpot[] spots;
-        [SerializeField] SketchButton lucky, board, home;
-        [SerializeField] TextMeshProUGUI info;
         [Tooltip("Cọc bãi trống và lều sự kiện vẽ trên đảo, theo thứ tự Booths (C8: ảnh công trình rời)")]
         [SerializeField] Image[] pads, tents;
         [Tooltip("Tàu đậu ở bến nam (chuyến tàu qua mây sảnh ↔ đảo cập / rời ở đây; chạm tàu là về sảnh)")]
@@ -50,14 +49,7 @@ namespace PokiClash
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;
 
         // Dùng khi dựng prefab (Editor).
-        public void Setup(CasinoSpot[] spotList, SketchButton luckyBtn, SketchButton boardBtn, SketchButton homeBtn, TextMeshProUGUI infoText)
-        {
-            spots = spotList;
-            lucky = luckyBtn;
-            board = boardBtn;
-            home = homeBtn;
-            info = infoText;
-        }
+        public void Setup(CasinoSpot[] spotList) => spots = spotList;
 
         // Dùng khi dựng prefab (Editor).
         public void SetupBooths(Image[] padImgs, Image[] tentImgs)
@@ -167,7 +159,6 @@ namespace PokiClash
             HookPier();
             HookBob();
             Chrome(true, false);
-            RaiseBar();
             // hộp các trò mở trên đảo (trò có scene riêng đi qua CasinoGames.SceneOf)
             CasinoGames.Register(Casino.Inn, close =>
             {
@@ -176,15 +167,6 @@ namespace PokiClash
             });
             Render();
             StartCoroutine(AfterArrive());
-        }
-
-        // dòng tin + hàng nút của đảo nằm trên kệ nút sảnh chung (LobbyDock sát đáy, nút Máy Bi giữa nhô cao): đẩy lên trên đỉnh nút giữa
-        void RaiseBar()
-        {
-            if (!LobbyDock.I || !lucky) return;
-            var row = lucky.transform.parent as RectTransform;
-            var bar = row ? row.parent as RectTransform : null;
-            if (bar) bar.anchoredPosition = new Vector2(bar.anchoredPosition.x, LobbyDock.CenterTop + 8);
         }
 
         // truyện mở đảo, thông báo trò mới: chờ chuyển cảnh xong (tàu cập bến, giao diện hiện lại) rồi mới hiện
@@ -321,9 +303,12 @@ namespace PokiClash
                     }
                     case "board":
                     {
+                        // bảng ở bến: lịch lữ khách + Bói sao của ngày (chưa lật: dòng phụ "Bói sao", chấm đỏ)
                         var act = Casino.Active(d, now);
-                        sp.Bind(Loc.T("Lịch lữ khách"), act.Count > 0 ? act[0].ev.Name : Loc.T("Chưa có đoàn nào"), false,
-                            Casino.Unlocked(s, d, Casino.Booths) && act.Any(a => !st.seen.Contains("ev:" + a.Key)), Board);
+                        bool flipped = Casino.LuckyFlipped(s, now);
+                        string sub = !flipped ? Loc.T("Bói sao") : act.Count > 0 ? act[0].ev.Name : Loc.T("Chưa có đoàn nào");
+                        sp.Bind(Loc.T("Lịch lữ khách"), sub, false,
+                            !flipped || (Casino.Unlocked(s, d, Casino.Booths) && act.Any(a => !st.seen.Contains("ev:" + a.Key))), Board);
                         break;
                     }
                     default:
@@ -351,36 +336,13 @@ namespace PokiClash
                 }
             }
             if (bob) bob.SetCandidates(BobCandidates(s, d, now, st));
-            var lk = Casino.LuckyActive(s, now);
-            if (info)
-                info.text = lk is Elem e
-                    ? Loc.F("Hệ may mắn hôm nay: {0}. Cá hệ này cắn câu nhiều gấp đôi, tướng hệ này chạy nhanh hơn.", Elements.Name(e))
-                    : Loc.T("Lật Bói sao để biết hệ may mắn hôm nay.");
-            if (lucky)
-            {
-                lucky.SetText(lk is Elem le ? Elements.Name(le) : Loc.T("Bói sao"));
-                lucky.SetRole(lk == null ? BtnColor.Yellow : BtnColor.Paper);
-                lucky.SetOnClick(Lucky);
-            }
-            if (board)
-            {
-                board.SetText(Loc.T("Lịch lữ khách"));
-                board.SetOnClick(Board);
-            }
-            if (home)
-            {
-                // có kệ chung thì nút Về sảnh thừa (nút giữa "Đảo chính")
-                home.gameObject.SetActive(!LobbyDock.I);
-                home.SetText(Loc.T("Về sảnh"));
-                home.SetOnClick(() => App.Router.Go(SceneIds.Hub));
-            }
         }
 
         // công trình nhún định kỳ: chỗ đang mở; chỗ có việc (chấm đỏ) trọng số cao; chỗ khoá, bãi lều trống không nhún
         System.Collections.Generic.IEnumerable<(string, float)> BobCandidates(SaveData s, GameData d, double now, CasinoState st)
         {
             yield return ("thap", 1f);
-            yield return ("ben_tau", 0.5f);
+            yield return ("ben_tau", Casino.LuckyFlipped(s, now) ? 0.5f : 2.5f); // bảng ở bến: chưa lật Bói sao thì nhún nhiều
             if (Casino.Unlocked(s, d, Casino.Fishing)) yield return ("ben_cau", Fishing.FreeLeft(s, d, now) > 0 ? 3f : 1f);
             if (Casino.Unlocked(s, d, Casino.Race)) yield return ("dua", Casino.RaceMult(d, now) > 1 ? 2.5f : 1f);
             if (Casino.Unlocked(s, d, Casino.Market)) yield return ("cho", 1f);
@@ -424,28 +386,23 @@ namespace PokiClash
             Render();
         }
 
-        void Lucky()
-        {
-            var s = S;
-            double now = Now;
-            if (!Casino.LuckyFlipped(s, now))
-            {
-                var e = Casino.FlipLucky(s, now);
-                App.Save.Save();
-                App.Toasts.Show(Loc.F("Hệ may mắn hôm nay: {0}", Elements.Name(e)), Icon(Keys.Of(e)));
-                Haptics.Play(Haptic.UiTap);
-            }
-            Render();
-        }
-
-        // lịch lữ khách: sự kiện đang mở (còn bao lâu, khách mời), hai sự kiện kế
+        // bảng ở bến: Bói sao của ngày (lần chạm đầu trong ngày là lật), rồi lịch lữ khách: sự kiện đang mở (còn bao lâu, khách mời),
+        // hai sự kiện kế
         void Board()
         {
             var s = S;
             var d = D;
             double now = Now;
+            if (!Casino.LuckyFlipped(s, now))
+            {
+                var le = Casino.FlipLucky(s, now);
+                App.Toasts.Show(Loc.F("Hệ may mắn hôm nay: {0}", Elements.Name(le)), Icon(Keys.Of(le)));
+                Haptics.Play(Haptic.UiTap);
+            }
             var act = Casino.Active(d, now);
             var sb = new System.Text.StringBuilder();
+            sb.AppendLine(Loc.F("Hệ may mắn hôm nay: {0}. Cá hệ này cắn câu nhiều gấp đôi.", Elements.Name(Casino.Lucky(now))));
+            sb.AppendLine();
             if (act.Count == 0) sb.AppendLine(Loc.T("Hôm nay chưa có đoàn lữ khách nào ở bến."));
             foreach (var a in act)
             {

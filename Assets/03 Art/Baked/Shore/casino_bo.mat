@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TileTex:
-        m_Texture: {fileID: 2800000, guid: 14477a17f2d797f428af8bec6d24cf59, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2533e0748e0cbcc4182023c6c817feca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -72,6 +72,7 @@ Material:
     - _StencilWriteMask: 255
     - _Steps: 0
     - _TileMix: 1
+    - _TileWorld: 1
     - _UseUIAlphaClip: 0
     m_Colors:
     - _BaseCol: {r: 0.30999997, g: 0.655, b: 0.89, a: 1}

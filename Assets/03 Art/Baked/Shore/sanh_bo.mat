@@ -72,6 +72,7 @@ Material:
     - _StencilWriteMask: 255
     - _Steps: 0
     - _TileMix: 1
+    - _TileWorld: 1
     - _UseUIAlphaClip: 0
     m_Colors:
     - _BaseCol: {r: 0.30999997, g: 0.655, b: 0.89, a: 1}

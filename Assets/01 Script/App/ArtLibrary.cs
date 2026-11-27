@@ -39,6 +39,22 @@ namespace PokiClash
             packMap = new Dictionary<string, string>();
             foreach (var e in art)
                 if (!string.IsNullOrEmpty(e.pack) && !string.IsNullOrEmpty(e.name)) packMap[e.name] = e.pack;
+            MipBias();
+        }
+
+        // Trang atlas có mipmap (Shop/anh_mip: hình cửa hàng, icon; 2026-11-27): lệch mip -0,5 như ảnh nguồn (ArtImporter) cho icon thu nhỏ
+        // còn nét. Atlas không có ô cài đặt độ lệch, nên đặt lúc chạy; một trang chung cho mọi Image dùng hình trên trang đó.
+        void MipBias()
+        {
+            if (!Application.isPlaying) return;
+            var done = new HashSet<Texture>();
+            foreach (var e in art)
+            {
+                var s = e.sprite;
+                if (s == null || !s.packed) continue;
+                var t = s.texture;
+                if (t != null && t.mipmapCount > 1 && done.Add(t)) t.mipMapBias = -0.5f;
+            }
         }
 
         // hệ của gói tải sau chứa ảnh, null nếu ảnh nằm trong bản cài (hoặc không có)

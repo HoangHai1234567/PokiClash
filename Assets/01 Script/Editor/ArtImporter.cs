@@ -115,6 +115,14 @@ namespace PokiClash.EditorTools
                     st.spriteMeshType = AtlasMenu.HatFullRect(assetPath) ? SpriteMeshType.FullRect : SpriteMeshType.Tight;
                     ti.SetTextureSettings(st);
                 }
+                // atlas ảnh có mipmap (cửa hàng, icon): giữ cả khung, vì có ảnh 9-slice, Tiled, Filled
+                if (AtlasMenu.InMipAtlas(assetPath))
+                {
+                    var st = new TextureImporterSettings();
+                    ti.ReadTextureSettings(st);
+                    st.spriteMeshType = SpriteMeshType.FullRect;
+                    ti.SetTextureSettings(st);
+                }
                 ti.textureCompression = TextureImporterCompression.Uncompressed;
                 foreach (var pf in new[] { "Android", "iPhone" })
                 {
@@ -134,6 +142,20 @@ namespace PokiClash.EditorTools
             ios.maxTextureSize = ti.maxTextureSize;
             ios.format = astc;
             ti.SetPlatformTextureSettings(ios);
+        }
+
+        // Ảnh có mipmap mà cạnh không phải lũy thừa 2, nằm ngoài atlas: Unity để RGBA32 không nén trên điện thoại dù ghi đè ASTC và không
+        // báo gì (vụ ảnh cửa hàng 2026-11-27: 77 ảnh, 36 MB trong APK). Báo để đưa ảnh vào atlas có mipmap (AtlasMenu.InMipAtlas) hoặc làm
+        // ảnh cạnh 2^n.
+        void OnPostprocessTexture(Texture2D tex)
+        {
+            if (!assetPath.StartsWith(ArtImporter.ArtDir + "/") || AtlasMenu.InAtlas(assetPath)) return;
+            if (!(assetImporter is TextureImporter ti) || !ti.mipmapEnabled) return;
+            if (Mathf.IsPowerOfTwo(tex.width) && Mathf.IsPowerOfTwo(tex.height)) return;
+            if (ti.textureCompression == TextureImporterCompression.Uncompressed && !ti.GetPlatformTextureSettings("Android").overridden) return;
+            Debug.LogWarning($"[Ảnh] {assetPath} ({tex.width}x{tex.height}) có mipmap mà cạnh không phải lũy thừa 2: trên điện thoại Unity để " +
+                             "RGBA32 không nén (nặng gấp 4–9 lần). Đưa vào atlas có mipmap (AtlasMenu.InMipAtlas, menu PokiClash/Build/Sprite Atlas " +
+                             "ảnh có mipmap) hoặc làm ảnh cạnh 2^n.");
         }
     }
 

@@ -226,11 +226,15 @@ namespace PokiClash
             if (Current == this) Current = null;
         }
 
-        public void Play(Action finished)
+        // fading: gọi lúc bắt đầu mờ đi (trước finished), để nơi gọi dựng sẵn màn kế bên dưới (canvas truyện thứ tự 25 nằm trên)
+        public void Play(Action finished, Action fading = null)
         {
             onDone = finished;
+            onFading = fading;
             run = StartCoroutine(Run());
         }
+
+        Action onFading;
 
         // thử trong Editor: như một lần chạm
         public void DebugTap() => tapped = true;
@@ -421,6 +425,9 @@ namespace PokiClash
         IEnumerator FadeOut()
         {
             group.blocksRaycasts = false;
+            var f = onFading;
+            onFading = null;
+            f?.Invoke();
             for (float t = 0; t < 0.4f; t += Time.unscaledDeltaTime)
             {
                 group.alpha = 1 - t / 0.4f;

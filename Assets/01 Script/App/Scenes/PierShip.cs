@@ -10,6 +10,8 @@
 // - Chuyến ngang (Nhà ↔ đảo Casino, người dùng 2026-11-27: "tàu lúc đầu vẫn bị đi xuống 1 đoạn xong mới sang trái/phải"): ShipVoyage
 //   gọi UseSide(−1 / +1) trước khi rời / tới bến: đường ra khơi thành đường tạm chạy thẳng sang trái / phải từ chỗ đậu (SideReach),
 //   thay đường bắc / nam; UseSide(0) trả về như cũ.
+// - Chuyến tàu chạy một mạch (2026-11-27): ShipVoyage đọc đường ra khơi (WorldLine), tự chạy tàu của nó từ chỗ đậu cũ tới tận chỗ đậu
+//   mới, rồi gọi DockedFrom cho tàu của màn hiện ở chỗ đậu; Depart / Arrive (chuyền tàu giữa đường) không còn dùng cho chuyến tàu.
 // Dựng bằng ShipBuild.Pier (Editor). Mỗi lúc chỉ một bến đang bật (Active): bến của màn đang mở.
 using System;
 using System.Collections;
@@ -241,6 +243,40 @@ namespace PokiClash
             busy = false;
             CurrentSpeed = 0;
             moving = null;
+        }
+
+        // ---------- chuyến tàu qua mây chạy một mạch (ShipVoyage, 2026-11-27) ----------
+
+        // trước khi rời bến: tàu đang chuyển bến dở hoặc đậu bến khác thì về ngay chỗ đậu của chuyến hướng này
+        public void Ready(bool northward)
+        {
+            if (moving != null || look.Pos != DockOf(northward)) ParkAt(Second(northward));
+        }
+
+        // đường từ chỗ đậu ra khơi hướng này, nội suy như lúc chạy (Catmull-Rom), toạ độ thế giới; điểm đầu là chỗ đậu
+        public List<Vector3> WorldLine(bool northward)
+        {
+            var pl = Sample(Line(northward));
+            var list = new List<Vector3>(pl.pts.Count);
+            foreach (var p in pl.pts) list.Add(ToWorld(p));
+            return list;
+        }
+
+        // hướng mũi lúc đậu sau chuyến tới từ hướng này (vectơ thế giới)
+        public Vector3 DockFaceWorld(bool fromNorth) => look.transform.TransformVector(FaceOf(fromNorth));
+
+        // chuyến tàu đã đưa tàu vào tận chỗ đậu: hiện tàu của màn ở đó, hết bận; đậu bến chính mà có bến hai thì tự chuyển bến
+        public void DockedFrom(bool fromNorth)
+        {
+            if (moving != null) StopCoroutine(moving);
+            moving = null;
+            look.Show(true);
+            look.Pos = DockOf(fromNorth);
+            look.Face(FaceOf(fromNorth), true);
+            look.ClearFoam();
+            busy = false;
+            CurrentSpeed = 0;
+            if (hasDock2 && !Second(fromNorth) && isActiveAndEnabled) moving = StartCoroutine(Transfer());
         }
 
         // đặt tàu ở điểm cuối đường (chờ lớp mây giao), ẩn

@@ -23,6 +23,8 @@ namespace PokiClash.EditorTools
         // báo cáo dung lượng (BuildSizeReport, Build/BaoCao). Các cài đặt khác giữ theo cửa sổ Build Profiles.
         static void Build(BuildPlayerOptions o)
         {
+            // atlas nhập hỏng thì ảnh nguồn vào gói rời không nén (vụ atlas hạt 2026-11-23, +110 MB): nhập lại, vẫn hỏng thì không build
+            if (!AtlasGuard.Ensure()) return;
             // Build Profiles của Unity 6 tự gắn cờ CompressWithLz4 (nén "Default"); có cả hai cờ thì Unity nén LZ4 thường: bản 0.5.1
             // (2026-11-23) nén LZ4, cùng ảnh mà gói dữ liệu to hơn bản LZ4HC ~7 MB. Gỡ cờ LZ4 trước khi thêm LZ4HC.
             if (o.target == BuildTarget.Android || o.target == BuildTarget.iOS)

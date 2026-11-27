@@ -7108,24 +7108,6 @@ MonoBehaviour:
   - name: but_mau_vo
     sprite: {fileID: 21300000, guid: 64e37e89e1a74db409dc07c55f868231, type: 3}
     pack: 
-  - name: goi_bi_1
-    sprite: {fileID: 21300000, guid: 29bf861b9f45e07428039ab707f8eb39, type: 3}
-    pack: 
-  - name: goi_bi_2
-    sprite: {fileID: 21300000, guid: ad24e17702e47554985979b0e6bbb2ee, type: 3}
-    pack: 
-  - name: goi_bi_3
-    sprite: {fileID: 21300000, guid: 57627889d3a523f41a60c100f056c905, type: 3}
-    pack: 
-  - name: goi_bi_4
-    sprite: {fileID: 21300000, guid: 6b503dcf310041e4caf9d49790b8b901, type: 3}
-    pack: 
-  - name: goi_bi_5
-    sprite: {fileID: 21300000, guid: 3757a56042019f445bc2d8d41eca6449, type: 3}
-    pack: 
-  - name: goi_bi_6
-    sprite: {fileID: 21300000, guid: 742f0ad90414d504798f7889e43065c2, type: 3}
-    pack: 
   - name: lap_lanh
     sprite: {fileID: 21300000, guid: 914990cfb3d9e7f42bcdcda5e64a9d9d, type: 3}
     pack: 
@@ -7146,21 +7128,6 @@ MonoBehaviour:
     pack: 
   - name: sao_trang
     sprite: {fileID: 21300000, guid: a9fd323419e936f4cb1adddd39a2e794, type: 3}
-    pack: 
-  - name: trung_0
-    sprite: {fileID: 21300000, guid: 9f5319bae1a70ba4c8763f23729b8ee0, type: 3}
-    pack: 
-  - name: trung_1
-    sprite: {fileID: 21300000, guid: 854e703f148e4ef41a5e687d21362ce2, type: 3}
-    pack: 
-  - name: trung_2
-    sprite: {fileID: 21300000, guid: 33537106c7e4164429f32dcf41701def, type: 3}
-    pack: 
-  - name: trung_3
-    sprite: {fileID: 21300000, guid: 53cf30d684e86774f9b7cbeef8c25e44, type: 3}
-    pack: 
-  - name: trung_4
-    sprite: {fileID: 21300000, guid: 06e8bc4e5754d7b42871591ea92de8d8, type: 3}
     pack: 
   - name: goi2_bi_1
     sprite: {fileID: 21300000, guid: bfac50a932276f14d8929cd018750256, type: 3}
@@ -7347,6 +7314,9 @@ MonoBehaviour:
     pack: 
   - name: vien_cot
     sprite: {fileID: 21300000, guid: b49fd9e1bef9e8240bd9fa6e56851e5c, type: 3}
+    pack: 
+  - name: vong_song
+    sprite: {fileID: 21300000, guid: 5c6dbd2da7caeb944b4b2e1ea2519b64, type: 3}
     pack: 
   - name: bia_so
     sprite: {fileID: 21300000, guid: bd2de8b553f77d648b9412ca1bdfefe6, type: 3}

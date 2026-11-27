@@ -45,6 +45,7 @@ namespace PokiClash.EditorTools
             Patch("Assets/04 Prefabs/Screens/Hub.prefab", "sanh_bo", "dao", "bien_lat", null);
             Patch("Assets/04 Prefabs/Screens/Casino.prefab", "casino_bo", "anh_nen_casino", "bien", "dat");
             AssetDatabase.SaveAssets();
+            SeaWorldMenu.Apply("hub", "casino"); // biển chung: ô lát theo thế giới (_TileWorld), gốc biển của màn (2026-11-27)
             Debug.Log("[Sóng bờ] Xong");
         }
 

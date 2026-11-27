@@ -121,6 +121,7 @@ namespace PokiClash.EditorTools
             {
                 PrefabUtility.UnloadPrefabContents(root);
             }
+            SeaWorldMenu.Apply("home"); // biển chung: gốc biển, vật liệu ghim theo thế giới, mép cứng (2026-11-27)
         }
     }
 }

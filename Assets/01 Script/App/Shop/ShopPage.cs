@@ -69,6 +69,49 @@ namespace PokiClash
         void OnDestroy()
         {
             if (Current == this) Current = null;
+            if (under) under.enabled = true;
+        }
+
+        // Tờ cửa hàng phủ kín màn (người dùng 2026-11-27: "tap phản hồi trong shop bị delay và scroll chưa được mượt"): trượt vào xong thì
+        // tắt vẽ màn bên dưới (sảnh: bản đồ, tuyết rơi, ông già Noel vẫn dựng lại canvas và tô chồng toàn màn mỗi khung dưới tờ cửa hàng),
+        // bắt đầu đóng (Modal.IsOpen tắt trước lúc tờ mờ đi) thì bật lại ngay. Tờ không phủ kín màn thì không tắt.
+        Canvas under;
+        float hideAt = -1;
+
+        void OnEnable() => hideAt = Time.unscaledTime + 0.4f; // sau hiệu ứng trượt vào 0,32 giây
+
+        void HideUnder()
+        {
+            bool open = Modal != null && Modal.IsOpen;
+            if (under)
+            {
+                if (!open)
+                {
+                    under.enabled = true;
+                    under = null;
+                }
+                return;
+            }
+            if (!open || hideAt < 0 || Time.unscaledTime < hideAt) return;
+            hideAt = -1;
+            var root = App.Router != null ? App.Router.CurrentRoot : null;
+            var cv = root && root.View ? root.View.Canvas : null;
+            if (!cv || !cv.enabled || !CoversScreen()) return;
+            cv.enabled = false;
+            under = cv;
+        }
+
+        bool CoversScreen()
+        {
+            var ms = GetComponent<ModalSheet>();
+            var cv = ms ? ms.GetComponentInParent<Canvas>() : null;
+            if (!ms || !ms.Sheet || !cv) return false;
+            var c = new Vector3[4];
+            var s = new Vector3[4];
+            ((RectTransform)cv.rootCanvas.transform).GetWorldCorners(c);
+            ms.Sheet.GetWorldCorners(s);
+            float tol = (c[2].x - c[0].x) * 0.005f;
+            return s[0].x <= c[0].x + tol && s[0].y <= c[0].y + tol && s[2].x >= c[2].x - tol && s[2].y >= c[2].y - tol;
         }
 
         // tờ trải kín màn: nút đóng (con của tờ giấy, ModalService gắn) dời xuống bằng phần tai thỏ mà khung an_toan đã chừa
@@ -157,6 +200,7 @@ namespace PokiClash
 
         void Update()
         {
+            HideUnder();
             if (S == null || S.balls == shownBalls) return;
             shownBalls = S.balls;
             p.balls.text = NumFmt.Short(S.balls);

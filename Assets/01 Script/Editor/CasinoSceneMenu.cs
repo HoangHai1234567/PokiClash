@@ -4,13 +4,15 @@
 //   (casino_ct_bai_*) khi sự kiện mở;
 // - prefab mục Items/DiemCasino (CasinoSpot): vùng chạm trong suốt, bảng tên nổi trên đỉnh, khoá, chấm đỏ;
 // - Screens/Casino: lần đầu chép từ Screens/Cave (giữ canvas, khung, vùng nội dung), thay CaveScene bằng CasinoScene; nền: ảnh đảo bọc
-//   lớp kéo (HubPan), lớp công trình xếp theo đáy, các điểm chạm neo theo khung công trình (bảng Spots); giao diện: dòng
-//   tin + hàng nút Bói sao, Lịch lữ khách, Về sảnh;
+//   lớp kéo (HubPan, kéo + phóng nhẹ 0,85–1,3), lớp công trình xếp theo đáy, các điểm chạm neo theo khung công trình (bảng Spots);
+//   giao diện: lớp giao_dien_dao trống (người dùng 2026-11-27 bỏ dòng tin + hàng nút Bói sao, Lịch lữ khách; Bói sao gộp vào bảng ở bến).
+//   Prefab đã dựng trước đó: menu "Đảo: bỏ hàng nút, kéo + phóng" vá riêng, không dựng lại cả màn;
 // - scene Assets/00 Scenes/Casino.unity và Build Settings.
 // - bến tàu nam với con tàu của game (chuyến tàu sảnh ↔ đảo đi chếch, ShipVoyage), vành mây rời (CloudRing), sáng tối theo giờ (DayNight);
 // - mỗi công trình một vật riêng ct_<mã> có CasinoBuilding (đổi hình từng cái: thay casino_ct_<mã>.png rồi chạy lại menu).
 // Menu "Máy bi: nút Ra đảo": thêm nút vào Screens/Machine (MachineScene.toIsland).
 // Chạy không cần bấm (Unity dùng chung nhiều phiên): Temp/casino_build.flag → biên dịch xong, không Play thì dựng cả hai rồi xoá cờ;
+// Temp/casino_patch.flag → không Play thì chạy menu vá "bỏ hàng nút, kéo + phóng" rồi xoá cờ;
 // Temp/casino_tour.flag → vào Play, chụp màn đảo và màn máy bi vào Temp/PokiShots/casino/, rồi Stop (bản lưu sao lưu, trả lại).
 using System.Collections;
 using System.Collections.Generic;
@@ -78,9 +80,43 @@ namespace PokiClash.EditorTools
             if (art == null) return;
             var spot = BuildSpot();
             if (!BuildScreen(assets, art, spot)) return;
+            SeaWorldMenu.Apply("casino"); // biển chung (assets-fb 2026-11-27): dựng lại lớp "bien" thì gắn lại SeaAnchor + vật liệu SeaWorld
             MakeScene();
             AssetDatabase.SaveAssets();
             Debug.Log("[Đảo Casino] Đã dựng " + ScreenPath + ", " + ScenePath);
+        }
+
+        // phóng nhẹ bản đồ đảo (HubPan): 0,85 thấy rộng hơn chút (dọc giữ mép trên, lộ thêm biển phía nam), 1,3 nhìn gần, kéo được cả dọc
+        const float ZoomMin = 0.85f, ZoomMax = 1.3f;
+
+        // vá prefab đã dựng (người dùng 2026-11-27): bỏ dòng tin + hàng nút Bói sao / Lịch lữ khách / Về sảnh, bật phóng nhẹ cho lớp kéo.
+        // Không dựng lại cả màn (giữ sóng bờ ShoreWaveMenu và các lớp menu khác đã thêm). Chạy lại được.
+        [MenuItem("PokiClash/Prefab/Đảo Casino/Đảo: bỏ hàng nút, kéo + phóng", priority = 72)]
+        public static void PatchBarAndZoom()
+        {
+            var root = PrefabUtility.LoadPrefabContents(ScreenPath);
+            try
+            {
+                var ui = root.transform.Find("Canvas/An toan/Khung/giao_dien_dao");
+                var bar = ui ? ui.Find("hang_nut") : null;
+                bool removed = bar; // đọc trước khi xoá: vật đã DestroyImmediate thì kiểm null của Unity ra false
+                if (bar) Object.DestroyImmediate(bar.gameObject);
+                var pan = root.GetComponentInChildren<HubPan>(true);
+                if (pan)
+                {
+                    pan.SetZoom(ZoomMin, ZoomMax);
+                    EditorUtility.SetDirty(pan);
+                }
+                var scene = root.GetComponent<CasinoScene>();
+                if (scene) EditorUtility.SetDirty(scene); // ghi lại để bỏ các trường nút cũ khỏi prefab
+                PrefabUtility.SaveAsPrefabAsset(root, ScreenPath);
+                Debug.Log($"[Đảo Casino] Vá {ScreenPath}: {(removed ? "đã bỏ" : "không thấy")} hàng nút; " +
+                          (pan ? $"HubPan phóng {ZoomMin}–{ZoomMax}" : "KHÔNG thấy HubPan") + (ui ? "" : "; không thấy giao_dien_dao"));
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
         }
 
         // ---------- ảnh nền tạm ----------
@@ -320,6 +356,7 @@ namespace PokiClash.EditorTools
                 // không bao giờ lộ mép ảnh / nền ngoài khung
                 pan.Setup(keo, new Vector2((art.w - 1080) / 2f / 1080f, 0f));
                 pan.SetPads(0, 80);
+                pan.SetZoom(ZoomMin, ZoomMax); // phóng nhẹ (người dùng 2026-11-27): phóng to thì kéo được cả dọc
 
                 // công trình: mỗi ảnh một Image đúng khung, xếp theo đáy (gần người xem vẽ sau); lều sự kiện tắt sẵn, cọc bãi bật
                 var layerArt = HomeSceneMenu.Fill(HomeSceneMenu.Node(frame, "cong_trinh"));
@@ -437,29 +474,10 @@ namespace PokiClash.EditorTools
                     foreach (Transform c in content.Cast<Transform>().ToList()) Object.DestroyImmediate(c.gameObject);
                 var oldUi = safe.Find("giao_dien_dao");
                 if (oldUi) Object.DestroyImmediate(oldUi.gameObject);
+                // lớp giao diện cố định (chuyến tàu ẩn / hiện qua CanvasGroup): không còn hàng nút đáy, về sảnh bằng kệ chung / con tàu
                 var ui = HomeSceneMenu.Fill(HomeSceneMenu.Node(safe, "giao_dien_dao", typeof(CanvasGroup)));
-                var bar = HomeSceneMenu.Node(ui, "hang_nut");
-                HomeSceneMenu.At(bar, new Vector2(0.5f, 0), new Vector2(0, 28), new Vector2(1040, 250), new Vector2(0.5f, 0));
-                var tip = HomeSceneMenu.Img(bar, "goi_y", Sketch.PanelThin, new Color(1f, 0.98f, 0.92f, 0.94f), false, true);
-                HomeSceneMenu.At(tip.rectTransform, new Vector2(0.5f, 1), Vector2.zero, new Vector2(1000, 84), new Vector2(0.5f, 1));
-                var info = HomeSceneMenu.Text(tip.transform, "chu", 26, Theme.Ink);
-                HomeSceneMenu.Fill(info.rectTransform).offsetMin = new Vector2(20, 6);
-                info.rectTransform.offsetMax = new Vector2(-20, -6);
-                info.enableAutoSizing = true;
-                info.fontSizeMin = 18;
-                info.fontSizeMax = 26;
-                var row = HomeSceneMenu.Node(bar, "nut", typeof(HorizontalLayoutGroup));
-                HomeSceneMenu.At(row, new Vector2(0.5f, 0), Vector2.zero, new Vector2(1040, 140), new Vector2(0.5f, 0));
-                var hl = row.GetComponent<HorizontalLayoutGroup>();
-                hl.spacing = 18;
-                hl.childAlignment = TextAnchor.MiddleCenter;
-                hl.childControlWidth = hl.childControlHeight = false;
-                hl.childForceExpandWidth = hl.childForceExpandHeight = false;
-                var lucky = HomeSceneMenu.Button(assets, row, "boi_sao", Loc.T("Bói sao"), BtnColor.Yellow, new Vector2(320, 120));
-                var board = HomeSceneMenu.Button(assets, row, "lich", Loc.T("Lịch lữ khách"), BtnColor.Paper, new Vector2(340, 120));
-                var home = HomeSceneMenu.Button(assets, row, "ve_sanh", Loc.T("Về sảnh"), BtnColor.Green, new Vector2(320, 120));
 
-                scene.Setup(spots.ToArray(), lucky, board, home, info);
+                scene.Setup(spots.ToArray());
                 scene.SetupPier(pier, pan, ui.GetComponent<CanvasGroup>());
                 PrefabUtility.SaveAsPrefabAsset(root, ScreenPath);
                 return true;
@@ -724,6 +742,13 @@ namespace PokiClash.EditorTools
                 File.Delete(build);
                 Build();
                 MachineButton();
+                return;
+            }
+            var patch = Flag("casino_patch.flag");
+            if (!EditorApplication.isPlayingOrWillChangePlaymode && File.Exists(patch))
+            {
+                File.Delete(patch);
+                PatchBarAndZoom();
                 return;
             }
             var voy = Flag("casino_voyage_tour.flag");

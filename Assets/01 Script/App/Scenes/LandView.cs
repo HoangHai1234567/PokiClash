@@ -5,6 +5,9 @@
 //   trên, khung dưới), lớn nhất 1 (cỡ thật của chấm ải, tướng). Vào đảo dùng CoverZoom: bản đồ vừa phủ kín khung (máy dọc là vừa khít
 //   chiều cao đảo, kéo ngang xem hết); người dùng 2026-11-18: "được zoom ra như vậy nhưng khi vào thì không zoom ra nhiều như vậy".
 // - Show(điểm, zoom, giây): lướt tới; bản đồ nhỏ hơn khung thì canh giữa.
+// - Mép cứng (hardEdge, màn Nhà; người dùng 2026-11-27 "kéo sang sát 2 bên vẫn có 1 phần màu xanh cắt nên bị cụt"): rừng rìa của ảnh nền
+//   cắt thẳng ở mép trái, phải, trên; khung nhìn luôn cách các mép đó chừng ấy đơn vị khung (lớn hơn MaxOver), nên kéo quá tay cũng chỉ
+//   thấy rừng, mây vành, không thấy đường cắt. Mép dưới là biển (biển chung nối dài ra ngoài ảnh) nên để 0.
 // Toạ độ bản đồ: (x, y) px vùng đất, gốc trên trái, y xuống. Toạ độ khung: từ góc trên trái khung nhìn, y xuống.
 using System;
 using System.Collections.Generic;
@@ -17,6 +20,8 @@ namespace PokiClash
     public sealed class LandView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IScrollHandler
     {
         [SerializeField] float rubber = 0.35f, spring = 10f, decay = 4.5f, maxZoom = 1f;
+        [Tooltip("Mép cứng (đơn vị khung; trái, phải, trên, dưới): khung nhìn luôn cách mép ảnh chừng này, kể cả khi kéo quá (chỉ ở chế độ có vành)")]
+        [SerializeField] Vector4 hardEdge;
 
         RectTransform content;
         Vector2 size;          // cỡ bản đồ (px vùng đất)
@@ -88,7 +93,8 @@ namespace PokiClash
             if (v.x <= 0 || size.x <= 0) return 1;
             // có vành mây: zoom ra tối đa là khi ảnh + vành mây vừa phủ kín cả màn; không có thì vừa khít cả đảo trong khung
             if (margin != Vector4.zero)
-                return Mathf.Min(maxZoom, Mathf.Max(v.x / (size.x + margin.x + margin.y), v.y / (size.y + margin.z + margin.w)));
+                return Mathf.Min(maxZoom, Mathf.Max((v.x + hardEdge.x + hardEdge.y) / (size.x + margin.x + margin.y),
+                    (v.y + hardEdge.z + hardEdge.w) / (size.y + margin.z + margin.w)));
             return Mathf.Min(maxZoom, Mathf.Min(v.x / size.x, Mathf.Max(1, WinH) / size.y));
         }
 
@@ -115,10 +121,11 @@ namespace PokiClash
             var v = ViewSize;
             if (margin != Vector4.zero)
             {
-                // khung nhìn luôn nằm trong ảnh + vành mây (không lộ khối phủ ngoài)
-                float W2 = (size.x + margin.x + margin.y) * z, H2 = (size.y + margin.z + margin.w) * z;
-                p.x = W2 >= v.x ? Mathf.Clamp(p.x, v.x - (size.x + margin.y) * z, margin.x * z) : (v.x - W2) * 0.5f + margin.x * z;
-                p.y = H2 >= v.y ? Mathf.Clamp(p.y, -margin.z * z, (size.y + margin.w) * z - v.y) : -((v.y - H2) * 0.5f + margin.z * z);
+                // khung nhìn luôn nằm trong ảnh + vành mây (không lộ khối phủ ngoài), cách mép cứng chừng hardEdge; hẹp quá thì canh giữa
+                float loX = v.x - (size.x + margin.y) * z + hardEdge.y, hiX = margin.x * z - hardEdge.x;
+                float loY = -margin.z * z + hardEdge.z, hiY = (size.y + margin.w) * z - v.y - hardEdge.w;
+                p.x = loX <= hiX ? Mathf.Clamp(p.x, loX, hiX) : (loX + hiX) * 0.5f;
+                p.y = loY <= hiY ? Mathf.Clamp(p.y, loY, hiY) : (loY + hiY) * 0.5f;
                 return p;
             }
             float W = size.x * z, H = size.y * z;
@@ -270,8 +277,11 @@ namespace PokiClash
             Apply();
         }
 
+        NotchBleed notch; // vùng tai thỏ thấy luôn bản đồ (App/NotchBleed)
+
         void Update()
         {
+            notch.Tick(this);
             if (!On || !content) return;
             float dt = Mathf.Min(Time.unscaledDeltaTime, 0.05f);
             Sync();

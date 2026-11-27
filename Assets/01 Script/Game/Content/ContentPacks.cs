@@ -236,13 +236,13 @@ namespace PokiClash.Game
                     }
                     var list = new List<IResourceLocation>(h.Result);
                     Addressables.Release(h);
-                    var load = Addressables.LoadAssetsAsync<Object>(list, o =>
+                    var load = LoadTyped(type, list, o =>
                     {
-                        if (!o) return;
+                        if (!o || !type.IsInstanceOfType(o)) return;
                         string k = Key(type, o.name);
                         Cache[k] = o;
                         p.keys.Add(k);
-                    }, false);
+                    });
                     p.handles.Add(load);
                     load.Completed += lh =>
                     {
@@ -268,6 +268,22 @@ namespace PokiClash.Game
                 else Set(p, State.Ready);
             }
         }
+
+        // Nạp đúng kiểu được xin. Bản build (BundledAssetProvider) nạp theo kiểu nơi gọi xin: xin Object thì AssetBundle trả asset chính,
+        // ảnh Sprite ra Texture2D nên Get<Sprite> rỗng (APK 2026-11-27: vào đảo không thấy ảnh nền đảo, nền trận trong gói cũng mất). Editor
+        // (AssetDatabaseProvider) nạp theo kiểu của vị trí nên không lộ lỗi này.
+        static AsyncOperationHandle LoadTyped(Type t, IList<IResourceLocation> list, Action<Object> each)
+        {
+            if (t == typeof(Sprite)) return LoadAs<Sprite>(list, each);
+            if (t == typeof(AolaAnim)) return LoadAs<AolaAnim>(list, each);
+            if (t == typeof(Material)) return LoadAs<Material>(list, each);
+            if (t == typeof(AudioClip)) return LoadAs<AudioClip>(list, each);
+            if (t == typeof(Texture2D)) return LoadAs<Texture2D>(list, each);
+            return LoadAs<Object>(list, each);
+        }
+
+        static AsyncOperationHandle LoadAs<T>(IList<IResourceLocation> list, Action<Object> each) where T : Object =>
+            Addressables.LoadAssetsAsync<T>(list, o => each(o), false);
 
         // ---- giả lập (Editor) ----
 

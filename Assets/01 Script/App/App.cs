@@ -231,19 +231,28 @@ namespace PokiClash
                     var st = Instantiate(storyPrefab);
                     st.name = storyPrefab.name;
                     LocService.Tree(st.gameObject);
+                    // truyện mờ dần thì màn tải phải nằm sẵn bên dưới; trước đây mờ xong mới mở mây, bật màn tải nên lộ hai đám mây khép
+                    // 0,4 giây ("nháy nhanh 2 đám mây che xong mới sang boot", APK 2026-11-27)
                     st.Play(() =>
+                    {
+                        Destroy(st.gameObject);
+                        Go();
+                    }, () =>
                     {
                         Tutorial.Mark(Save.Data, Tutorial.Story);
                         Save.Save();
-                        Destroy(st.gameObject);
-                        Go();
+                        if (ShipVoyage.I)
+                        {
+                            cloud.OpenNow();
+                            ShipVoyage.I.BeginBoot();
+                        }
                     });
                     return;
                 }
                 if (ShipVoyage.I)
                 {
                     cloud.OpenNow();
-                    ShipVoyage.I.BeginBoot();
+                    if (!ShipVoyage.Booting) ShipVoyage.I.BeginBoot(); // đã bật lúc truyện mở đầu bắt đầu mờ
                 }
                 else BootTitle.Spawn(bootTitle);
             }
@@ -303,6 +312,7 @@ namespace PokiClash
         void Update()
         {
             PokiClash.Game.ContentPacks.Tick(); // hàng chờ gói tải sau (GD_Claude/27)
+            ListDrag.Tick(); // danh sách cuộn: ngưỡng kéo nhỏ hơn bản đồ
             var kb = Keyboard.current;
             if (kb != null && kb.escapeKey.wasPressedThisFrame) Back();
         }

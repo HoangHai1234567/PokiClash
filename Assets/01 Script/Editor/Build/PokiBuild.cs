@@ -73,6 +73,8 @@ namespace PokiClash.EditorTools
                                "File > Build Profiles trước (Unity sẽ nhập lại mọi ảnh, lâu).");
                 return null;
             }
+            // atlas nhập hỏng thì ảnh nguồn vào gói rời không nén (vụ atlas hạt 2026-11-23, +110 MB): nhập lại, vẫn hỏng thì dừng
+            if (!AtlasGuard.Ensure()) return null;
             string name = $"{Safe(PlayerSettings.productName)}_{PlayerSettings.bundleVersion}_{DateTime.Now:yyMMddHH}";
             string path = kind == Kind.AndroidTest ? Path.Combine(OutDir, name + ".apk")
                 : kind == Kind.AndroidRelease ? Path.Combine(OutDir, name + ".aab")

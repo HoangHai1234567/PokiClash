@@ -1,27 +1,33 @@
-// Chuyến tàu qua mây (người dùng 2026-11-19): chuyển giữa sảnh (bến cạnh đảo Thủy) và Nhà (bến mép dưới đảo), và màn tải lúc mở game.
-// Người dùng dặn "phải nối nhau như trong cùng 1 thế giới, không phải kiểu fade": mọi thứ nằm trên một dải thế giới dọc theo hướng đi,
-// camera bám theo tàu:
+// Chuyến tàu qua mây (người dùng 2026-11-19, làm lại 2026-11-27): chuyển giữa sảnh, Nhà, đảo Casino và màn tải lúc mở game.
+// Người dùng: "tưởng tượng 3 đảo trong 1 map to, chỉ cần follow cam theo thuyền và tách mây cho mượt", "nước của 3 đảo phải liền mạch".
+// Mọi thứ nằm trên một dải thế giới dọc theo hướng đi, camera chỉ trượt dọc dải, bám theo tàu:
 //   [ảnh chụp màn cũ] → [dải mây trên biển] → [ảnh chụp màn mới]
-// - Đi: tàu rời bến trong màn cũ (PierShip.Depart); lớp này chụp màn cũ (ẩn tàu và giao diện cố định của màn: SceneRoot.Chrome) làm
-//   nền đúng chỗ, nhận tàu, camera theo tàu đi lên (Nhà) / xuống (sảnh): màn cũ trôi khỏi màn hình, mây phủ mép màn cũ khép vào từ
-//   hai bên, rồi dải mây: đi tới đâu mây toả ra quanh tàu rồi khép lại sau đuôi tới đó.
-// - Tới: màn mới nạp dưới lớp này; camera màn mới đặt chỗ đậu ở giữa, tàu của màn đặt ở điểm vào bến (ẩn), chụp lại. Ảnh màn mới
-//   đặt tiếp sau dải mây, tàu đi đường cong vào đúng điểm vào bến, camera dừng đúng lúc ảnh màn mới vào chỗ; mây phủ mép màn mới
-//   dạt ra hai bên trên màn thật sau khi camera dừng. Lớp này tắt (màn thật y như ảnh), tàu của màn chạy nốt vào bến
-//   (PierShip.Arrive), giao diện cố định hiện lại.
+// - Biển chung (App/SeaAnchor.cs): ảnh chụp màn, biển của dải, màn thật cùng vẽ một ảnh biển lát ghim theo thế giới. Biển của dải ghim
+//   theo ảnh màn cũ; trước khi chụp màn mới, gốc biển của màn mới được dời (SeaAnchor.Match) cho trùng đúng chỗ biển của dải lúc camera
+//   tới nơi, nên không còn đường nối giữa ảnh chụp và biển. Cỡ ô hai màn lệch nhau (màn cũ đang phóng) thì đổi cỡ dần giữa dải mây.
+// - Đóng (Close): camera màn cũ lướt tới bến, giao diện cố định của màn (SceneRoot.Chrome) mờ đi; chụp màn cũ (không tàu, không mây
+//   vành), tàu của lớp này đứng thay tàu của màn ở chỗ đậu. Màn đứng yên trong lúc SceneRouter gỡ màn cũ, nạp màn mới (máy khựng lúc nạp
+//   chỉ thấy như tàu đứng chờ ở bến, không giật giữa đường).
+// - Mở (Open): màn mới đặt camera ở chỗ đậu, tàu của màn ẩn; chụp màn mới, đặt sau dải mây. Rồi tàu chạy MỘT đường liền: đường ra khơi
+//   của bến cũ → đường cong qua dải mây → đường vào bến mới tới tận chỗ đậu; tốc độ tăng dần khi rời bến, hãm dần khi cập bến (hồ sơ tốc
+//   độ tính trước theo cả đường). Camera trượt theo tàu (SmoothDamp, đi trước tàu một đoạn theo tốc độ), bắt đầu và dừng đúng hai ảnh
+//   màn; mây ở mép màn cũ khép từ hai bên khi tàu rời bến, mây ở mép màn mới dạt ra khi camera tới nơi; giữa dải mây toả quanh tàu và
+//   khép sau đuôi. Tàu đậu xong thì lớp này tắt (màn thật y như ảnh), tàu của màn hiện đúng chỗ đậu (PierShip.DockedFrom), giao diện
+//   cố định hiện lại. Không chuyền tàu qua lại giữa màn và lớp này giữa đường như bản cũ.
 // - Hướng đi trên màn (người dùng 2026-11-27): sảnh → Nhà thẳng lên (về thẳng xuống), Nhà → đảo Casino sang trái (về sang phải),
 //   sảnh → Casino chéo lên trái, Casino → sảnh chéo xuống phải; màn tải đi lên. Dải thế giới nằm dọc theo hướng đi ax (đi chéo: bề
 //   dài / bề ngang dải là hình chiếu của màn lên hướng đi / hướng vuông góc).
-// - Mây vành rời của màn (CloudRing: sảnh) không nằm trong ảnh chụp: lớp này mang từng đám sang dải thế giới đúng chỗ, đúng độ toả,
-//   để chúng tiếp tục toả quanh tàu; lúc tới thì trả độ toả về mây của màn mới.
+// - Mây vành rời của màn (CloudRing) không nằm trong ảnh chụp: lớp này mang từng đám sang dải thế giới đúng chỗ, đúng độ toả, để chúng
+//   tiếp tục toả quanh tàu; lúc tới thì trả độ toả về mây của màn mới.
 // - Màn tải (App gọi BeginBoot khi mở thẳng vào sảnh): biển mở, tàu đi lên, logo, thanh tải, mẹo. Tải xong (đủ 2,4 giây) thì dải mây
-//   hiện ra phía trước, tàu đi qua rồi tới bến sảnh như trên.
+//   hiện ra phía trước, tàu đi qua rồi vào bến sảnh như trên.
 // Theo giờ (DayCycle, như sảnh, đảo; người dùng 2026-11-19 "mây và thời tiết ở loading cũng phải đổi theo giờ"): lớp nhuộm
 // (day_multiply) và tia nắng (day_rays) phủ biển, dưới ảnh chụp màn (ảnh đã nhuộm sẵn); biển tối thêm về đêm (DayCycle.SeaNight);
 // mây nhân CloudTint × màu cảnh như mây sảnh; tàu nhân màu cảnh, đêm thắp đèn lồng.
-// Canvas riêng thứ tự 9 (dưới thanh trên 10: thanh trên đứng yên như giao diện, thế giới trôi); màn tải 15 (che thanh trên).
-// SceneRouter dùng lớp này thay màn mây CloudCover khi Takes(cũ, mới) đúng. Không sinh GameObject lúc chạy: mây, sóng, bọt là ảnh dựng
-// sẵn trong prefab (menu "PokiClash/Prefab/Sảnh và đảo/Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải", Editor/ShipBuild.cs).
+// Canvas riêng thứ tự 9 (dưới thanh trên 10: thanh trên, kệ chung đứng yên như giao diện, thế giới trôi); màn tải 15 (che thanh trên).
+// SceneRouter dùng lớp này thay màn mây CloudCover khi Takes(cũ, mới) đúng. Không sinh GameObject lúc chạy: mây, bọt là ảnh dựng sẵn
+// trong prefab (menu "PokiClash/Prefab/Sảnh và đảo/Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải", Editor/ShipBuild.cs); lớp biển của
+// prefab đổi sang vật liệu biển chung (Resources/SeaWorld.mat, shader PokiClash/UISeaWorld) lúc chạy, nét sóng rời của bản cũ tắt.
 using System.Collections;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -34,12 +40,16 @@ namespace PokiClash
 {
     public sealed class ShipVoyage : MonoBehaviour, ISceneCover
     {
-        const float Cruise = 1450; // tốc độ tàu trong dải mây (đơn vị/giây)
+        const float Cruise = 1700; // tốc độ giữa biển (đơn vị/giây)
         const float BootSpeed = 460; // màn tải: đi chậm trên biển
-        const float Accel = 1100, Decel = 1250;
-        const float CamLead = 0.2f; // camera đi trước tàu 0,2 chiều cao màn
-        const float Overlap = 0.3f; // dải mây phủ lên mép ảnh màn cũ / mới 0,3 chiều cao màn
-        const float MinCruise = 0.35f;
+        const float Accel = 1100, Decel = 1250; // giữa biển
+        const float AccelDock = 380, DecelDock = 330; // sát bến: rời bến, cập bến êm
+        const float NearK = 1.5f; // trần tốc gần bến: tốc bến + NearK × khoảng tới bến (đơn vị/giây trên mỗi đơn vị)
+        const float CamLead = 0.18f; // camera đi trước tàu 0,18 bề dài màn khi chạy hết tốc
+        const float CamLag = 0.42f; // độ trễ camera (giây, SmoothDamp)
+        const float Overlap = 0.3f; // dải mây phủ lên mép ảnh màn cũ / mới 0,3 bề dài màn
+        const float Gap = 2400; // khoảng biển mây tối thiểu giữa hai màn (đơn vị)
+        const float Step = 10; // bước lấy mẫu đường đi
         const float BootMin = 2.4f;
         const int OrderVoyage = 9, OrderBoot = 15;
 
@@ -57,8 +67,8 @@ namespace PokiClash
         [SerializeField] PokiCanvas view;
         [SerializeField] RectTransform area; // phủ kín màn (Nen của canvas)
         [SerializeField] Image blocker;
-        [SerializeField] RectTransform sea; // ảnh biển lát (Tiled), trôi theo camera
-        [SerializeField] Image[] waves = new Image[0];
+        [SerializeField] RectTransform sea; // lớp biển (vật liệu biển chung), phủ kín màn
+        [SerializeField] Image[] waves = new Image[0]; // nét sóng rời của bản cũ: tắt (ảnh biển lát đã có sóng)
         [SerializeField] Image tint; // lớp nhuộm theo giờ (day_multiply), trên biển, dưới ảnh chụp màn
         [SerializeField] RawImage rays; // tia nắng (day_rays)
         [SerializeField] RawImage oldShot, newShot; // ảnh chụp màn cũ / mới, cỡ bằng màn
@@ -66,6 +76,8 @@ namespace PokiClash
         [SerializeField] Image[] clouds = new Image[0];
         [SerializeField] Image[] carry = new Image[0]; // mây vành của màn mang sang dải (CloudRing)
         [SerializeField] float holeRadius = 290;
+        [Tooltip("Vật liệu biển chung (shader PokiClash/UISeaWorld); trống thì nạp Resources/SeaWorld")]
+        [SerializeField] Material seaMat;
         [Header("Màn tải")]
         [SerializeField] CanvasGroup bootUi;
         [SerializeField] RectTransform logo;
@@ -82,29 +94,44 @@ namespace PokiClash
         static readonly Vector2 UpLeft = new Vector2(-1, 1).normalized;
         // toạ độ dải thế giới: x ngang (theo Lat, vuông góc hướng đi), q dọc theo hướng đi; màn hình = Lat * x + ax * (q - qc)
         Vector2 Lat => new Vector2(ax.y, -ax.x);
-        float qc, closedAt; // camera
-        Vector2 sp, sv; // tàu (x, q), vận tốc
+        float qc; // camera (VoyageSeason đọc tên trường này)
+        Vector2 sp; // tàu (x, q)
         float speed, targetSpeed, followX;
-        bool follow, arriving, running, booting, loaded;
+        bool follow, running, booting, loaded;
         float bandA = float.PositiveInfinity, bandB = float.PositiveInfinity, kA = 1, kB = 1; // dải mây [A, B]; độ khép mây ở hai mép
         float qNew = float.PositiveInfinity; // tâm ảnh màn mới
         RenderTexture rtOld, rtNew;
-        readonly List<Vector2> arc = new List<Vector2>();
-        readonly List<float> arcAcc = new List<float>();
-        float arcLen, arcS, arcQc0, camAt = 1, vEnd;
         float bootT0, tipT;
         int tipIdx;
         Vector2 lastSize, logoPos;
-        Vector2[] cBase, cOff, wBase;
-        float[] cW, wPhase;
-        float period, wSpan;
+        Vector2[] cBase, cOff;
+        float[] cW;
+        float period;
         float[] cJit;
         bool seaOn;
         // mây mang: vị trí gốc (x, q), độ toả, chỉ số trong CloudRing của màn mới (-1: mây màn cũ)
         Vector2[] kBase, kOff;
         int[] kRing;
         int kCount, kArr;
-        CloudRing ringNew;
+        CloudRing ringNew, ringOld;
+        // màn cũ (huỷ chuyến khi màn mới không nạp được: SceneRouter mở lại màn cũ)
+        SceneRoot oldRoot;
+        PierShip fromPier;
+
+        // ---- biển chung: điểm biển giữa màn u(qc) = u0 + ax · I(qc), cỡ ô T(qc) (đơn vị local của area) ----
+        Vector2 seaU0;
+        float seaTa = SeaWorld.Tile, seaTb = SeaWorld.Tile, seaQ1, seaQ2;
+        float[] seaInt; // I(q) = ∫ dq / T(q) lấy mẫu đều trên [0, qNew]
+        bool seaBlend;
+
+        // ---- đường đi một mạch (toạ độ dải) ----
+        readonly List<Vector2> depart = new List<Vector2>(), arrive = new List<Vector2>();
+        readonly List<Vector2> path = new List<Vector2>();
+        readonly List<float> pathV = new List<float>(); // trần tốc từng điểm (hồ sơ tốc độ)
+        float pathLen, ps, sDep, sArr, qc0, d0, camV, tripT, partT = -1, turnT;
+        float sizeFrom = 1.1f, sizeTo = 1.1f, vFrom, vTo;
+        bool trip, tripDone, endPier;
+        Vector2 dockFace = Vector2.up; // hướng mũi lúc đậu (màn hình)
 
         // Dùng khi dựng prefab (Editor).
         public void Setup(PokiCanvas canvas, RectTransform areaRt, Image block, RectTransform seaRt, Image[] waveImgs, Image tintImg,
@@ -136,12 +163,27 @@ namespace PokiClash
         {
             I = this;
             logoPos = logo ? logo.anchoredPosition : Vector2.zero;
+            // lớp biển: vật liệu biển chung (lấy ô lát theo thế giới), một tấm phủ kín màn; nét sóng rời của bản cũ tắt
+            if (!seaMat) seaMat = Resources.Load<Material>("SeaWorld");
+            var img = sea ? sea.GetComponent<Image>() : null;
+            if (img && seaMat)
+            {
+                img.material = seaMat;
+                img.type = Image.Type.Simple;
+            }
+            foreach (var w in waves)
+                if (w)
+                    w.gameObject.SetActive(false);
             Hide();
         }
 
         void OnDestroy()
         {
-            if (I == this) I = null;
+            if (I == this)
+            {
+                I = null;
+                SeaWorld.Held = false;
+            }
             Release();
         }
 
@@ -161,6 +203,7 @@ namespace PokiClash
         // điểm trên màn (so với tâm) -> toạ độ dải, khi tâm màn ở q0; hướng trên màn -> hướng trong dải
         Vector2 ToBand(Vector2 sc, float q0) => new Vector2(Vector2.Dot(sc, Lat), q0 + Vector2.Dot(sc, ax));
         Vector2 Dirs(Vector2 v) => new Vector2(Vector2.Dot(v, Lat), Vector2.Dot(v, ax));
+        Vector2 ScreenDir(Vector2 b) => Lat * b.x + ax * b.y;
 
         // ---------- SceneRouter ----------
 
@@ -202,7 +245,8 @@ namespace PokiClash
         {
             running = false;
             Closed = false;
-            follow = arriving = false;
+            follow = trip = tripDone = false;
+            SeaWorld.Held = false;
             if (look) look.Show(false);
             if (bootUi) bootUi.alpha = 0;
             Release();
@@ -227,20 +271,28 @@ namespace PokiClash
             seaOn = false;
             kCount = 0;
             followX = 0;
-            ringNew = null;
+            ringNew = ringOld = null;
+            oldRoot = null;
+            fromPier = null;
             foreach (var c in carry)
                 if (c) c.gameObject.SetActive(false);
-            qc = 0;
-            follow = arriving = false;
+            qc = qc0 = 0;
+            follow = trip = tripDone = false;
             bandA = bandB = qNew = float.PositiveInfinity;
             kA = kB = 1;
-            sv = Vector2.zero;
+            partT = -1;
+            seaBlend = false;
+            seaU0 = Vector2.zero;
+            seaTa = seaTb = SeaWorld.Tile;
+            depart.Clear();
+            arrive.Clear();
             Release();
             if (look) look.Show(false);
             if (bootUi) bootUi.alpha = 0;
         }
 
-        // rời màn cũ: tàu rời bến, chụp màn cũ làm nền, camera theo tàu; trả về khi màn cũ gỡ được
+        // rời màn cũ: camera lướt tới bến, giao diện mờ; chụp màn cũ làm nền, tàu của lớp này đứng ở chỗ đậu. Trả về khi màn cũ gỡ được
+        // (màn đứng yên tới khi Open: lúc nạp màn mới máy có khựng cũng chỉ thấy tàu chờ ở bến)
         public IEnumerator Close()
         {
             if (Closed)
@@ -252,171 +304,194 @@ namespace PokiClash
             Restart();
             Daylight();
             Layout(0);
-            bool north = ax.y > 0.01f; // rời bến theo đường ra khơi bắc / nam (đi ngang: nam, hai bến Nhà, Casino đều ở mép nam)
+            bool north = ax.y > 0.01f; // rời bến theo đường ra khơi bắc / nam (đi ngang: theo đường ngang của bến)
+            bool flat = Mathf.Abs(ax.y) < 0.01f;
             var root = App.Router ? App.Router.CurrentRoot : null;
+            oldRoot = root;
             if (root) root.Chrome(false, true);
             var from = PierShip.Active;
-            bool flat = Mathf.Abs(ax.y) < 0.01f; // đi ngang (Nhà ↔ Casino): rời / tới bến theo đường ngang của bến
+            if (from && root && from.gameObject.scene != root.gameObject.scene) from = null;
             if (from) from.UseSide(flat ? (ax.x < 0 ? -1 : 1) : 0);
-            if (from && from.isActiveAndEnabled && from.Has(north))
+            bool pier = from && from.isActiveAndEnabled && from.Has(north);
+            if (pier)
             {
-                if (from.Glide != null) yield return from.Glide(from.FocusFor(north));
-                yield return from.Depart(north, 0.55f);
-                float rootRatio = from.Look.transform.lossyScale.x / Mathf.Max(1e-5f, look.transform.lossyScale.x);
-                look.Size = from.ShipRect.lossyScale.x / Mathf.Max(1e-5f, look.transform.lossyScale.x);
-                var s = Local(from.ShipRect.position);
-                sp = ToBand(s, qc);
-                var h = from.Look.Heading;
-                speed = from.CurrentSpeed * rootRatio;
-                sv = Dirs(h) * speed;
-                look.Face(h, true);
+                from.Ready(north);
+                if (from.Glide != null) yield return from.Glide(from.FocusFor(north)); // cùng lúc giao diện mờ đi
+                else yield return new WaitForSecondsRealtime(0.25f);
+            }
+            else yield return new WaitForSecondsRealtime(0.25f);
+            if (root) root.Chrome(false, false);
+            yield return null; // một khung cho camera, bố cục đứng yên
+            float lossy = Mathf.Max(1e-5f, look.transform.lossyScale.x);
+            Vector2 face = ax;
+            if (pier)
+            {
+                fromPier = from;
+                foreach (var w in from.WorldLine(north)) depart.Add(ToBand(Local(w), 0));
+                sizeFrom = from.ShipRect.lossyScale.x / lossy;
+                vFrom = Mathf.Max(160, from.Speed * from.Look.transform.lossyScale.x / lossy);
+                face = from.Look.Heading;
                 from.Look.Show(false);
             }
             else
             {
                 // màn cũ không có bến: tàu từ mép sau màn chạy vào
-                yield return new WaitForSecondsRealtime(0.25f);
-                sp = new Vector2(0, qc - L / 2 - 180);
-                speed = 600;
-                sv = new Vector2(0, speed);
-                look.Size = 1;
-                look.Face(ax, true);
+                depart.Add(new Vector2(0, -L / 2 - 260));
+                depart.Add(new Vector2(0, -L / 2 - 100));
+                sizeFrom = 1.1f;
+                vFrom = 600;
             }
-            if (root) root.Chrome(false, false);
-            var ringOld = CloudRing.Active;
+            ringOld = CloudRing.Active;
             if (ringOld && root && ringOld.gameObject.scene != root.gameObject.scene) ringOld = null;
             if (ringOld)
             {
                 Carry(ringOld, 0, false);
                 ringOld.Show(false);
             }
+            // gốc biển của màn cũ (biển của dải ghim theo ảnh chụp này)
+            var anchor = SeaAnchor.Active;
+            if (anchor && root && anchor.gameObject.scene != root.gameObject.scene) anchor = null;
+            float al = Mathf.Max(1e-5f, area.lossyScale.x);
+            if (anchor)
+            {
+                anchor.Apply();
+                seaTa = anchor.TileWorld / al;
+                seaU0 = -Local(anchor.OriginWorld) / seaTa;
+            }
+            else
+            {
+                seaTa = SeaWorld.Tile;
+                seaU0 = Vector2.zero;
+            }
+            seaTb = seaTa;
             rtOld = Snap();
             if (oldShot) oldShot.texture = rtOld;
+            SeaWorld.Held = true;
             seaOn = true;
+            sp = depart[0];
+            look.Size = sizeFrom;
             look.Pos = Screen_(sp);
+            look.Face(face, true);
+            look.ClearFoam();
             look.Show(true);
-            followX = sp.x; // giữ hướng ngang: đi thẳng dọc biển ngoài rìa đảo, không đè lên đảo của màn cũ
-            // đi ngang (Nhà ↔ Casino): giữ nguyên độ cao tàu; đi chéo: xuôi tiếp đà lúc rời bến cho đường đi cong dần sang hướng chéo
-            if (Mathf.Abs(ax.x) > 0.01f && !flat) followX = sp.x + sv.x * 0.35f;
-            followX = Mathf.Clamp(followX, -Wd / 2 + 170, Wd / 2 - 170);
             bandA = L / 2 - Overlap * L;
             kA = 0;
-            follow = true;
-            targetSpeed = Cruise;
             Layout(0);
-            App.Audio?.Play("whoosh");
-            const float T = 0.75f;
-            for (float t = 0; t < T; t += Dt)
-            {
-                kA = Smooth(t / T);
-                look.Size = Mathf.Lerp(look.Size, 1.1f, 1 - Mathf.Exp(-3 * Dt));
-                yield return null;
-            }
-            kA = 1;
             Closed = true;
-            closedAt = Time.unscaledTime;
         }
 
-        // tới màn mới: chụp màn mới (đã đặt camera, tàu của màn ẩn ở điểm vào bến), nối sau dải mây, tàu đi vào; tắt lớp, tàu cập bến
+        // tới màn mới: đặt camera màn mới ở bến, chụp, nối sau dải mây; tàu chạy một mạch từ chỗ đậu cũ tới chỗ đậu mới; tắt lớp
         public IEnumerator Open()
         {
             if (booting) yield return BootEnd();
-            else
-                while (Time.unscaledTime - closedAt < MinCruise)
-                    yield return null;
-            bool fromNorth = ax.y < -0.01f; // cập bến theo đường vào bắc / nam (đi ngang: nam)
-            var to = PierShip.Active;
             var root = App.Router ? App.Router.CurrentRoot : null;
+            if (!booting && root == oldRoot)
+            {
+                Cancel(); // màn mới không nạp được (gói tải lỗi): ở lại màn cũ
+                yield break;
+            }
+            bool fromNorth = ax.y < -0.01f; // cập bến theo đường vào bắc / nam (đi ngang: theo đường ngang của bến)
+            bool flat = Mathf.Abs(ax.y) < 0.01f;
+            var to = PierShip.Active;
+            if (to && root && to.gameObject.scene != root.gameObject.scene) to = null;
             if (root) root.Chrome(false, false);
-            bool flatIn = Mathf.Abs(ax.y) < 0.01f;
-            if (to) to.UseSide(flatIn ? (ax.x < 0 ? 1 : -1) : 0); // đi sang trái thì vào bến từ bên phải
+            if (to) to.UseSide(flat ? (ax.x < 0 ? 1 : -1) : 0); // đi sang trái thì vào bến từ bên phải
             bool pier = to && to.isActiveAndEnabled && to.Has(fromNorth);
-            Vector2 E, T;
-            float rootRatio = 1, sizeTo = 1.1f;
             if (pier)
             {
                 to.Park();
                 to.Frame?.Invoke(to.FocusFor(fromNorth), World(Vector2.zero)); // giữa chỗ đậu và điểm vào bến ra giữa màn (camera tự kẹp)
                 to.HoldAtExit(fromNorth);
-                // chờ camera, bố cục màn mới đứng yên rồi mới chụp
-                for (int f = 0; f < 3; f++) yield return null;
-                yield return new WaitForSecondsRealtime(0.12f);
-                E = Local(to.ExitWorld(fromNorth));
-                T = to.EntryDir(fromNorth);
-                if (T.sqrMagnitude < 1e-4f) T = ax;
-                rootRatio = to.Look.transform.lossyScale.x / Mathf.Max(1e-5f, look.transform.lossyScale.x);
-                sizeTo = to.ShipRect.lossyScale.x / Mathf.Max(1e-5f, look.transform.lossyScale.x);
+            }
+            // chờ camera, bố cục màn mới đứng yên rồi mới chụp
+            for (int f = 0; f < 3; f++) yield return null;
+            yield return new WaitForSecondsRealtime(0.12f);
+            // màn mới đặt sau dải mây: mép gần cách mép trước màn cũ (hoặc chỗ camera màn tải) một khoảng biển mây
+            qc0 = qc;
+            qNew = qc0 + L + Mathf.Max(1.1f * L, Gap);
+            float lossy = Mathf.Max(1e-5f, look.transform.lossyScale.x);
+            arrive.Clear();
+            endPier = pier;
+            if (pier)
+            {
+                var line = to.WorldLine(fromNorth); // chỗ đậu → điểm ra khơi
+                for (int i = line.Count - 1; i >= 0; i--) arrive.Add(ToBand(Local(line[i]), qNew));
+                sizeTo = to.ShipRect.lossyScale.x / lossy;
+                vTo = Mathf.Max(160, to.Speed * to.Look.transform.lossyScale.x / lossy);
+                var fw = (Vector2)area.InverseTransformVector(to.DockFaceWorld(fromNorth));
+                dockFace = fw.sqrMagnitude > 1e-6f ? fw.normalized : ax;
             }
             else
             {
-                yield return null;
-                E = ax * (L / 2 + 320); // màn mới không có bến: tàu đi khuất phía trước
-                T = ax;
+                // màn mới không có bến: tàu đi khuất phía trước
+                arrive.Add(ToBand(ax * (L / 2 - 200), qNew));
+                arrive.Add(ToBand(ax * (L / 2 + 320), qNew));
+                sizeTo = 1.1f;
+                vTo = Cruise;
+                dockFace = ax;
             }
             ringNew = CloudRing.Active;
             if (ringNew && root && ringNew.gameObject.scene != root.gameObject.scene) ringNew = null;
             kArr = kCount;
             if (ringNew)
             {
-                Carry(ringNew, 0, true); // q tương đối, cộng qNew khi biết
+                Carry(ringNew, qNew, true);
                 ringNew.Show(false);
             }
+            // biển màn mới: cỡ ô thật của màn mới; gốc dời cho trùng biển của dải lúc camera tới qNew
+            var anchor = SeaAnchor.Active;
+            if (anchor && root && anchor.gameObject.scene != root.gameObject.scene) anchor = null;
+            float al = Mathf.Max(1e-5f, area.lossyScale.x);
+            seaTb = anchor ? anchor.TileWorld / al : seaTa;
+            BuildSea();
+            if (anchor)
+            {
+                var o = SeaAt(qNew, out float t);
+                anchor.Match(World(o), t * al);
+                anchor.Apply();
+            }
             rtNew = Snap();
+            ApplySea();
             if (newShot) newShot.texture = rtNew;
-            // còn trong mây: dạt ngang tới đúng hàng của điểm vào bến, rồi xuôi thẳng vào (không cắt ngang đảo của màn mới)
-            followX = Vector2.Dot(E, Lat);
-            for (float t = 0; t < 1.1f && Mathf.Abs(sp.x - followX) > 24; t += Dt) yield return null;
-            // ảnh màn mới: mép gần phải ở xa ngoài màn, dải mây đủ dài, tàu đủ đường để hãm
-            qNew = Mathf.Max(qc + 1.45f * L, (float.IsInfinity(bandA) ? qc : bandA) + 1.6f * L, sp.y + 1.25f * L - Vector2.Dot(E, ax));
-            for (int k = kArr; k < kCount; k++) kBase[k].y += qNew;
             bandB = qNew - L / 2 + Overlap * L;
             kB = 1;
-            var ew = ToBand(E, qNew);
-            var tw = Dirs(T).normalized;
-            BuildArc(sp, sv.sqrMagnitude > 1 ? sv.normalized : Vector2.up, ew, tw);
-            vEnd = pier ? to.Speed * rootRatio * 0.9f : Cruise * 0.6f;
-            arcQc0 = qc;
-            arcS = 0;
-            camAt = pier ? 1 : 0.8f;
-            targetSpeed = Cruise;
+            if (!follow) System.GC.Collect(); // dọn rác lúc màn còn đứng yên (tàu chờ ở bến), khỏi khựng giữa đường
+            BuildTrip();
+            App.Audio?.Play("whoosh");
             follow = false;
-            arriving = true;
-            float size0 = look.Size;
-            while (arcS < arcLen - 0.5f)
-            {
-                look.Size = Mathf.Lerp(size0, sizeTo, Smooth(arcS / arcLen));
-                yield return null;
-            }
+            tripT = 0;
+            partT = -1;
+            turnT = 0;
+            tripDone = false;
+            trip = true;
+            while (!tripDone) yield return null;
+            // tàu đã đậu, camera đứng đúng ảnh màn mới, mây mép đã dạt: trả mây vành, tàu của màn hiện ở chỗ đậu, tắt lớp (màn thật y như ảnh)
+            trip = false;
             qc = qNew;
-            arriving = false;
-            Layout(0);
-            // camera đã dừng, ảnh màn mới đúng chỗ: trả mây vành, tắt ảnh chụp và biển (màn thật y như ảnh), tàu của màn chạy tiếp;
-            // mây dải phủ mép màn mới dạt ra hai bên trên màn thật
             HandBack();
-            Release();
-            seaOn = false;
-            Coroutine dock = null;
-            if (pier)
-            {
-                look.Show(false);
-                to.Look.Show(true);
-                dock = to.StartCoroutine(to.Arrive(fromNorth, vEnd / Mathf.Max(0.01f, rootRatio)));
-            }
-            else look.Show(false);
-            Layout(0);
-            for (float t = 0; t < 0.5f; t += Dt)
-            {
-                kB = 1 - Smooth(t / 0.5f);
-                yield return null;
-            }
-            kB = 0;
+            if (pier) to.DockedFrom(fromNorth);
             Hide();
-            if (dock != null)
-                while (to && to.Busy)
-                    yield return null;
             if (to) to.UseSide(0);
             if (root) root.Chrome(true, true);
             booting = false;
+        }
+
+        // màn mới không nạp được: trả màn cũ như trước chuyến
+        void Cancel()
+        {
+            if (fromPier)
+            {
+                fromPier.Look.Show(true);
+                fromPier.Park();
+                fromPier.UseSide(0);
+            }
+            if (ringOld) ringOld.Show(true);
+            foreach (var c in carry)
+                if (c) c.gameObject.SetActive(false);
+            kCount = 0;
+            var root = oldRoot;
+            Hide();
+            if (root) root.Chrome(true, true);
         }
 
         // ---------- màn tải ----------
@@ -430,11 +505,14 @@ namespace PokiClash
             ax = Vector2.up;
             Restart();
             seaOn = true;
+            SeaWorld.Held = true;
+            seaU0 = Vector2.zero;
+            seaTa = seaTb = SeaWorld.Tile;
             sp = new Vector2(0, -H * 0.16f);
             speed = targetSpeed = BootSpeed;
-            sv = new Vector2(0, speed);
             follow = true;
             look.Size = 1.1f;
+            sizeFrom = 1.1f;
             look.Pos = Screen_(sp);
             look.Face(Vector2.up, true);
             look.Show(true);
@@ -444,7 +522,6 @@ namespace PokiClash
             if (bootUi) bootUi.alpha = 1;
             SetBar(0);
             Closed = true;
-            closedAt = Time.unscaledTime;
             Daylight(); // nhuộm theo giờ ngay khung đầu
             Layout(0);
         }
@@ -524,6 +601,174 @@ namespace PokiClash
             }
         }
 
+        // ---------- đường đi một mạch ----------
+
+        // đường ra khơi bến cũ → đường cong qua dải mây → đường vào bến mới; lấy mẫu đều Step; hồ sơ tốc độ: trần theo khoảng tới bến,
+        // tăng tốc / hãm có giới hạn (êm hơn sát bến), xuất phát từ tốc hiện tại, dừng hẳn ở chỗ đậu mới
+        void BuildTrip()
+        {
+            var ctrl = new List<Vector2>();
+            bool boot = follow; // màn tải: tàu đang chạy, đường bắt đầu từ chỗ tàu
+            if (boot) ctrl.Add(sp);
+            else ctrl.AddRange(depart);
+            float depLen = boot ? 0 : PolyLen(depart);
+            float arrLen = PolyLen(arrive);
+            var p0 = ctrl[ctrl.Count - 1];
+            var t0 = !boot && depart.Count >= 2 ? (depart[depart.Count - 1] - depart[depart.Count - 2]).normalized : Vector2.up;
+            var p3 = arrive[0];
+            var t3 = arrive.Count >= 2 ? (arrive[1] - arrive[0]).normalized : Vector2.up;
+            // không quay ngược hướng đi: hai tiếp tuyến luôn có phần tiến theo dải
+            if (t0.y < 0.25f) t0 = (t0 + Vector2.up * (0.25f - t0.y) * 2).normalized;
+            if (t3.y < 0.25f) t3 = (t3 + Vector2.up * (0.25f - t3.y) * 2).normalized;
+            float D = Vector2.Distance(p0, p3);
+            var p1 = p0 + t0 * D * 0.35f;
+            var p2 = p3 - t3 * Mathf.Min(D * 0.35f, 900);
+            const int N = 64;
+            for (int i = 1; i < N; i++)
+            {
+                float t = i / (float)N, s = 1 - t;
+                ctrl.Add(s * s * s * p0 + 3 * s * s * t * p1 + 3 * s * t * t * p2 + t * t * t * p3);
+            }
+            ctrl.AddRange(arrive);
+            // lấy mẫu đều
+            path.Clear();
+            pathV.Clear();
+            path.Add(ctrl[0]);
+            float carryLen = 0;
+            for (int i = 1; i < ctrl.Count; i++)
+            {
+                var a = ctrl[i - 1];
+                var b = ctrl[i];
+                float seg = Vector2.Distance(a, b);
+                if (seg < 1e-4f) continue;
+                float at = Step - carryLen;
+                while (at <= seg)
+                {
+                    path.Add(Vector2.Lerp(a, b, at / seg));
+                    at += Step;
+                }
+                carryLen = seg - (at - Step);
+            }
+            if (Vector2.Distance(path[path.Count - 1], ctrl[ctrl.Count - 1]) > 0.5f) path.Add(ctrl[ctrl.Count - 1]);
+            int n = path.Count;
+            pathLen = (n - 1) * Step;
+            sDep = boot ? Mathf.Min(600, pathLen * 0.3f) : Mathf.Max(depLen, 1);
+            sArr = Mathf.Max(arrLen, 1);
+            // trần tốc
+            float v0 = boot ? speed : 0;
+            float vEnd = endPier ? 0 : Cruise * 0.6f;
+            var v = new float[n];
+            for (int i = 0; i < n; i++)
+            {
+                float s = i * Step, rest = Mathf.Max(0, pathLen - s);
+                float lim = Cruise;
+                if (!boot) lim = Mathf.Min(lim, vFrom + NearK * s);
+                if (endPier) lim = Mathf.Min(lim, vTo + NearK * rest);
+                v[i] = lim;
+            }
+            v[0] = Mathf.Min(v[0], v0);
+            for (int i = 1; i < n; i++)
+            {
+                float s = i * Step;
+                float a = boot ? Accel : Mathf.Lerp(AccelDock, Accel, Smooth(s / 500f));
+                v[i] = Mathf.Min(v[i], Mathf.Sqrt(v[i - 1] * v[i - 1] + 2 * a * Step));
+            }
+            v[n - 1] = Mathf.Min(v[n - 1], vEnd);
+            for (int i = n - 2; i >= 0; i--)
+            {
+                float rest = Mathf.Max(0, pathLen - i * Step);
+                float d = endPier ? Mathf.Lerp(DecelDock, Decel, Smooth(rest / 500f)) : Decel;
+                v[i] = Mathf.Min(v[i], Mathf.Sqrt(v[i + 1] * v[i + 1] + 2 * d * Step));
+            }
+            pathV.AddRange(v);
+            ps = 0;
+            // camera: bắt đầu đúng chỗ đang đứng (bến cũ: tâm ảnh màn cũ; màn tải: đang bám tàu)
+            d0 = path[0].y + Lead(v[0]) - qc;
+            camV = boot ? speed : 0;
+        }
+
+        // camera đi trước tàu bao nhiêu khi tàu chạy tốc v: bù độ trễ của SmoothDamp (v × CamLag) cộng phần nhìn trước theo tốc độ
+        float Lead(float v) => v * CamLag + CamLead * L * Mathf.Clamp01(v / Cruise);
+
+        static float PolyLen(List<Vector2> pts)
+        {
+            float len = 0;
+            for (int i = 1; i < pts.Count; i++) len += Vector2.Distance(pts[i - 1], pts[i]);
+            return len;
+        }
+
+        Vector2 PathAt(float s)
+        {
+            int n = path.Count;
+            if (n == 0) return sp;
+            float f = Mathf.Clamp(s, 0, pathLen) / Step;
+            int i = Mathf.Min(n - 2, (int)f);
+            if (i < 0) return path[0];
+            return Vector2.Lerp(path[i], path[i + 1], f - i);
+        }
+
+        float SpeedAt(float s)
+        {
+            int n = pathV.Count;
+            if (n == 0) return Cruise;
+            float f = Mathf.Clamp(s, 0, pathLen) / Step;
+            int i = Mathf.Min(n - 2, (int)f);
+            if (i < 0) return pathV[0];
+            return Mathf.Lerp(pathV[i], pathV[i + 1], f - i);
+        }
+
+        // ---------- biển chung ----------
+
+        // cỡ ô đổi dần (chỉ khi hai màn lệch cỡ) giữa dải mây, lúc cả hai ảnh màn gần như khuất; lập bảng I(q) = ∫ dq / T(q)
+        void BuildSea()
+        {
+            seaBlend = Mathf.Abs(seaTb - seaTa) > 0.5f;
+            seaQ1 = qc0 + 0.75f * L;
+            seaQ2 = Mathf.Max(seaQ1 + 1, qNew - 0.75f * L);
+            const int M = 256;
+            seaInt = new float[M + 1];
+            float span = Mathf.Max(1, qNew - qc0);
+            float acc = 0;
+            for (int i = 0; i <= M; i++)
+            {
+                if (i > 0)
+                {
+                    float qa = qc0 + span * (i - 1) / M, qb = qc0 + span * i / M;
+                    acc += (qb - qa) * 0.5f * (1 / TileAt(qa) + 1 / TileAt(qb));
+                }
+                seaInt[i] = acc;
+            }
+        }
+
+        float TileAt(float q) => seaBlend ? Mathf.Lerp(seaTa, seaTb, Smooth(Mathf.InverseLerp(seaQ1, seaQ2, q))) : seaTa;
+
+        float SeaIntegral(float q)
+        {
+            if (!seaBlend || seaInt == null) return q / seaTa;
+            float span = Mathf.Max(1, qNew - qc0);
+            if (q <= qc0) return qc0 / seaTa + (q - qc0) / seaTa;
+            float baseI = qc0 / seaTa;
+            if (q >= qNew) return baseI + seaInt[seaInt.Length - 1] + (q - qNew) / seaTb;
+            float f = (q - qc0) / span * (seaInt.Length - 1);
+            int i = Mathf.Min(seaInt.Length - 2, (int)f);
+            return baseI + Mathf.Lerp(seaInt[i], seaInt[i + 1], f - i);
+        }
+
+        // gốc biển (local của area) và cỡ ô khi camera ở q: điểm biển giữa màn u = u0 + ax · I(q), gốc = −u · T
+        Vector2 SeaAt(float q, out float t)
+        {
+            t = TileAt(q);
+            var u = seaU0 + ax * SeaIntegral(q);
+            return -u * t;
+        }
+
+        void ApplySea()
+        {
+            if (!seaOn) return;
+            var o = SeaAt(qc, out float t);
+            SeaWorld.Set(World(o), t * Mathf.Max(1e-5f, area.lossyScale.x));
+        }
+
         // ---------- mỗi khung ----------
 
         static float Dt => Mathf.Min(Time.unscaledDeltaTime, 0.05f);
@@ -565,10 +810,7 @@ namespace PokiClash
                 look.SetTint(tintC);
                 look.Night(night);
             }
-            waveTint = tintC;
         }
-
-        Color waveTint = Color.white;
 
         void Update()
         {
@@ -578,30 +820,26 @@ namespace PokiClash
             Daylight();
             var prev = sp;
             float prevQc = qc;
-            if (follow)
+            float v = 0;
+            if (trip) v = Trip(dt);
+            else if (follow)
             {
-                // tàu đi thẳng theo hướng đi, dạt dần vào giữa; camera theo sau, không lùi
+                // màn tải: tàu đi thẳng lên, camera theo sau, không lùi
                 speed = Mathf.MoveTowards(speed, targetSpeed, Accel * dt);
                 sp = new Vector2(Mathf.Lerp(sp.x, followX, 1 - Mathf.Exp(-1.6f * dt)), sp.y + speed * dt);
-                float want = sp.y + CamLead * L;
+                float want = sp.y + CamLead * L * Mathf.Clamp01(speed / Cruise);
                 qc = Mathf.Max(qc, Mathf.Lerp(qc, want, 1 - Mathf.Exp(-2.6f * dt)));
+                v = speed;
             }
-            else if (arriving)
-            {
-                // theo đường cong vào bến: hãm để tới nơi đúng tốc độ vào bến; camera tới đích cùng lúc tàu tới điểm vào bến
-                float vmax = Mathf.Sqrt(vEnd * vEnd + 2 * Decel * Mathf.Max(0, arcLen - arcS));
-                speed = Mathf.Max(vEnd * 0.6f, Mathf.Min(Mathf.MoveTowards(speed, targetSpeed, Accel * dt), vmax));
-                arcS = Mathf.Min(arcLen, arcS + speed * dt);
-                sp = ArcAt(arcS);
-                qc = Mathf.Lerp(arcQc0, qNew, Mathf.Clamp01(arcS / (arcLen * camAt)));
-            }
-            sv = (sp - prev) / dt;
-            float camV = (qc - prevQc) / dt;
+            float camSpeed = (qc - prevQc) / dt;
             look.Pos = Screen_(sp);
-            var vs = Lat * sv.x + ax * sv.y;
-            if (vs.sqrMagnitude > 30 * 30) look.Face(vs);
-            look.Flow = -ax * camV; // bọt nằm trong thế giới
-            look.Tick(dt, sv.magnitude);
+            if (follow && !trip)
+            {
+                var d = ScreenDir(sp - prev);
+                if (d.sqrMagnitude > 0.01f) look.Face(d);
+            }
+            look.Flow = -ax * camSpeed; // bọt nằm trong thế giới
+            look.Tick(dt, v);
             Layout(dt);
             if (booting && bootUi && bootUi.alpha > 0)
             {
@@ -615,6 +853,57 @@ namespace PokiClash
                 }
                 if (logo) logo.anchoredPosition = logoPos + new Vector2(0, Mathf.Sin(e * 1.6f) * 6);
             }
+        }
+
+        // một khung của chuyến: tàu theo đường với hồ sơ tốc độ, camera trượt theo, mây hai mép; trả tốc độ tàu
+        float Trip(float dt)
+        {
+            tripT += dt;
+            float before = ps;
+            if (ps < pathLen)
+            {
+                float vs = Mathf.Max(SpeedAt(ps), endPier ? 26 : 80);
+                ps = Mathf.Min(pathLen, ps + vs * dt);
+            }
+            float vNow = (ps - before) / dt;
+            sp = PathAt(ps);
+            // hướng mũi theo đường; đậu rồi thì quay theo hướng đậu
+            if (ps < pathLen - 0.5f)
+            {
+                var d = ScreenDir(PathAt(Mathf.Min(pathLen, ps + 16)) - sp);
+                if (d.sqrMagnitude > 0.01f) look.Face(d);
+            }
+            else if (endPier) look.Face(dockFace);
+            // cỡ tàu đổi dần giữa đường
+            float mid = Mathf.Max(1, pathLen - sDep - sArr);
+            look.Size = Mathf.Lerp(sizeFrom, sizeTo, Smooth((ps - sDep) / mid));
+            // camera: đi trước tàu theo tốc độ (bù độ trễ SmoothDamp, nên lúc chạy đều tàu nằm sau tâm màn 0,18 bề dài); đầu chuyến bắt
+            // đầu đúng chỗ cũ, cuối chuyến dừng đúng tâm màn mới
+            float lead = Lead(SpeedAt(ps));
+            float target = sp.y + lead - d0 * (1 - Smooth(ps / sDep));
+            target = Mathf.Lerp(target, qNew, Smooth((ps - (pathLen - sArr)) / sArr));
+            target = Mathf.Clamp(target, qc0, qNew);
+            float nq = Mathf.SmoothDamp(qc, target, ref camV, CamLag, Mathf.Infinity, dt);
+            qc = Mathf.Clamp(Mathf.Max(qc, nq), qc0, qNew);
+            if (qNew - qc < 0.5f && ps >= pathLen - 0.5f)
+            {
+                qc = qNew;
+                camV = 0;
+            }
+            // mây mép màn cũ khép lại từ hai bên khi tàu rời bến; mép màn mới dạt ra khi camera tới nơi
+            if (!booting) kA = Smooth(tripT / 0.8f);
+            if (partT < 0 && qNew - qc < 0.08f * L) partT = 0;
+            if (partT >= 0)
+            {
+                partT += dt;
+                kB = 1 - Smooth(partT / 0.55f);
+            }
+            if (ps >= pathLen - 0.5f && qc >= qNew && kB <= 0.001f)
+            {
+                turnT += dt;
+                if (turnT >= 0.3f) tripDone = true; // quay mũi theo hướng đậu xong
+            }
+            return vNow;
         }
 
         void Build(Vector2 size)
@@ -645,18 +934,13 @@ namespace PokiClash
                 crt.sizeDelta = new Vector2(cW[i], cW[i] * aspect);
                 crt.localScale = new Vector3(rng.NextDouble() < 0.5 ? -1 : 1, 1, 1);
             }
-            int m = waves.Length;
-            wBase = new Vector2[m];
-            wPhase = new float[m];
-            wSpan = size.y + 240;
-            for (int i = 0; i < m; i++)
-            {
-                wBase[i] = new Vector2((float)(rng.NextDouble() - 0.5) * (size.x + 100), (float)rng.NextDouble() * wSpan);
-                wPhase[i] = (float)rng.NextDouble() * 10;
-                waves[i].rectTransform.localScale = new Vector3(rng.NextDouble() < 0.5 ? -1 : 1, 1, 1);
-            }
             var real = Size; // size là cỡ dải (ngang, dọc theo hướng đi); biển và ảnh chụp theo màn thật
-            if (sea) sea.sizeDelta = new Vector2(real.x + 1024, real.y + 1024);
+            if (sea)
+            {
+                sea.anchorMin = sea.anchorMax = new Vector2(0.5f, 0.5f);
+                sea.anchoredPosition = Vector2.zero;
+                sea.sizeDelta = new Vector2(real.x + 512, real.y + 512);
+            }
             foreach (var shot in new[] { oldShot, newShot })
                 if (shot) shot.rectTransform.sizeDelta = real;
         }
@@ -664,31 +948,20 @@ namespace PokiClash
         // vị trí lặp gần camera của một vật cố định trong thế giới (chu kỳ p)
         float Near(float q, float p) => qc + Mathf.Repeat(q - qc + p / 2, p) - p / 2;
 
-        // biển, sóng, ảnh màn cũ / mới, mây theo camera; mây ở mép ảnh khép / dạt theo kA / kB, toả quanh tàu
+        // biển, ảnh màn cũ / mới, mây theo camera; mây ở mép ảnh khép / dạt theo kA / kB, toả quanh tàu
         void Layout(float dt)
         {
             var size = Size;
             var band = new Vector2(Wd, L);
             if (cBase == null || band != lastSize) Build(band);
-            if (sea)
-            {
-                if (sea.gameObject.activeSelf != seaOn) sea.gameObject.SetActive(seaOn);
-                var so = -ax * qc; // biển cố định trong thế giới: trôi ngược camera, lặp theo ô 512
-                sea.anchoredPosition = new Vector2(Mathf.Repeat(so.x + 256, 512) - 256, Mathf.Repeat(so.y + 256, 512) - 256);
-            }
-            float tNow = Time.unscaledTime;
-            for (int i = 0; i < waves.Length; i++)
-            {
-                var w = waves[i];
-                if (w.gameObject.activeSelf != seaOn) w.gameObject.SetActive(seaOn);
-                float q = Near(wBase[i].y, wSpan);
-                w.rectTransform.anchoredPosition = Lat * (wBase[i].x + Mathf.Sin(tNow * 0.7f + wPhase[i]) * 10) + ax * (q - qc);
-                w.color = new Color(waveTint.r, waveTint.g, waveTint.b, 0.35f + 0.65f * Mathf.Clamp01(Mathf.Sin(tNow * 0.55f + wPhase[i]) * 0.5f + 0.6f));
-            }
+            if (sea && sea.gameObject.activeSelf != seaOn) sea.gameObject.SetActive(seaOn);
+            ApplySea();
             Place(oldShot, rtOld, 0);
             Place(newShot, rtNew, qNew);
             float Wh = band.x / 2 + 220;
             float edge = Overlap * band.y + 260; // vùng mây khép / dạt ở mép dải
+            // mọi đám mây còn thấy được trên ảnh màn cũ / mới đều khép / dạt theo kA / kB (không đám nào hiện sẵn trên màn lúc tàu còn đậu)
+            float seenA = qc0 + band.y / 2 + 400, seenB = qNew - band.y / 2 - 400;
             // vùng toả: quanh thân tàu; mây dạt ngang hai bên, mở trước mũi, khép lại đúng chỗ sau đuôi (người dùng: thấy rõ thuyền,
             // mây không lùi lại)
             float lsz = look ? look.Size : 1;
@@ -702,8 +975,8 @@ namespace PokiClash
                 float a0 = bandA + cJit[i], b0 = bandB - cJit[i];
                 bool on = q >= a0 && q <= b0;
                 float kk = 1;
-                if (on && q < a0 + edge) kk = Mathf.Min(kk, kA);
-                if (on && q > b0 - edge) kk = Mathf.Min(kk, kB);
+                if (on && q < Mathf.Max(a0 + edge, seenA)) kk = Mathf.Min(kk, kA);
+                if (on && q > Mathf.Min(b0 - edge, seenB)) kk = Mathf.Min(kk, kB);
                 on &= kk > 0.002f;
                 if (img.gameObject.activeSelf != on) img.gameObject.SetActive(on);
                 if (!on)
@@ -718,14 +991,14 @@ namespace PokiClash
                 cOff[i] = Part(p, center, head, R, R2, cOff[i], dt, i);
                 img.rectTransform.anchoredPosition = p + cOff[i];
             }
-            // mây vành mang theo: cố định trong thế giới, toả quanh tàu
+            // mây vành mang theo: cố định trong thế giới; toả quanh tàu khi tàu chạy (lúc tàu còn chờ ở bến giữ nguyên như trên màn)
             for (int k = 0; k < kCount; k++)
             {
                 var img = carry[k];
                 var p = Screen_(kBase[k]);
                 bool on = Mathf.Abs(p.x) < size.x * 0.5f + 400 && Mathf.Abs(p.y) < size.y * 0.5f + 400;
                 if (img.gameObject.activeSelf != on) img.gameObject.SetActive(on);
-                kOff[k] = Part(p, center, head, R, R2, kOff[k], dt, k);
+                if (trip && dt > 0) kOff[k] = Part(p, center, head, R, R2, kOff[k], dt, k);
                 if (on) img.rectTransform.anchoredPosition = p + kOff[k];
             }
         }
@@ -816,42 +1089,6 @@ namespace PokiClash
             bool on = rt && Mathf.Abs(q - qc) < L * 1.05f;
             if (shot.gameObject.activeSelf != on) shot.gameObject.SetActive(on);
             if (on) shot.rectTransform.anchoredPosition = ax * (q - qc);
-        }
-
-        // ---------- đường cong vào bến ----------
-
-        void BuildArc(Vector2 p0, Vector2 d0, Vector2 p3, Vector2 t3)
-        {
-            float D = Vector2.Distance(p0, p3);
-            var p1 = p0 + d0 * D * 0.35f;
-            var p2 = p3 - t3 * Mathf.Min(D * 0.3f, 520);
-            arc.Clear();
-            arcAcc.Clear();
-            arcLen = 0;
-            for (int i = 0; i <= 96; i++)
-            {
-                float t = i / 96f, s = 1 - t;
-                var q = s * s * s * p0 + 3 * s * s * t * p1 + 3 * s * t * t * p2 + t * t * t * p3;
-                if (arc.Count > 0) arcLen += Vector2.Distance(arc[arc.Count - 1], q);
-                arc.Add(q);
-                arcAcc.Add(arcLen);
-            }
-        }
-
-        Vector2 ArcAt(float s)
-        {
-            if (arc.Count == 0) return sp;
-            if (s <= 0) return arc[0];
-            if (s >= arcLen) return arc[arc.Count - 1];
-            int lo = 0, hi = arcAcc.Count - 1;
-            while (hi - lo > 1)
-            {
-                int m = (lo + hi) / 2;
-                if (arcAcc[m] <= s) lo = m;
-                else hi = m;
-            }
-            float seg = arcAcc[hi] - arcAcc[lo];
-            return Vector2.Lerp(arc[lo], arc[hi], seg > 0 ? (s - arcAcc[lo]) / seg : 0);
         }
 
         // ---------- chụp màn ----------

@@ -83,10 +83,17 @@ namespace PokiClash.EditorTools
             var groups = new Dictionary<string, Row>();
             var types = new Dictionary<string, long>();
             var items = new Dictionary<string, long>();
+            long loose = 0; // ảnh nguồn của sprite atlas vào gói thành ảnh rời (atlas không gom được)
+            int looseN = 0;
             foreach (var pa in report.packedAssets)
                 foreach (var c in pa.contents)
                 {
                     long b = (long)c.packedSize;
+                    if (c.type == typeof(Texture2D) && !string.IsNullOrEmpty(c.sourceAssetPath) && AtlasMenu.InAtlas(c.sourceAssetPath))
+                    {
+                        loose += b;
+                        looseN++;
+                    }
                     string g = Group(c.sourceAssetPath, c.type);
                     if (!groups.TryGetValue(g, out var r)) groups[g] = r = new Row { k = g };
                     r.b += b;
@@ -110,6 +117,13 @@ namespace PokiClash.EditorTools
             sb.AppendLine($"Nén gói dữ liệu: {comp}");
             if (!hc && (s.platform == BuildTarget.Android || s.platform == BuildTarget.iOS))
                 Debug.LogWarning($"[Build] {name}: gói dữ liệu nén {comp}, không phải LZ4HC (to hơn vài MB). Build qua menu PokiClash/Build.");
+            // vụ atlas hạt 2026-11-23: atlas nhập hỏng, 1458 ảnh hạt vào gói rời RGBA32 (443 MB trước nén) mà không ai thấy qua hai bản
+            if (loose > 1048576)
+            {
+                sb.AppendLine($"ẢNH NGUỒN CỦA SPRITE ATLAS VÀO GÓI RỜI: {looseN} ảnh, {MB(loose)} trước nén (atlas không gom được: nhập hỏng, " +
+                              "hoặc ảnh bị trỏ thẳng dạng Texture2D). Nhập lại file .spriteatlasv2 rồi build lại.");
+                Debug.LogError($"[Build] {name}: {looseN} ảnh nguồn của sprite atlas vào gói rời ({MB(loose)} trước nén). Xem báo cáo dung lượng.");
+            }
             sb.AppendLine($"Gói ra: {MB(snap.output)}  {outPath}" + (prev != null ? $"  (lần trước {prev.name}: {MB(prev.output)}, {Signed(snap.output - prev.output)})" : ""));
             bool android = s.platform == BuildTarget.Android;
             if (android && snap.output > AndroidBudgetMB * 1048576)

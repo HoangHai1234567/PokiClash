@@ -50,11 +50,40 @@ namespace PokiClash.EditorTools
 
         public static bool HatFullRect(string path) => InHatAtlas(path) && HatFullRectPrefixes.Any(Path.GetFileName(path).StartsWith);
 
-        // hình thuộc atlas đảo: trong thư mục Co, Anim; danh sách Files; mây, chim, thuyền cắt từ ảnh nền đảo vùng đất; ảnh hạt hiệu ứng
+        // Atlas ảnh có mipmap (2026-11-27): hình cửa hàng, icon vẽ tay hiện thu nhỏ 4–7 lần nên phải có mipmap (ArtImporter), mà ảnh có
+        // mipmap cạnh không phải lũy thừa 2 thì Unity để RGBA32 không nén dù ghi đè ASTC, không báo gì (APK 2026-11-27: 77 ảnh, 36 MB
+        // trong APK). Gói vào atlas có mipmap (trang vuông 2048) thì nén ASTC 4x4 được (người dùng chọn 4x4 cho gần ảnh gốc). Nguồn giữ cả
+        // khung (FullRect, không cắt viền trong suốt): 14 ảnh v3 vẽ kiểu 9-slice, vài ảnh Tiled / Filled. Lề 16 để mip thấp không lem ảnh
+        // bên cạnh. Ảnh cạnh lũy thừa 2 (pop_nen_*, sao_trang, nen_gradient_tron, Fallback/Icons) đã nén được, để ngoài.
+        public const string MipAtlasPath = "Assets/03 Art/Shop/anh_mip.spriteatlasv2";
+        static readonly string[] MipFolders = { "Assets/03 Art/Shop/v2", "Assets/03 Art/Shop/v3", "Assets/03 Art/Icons" };
+        static readonly string[] MipFiles =
+        {
+            "Assets/03 Art/Shop/but_mau_than.png", "Assets/03 Art/Shop/but_mau_vo.png", // bút màu trên đảo (ButMau, MoKhoaTuong)
+            "Assets/03 Art/Shop/lap_lanh.png",
+        };
+
+        // rương, kẹo máy bi (pk_ruong_*, pk_keo_*: ArtImporter bật mipmap vì hiện ~60 px trong nấm, cốc, ô đáy), trừ pk_ruong_go đã ở
+        // atlas đảo (một hình chỉ vào được một atlas)
+        static bool MipPachinko(string path) =>
+            (path.StartsWith("Assets/03 Art/Pachinko/pk_ruong_") || path.StartsWith("Assets/03 Art/Pachinko/pk_keo_"))
+            && path.IndexOf('/', "Assets/03 Art/Pachinko/".Length) < 0 && !Files.Contains(path);
+
+        public static bool InMipAtlas(string path)
+        {
+            path = path.Replace('\\', '/');
+            return path.EndsWith(".png") && (MipFolders.Any(f => path.StartsWith(f + "/")) || MipFiles.Contains(path) || MipPachinko(path));
+        }
+
+        static IEnumerable<string> MipSourceFiles() => MipFiles.Concat(Directory.GetFiles("Assets/03 Art/Pachinko", "pk_*.png")
+            .Select(f => f.Replace('\\', '/')).Where(MipPachinko));
+
+        // hình thuộc atlas đảo: trong thư mục Co, Anim; danh sách Files; mây, chim, thuyền cắt từ ảnh nền đảo vùng đất; ảnh hạt hiệu ứng;
+        // ảnh có mipmap (cửa hàng, icon)
         public static bool InAtlas(string path)
         {
             path = path.Replace('\\', '/');
-            if (InHatAtlas(path)) return true;
+            if (InHatAtlas(path) || InMipAtlas(path)) return true;
             if (Folders.Any(f => path.StartsWith(f + "/")) || Files.Contains(path)) return true;
             if (!path.StartsWith(IslandDir + "/land_") || !path.EndsWith(".png") || path.IndexOf('/', IslandDir.Length + 1) >= 0) return false;
             var n = Path.GetFileNameWithoutExtension(path);
@@ -166,9 +195,63 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Atlas] Đã dựng {path}: {(packed ? packed.spriteCount : 0)} hình. Soát: PokiClash/Build/Soát atlas hạt");
         }
 
+        [MenuItem("PokiClash/Build/Sprite Atlas ảnh có mipmap: cửa hàng, icon (dựng lại)", priority = 41)]
+        public static void BuildMip()
+        {
+            if (EditorSettings.spritePackerMode != SpritePackerMode.SpriteAtlasV2)
+            {
+                EditorSettings.spritePackerMode = SpritePackerMode.SpriteAtlasV2;
+                Debug.Log("[Atlas] Bật Sprite Atlas V2 cho project");
+            }
+            // nguồn chưa theo luật atlas (còn nén / ghi đè Android, hoặc chưa FullRect) thì nhập lại trước khi gói
+            var srcs = AssetDatabase.FindAssets("t:Texture2D", MipFolders).Select(AssetDatabase.GUIDToAssetPath).Concat(MipSourceFiles())
+                .Where(InMipAtlas).Distinct()
+                .Where(x =>
+                {
+                    if (!(AssetImporter.GetAtPath(x) is TextureImporter t)) return false;
+                    var s = new TextureImporterSettings();
+                    t.ReadTextureSettings(s);
+                    return t.textureCompression != TextureImporterCompression.Uncompressed || s.spriteMeshType != SpriteMeshType.FullRect
+                           || t.GetPlatformTextureSettings("Android").overridden;
+                })
+                .ToList();
+            AssetDatabase.StartAssetEditing();
+            try
+            {
+                foreach (var x in srcs) AssetDatabase.ImportAsset(x, ImportAssetOptions.ForceUpdate);
+            }
+            finally
+            {
+                AssetDatabase.StopAssetEditing();
+            }
+            if (srcs.Count > 0) Debug.Log($"[Atlas] Nhập lại {srcs.Count} ảnh nguồn không nén, cả khung");
+            var objs = new List<Object>();
+            foreach (var f in MipFolders)
+            {
+                var o = AssetDatabase.LoadAssetAtPath<DefaultAsset>(f);
+                if (o) objs.Add(o);
+                else Debug.LogWarning("[Atlas] Thiếu thư mục " + f);
+            }
+            foreach (var f in MipSourceFiles())
+            {
+                var o = AssetDatabase.LoadAssetAtPath<Texture2D>(f);
+                if (o) objs.Add(o);
+                else Debug.LogWarning("[Atlas] Thiếu " + f);
+            }
+            // cả thư mục: ảnh mới thêm vào Shop/v2, v3, Icons tự vào atlas lúc build; rương / kẹo máy bi mới thì chạy lại menu này
+            // (ArtImporter cảnh báo ảnh có mipmap cạnh không lũy thừa 2 nằm ngoài atlas)
+            string path = Pack(MipAtlasPath, objs, 16, true, true, true, TextureImporterFormat.ASTC_4x4);
+            if (path == null) return;
+            SpriteAtlasUtility.PackAtlases(new[] { AssetDatabase.LoadAssetAtPath<SpriteAtlas>(path) }, EditorUserBuildSettings.activeBuildTarget);
+            var packed = AssetDatabase.LoadAssetAtPath<SpriteAtlas>(path);
+            Debug.Log($"[Atlas] Đã dựng {path}: {(packed ? packed.spriteCount : 0)} hình (mipmap, ASTC 4x4)");
+        }
+
         // dựng lại một atlas (xoá bản cũ), trả đường dẫn; gói sau
         // includeInBuild = false: atlas nằm trong gói tải sau (GD_Claude/27, ContentPackSetup.ApplyHat), Addressables giữ
-        internal static string Pack(string path, List<Object> objs, int padding = 4, bool dilate = false, bool includeInBuild = true)
+        // mip: atlas có mipmap, lọc ba tuyến (độ lệch mip -0,5 như ảnh nguồn đặt lúc chạy ở ArtLibrary: atlas không có ô cài đặt này)
+        internal static string Pack(string path, List<Object> objs, int padding = 4, bool dilate = false, bool includeInBuild = true,
+            bool mip = false, TextureImporterFormat format = TextureImporterFormat.ASTC_6x6)
         {
             if (AssetDatabase.LoadMainAssetAtPath(path)) AssetDatabase.DeleteAsset(path);
             var atlas = new SpriteAtlasAsset();
@@ -191,7 +274,7 @@ namespace PokiClash.EditorTools
             };
             imp.textureSettings = new SpriteAtlasTextureSettings
             {
-                readable = false, generateMipMaps = false, sRGB = true, filterMode = FilterMode.Bilinear,
+                readable = false, generateMipMaps = mip, sRGB = true, filterMode = mip ? FilterMode.Trilinear : FilterMode.Bilinear,
             };
             var def = imp.GetPlatformSettings("DefaultTexturePlatform");
             def.maxTextureSize = 2048;
@@ -202,7 +285,7 @@ namespace PokiClash.EditorTools
                 var ps = imp.GetPlatformSettings(pf);
                 ps.overridden = true;
                 ps.maxTextureSize = 2048;
-                ps.format = TextureImporterFormat.ASTC_6x6;
+                ps.format = format;
                 imp.SetPlatformSettings(ps);
             }
             imp.SaveAndReimport();

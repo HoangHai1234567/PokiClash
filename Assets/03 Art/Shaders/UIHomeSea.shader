@@ -9,6 +9,9 @@
 // 6975 x 4198 đơn vị màn, ô lát 1024), bỏ màu tính, vân, nét chì ảnh nền; giữ dải mép sáng (_EdgeCol.a) và vạch bọt sát bờ
 // (_FoamAlpha) mảnh, nhạt. Sảnh, đảo Casino (lớp bien_bo dưới các đảo, Editor/ShoreWaveMenu.cs) dùng lại shader này: _TileST.zw lệch ô
 // cho khớp lớp biển lát sẵn có của màn.
+// Biển chung (người dùng 2026-11-27 "nước của 3 đảo phải liền mạch"; App/SeaAnchor.cs): _TileWorld = 1 thì ô lát lấy theo vị trí thế giới
+// với gốc, cỡ ô toàn cục _PokiSeaO (như PokiClash/UISeaWorld của lớp biển mở), bỏ _TileST: biển trong ảnh, sóng bờ, biển mở, chuyến tàu
+// cùng một mặt nước.
 // Nước trong đảo (_RiverTex, cùng script sinh): vệt bọt trôi theo hướng chảy trên thác, suối vẽ sẵn (thay thác hoạt hình 4 khung của Critters).
 Shader "PokiClash/UIHomeSea"
 {
@@ -43,6 +46,7 @@ Shader "PokiClash/UIHomeSea"
         _TileTex ("Ảnh biển lát như sảnh (Islands/sanh_bien)", 2D) = "white" {}
         _TileST ("Số lần lặp ảnh biển lát trên ảnh (xy), lệch ô (zw)", Vector) = (6.81,4.1,0,0)
         _TileMix ("Dùng ảnh biển lát (0 màu tính, 1 như sảnh)", Range(0,1)) = 1
+        _TileWorld ("Ô lát theo thế giới (biển chung _PokiSeaO)", Float) = 0
         _FoamAlpha ("Độ đậm vạch bọt", Range(0,1)) = 0.55
         _RiverSpeed ("Tốc vệt nước chảy (px ảnh nền / giây)", Float) = 70
         _RiverFoam ("Độ đậm vệt nước chảy", Range(0,1)) = 0.6
@@ -111,6 +115,7 @@ Shader "PokiClash/UIHomeSea"
                 fixed4 color    : COLOR;
                 float2 texcoord : TEXCOORD0;
                 float4 worldPosition : TEXCOORD1;
+                float2 wpos : TEXCOORD2;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -121,7 +126,8 @@ Shader "PokiClash/UIHomeSea"
             float4 _ClipRect;
             sampler2D _SeaTex, _FlowTex, _CausticTex, _RiverTex, _TileTex;
             float4 _TileST;
-            float _TileMix, _FoamAlpha;
+            float _TileMix, _FoamAlpha, _TileWorld;
+            float4 _PokiSeaO; // toàn cục (SeaAnchor / chuyến tàu): xy gốc thế giới, zw = 1 / cỡ ô thế giới
             float _RiverSpeed, _RiverFoam;
             float4 _SeaTex_TexelSize;
             half4 _BaseCol, _WaveCol, _EdgeCol, _FoamCol, _CausticCol;
@@ -136,6 +142,7 @@ Shader "PokiClash/UIHomeSea"
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
                 OUT.worldPosition = v.vertex;
                 OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
+                OUT.wpos = mul(unity_ObjectToWorld, v.vertex).xy;
                 OUT.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
                 OUT.color = v.color * _Color;
                 return OUT;
@@ -186,7 +193,7 @@ Shader "PokiClash/UIHomeSea"
                     // biển như sảnh: màu từ ảnh biển lát (lặp theo frac, lấy mip theo uv liền để khỏi lộ đường nối), giữ dải mép
                     if (_TileMix > 0.001)
                     {
-                        float2 tuv = uv * _TileST.xy + _TileST.zw;
+                        float2 tuv = _TileWorld > 0.5 ? (IN.wpos - _PokiSeaO.xy) * _PokiSeaO.zw : uv * _TileST.xy + _TileST.zw;
                         half3 tile = tex2Dgrad(_TileTex, frac(tuv), ddx(tuv), ddy(tuv)).rgb;
                         sea = lerp(sea, lerp(tile, _EdgeCol.rgb, edge * _EdgeCol.a), _TileMix);
                     }

@@ -209,6 +209,7 @@ Tổng khoảng 8–9 ngày. T1–T4 làm được mà chưa cần tài khoản 
   - Test `ContentPackTests` 4/4 đạt: tướng đúng gói, chân dung ở `Resources`, bản cài không phụ thuộc gói, ảnh gói có địa chỉ.
   - Cả bộ EditMode chỉ hỏng `PrefabOnlyTests`, hỏng từ trước.
   - Tour thử đạt 10/10: vào đảo Hỏa có ảnh thật; trận Hỏa có hình tướng; mất mạng thì ở lại sảnh; có mạng thì chờ tải rồi vào đảo Kim.
+  - **2026-11-27, APK thật lộ lỗi Editor không thấy:** vào đảo mất ảnh nền đảo (và nền trận trong gói). `ContentPacks` nạp bằng `LoadAssetsAsync<Object>`: bản build trả Texture2D thay vì Sprite. Đã sửa (`ContentPacks.LoadTyped` nạp đúng kiểu). Tour trong Editor không thay được thử APK.
 
 **Số đo (build 2026-11-23 16:06, `Build/BaoCao/PokiWar_0.1.0_26112315.txt`):**
 

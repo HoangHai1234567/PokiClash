@@ -8,7 +8,9 @@
 # Ghi: gui_gpt/troi/ (<nn>_<mã>.txt, khung_<mã>.png, HUONG_DAN.md); GPT lưu ảnh vào troi/tai_ve/.
 # Chạy: py -3 -I ArtGen/BattleBG/build_troi.py
 # Duyệt: py -3 -I ArtGen/BattleBG/build_troi.py --duyet <mã> [ảnh] (mặc định ảnh mới nhất troi/tai_ve/<mã>*.png); dựng lại gói
-# (boss dạng 2, 3 cần dạng 1 đã duyệt).
+# (boss dạng 2, 3 cần dạng 1 đã duyệt). Ảnh đúng khổ 1080 x 1528 (hay to hơn cùng tỉ lệ) là ảnh nối sẵn bằng công cụ expand của
+# Magnific (khung cũ đặt ở y 600): không khớp, nối thẳng. 2026-11-27: GPT vẽ lại mây phần dưới b70b, b70c lệch hẳn (khớp 0,1),
+# dùng expand (Nano Banana 2, 75 credit) thay.
 import argparse
 import sys
 from pathlib import Path
@@ -253,7 +255,9 @@ def guide():
     group_line = (f"- **Bước tiếp:** gửi GPT file gộp `{PACK / GROUP_FILE}` (c02–c09 một thể, {len(group)} ảnh: "
                   f"{', '.join(group)}; mỗi bước một ảnh, lưu riêng), rồi nhắn Claude \"duyệt troi c02–c09\". Sau đó m20–m60, "
                   f"b70a (file lẻ), cuối cùng b70b, b70c (dựng sau khi b70a duyệt)." if group else
-                  "- **Bước tiếp:** các file lẻ còn lại trong bảng dưới (m20–m60, b70a; b70b, b70c dựng sau khi b70a duyệt).")
+                  "- **Bước tiếp:** các file lẻ còn lại trong bảng dưới (m20–m60, b70a; b70b, b70c dựng sau khi b70a duyệt)." if todo
+                  else "- **Bước tiếp:** không còn (2026-11-27: m30 gen lại bằng GPT 2.6 qua Magnific; b70b, b70c nối bằng công cụ "
+                       "expand của Magnific vì GPT vẽ lại lệch phần dưới).")
     return f"""# Gói gửi GPT: nối trời nền trận đảo Thủy (`troi`)
 
 Sinh bằng `{HERE / 'build_troi.py'}`, đừng sửa tay (chạy lại script sẽ ghi đè).
@@ -415,6 +419,19 @@ def seam(cost):
 def compose(i, src):
     with Image.open(src) as im:
         gpt = im.convert("RGB")
+    if abs(gpt.width / gpt.height - bt.FW / FULL) < 0.01:
+        # ảnh nối sẵn đúng khổ bản cuối (2026-11-27: công cụ expand của Magnific, khung cũ 1080 x 928 đặt ở y 600 của khung
+        # 1080 x 1528, ra có thể to hơn cùng tỉ lệ): khung cũ đã nằm đúng chỗ, không cần khớp, chỉ nối trong dải BAND
+        # (model ra cỡ lẻ như 1072 x 1520 thì lệch vài px: dò dịch nguyên ±8 px trên 300 dòng ngay dưới mép cũ)
+        t = np.asarray(gpt.resize((bt.FW, FULL), Image.LANCZOS), dtype=np.float32)
+        o = np.asarray(bt.frame_of(i), dtype=np.float32)
+        r, m = 300, 8
+        tp = np.pad(t, ((m, m), (m, m), (0, 0)), mode="edge")
+        err, dx, dy = min((float(np.abs(tp[EXTRA + m + y:EXTRA + m + y + r, m + x:m + x + bt.FW] - o[:r]).mean()), x, y)
+                          for y in range(-m, m + 1) for x in range(-m, m + 1))
+        print(f"  ảnh nối sẵn {gpt.size}: thu về {bt.FW} x {FULL}, dịch ({dx}, {dy}) px, lệch trung bình {err:.1f}")
+        t = tp[m + dy:m + dy + FULL, m + dx:m + dx + bt.FW]
+        return stitch(t[:EXTRA + BAND], o)
     if gpt.size != (CW, CH):
         print(f"  ! {Path(src).name} cỡ {gpt.size}, cần {CW} x {CH}: thu về")
         gpt = gpt.resize((CW, CH), Image.LANCZOS)

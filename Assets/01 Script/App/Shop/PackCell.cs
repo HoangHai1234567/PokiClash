@@ -236,19 +236,17 @@ namespace PokiClash
             return $"{(int)t.TotalHours:00}:{t.Minutes:00}:{t.Seconds:00}";
         }
 
-        // trứng capsule bậc tier: bản 2 (Assets/03 Art/Shop/v2/trung2_<bậc>.png, ArtGen/Shop/v2/cat_v2.py, 2026-11-27) nếu có, không thì bản
-        // đầu (trung_<bậc>.png, ArtGen/Shop/cat_trung.py)
-        public static bool EggV2 => App.Art.HasArt("trung2_0");
-        public static Sprite Egg(int tier) => App.Art.Get((EggV2 ? "trung2_" : "trung_") + Mathf.Clamp(tier, 0, Eggs.Tiers - 1));
+        // trứng capsule bậc tier: bản 2 (Assets/03 Art/Shop/v2/trung2_<bậc>.png, ArtGen/Shop/v2/cat_v2.py, 2026-11-27). Bản đầu
+        // (trung_<bậc>.png) đã bỏ khỏi game 2026-11-27 cho nhẹ bản build.
+        public static Sprite Egg(int tier) => App.Art.Get("trung2_" + Mathf.Clamp(tier, 0, Eggs.Tiers - 1));
 
-        // đường nối vòm / thân của hình trứng đang dùng, tính từ đỉnh ảnh xuống (ArtGen/Shop/v2/trung2.json, ArtGen/Shop/trung/trung.json)
-        static readonly float[] Seam1 = { 0.5254f, 0.5242f, 0.5178f, 0.5076f, 0.5414f }, Seam2 = { 0.4934f, 0.551f, 0.5155f, 0.4745f, 0.5261f };
-        public static float EggSeam(int tier) => (EggV2 ? Seam2 : Seam1)[Mathf.Clamp(tier, 0, Seam1.Length - 1)];
+        // đường nối vòm / thân của hình trứng, tính từ đỉnh ảnh xuống (ArtGen/Shop/v2/trung2.json)
+        static readonly float[] Seam = { 0.4934f, 0.551f, 0.5155f, 0.4745f, 0.5261f };
+        public static float EggSeam(int tier) => Seam[Mathf.Clamp(tier, 0, Seam.Length - 1)];
 
         // hình gói cửa hàng bản 2 (Assets/03 Art/Shop/v2, gen 2026-11-27 học bố cục hình gói Clash of Critters: vật to, viền sticker trắng dày,
-        // bậc càng cao càng nhiều vàng, ngọc); thiếu ảnh (chưa dựng lại danh mục) thì dùng ảnh cũ
-        public static Sprite Art(string v2, string old) => App.Art.HasArt(v2) ? App.Art.Get(v2) : App.Art.Get(old);
-        public static Sprite Balls(int k) => Art("goi2_bi_" + k, "goi_bi_" + k);
+        // bậc càng cao càng nhiều vàng, ngọc). Bản đầu goi_bi_<k> đã bỏ 2026-11-27.
+        public static Sprite Balls(int k) => App.Art.Get("goi2_bi_" + k);
 
         // hình riêng của gói theo mã gói (null: gói không có hình riêng, nơi gọi tự chọn theo món)
         public static Sprite PackArt(string id)
