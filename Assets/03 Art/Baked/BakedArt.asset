@@ -280,6 +280,64 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0b6553c305aa821478f2e042490ba925, type: 3}
   - name: noelBells
     clip: {fileID: 8300000, guid: 68aa25e5dd67db649b659797dd5c4004, type: 3}
+  - name: fx_set
+    clip: {fileID: 8300000, guid: 2367da1b9da302e43a9c055b929cc6f0, type: 3}
+  - name: fx_mua
+    clip: {fileID: 8300000, guid: d5d550567b94c7d4eafac2725695b662, type: 3}
+  - name: fx_dong_dat
+    clip: {fileID: 8300000, guid: 26fe5ca66302c544db37e06e75cb42e6, type: 3}
+  - name: fx_da_vo
+    clip: {fileID: 8300000, guid: 0aa964cf32c56a64f9a3a8bf3ff98ceb, type: 3}
+  - name: fx_da_lon
+    clip: {fileID: 8300000, guid: 1db408ed24a6dc94e84f664326c5ecd8, type: 3}
+  - name: fx_thien_thach_roi
+    clip: {fileID: 8300000, guid: d9c133dca0ef07e4fa3b895d4aceca02, type: 3}
+  - name: fx_thien_thach
+    clip: {fileID: 8300000, guid: 4485b7b459ad5f94eafcdf51388b48eb, type: 3}
+  - name: fx_tia_troi
+    clip: {fileID: 8300000, guid: e4d385ed6e0ebd349a7bbc04a5f2130e, type: 3}
+  - name: fx_no_nam
+    clip: {fileID: 8300000, guid: e9b9e1017224e9d49a3b77d1c42d61d3, type: 3}
+  - name: fx_cua
+    clip: {fileID: 8300000, guid: 1dac3e28127eeeb4189aa565c9962e91, type: 3}
+  - name: fx_may_no
+    clip: {fileID: 8300000, guid: a374f47e255ea224eba72499997ffe28, type: 3}
+  - name: fx_ten_lua
+    clip: {fileID: 8300000, guid: 2aed2d727f1160d4b9760ef52c67b060, type: 3}
+  - name: fx_phao
+    clip: {fileID: 8300000, guid: 325f07658883971478c0d1332a15f233, type: 3}
+  - name: fx_xich
+    clip: {fileID: 8300000, guid: 8570e958581ed9741a7ae22f99bae040, type: 3}
+  - name: fx_hon
+    clip: {fileID: 8300000, guid: c757b37074b9ccf47b353c2d78ce8f94, type: 3}
+  - name: fx_dop
+    clip: {fileID: 8300000, guid: 0536fc90716cf2348b3588c724b84df8, type: 3}
+  - name: fx_pha_le
+    clip: {fileID: 8300000, guid: d507507fbdbf07c41882b2e4b016073d, type: 3}
+  - name: fx_la
+    clip: {fileID: 8300000, guid: d97d6b0e849746949a786da44c409ea0, type: 3}
+  - name: fx_roi
+    clip: {fileID: 8300000, guid: d5902f0a5abfb7340a207380339d4064, type: 3}
+  - name: fx_dien
+    clip: {fileID: 8300000, guid: 8113c3a0ecfec9f45b3fa82a55065da5, type: 3}
+  - name: fx_nham
+    clip: {fileID: 8300000, guid: 13064d5fb1ff033448c3327bf600f35e, type: 3}
+  - name: fx_song_am
+    clip: {fileID: 8300000, guid: 77a116fb3c930754bb034e3152ade176, type: 3}
+  - name: fx_gio
+    clip: {fileID: 8300000, guid: 6e5fc1d9c7e900f4da48f2d3fe5f67e1, type: 3}
+  - name: fx_bien_mat
+    clip: {fileID: 8300000, guid: 299e29fd54fb8b04d868ff89a8488c13, type: 3}
+  - name: fx_gam_thu
+    clip: {fileID: 8300000, guid: f51d97804e0c78e4692f69648218a8f5, type: 3}
+  - name: fx_het
+    clip: {fileID: 8300000, guid: b4640ca27024eb043948518872ec0054, type: 3}
+  - name: fx_bun
+    clip: {fileID: 8300000, guid: c7e1d0cd97509954b96cddac77633043, type: 3}
+  - name: fx_nuot
+    clip: {fileID: 8300000, guid: afe0a531ca7a35349a65129d56ffdad6, type: 3}
+  - name: fx_bua
+    clip: {fileID: 8300000, guid: 8804cd16c4c80b148ac1850276ce53d5, type: 3}
   music:
   - name: chude
     clip: {fileID: 8300000, guid: 277ae208646531048a97dea61d0aa06f, type: 3}

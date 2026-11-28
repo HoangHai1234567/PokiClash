@@ -31,6 +31,15 @@ namespace PokiClash.EditorTools
             Debug.Log(sb.ToString());
         }
 
+        // 2026-11-28: in các tiếng đã phát từ lần in trước (AudioService.DebugLog, chỉ Editor) rồi xoá, để soát tiếng chiêu theo tour trận
+        [MenuItem("PokiClash/Âm thanh/Thử: in tiếng vừa phát")]
+        public static void DumpPlayed()
+        {
+            var log = AudioService.DebugLog;
+            Debug.Log($"[Tiếng] {log.Count} tiếng:\n" + string.Join("\n", log));
+            log.Clear();
+        }
+
         [MenuItem("PokiClash/Âm thanh/Thử: tới máy bi")]
         static void GoMachine() => Go(SceneIds.Machine, null);
 

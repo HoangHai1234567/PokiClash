@@ -35,6 +35,18 @@ namespace PokiClash.EditorTools
             ("fx_nuoc", "tran_fx_nuoc.ogg"), ("fx_nuoc_lon", "tran_fx_nuoc_lon.ogg"), ("fx_bong", "tran_fx_bong.ogg"),
             ("fx_tia_nuoc", "tran_fx_tia_nuoc.ogg"), ("fx_song", "tran_fx_song.ogg"), ("fx_loc", "tran_fx_loc.ogg"), ("fx_gam", "tran_fx_gam.ogg"),
             ("fx_da", "tran_fx_da.ogg"), ("fx_phep", "tran_fx_phep.ogg"),
+            // tiếng chiêu riêng từng tướng (2026-11-28, ArtGen/Sfx/xuat_tieng_chieu.py; bảng ở SkillSfx.cs): sét, mưa, động đất, đá, thiên thạch,
+            // tia Mặt Trời giáng, nổ nấm, cưa máy, máy nổ, tên lửa, pháo, xích, hồn, đớp, pha lê, lá, roi, điện, dung nham, sóng xung kích, gió,
+            // tan biến, gầm thú, hét, bùn, nuốt, búa
+            ("fx_set", "tran_fx_set.ogg"), ("fx_mua", "tran_fx_mua.ogg"), ("fx_dong_dat", "tran_fx_dong_dat.ogg"),
+            ("fx_da_vo", "tran_fx_da_vo.ogg"), ("fx_da_lon", "tran_fx_da_lon.ogg"), ("fx_thien_thach_roi", "tran_fx_thien_thach_roi.ogg"),
+            ("fx_thien_thach", "tran_fx_thien_thach.ogg"), ("fx_tia_troi", "tran_fx_tia_troi.ogg"), ("fx_no_nam", "tran_fx_no_nam.ogg"),
+            ("fx_cua", "tran_fx_cua.ogg"), ("fx_may_no", "tran_fx_may_no.ogg"), ("fx_ten_lua", "tran_fx_ten_lua.ogg"),
+            ("fx_phao", "tran_fx_phao.ogg"), ("fx_xich", "tran_fx_xich.ogg"), ("fx_hon", "tran_fx_hon.ogg"), ("fx_dop", "tran_fx_dop.ogg"),
+            ("fx_pha_le", "tran_fx_pha_le.ogg"), ("fx_la", "tran_fx_la.ogg"), ("fx_roi", "tran_fx_roi.ogg"), ("fx_dien", "tran_fx_dien.ogg"),
+            ("fx_nham", "tran_fx_nham.ogg"), ("fx_song_am", "tran_fx_song_am.ogg"), ("fx_gio", "tran_fx_gio.ogg"),
+            ("fx_bien_mat", "tran_fx_bien_mat.ogg"), ("fx_gam_thu", "tran_fx_gam_thu.ogg"), ("fx_het", "tran_fx_het.ogg"),
+            ("fx_bun", "tran_fx_bun.ogg"), ("fx_nuot", "tran_fx_nuot.ogg"), ("fx_bua", "tran_fx_bua.ogg"),
             // bút chì sột soạt lặp liền 4 s (gen Magnific, ArtGen/Sfx/but_chi): màn mở khoá tướng, App.Audio.Loop("pencil", …) ở HeroUnlockView
             ("pencil", "ui_but_chi.ogg"),
             // khán giả Hầm đấu (gen Magnific, ArtGen/Sfx/ham_dau): hai tiếng reo xen kẽ, ồn ào nền lặp liền 8 s (App.Audio.Loop ở UndergroundScene)

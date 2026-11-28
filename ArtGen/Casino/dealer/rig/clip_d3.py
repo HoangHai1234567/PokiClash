@@ -3,10 +3,12 @@
 #
 # Bố cục bàn lều Đêm Bài (CasinoTablesMenu.BuildBlackjack; sân khấu 1080 x 1920, mép bàn sau ở y −1000, rig tỉ lệ 0,79, gốc rig ở
 # y −1395): điểm sân khấu (x, y) <-> rig (x / 0,79, 500 − (−y − 1000) / 0,79). Đổi bố cục bàn thì sửa các mốc dưới rồi nướng lại.
+import json
 import math
+import os
 import sys
 
-from dong_co import seg, hat, wob, ease, eout, ein, lin, back, clamp, spec, arm_seq, spine
+from dong_co import seg, hat, wob, ease, eout, ein, lin, back, clamp, spec, arm_seq, spine, ATOM
 
 # hoat_anh.py nạp file này ở cuối phần clip; lấy đúng module đang chạy (chạy thẳng thì là __main__) để clip vào cùng bảng CLIPS
 _H = sys.modules.get("hoat_anh") or sys.modules["__main__"]
@@ -159,13 +161,55 @@ def c_bust(t, p):
 # ---------------------------------------------------------------- D3 phần hai: xoè bài, tách, gấp đôi, rút hồi hộp
 XAO_N = 7
 SPRING_T0, SPRING_GAP, SPRING_FLY = 0.6, 0.08, 0.22   # lá i rời tay phải ở T0 + i * GAP, bay FLY giây sang tay trái
+SPRING_ARC = 120.0             # độ vồng của dòng bài (thấp hơn miệng, không che mặt)
+HAND_GRIP = 7                  # bàn tay cầm vật (chữ C): ngón trên, ngón cái dưới, miệng chữ C quay về phía đầu ngón
+# Đáy và miệng chữ C của hình tay_07 (px ảnh, y xuống; đo trên ảnh). Cỗ bài cắm vào chữ C: mép lá thụt sau đáy GRIP_IN px (lòng
+# bàn tay che), thân lá chĩa ra theo miệng chữ C; lá vẽ dưới bàn tay nên ngón trên và ngón cái đè lên hai mép lá.
+GRIP_IMG, MOUTH_IMG = (118.0, 84.0), (176.0, 80.0)
+CARD_LEN, GRIP_IN = 158.0, 26.0        # chiều dài hình la_bai
+HOLD_ROT = 150.0               # góc bàn tay lúc cầm bài trước ngực: miệng chữ C hai tay gần như đối nhau (hơi chúc xuống)
+_GEO = json.load(open(os.path.join(ATOM, "geo.json"), encoding="utf-8"))["parts"][f"tay_{HAND_GRIP:02d}"]
 
 
-def palm(hw, s, reach=64.0):
-    """Lòng bàn tay (thế giới): từ cổ tay đi dọc hướng bàn tay một đoạn."""
+def _grip_local(s):
+    """Đáy chữ C và hướng miệng chữ C trong hệ xương tay_<s>b (cùng phép đặt hình như dung_rig.parts_ops; tay phải lật ngang)."""
+    f = -1.0 if s == "p" else 1.0
+    dx, dy = _GEO["huong"]
+    gx, gy = _GEO["goc"]
+    rot = -math.atan2(-dy, dx * f)
+    c, s_ = math.cos(rot), math.sin(rot)
+
+    def loc(q):
+        ux, uy = (q[0] - gx) * f, -(q[1] - gy)
+        return (c * ux - s_ * uy - 8.0, s_ * ux + c * uy)
+    g, m = loc(GRIP_IMG), loc(MOUTH_IMG)
+    return g, math.degrees(math.atan2(m[1] - g[1], m[0] - g[0]))
+
+
+GRIP = {s: _grip_local(s) for s in "tp"}
+
+
+def grip(hw, s):
+    """Cỗ bài cầm trong chữ C của bàn tay s (thế giới): (tâm lá, góc xoay lá). Lá đứng dọc theo trục y ảnh nên góc = miệng − 90."""
     (x, y), a = hw[s]
+    (gx, gy), da = GRIP[s]
     r = math.radians(a)
-    return (x + reach * math.cos(r), y + reach * math.sin(r))
+    g = (x + gx * math.cos(r) - gy * math.sin(r), y + gx * math.sin(r) + gy * math.cos(r))
+    o = math.radians(a + da)
+    k = CARD_LEN / 2 - GRIP_IN
+    return (g[0] + k * math.cos(o), g[1] + k * math.sin(o)), a + da - 90.0
+
+
+def hand_to(s, center, hrot):
+    """Đích cổ tay (spec `to`) để cỗ bài trong bàn tay s có tâm ở `center` khi tay đứng yên ở góc hrot (tay trái lật như spec)."""
+    a = hrot if s == "p" else 180.0 - hrot
+    c0, _ = grip({s: ((0.0, 0.0), a)}, s)
+    return (center[0] - c0[0], center[1] - c0[1])
+
+
+def turn180(a, b):
+    """Hiệu góc ngắn nhất b − a theo chu kỳ 180 (lưng bài xoay nửa vòng trông như cũ)."""
+    return (b - a + 90.0) % 180.0 - 90.0
 
 
 def lerp2(a, b, u):
@@ -174,9 +218,10 @@ def lerp2(a, b, u):
 
 @clip("shuffle", 2.5, events=[(0.26, "nhac_bai"), (1.66, "go_bai"), (2.05, "dat_bai")])
 def c_shuffle(t, p):
-    """Xoè bài đầu phiên: tay phải nhấc cỗ bài trên nỉ (0,26: game ẩn hình cỗ bài) -> hai tay nâng lên trước ngực -> bài bắn thành
-    vòng cung từ tay phải sang tay trái (lò xo, từng lá một) -> hai tay khép, gõ cỗ bài xuống mép bàn (1,66) -> tay phải đặt cỗ bài
-    về chỗ cũ (2,05: game hiện lại hình cỗ bài) -> về bàn. Mắt dõi theo dòng bài, miệng cười đắc ý."""
+    """Xoè bài đầu phiên: tay phải nhấc cỗ bài trên nỉ (0,26: game ẩn hình cỗ bài) -> hai tay nâng lên trước ngực, mỗi tay kẹp một
+    đầu cỗ bài -> bài bắn thành vòng cung từ tay phải sang tay trái (lò xo, từng lá một) -> hai tay khép lại kẹp hai đầu, gõ cỗ bài
+    xuống (1,66) -> tay phải đặt cỗ bài về chỗ cũ (2,05: game hiện lại hình cỗ bài) -> về bàn. Mắt dõi theo dòng bài, miệng cười
+    đắc ý. Lá luôn nằm trong chữ C của bàn tay cầm (grip), không đặt theo cổ tay."""
     amt = 1.0 - 0.75 * hat(t, 0.0, 0.1, 2.05, 2.4, ease, ease)
     nhip(t, p, amt=amt, sway=amt)
     grab = seg(t, 0.06, 0.26, eout)
@@ -186,19 +231,23 @@ def c_shuffle(t, p):
     tap = hat(t, 1.52, 1.66, 1.68, 1.78, ein, eout)
     carry = seg(t, 1.76, 2.05, ease)
     ret = seg(t, 2.08, 2.38, ease)
+    # cổ tay đặt sao cho cỗ bài trong chữ C rơi đúng chỗ cần: cỗ bài trên nỉ lúc nhấc / đặt, giữa ngực lúc hai tay kẹp chung
+    lift_to = hand_to("p", (DECK[0], DECK[1] + 8.0), 240.0)
+    put_to = hand_to("p", (DECK[0], DECK[1] + 8.0), 230.0)
+    hx = hand_to("p", (0.0, 0.0), HOLD_ROT)[0]       # cổ tay phải khi tâm cỗ bài ở giữa (x = 0)
+    hold_x = (hx + 20.0 + 125.0 * spread) * (1 - tog) + (hx + 12.0) * tog   # khép: hai đầu ngón găng vừa chạm, chừa lưng bài
     # tay phải: cỗ bài -> trước ngực -> dang -> khép -> gõ -> đặt lại cỗ bài -> về bàn
-    deck_a = spec("p", to=(DECK[0], DECK[1] + 26.0), bow=44.0, k=0.5, hand=7, hrot=240, hs=1.0)
-    hold_p = spec("p", to=(185.0 + 115.0 * spread - 140.0 * tog, 700.0 + 35.0 * spread - 135.0 * tap), bow=40.0, k=0.5, hand=7,
-                  hrot=165, hs=1.0)
-    carry_p = spec("p", to=(DECK[0], DECK[1] + 30.0), bow=40.0, k=0.5, hand=7, hrot=230, hs=1.0)
+    deck_a = spec("p", to=lift_to, bow=44.0, k=0.5, hand=HAND_GRIP, hrot=240, hs=1.0)
+    hold_p = spec("p", to=(hold_x, 700.0 + 35.0 * spread - 135.0 * tap), bow=40.0, k=0.5, hand=HAND_GRIP, hrot=HOLD_ROT, hs=1.0)
+    carry_p = spec("p", to=put_to, bow=40.0, k=0.5, hand=HAND_GRIP, hrot=230, hs=1.0)
     arm_seq(p, "p", on_table("p"), (deck_a, grab), (hold_p, rise), (carry_p, carry), (on_table("p"), ret))
-    # tay trái: nâng lên đón bài -> dang -> khép, gõ -> về bàn khi tay phải mang cỗ bài đi
-    hold_t = spec("t", to=mir("t", 185.0 + 115.0 * spread - 140.0 * tog, 700.0 - 5.0 * spread - 135.0 * tap), bow=40.0, k=0.5,
-                  hand=7, hrot=165, hs=1.0)
+    # tay trái: nâng lên kẹp đầu kia -> dang đón bài -> khép, gõ -> về bàn khi tay phải mang cỗ bài đi
+    hold_t = spec("t", to=mir("t", hold_x, 700.0 - 5.0 * spread - 135.0 * tap), bow=40.0, k=0.5, hand=HAND_GRIP, hrot=HOLD_ROT,
+                  hs=1.0)
     arm_seq(p, "t", on_table("t"), (hold_t, rise), (on_table("t"), seg(t, 1.8, 2.15, ease)))
     for s in "tp":
         p["arm"][s]["drag"] = 0.3
-        p["arm"][s]["hand"] = 7 if 0.2 <= t < (2.08 if s == "p" else 1.85) else 9
+        p["arm"][s]["hand"] = HAND_GRIP if 0.2 <= t < (2.08 if s == "p" else 1.85) else 9
     spine(p, lean=-4.0 * grab * (1 - rise), arc=-2.0 * rise * (1 - carry))
     p["my"] += 8.0 * rise * (1 - carry) - 10.0 * tap
     p["sq"] += -0.03 * rise * (1 - carry) + 0.06 * tap
@@ -209,27 +258,31 @@ def c_shuffle(t, p):
     p["mouth"] = steps(t, 1, 0.55, 10, 1.3, 1)
 
     def cards(hw):
-        R, L = palm(hw, "p"), palm(hw, "t")
-        mid = lerp2(L, R, 0.5)
+        (R, rR), (L, rL) = grip(hw, "p"), grip(hw, "t")
+        # góc tay trái quy về bản gần góc tay phải nhất (lưng bài xoay nửa vòng trông như cũ): góc lá liền một mạch từ lúc rời tay
+        # phải tới lúc đáp tay trái, không nhảy 180 độ giữa hai khung (game nội suy giữa hai khoá sẽ thấy lá quay vụt)
+        rL = rR + turn180(rR, rL)
+        # cỗ bài hai tay kẹp chung: tâm giữa hai chữ C, góc trung bình; tay trái thả ra (1,76 – 1,9) thì cỗ bài theo hẳn tay phải
+        both, r_both = lerp2(L, R, 0.5), rL + (rR - rL) * 0.5
+        go = seg(t, 1.76, 1.9, ease)
+        vis = 0.26 <= t < 2.05               # ngoài khoảng này lá ẩn (hình cỗ bài trên nỉ hiện) nhưng vẫn đi liền theo tay phải
         out = []
         for i in range(XAO_N):
-            if t < 0.26 or t >= 2.05:
-                out.append((R[0], R[1], 0.0, False))
-                continue
-            stack_off = (0.0, 2.6 * i)
+            up = 2.2 * i                    # bề dày cỗ bài: lá trên lệch lên một chút
             ts = SPRING_T0 + i * SPRING_GAP
             if t < ts:                       # còn trong cỗ bài ở tay phải
-                pos, r = (R[0] + stack_off[0], R[1] + stack_off[1]), -12.0
+                pos, r = R, rR
             elif t < ts + SPRING_FLY:        # đang bay vòng cung sang tay trái
                 u = ease((t - ts) / SPRING_FLY)
                 b = lerp2(R, L, u)
-                pos = (b[0], b[1] + 195.0 * math.sin(math.pi * u))
-                r = -12.0 + 24.0 * u + 38.0 * math.sin(math.pi * u)
-            else:                            # đã sang tay trái; khép, gõ, rồi theo tay phải về chỗ cỗ bài
-                anchor = lerp2(L, mid, tog)
-                anchor = lerp2(anchor, R, seg(t, 1.76, 1.9, ease))
-                pos, r = (anchor[0] + stack_off[0], anchor[1] + stack_off[1]), 12.0 * (1 - tog)
-            out.append((pos[0], pos[1], r, True))
+                pos = (b[0], b[1] + SPRING_ARC * math.sin(math.pi * u))
+                r = rR + (rL - rR) * u + 30.0 * math.sin(math.pi * u)
+            else:                            # đã sang tay trái; khép (kẹp chung), gõ, rồi theo tay phải về chỗ cỗ bài
+                pos = lerp2(L, both, tog)
+                r = rL + (r_both - rL) * tog
+                pos = lerp2(pos, R, go)
+                r = r + (rR - r) * go
+            out.append((pos[0], pos[1] + up, r, vis))
         return out
 
     p["xao"] = cards

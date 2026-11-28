@@ -20,3 +20,22 @@ Tất cả là **CC0** (miễn phí, dùng thương mại, không bắt ghi côn
 
 Trang nghe thử: `nghe/nghe_tran.html` (sinh bằng `ArtGen/Sfx/make_nghe_tran.py`), `nghe/nguon.json` ánh xạ mã (vd. `no_03`) → tệp gốc.
 StarNinjas xin (không bắt buộc) ghi tên kèm link hồ sơ OpenGameArt.
+
+## Đợt 2026-11-28 (tiếng chiêu riêng từng tướng; xuất bằng `ArtGen/Sfx/xuat_tieng_chieu.py`)
+
+Tải thêm (đều **CC0**, đã kiểm nhãn giấy phép trên trang lúc tải):
+
+| Thư mục | Gói | Trang |
+|---|---|---|
+| oga_set | Rain + Long Thunder — WuxiaScrub (sét nổ chát ở giây 22,4) | https://opengameart.org/content/rain-long-thunder |
+| oga_dongdat | Earthquake and Open sesame — mieki256 (shake.flac) | https://opengameart.org/content/earthquake-and-open-sesame |
+| oga_vo_roi | 75 CC0 breaking / falling / hit sfx — rubberduck | https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx |
+| oga_la | 20 rustles dry leaves — qubodup | https://opengameart.org/content/20-rustles-dry-leaves |
+| oga_quat | thwack sounds — AntumDeluge | https://opengameart.org/content/thwack-sounds |
+| oga_hon | Scary high-pitched ghost; Ghost breath — qubodup (chưa dùng, giữ dự phòng) | https://opengameart.org/content/scary-high-pitched-ghost , https://opengameart.org/content/ghost-breath |
+| oga_sfx100b | 100 CC0 SFX 2 — rubberduck (thunder_01, air, stones) | https://opengameart.org/content/100-cc0-sfx-2 |
+| oga_dien | Electricity Game Sound Pack (hit, snaploop, teleport_1, deathboom...) | https://opengameart.org/node/150369 |
+
+Không tìm được nguồn free đúng loại → **gen Magnific (ElevenLabs SFX)**, `gen_1128/`, 190 credit: cưa máy (cua_1–2), thiên thạch rơi + nện
+(thien_thach_1–2), tia Mặt Trời giáng (tia_troi_1–2), dung nham trào (nham_1–2), giật dây máy nổ (may_no_1–2), sóng xung kích (song_am_1–2),
+hồn lướt (hon_1–2), roi gai quất (roi_1–2).

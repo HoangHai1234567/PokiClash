@@ -89,14 +89,31 @@ namespace PokiClash
                 if (hat == null && hatPrefab && hatFloor && hatBack && hatFront)
                     hat = new HatLua(hatPrefab, hatFloor, hatBack, hatFront, hatSprites)
                     {
-                        Shake = v => trauma = Mathf.Min(1, trauma + v),
+                        // mỗi cú rung / nhịp trúng còn là mốc tiếng cú trúng của chiêu đang diễn (StageViewTieng.ImpactSound, 2026-11-28)
+                        Shake = v =>
+                        {
+                            trauma = Mathf.Min(1, trauma + v);
+                            ImpactSound(v, false);
+                        },
                         FlashScreen = c => Flash(c),
                         NegScreen = d => Neg(d),
                         // mỗi nhịp tia nước dội vào thân (HatNuoc.NTia, 0,24 s một nhịp): con bị trúng chớp trắng và giật lùi theo nhịp
                         // (người dùng 2026-11-18: tia phải có va chạm với địch, không chỉ giật một lần lúc chạm)
-                        NuocPulse = k => FoePulse(k),
-                        DanhTrung = (p, k) => FoePulse(k), // nhịp trúng của chiêu Mộc (tia, luồng lá, sóng âm, nổ cầu; HatMoc.cs)
-                        HoaTrung = (p, k) => FoePulse(k), // nhịp trúng của chiêu Hỏa không qua PlayNuoc (tia mắt, phun, tên, dung nham, nổ lớn)
+                        NuocPulse = k =>
+                        {
+                            FoePulse(k);
+                            ImpactSound(k, true);
+                        },
+                        DanhTrung = (p, k) => // nhịp trúng của chiêu Mộc (tia, luồng lá, sóng âm, nổ cầu; HatMoc.cs)
+                        {
+                            FoePulse(k);
+                            ImpactSound(k, true);
+                        },
+                        HoaTrung = (p, k) => // nhịp trúng của chiêu Hỏa không qua PlayNuoc (tia mắt, phun, tên, dung nham, nổ lớn)
+                        {
+                            FoePulse(k);
+                            ImpactSound(k, true);
+                        },
                     };
                 return hat != null && hat.Ready ? hat : null;
             }
@@ -304,6 +321,7 @@ namespace PokiClash
         void PreFx(Actor a, int side, string clip)
         {
             a.fxHitAt = -1;
+            if (clip == Attack || clip == Cast || clip == Skill) TiengMoi(); // đòn mới: cú rung từ đây không thuộc chiêu trước
             if (clip == Attack)
             {
                 AtkFx(a, side);
@@ -343,22 +361,11 @@ namespace PokiClash
             float tH = victim != null ? victim.H : Height[other];
             h.UseTheme(a.hero.id);
             nuocTarget = other;
-            h.PlayNuoc(kind, false, Pos[side], a.H, Pos[side] + Muzzle(a, side, out _), Pos[other], Body(other), tH, a.aola.HitTime(Attack));
+            float t = h.PlayNuoc(kind, false, Pos[side], a.H, Pos[side] + Muzzle(a, side, out _), Pos[other], Body(other), tH, a.aola.HitTime(Attack));
+            SkillSound(a, kind, t); // tiếng riêng của đòn thường có hiệu ứng (pháo, cưa máy, đớp, búa...; SkillSfx.cs); trước 2026-11-28 chỉ có tiếng đấm
         }
 
-        // TIẾNG CHIÊU (2026-11-24, SkillSfx.cs): tiếng ra chiêu phát ngay, tiếng trúng hẹn theo giờ SÂN tới lúc trúng (HatLua.At: dừng / tua
-        // cùng trận); cao độ ±4 % cho đỡ nhàm. Không có lớp hạt thì tiếng trúng phát luôn.
-        void SkillSound(Actor a, string kind, float tHit)
-        {
-            var au = App.Audio;
-            if (a?.hero == null || au == null) return;
-            var (start, hit) = SkillSfx.For(kind, a.hero.elem);
-            if (start != null) au.Play(start, 0.85f, UnityEngine.Random.Range(0.96f, 1.04f));
-            if (hit == null) return;
-            var h = Hat;
-            if (tHit <= 0.02f || h == null) au.Play(hit, 0.9f, UnityEngine.Random.Range(0.96f, 1.04f));
-            else h.At(tHit, () => App.Audio?.Play(hit, 0.9f, UnityEngine.Random.Range(0.96f, 1.04f)));
-        }
+        // TIẾNG CHIÊU: SkillSound / ImpactSound ở StageViewTieng.cs, bảng tiếng ở SkillSfx.cs
 
         // chiêu cuối hệ Hỏa: gọi lúc trúng của clip CHIÊU; trả thời gian tới lúc hiệu ứng chạm đối thủ (giây sân), 0 nếu không có
         public float UltFx(int side)

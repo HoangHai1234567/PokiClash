@@ -216,6 +216,21 @@ namespace PokiClash.Core
             return Pachinko.RollChest(s, d, d.Cfg.afk.chest, 1, rng);
         }
 
+        // mở một lần mọi rương đã tới giờ ở đầu khay (người dùng 2026-11-28: chạm một rương là mở hết rương mở được; rương chưa tới giờ
+        // vẫn đếm lần lượt). Quà gộp, n = số rương đã mở; không rương nào tới giờ thì null.
+        public static List<Reward> OpenReady(SaveData s, GameData d, double now, Rng rng, out int n)
+        {
+            var all = new List<Reward>();
+            n = 0;
+            List<Reward> rs;
+            while ((rs = OpenChest(s, d, now, rng)) != null)
+            {
+                all.AddRange(rs);
+                n++;
+            }
+            return n > 0 ? all : null;
+        }
+
         public static bool Boosting(SaveData s, double now) => s.afk.boostUntil > now;
 
         // bật tăng tốc ×2 trong boostH giờ (không chồng khi đang tăng tốc)

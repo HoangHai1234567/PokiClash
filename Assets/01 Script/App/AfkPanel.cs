@@ -5,8 +5,9 @@
 //     ải đang AFK để chọn ải khác bằng "AFK ải này"; ẩn khi hộp mở từ màn đảo).
 //   - Giờ: "3,4 / 12 giờ" to, số lượt rơi mảnh đã dồn (mỗi giờ tròn một lượt); thanh dày chia vạch từng giờ, hình rương nằm trên thanh ở
 //     đúng giờ sẽ ra rương kế tiếp (rương ra theo giờ dồn riêng chestAcc, không trùng mốc 3/6/9 của thanh), hết chỗ khay thì thôi vẽ.
-//   - Khay "Rương đường đi": rương gỗ thật có rig (AfkSlot), nút TV "Mở ngay" nằm ngay dưới rương đầu khay đang đếm; chạm rương mở được
-//     thì mở (hộp mở rương dùng rig: nhắc, gồng, bật nắp).
+//   - Khay "Rương đường đi": rương gỗ thật có rig (AfkSlot), nút TV "Mở ngay" nằm ngay dưới rương đầu khay đang đếm; có rương mở được
+//     thì chạm rương nào cũng mở một lần mọi rương đã tới giờ, quà gộp một hộp "Rương AFK ×n" (người dùng 2026-11-28; hộp mở rương dùng
+//     rig: nhắc, gồng, bật nắp).
 //   - Nút: Nhận mảnh (chính, xanh) và TV Tăng tốc ×2 (phụ, cam; đang tăng tốc thì ẩn, Nhận ra giữa). Luật chơi gom vào nút (i).
 // Nút có hình TV đi qua lớp Ads (giới hạn mỗi ngày; bản dev: quảng cáo giả lập 3 giây; chưa có SDK thì ẩn). Bi thụ động ở Cây bi.
 // Thẻ Phiêu Lưu: khay 5 ô, rương mở trong 1 giờ. Số liệu tự làm mới mỗi nửa giây khi hộp đang mở.
@@ -215,6 +216,7 @@ namespace PokiClash
                 Loc.F("Đội tự đánh một ải đã thắng, tối đa {0:0} giờ. Đầy giờ thì đội dừng: nhớ quay lại nhận.", cfg.afkCapH),
                 Loc.F("Mỗi giờ tròn là một lượt: {0:0}% ra 1 mảnh tướng của ải.", c.shardChance * 100),
                 Loc.F("Cứ {0:0} giờ ra 1 rương. Rương đầu khay đếm {1:0} giờ rồi mở được, rương sau chờ lượt.", c.chestEveryH, Afk.OpenH(S, cfg, Now)),
+                Loc.T("Chạm một rương là mở hết các rương đã tới giờ."),
             };
             if (Ads.Ready) lines.Add(Loc.F("Nút có hình TV: xem quảng cáo ngắn để mở rương ngay, hoặc tăng tốc ×2 trong {0:0} giờ.", c.boostH));
             lines.Add(Loc.T("Đổi ải: chạm ải đã thắng trên đảo, bấm \"AFK ải này\"."));
@@ -337,7 +339,7 @@ namespace PokiClash
             double now = Now;
             var times = Afk.ChestTimes(S, D.Cfg, now);
             if (i >= times.Count) return;
-            if (i == 0 && times[0].ready <= now)
+            if (times[0].ready <= now) // chạm rương nào cũng mở hết các rương đã tới giờ (luôn nằm đầu khay)
             {
                 OpenChest(false);
                 return;
@@ -357,20 +359,21 @@ namespace PokiClash
             });
         }
 
+        // early: Mở ngay (đã xem quảng cáo) mở rương đầu khay đang đếm; không thì mở một lần mọi rương đã tới giờ, quà gộp một hộp
         void OpenChest(bool early)
         {
-            int lv = S.level;
-            var rs = Afk.OpenChest(S, D, Now, rng, early);
+            int lv = S.level, n = 1;
+            var rs = early ? Afk.OpenChest(S, D, Now, rng, true) : Afk.OpenReady(S, D, Now, rng, out n);
             if (rs == null) return;
             App.Save.Save();
-            App.I.StartCoroutine(ShowChest(rs, lv));
+            App.I.StartCoroutine(ShowChest(rs, lv, n));
         }
 
-        IEnumerator ShowChest(List<Reward> rs, int lv)
+        IEnumerator ShowChest(List<Reward> rs, int lv, int n)
         {
             busy = true;
             // rương gỗ thật (ảnh + rig như máy bi), không tô màu riêng
-            yield return ChestBox.Show(Loc.T("Rương AFK"), SlotKind.ChestWood, null, rs, Loc.T("Nhận"));
+            yield return ChestBox.Show(n > 1 ? Loc.F("Rương AFK ×{0}", n) : Loc.T("Rương AFK"), SlotKind.ChestWood, null, rs, Loc.T("Nhận"));
             busy = false;
             if (S.level > lv) Dialogs.LevelUp(lv, S.level);
             if (this) Refresh();

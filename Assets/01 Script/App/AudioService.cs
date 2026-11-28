@@ -63,8 +63,18 @@ namespace PokiClash
                 if (c.clip) music[c.name] = c.clip;
         }
 
+#if UNITY_EDITOR
+        // nhật ký tiếng (chỉ Editor, 2026-11-28): menu "PokiClash/Âm thanh/Thử: in tiếng vừa phát" (AudioDebugMenu) để soát tiếng chiêu khi
+        // không nghe được: giờ thật, tên, độ to; "(THIẾU)" = tên chưa nạp vào BakedArt
+        public static readonly List<string> DebugLog = new List<string>();
+#endif
+
         public void Play(string name, float volume = 1, float pitch = 1)
         {
+#if UNITY_EDITOR
+            DebugLog.Add($"{Time.unscaledTime:0.00} {name} {volume:0.00}{(clips.ContainsKey(name) ? "" : " (THIẾU)")}");
+            if (DebugLog.Count > 400) DebugLog.RemoveAt(0);
+#endif
             // tiếng lỗi luôn đi kèm rung lỗi (mọi chỗ báo "không được"), kể cả khi tắt âm thanh; tắt rung riêng ở Sổ tay
             if (name == "error" || name == "machineDeny") Haptics.Play(Haptic.UiError);
             if (!Enabled || !clips.TryGetValue(name, out var clip)) return;

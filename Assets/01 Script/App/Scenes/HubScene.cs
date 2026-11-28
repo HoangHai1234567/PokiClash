@@ -75,13 +75,7 @@ namespace PokiClash
         }
 
         public void SetupIslands(HubIslandArt[] arts) => islandArts = arts;
-
-        // đảo Casino ở góc dưới trái bản đồ (GD_Claude/29 C8, menu "PokiClash/Prefab/Sảnh: đảo Casino"): chạm như nút giữa thanh dưới,
-        // hiện cùng lúc với nút đó (người mới: theo hướng dẫn)
-        [SerializeField] HubIslandArt casinoIsland;
-
-        // Dùng khi dựng prefab (Editor).
-        public void SetupCasino(HubIslandArt art) => casinoIsland = art;
+        // (đảo Casino thu nhỏ trên bản đồ đã gỡ 2026-11-28, menu "PokiClash/Prefab/Sảnh: gỡ đảo Casino": vào Casino bằng nút giữa thanh dưới)
 
         public void SetupPier(PierShip p, CanvasGroup[] chromeGroups)
         {
@@ -383,7 +377,6 @@ namespace PokiClash
                     App.Audio.Play("click");
                     App.Router.Go(SceneIds.Machine);
                 };
-            CasinoIsland(s);
             // hàng nút / cột chung (LobbyDock) hiện theo bước hướng dẫn mới (đổi ngay trong màn, chưa chắc qua lần lưu)
             if (LobbyDock.I) LobbyDock.I.Refresh();
             Fog(s, d, open);
@@ -488,17 +481,6 @@ namespace PokiClash
             reveal = null;
             var cover = FindAnyObjectByType<CloudCover>(FindObjectsInactive.Include);
             if (cover) cover.Block(false);
-        }
-
-        // đảo Casino trên bản đồ: chạm như nút Máy Bi của hàng nút chung, hiện cùng lúc với nút đó (người mới: theo hướng dẫn)
-        void CasinoIsland(SaveData s)
-        {
-            if (!casinoIsland) return;
-            var d = App.Data;
-            casinoIsland.OnClick = () => App.Router.Go(Casino.Open(s, d) ? SceneIds.Casino : SceneIds.Machine);
-            bool machineOn = Tutorial.Shows(s, d, Tutorial.HubPart.Machine, PokiClash.Game.SaveService.Now());
-            var box = casinoIsland.transform.parent;
-            if (box && box.gameObject.activeSelf != machineOn) box.gameObject.SetActive(machineOn);
         }
 
         float tutorPoll;

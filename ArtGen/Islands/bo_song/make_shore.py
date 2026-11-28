@@ -111,8 +111,9 @@ def preview(name, mask, land):
 
 
 def main():
-    # sảnh: nhiều đảo, giữ khối từ 400 px mặt nạ (khoảng 50 x 50 đơn vị); Casino: một đảo, giữ khối lớn nhất
-    for name, fn, min_area, largest in (("sanh_bo", land_hub, 400, False), ("casino_bo", land_casino, 400, True)):
+    # sảnh: chỉ giữ khối đảo lớn từ 20000 px mặt nạ (người dùng 2026-11-28: bỏ sóng bờ quanh đá nhỏ, san hô, thuyền; trước là 400 px nên
+    # 6 khối vật nhỏ trên biển quanh đảo Thủy, lớn nhất 3326 px, cũng có dải bờ); Casino: một đảo, giữ khối lớn nhất
+    for name, fn, min_area, largest in (("sanh_bo", land_hub, 20000, False), ("casino_bo", land_casino, 400, True)):
         alpha, (W, H) = fn()
         mask, land = build(alpha, min_area, largest)
         mask.save(os.path.join(OUT, name + ".png"))

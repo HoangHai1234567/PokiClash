@@ -940,9 +940,11 @@ cho đảo (`25_FTUE.md`); Remote Config / giờ mạng cho lịch sự kiện v
 **C8 Hình thật còn thiếu**
 - [x] Đèn đêm cho công trình (2026-11-27): `casino_e_<mã>` (đèn lồng chợ + ba lều, đuốc hang, kính + bóng đèn tháp;
       `ArtGen/Casino/night/casino_emit.py`, lọc đèn lồng theo hình để bỏ cờ vàng), lớp `tu_sang` trên lớp nhuộm, `CasinoNightGlow` bám công trình.
-- [x] Đảo trên bản đồ sảnh (2026-11-27, người dùng chọn thu nhỏ hình có sẵn): `Islands/sanh_dao_casino.png` (`ArtGen/Casino/hub/dao_sanh.py`),
-      góc dưới trái bản đồ, menu "PokiClash/Prefab/Sảnh: đảo Casino" (đẩy 19 đám mây vành ra khỏi đảo; dựng lại bản đồ thì chạy lại), chạm
-      như nút giữa thanh dưới, hiện cùng nút đó.
+- [x] ~~Đảo trên bản đồ sảnh~~: **đã gỡ 2026-11-28**. Bản 27/11 đặt ảnh thu nhỏ `Islands/sanh_dao_casino.png` (rộng 28% bản đồ) ở góc
+      dưới trái, giữa dải mây vành đáy, đẩy 19 đám mây ra hai bên. Người dùng chê "lộ đảo casino, liên quan gì ở dưới đấy, sao nhỏ thế",
+      chọn gỡ: menu "PokiClash/Prefab/Sảnh: gỡ đảo Casino" (`Editor/HubCasinoMenu.cs`) xoá nút `casino_dao`, trả mây vành về chỗ gốc;
+      `HubScene` bỏ phần đảo Casino. Vào Casino bằng nút giữa thanh dưới hoặc đi tàu. Còn sót chưa xoá: `sanh_dao_casino.png`,
+      `Seasons/Resources/Seasons/noel/tuyet_casino.png`, `ArtGen/Casino/hub/dao_sanh.py`, tour chụp "Đảo Casino trên bản đồ sảnh".
 - [ ] Cảnh lùi camera từ mặt máy bi ra Tháp Máy Bi (nút "Ra đảo" trong máy).
 - [x] Nền thật cho Bến câu (`ben_cau_nen.png`, `32` B1), Hầm đấu (`hd_nen.jpg`), Trường đua (sân vận động), 2026-11-26.
 - [x] Hình 35 loài cá (`32`, Magnific 5 tờ, 2026-11-26). Còn: icon mồi (cần câu không cần nữa: đã bỏ nâng cần).
